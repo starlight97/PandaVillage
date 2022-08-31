@@ -1,0 +1,15 @@
+shop_data.xlsx
+1900 ~ 1999
+item_grop_data.xlsx
+2000 ~ 3999
+item_data.xlsx
+4000 ~ 5999
+
+tile_data.xlsx
+6000 ~ 9999
+
+player_data.xlsx
+100 ~ 199
+
+
+
