@@ -54,11 +54,11 @@ public class Enemy : MonoBehaviour
 
     public void Hit(float damage)
     {
+        Debug.Log("hit");
         if (this.hitCoroutine != null)
             this.StopCoroutine(this.hitCoroutine);
 
         this.hitCoroutine = this.StartCoroutine(this.HitRoutine(damage));
-
     }
 
     IEnumerator HitRoutine(float damage)
@@ -81,7 +81,6 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Die()");
         this.onDie(this.transform.position);
         StopAllCoroutines();
         Destroy(this.gameObject);

@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrEnemyPrefab:
-  - {fileID: 4605047797605028141, guid: e158479d92deb9542a68383d00e91697, type: 3}
-  - {fileID: 4068586686812561176, guid: 7539ed40afaaec646b016535291b2a0c, type: 3}
-  - {fileID: 1835080403142071276, guid: 3e521deb6abc72e4daba5a41b7bfc48b, type: 3}
+  - {fileID: 4047646260521329040, guid: e158479d92deb9542a68383d00e91697, type: 3}
+  - {fileID: 7296943273926771673, guid: 7539ed40afaaec646b016535291b2a0c, type: 3}
+  - {fileID: 8648304263322880727, guid: 3e521deb6abc72e4daba5a41b7bfc48b, type: 3}
   arrEnemySpawnPoint:
   - {fileID: 430053061161564853, guid: 69f20501b8667ff4eb4ad86d220e10e4, type: 3}
   - {fileID: 1350072891577691334, guid: 7066e435d23a1704b82df696748c8ce2, type: 3}

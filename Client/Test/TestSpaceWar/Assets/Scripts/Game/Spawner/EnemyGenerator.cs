@@ -28,7 +28,6 @@ public class EnemyGenerator : MonoBehaviour
             var enemy = this.CreateEnemy();
 
             enemy.onDie = (pos) => {
-                Debug.Log("on die");
                 this.onEnemyDie(pos);
                 this.enemies.Remove(enemy);
             };
