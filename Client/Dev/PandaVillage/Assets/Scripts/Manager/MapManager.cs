@@ -1,30 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class MapManager : MonoBehaviour
 {
     [System.Serializable]
     public class Node
     {
-        public Node(bool _isWall, int _x, int _y) { isWall = _isWall; x = _x; y = _y; }
+        public Node(bool _isWall, int _y, int _x) { isWall = _isWall; y = _y; x = _x; }
 
         public bool isWall;
         public Node ParentNode;
 
-        // G : ½ÃÀÛÀ¸·ÎºÎÅÍ ÀÌµ¿Çß´ø °Å¸®, H : |°¡·Î|+|¼¼·Î| Àå¾Ö¹° ¹«½ÃÇÏ¿© ¸ñÇ¥±îÁöÀÇ °Å¸®, F : G + H
-        public int x, y, G, H;
+        // G : ì‹œì‘ìœ¼ë¡œë¶€í„° ì´ë™í–ˆë˜ ê±°ë¦¬, H : |ê°€ë¡œ|+|ì„¸ë¡œ| ì¥ì• ë¬¼ ë¬´ì‹œí•˜ì—¬ ëª©í‘œê¹Œì§€ì˜ ê±°ë¦¬, F : G + H
+        public int y, x, G, H;
         public int F { get { return G + H; } }
     }
 
-    public GridLayout gridMap;
+    public Tilemap objectMap;
+    public Tilemap dirtMap;
+    public TileBase[] tileBases;
+
 
 
     int sizeX, sizeY;
     Node[,] NodeArray;
     Node StartNode, TargetNode, CurNode;
     List<Node> OpenList, ClosedList;
-    public Vector2Int bottomLeft, topRight;
+    // ë§µì „ì²´ í¬ê¸° ì„¤ì • ë³€ìˆ˜
+    public Vector2Int mapBottomLeft, mapTopRight;
+    // ë§µíƒìƒ‰ ë²”ìœ„ ì„¤ì • ë³€ìˆ˜
+    private Vector2Int bottomLeft, topRight;
+    public int searchRange;
     public List<Node> FinalNodeList;
 
     public bool allowDiagonal, dontCrossCorner;
@@ -33,27 +41,28 @@ public class MapManager : MonoBehaviour
         get; private set;
     }
 
-    private void Start()
+    public void Init()
     {
         this.PathList = new List<Vector3>();
+
     }
 
-    // Àå¾Ö¹° °¨ÁöÈÄ °æ·Î¿¡ ¹İ¿µ ·ÎÁ÷
-    private void WallSetting(int sizeX, int sizeY)
+    // ì¥ì• ë¬¼ ê°ì§€í›„ ê²½ë¡œì— ë°˜ì˜ ë¡œì§
+    private void WallSetting(int sizeY, int sizeX)
     {
-        // Àå¾Ö¹° °¨Áö
-        // ¸Ê¿¡ Layer°¡ WallÀÎ ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®°¡ ÀÖ´ÂÁö °Ë»çÇÏ°í ÀÖÀ»½Ã Áö³ª°¥¼ö¾ø´Â Åë·Î·Î ¼³Á¤ÇÑ´Ù.
-        for (int i = 0; i < sizeX; i++)
+        // ì¥ì• ë¬¼ ê°ì§€
+        // ë§µì— Layerê°€ Wallì¸ íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ê°€ ìˆëŠ”ì§€ ê²€ì‚¬í•˜ê³  ìˆì„ì‹œ ì§€ë‚˜ê°ˆìˆ˜ì—†ëŠ” í†µë¡œë¡œ ì„¤ì •í•œë‹¤.
+        for (int y = 0; y < sizeY; y++)
         {
-            for (int j = 0; j < sizeY; j++)
+            for (int x = 0; x < sizeX; x++)
             {
                 bool isWall = false;
-                foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(i + bottomLeft.x + 0.5f, j + bottomLeft.y + 0.5f), 0.4f))
+                foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(x + bottomLeft.x + 0.5f, y + bottomLeft.y + 0.5f), 0.4f))
                 {
                     if (col.gameObject.layer == LayerMask.NameToLayer("Wall")) isWall = true;
                 }
 
-                NodeArray[i, j] = new Node(isWall, i + bottomLeft.x, j + bottomLeft.y);
+                NodeArray[y, x] = new Node(isWall, y + bottomLeft.y, x + bottomLeft.x);
             }
         }
     }
@@ -62,25 +71,63 @@ public class MapManager : MonoBehaviour
     public void PathFinding(Vector2Int startPos, Vector2Int targetPos)
     {
         this.PathList.Clear();
-        // Ä¸Å©±â ¼³Á¤
-        // NodeArrayÀÇ Å©±â Á¤ÇØÁÖ°í, isWall, x, y ´ëÀÔ
+
+        // x , y
+        if (startPos.x < targetPos.x)
+        {
+            bottomLeft.x = startPos.x - searchRange;
+            topRight.x = targetPos.x + searchRange;
+        }
+        else
+        {
+            bottomLeft.x = targetPos.x - searchRange;
+            topRight.x = startPos.x + searchRange;
+        }
+
+        if (startPos.y < targetPos.y)
+        {
+            bottomLeft.y = startPos.y - searchRange;
+            topRight.y = targetPos.y + searchRange;
+        }
+        else
+        {
+            bottomLeft.y = targetPos.y - searchRange;
+            topRight.y = startPos.y + searchRange;
+        }
+
+
+
+        if (bottomLeft.x < mapBottomLeft.x)
+            bottomLeft.x = mapBottomLeft.x;
+        if (bottomLeft.y < mapBottomLeft.y)
+            bottomLeft.y = mapBottomLeft.y;
+        if (topRight.x >= mapTopRight.x)
+            topRight.x = mapTopRight.x;
+        if (topRight.y >= mapTopRight.y)
+            topRight.y = mapTopRight.y;
+
+        // ë§µí¬ê¸° ì„¤ì •
+        // NodeArrayì˜ í¬ê¸° ì •í•´ì£¼ê³ , isWall, x, y ëŒ€ì…
+
         sizeX = topRight.x - bottomLeft.x + 1;
         sizeY = topRight.y - bottomLeft.y + 1;
-        NodeArray = new Node[sizeX, sizeY];
 
-        WallSetting(sizeX, sizeY);
 
-        // ½ÃÀÛ°ú ³¡ ³ëµå, ¿­¸°¸®½ºÆ®¿Í ´İÈù¸®½ºÆ®, ¸¶Áö¸·¸®½ºÆ® ÃÊ±âÈ­
-        StartNode = NodeArray[startPos.x - bottomLeft.x, startPos.y - bottomLeft.y];
-        TargetNode = NodeArray[targetPos.x - bottomLeft.x, targetPos.y - bottomLeft.y];
 
+        NodeArray = new Node[sizeY, sizeX];
+        
+
+        WallSetting(sizeY, sizeX);
+        // ì‹œì‘ê³¼ ë ë…¸ë“œ, ì—´ë¦°ë¦¬ìŠ¤íŠ¸ì™€ ë‹«íŒë¦¬ìŠ¤íŠ¸, ë§ˆì§€ë§‰ë¦¬ìŠ¤íŠ¸ ì´ˆê¸°í™”
+        StartNode = NodeArray[startPos.y - bottomLeft.y, startPos.x - bottomLeft.x];
+        TargetNode = NodeArray[targetPos.y - bottomLeft.y, targetPos.x - bottomLeft.x];
         OpenList = new List<Node>() { StartNode };
         ClosedList = new List<Node>();
         FinalNodeList = new List<Node>();
 
         while (OpenList.Count > 0)
         {
-            // ¿­¸°¸®½ºÆ® Áß °¡Àå F°¡ ÀÛ°í F°¡ °°´Ù¸é H°¡ ÀÛÀº °É ÇöÀç³ëµå·Î ÇÏ°í ¿­¸°¸®½ºÆ®¿¡¼­ ´İÈù¸®½ºÆ®·Î ¿Å±â±â
+            // ì—´ë¦°ë¦¬ìŠ¤íŠ¸ ì¤‘ ê°€ì¥ Fê°€ ì‘ê³  Fê°€ ê°™ë‹¤ë©´ Hê°€ ì‘ì€ ê±¸ í˜„ì¬ë…¸ë“œë¡œ í•˜ê³  ì—´ë¦°ë¦¬ìŠ¤íŠ¸ì—ì„œ ë‹«íŒë¦¬ìŠ¤íŠ¸ë¡œ ì˜®ê¸°ê¸°
             CurNode = OpenList[0];
             for (int i = 1; i < OpenList.Count; i++)
                 if (OpenList[i].F <= CurNode.F && OpenList[i].H < CurNode.H) CurNode = OpenList[i];
@@ -89,7 +136,7 @@ public class MapManager : MonoBehaviour
             ClosedList.Add(CurNode);
 
 
-            // ¸¶Áö¸·
+            // ë§ˆì§€ë§‰
             if (CurNode == TargetNode)
             {
                 Node TargetCurNode = TargetNode;
@@ -103,59 +150,62 @@ public class MapManager : MonoBehaviour
 
                 for (int i = 0; i < FinalNodeList.Count; i++)
                 {
-                    //print(i + "¹øÂ°´Â " + FinalNodeList[i].x + ", " + FinalNodeList[i].y);
-                    Vector3 path = new Vector3(FinalNodeList[i].x + 0.5f, FinalNodeList[i].y, 0);
+                    //print(i + "ë²ˆì§¸ëŠ” " + FinalNodeList[i].x + ", " + FinalNodeList[i].y);
+                    //Vector3 path = new Vector3(FinalNodeList[i].x + 0.5f, FinalNodeList[i].y, 0);
+                    Vector3 path = new Vector3(FinalNodeList[i].x, FinalNodeList[i].y, 0);
                     this.PathList.Add(path);
                 }
                 return;
             }
 
 
-            // ¢Ö¢Ø¢×¢Ù
+            // â†—â†–â†™â†˜
             if (allowDiagonal)
             {
-                OpenListAdd(CurNode.x + 1, CurNode.y + 1);
-                OpenListAdd(CurNode.x - 1, CurNode.y + 1);
-                OpenListAdd(CurNode.x - 1, CurNode.y - 1);
-                OpenListAdd(CurNode.x + 1, CurNode.y - 1);
+                OpenListAdd(CurNode.y + 1, CurNode.x + 1);
+                OpenListAdd(CurNode.y - 1, CurNode.x + 1);
+                OpenListAdd(CurNode.y - 1, CurNode.x - 1);
+                OpenListAdd(CurNode.y + 1, CurNode.x - 1);
             }
 
-            // ¡è ¡æ ¡é ¡ç
-            OpenListAdd(CurNode.x, CurNode.y + 1);
-            OpenListAdd(CurNode.x + 1, CurNode.y);
-            OpenListAdd(CurNode.x, CurNode.y - 1);
-            OpenListAdd(CurNode.x - 1, CurNode.y);
+            // â†‘ â†’ â†“ â†
+            OpenListAdd(CurNode.y, CurNode.x + 1);
+            OpenListAdd(CurNode.y + 1, CurNode.x);
+            OpenListAdd(CurNode.y, CurNode.x - 1);
+            OpenListAdd(CurNode.y - 1, CurNode.x);
         }
     }
 
-    void OpenListAdd(int checkX, int checkY)
+    void OpenListAdd(int checkY, int checkX)
     {
-        // »óÇÏÁÂ¿ì ¹üÀ§¸¦ ¹ş¾î³ªÁö ¾Ê°í, º®ÀÌ ¾Æ´Ï¸é¼­, ´İÈù¸®½ºÆ®¿¡ ¾ø´Ù¸é
-        if (checkX >= bottomLeft.x && checkX < topRight.x + 1 && checkY >= bottomLeft.y && checkY < topRight.y + 1 && !NodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y].isWall && !ClosedList.Contains(NodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y]))
+        // ìƒí•˜ì¢Œìš° ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ì§€ ì•Šê³ , ë²½ì´ ì•„ë‹ˆë©´ì„œ, ë‹«íŒë¦¬ìŠ¤íŠ¸ì— ì—†ë‹¤ë©´
+        if (checkY >= bottomLeft.y && checkY < topRight.y + 1 && checkX >= bottomLeft.x && checkX < topRight.x + 1 
+            && !NodeArray[checkY - bottomLeft.y, checkX - bottomLeft.x].isWall && !ClosedList.Contains(NodeArray[checkY - bottomLeft.y, checkX - bottomLeft.x]))
         {
-            // ´ë°¢¼± Çã¿ë½Ã, º® »çÀÌ·Î Åë°ú ¾ÈµÊ
-            if (allowDiagonal) if (NodeArray[CurNode.x - bottomLeft.x, checkY - bottomLeft.y].isWall && NodeArray[checkX - bottomLeft.x, CurNode.y - bottomLeft.y].isWall) return;
+            // ëŒ€ê°ì„  í—ˆìš©ì‹œ, ë²½ ì‚¬ì´ë¡œ í†µê³¼ ì•ˆë¨
+            if (allowDiagonal) if (NodeArray[CurNode.y - bottomLeft.y, checkX - bottomLeft.x].isWall && NodeArray[checkY - bottomLeft.y, CurNode.x - bottomLeft.x].isWall) return;
 
-            // ÄÚ³Ê¸¦ °¡·ÎÁú·¯ °¡Áö ¾ÊÀ»½Ã, ÀÌµ¿ Áß¿¡ ¼öÁ÷¼öÆò Àå¾Ö¹°ÀÌ ÀÖÀ¸¸é ¾ÈµÊ
-            if (dontCrossCorner) if (NodeArray[CurNode.x - bottomLeft.x, checkY - bottomLeft.y].isWall || NodeArray[checkX - bottomLeft.x, CurNode.y - bottomLeft.y].isWall) return;
-
-
-            // ÀÌ¿ô³ëµå¿¡ ³Ö°í, Á÷¼±Àº 10, ´ë°¢¼±Àº 14ºñ¿ë
-            Node NeighborNode = NodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y];
-            int MoveCost = CurNode.G + (CurNode.x - checkX == 0 || CurNode.y - checkY == 0 ? 10 : 14);
+            // ì½”ë„ˆë¥¼ ê°€ë¡œì§ˆëŸ¬ ê°€ì§€ ì•Šì„ì‹œ, ì´ë™ ì¤‘ì— ìˆ˜ì§ìˆ˜í‰ ì¥ì• ë¬¼ì´ ìˆìœ¼ë©´ ì•ˆë¨
+            if (dontCrossCorner) if (NodeArray[CurNode.y - bottomLeft.y, checkX - bottomLeft.x].isWall || NodeArray[checkY - bottomLeft.y, CurNode.x - bottomLeft.x].isWall) return;
 
 
-            // ÀÌµ¿ºñ¿ëÀÌ ÀÌ¿ô³ëµåGº¸´Ù ÀÛ°Å³ª ¶Ç´Â ¿­¸°¸®½ºÆ®¿¡ ÀÌ¿ô³ëµå°¡ ¾ø´Ù¸é G, H, ParentNode¸¦ ¼³Á¤ ÈÄ ¿­¸°¸®½ºÆ®¿¡ Ãß°¡
+            // ì´ì›ƒë…¸ë“œì— ë„£ê³ , ì§ì„ ì€ 10, ëŒ€ê°ì„ ì€ 14ë¹„ìš©
+            Node NeighborNode = NodeArray[checkY - bottomLeft.y, checkX - bottomLeft.x];
+            int MoveCost = CurNode.G + (CurNode.y - checkY == 0 || CurNode.x - checkX == 0 ? 10 : 14);
+
+
+            // ì´ë™ë¹„ìš©ì´ ì´ì›ƒë…¸ë“œGë³´ë‹¤ ì‘ê±°ë‚˜ ë˜ëŠ” ì—´ë¦°ë¦¬ìŠ¤íŠ¸ì— ì´ì›ƒë…¸ë“œê°€ ì—†ë‹¤ë©´ G, H, ParentNodeë¥¼ ì„¤ì • í›„ ì—´ë¦°ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
             if (MoveCost < NeighborNode.G || !OpenList.Contains(NeighborNode))
             {
                 NeighborNode.G = MoveCost;
-                NeighborNode.H = (Mathf.Abs(NeighborNode.x - TargetNode.x) + Mathf.Abs(NeighborNode.y - TargetNode.y)) * 10;
+                NeighborNode.H = (Mathf.Abs(NeighborNode.y - TargetNode.y) + Mathf.Abs(NeighborNode.x - TargetNode.x)) * 10;
                 NeighborNode.ParentNode = CurNode;
 
                 OpenList.Add(NeighborNode);
             }
         }
     }
+
 
     void OnDrawGizmos()
     {
@@ -168,9 +218,35 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    private int index = 0;
+    int[] dx = new int[]{ -1, 0, 1, -1, 0, 1, -1, 0, 1 };
+    int[] dy = new int[]{ 1, 1, 1, 0, 0, 0, -1, -1, -1 };
+
+    public void ObjectMapSetTile(Vector3Int pos, Vector3 dir)
+    {
+        if (this.objectMap.GetTile(pos) != null)
+            Debug.Log(this.objectMap.GetTile(pos).name);
+        else
+            index = 0;
+
+        if (index == 4)
+            return;
+
+        this.objectMap.SetTile(pos, tileBases[index]);
+        
+        index++;
+    }
+
+    public bool GetDirtTile(Vector3Int pos)
+    {
+        if (dirtMap.GetTile(pos) != null)
+            return true;
+        return false;
+    }
+
 }
 
-// ÀÛ¼ºÀÚ : ¹ÚÁ¤½Ä
-// ¸¶Áö¸· ¼öÁ¤ : 2022-08-10 
-// ¸ÊÀ» °ü¸®ÇÏ´Â ½ºÅ©¸³Æ® ÀÔ´Ï´Ù.
-// °æ·ÎÅ½»ö ¾Ë°í¸®ÁòÀ¸·Î ¿¡ÀÌ½ºÅ¸ ¾Ë°í¸®ÁòÀ» »ç¿ëÇÏ°í ÀÖ½À´Ï´Ù.
+// ì‘ì„±ì : ë°•ì •ì‹
+// ë§ˆì§€ë§‰ ìˆ˜ì • : 2022-09-06 
+// ë§µì„ ê´€ë¦¬í•˜ëŠ” ìŠ¤í¬ë¦½íŠ¸ ì…ë‹ˆë‹¤.
+// ê²½ë¡œíƒìƒ‰ ì•Œê³ ë¦¬ì¦˜ìœ¼ë¡œ ì—ì´ìŠ¤íƒ€ ì•Œê³ ë¦¬ì¦˜ì„ ì‚¬ìš©í•˜ê³  ìˆìŠµë‹ˆë‹¤.

@@ -1,35 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;     // Å¸ÀÏ¸Ê »ç¿ë
+using UnityEngine.Tilemaps;     // íƒ€ì¼ë§µ ì‚¬ìš©
 using System;
 
 public class TestTile : MonoBehaviour
 {
     private Tilemap tilemap;
     [SerializeField]
-    private TileBase[] tileBases;
+    private TileBase tileBases;
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            this.ChangeTile();
-        }
-    }
-
-    public void ChangeTile()
+    public void CreateTile()
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         this.tilemap = GetComponent<Tilemap>();
-        // ¿ùµå Æ÷Áö¼ÇÀ» ¼¿ Æ÷Áö¼ÇÀ¸·Î º¯°æ
+        // ì›”ë“œ í¬ì§€ì…˜ì„ ì…€ í¬ì§€ì…˜ìœ¼ë¡œ ë³€ê²½
         Vector3Int location = this.tilemap.WorldToCell(mousePos);
-        // ÇØ´ç ¼¿ Æ÷Áö¼Ç¿¡ Å¸ÀÏ ±×¸®±â
-        this.tilemap.SetTile(location, this.tileBases[0]);
+        // í•´ë‹¹ ì…€ í¬ì§€ì…˜ì— íƒ€ì¼ ê·¸ë¦¬ê¸°
+        this.tilemap.SetTile(location, this.tileBases);
     }
 
-    // Å¸ÀÏ¿¡ Ä¿¼­ ¿Ã¸®¸é »ö º¯°æµÇ´Â ¸Ş¼­µå(Å×½ºÆ®¿ë)
-    // »ç¿ë X
+    // íƒ€ì¼ì— ì»¤ì„œ ì˜¬ë¦¬ë©´ ìƒ‰ ë³€ê²½ë˜ëŠ” ë©”ì„œë“œ(í…ŒìŠ¤íŠ¸ìš©)
+    // ì‚¬ìš© X
     private void onMouseOver()
     {
         try
@@ -41,7 +33,7 @@ public class TestTile : MonoBehaviour
 
             if (this.tilemap = hit.transform.GetComponent<Tilemap>())
             {
-                // Å¸ÀÏ¸ÊÀÇ ¸ğµç Å¸ÀÏ »õ·Î °íÄ§: ¸ğµç Å¸ÀÏ¿¡ ´ëÇÑ µ¥ÀÌÅÍ °Ë»ö ¹× ¿ä¼Ò ¾÷µ¥ÀÌÆ®
+                // íƒ€ì¼ë§µì˜ ëª¨ë“  íƒ€ì¼ ìƒˆë¡œ ê³ ì¹¨: ëª¨ë“  íƒ€ì¼ì— ëŒ€í•œ ë°ì´í„° ê²€ìƒ‰ ë° ìš”ì†Œ ì—…ë°ì´íŠ¸
                 this.tilemap.RefreshAllTiles();
 
                 int x, y;
@@ -50,7 +42,7 @@ public class TestTile : MonoBehaviour
 
                 Vector3Int v3Int = new Vector3Int(x, y, 0);
 
-                // Å¸ÀÏ ÁÂÇ¥ ¹Ş¾Æ¿Í¼­ »ö ¹Ù²Ù±â
+                // íƒ€ì¼ ì¢Œí‘œ ë°›ì•„ì™€ì„œ ìƒ‰ ë°”ê¾¸ê¸°
                 this.tilemap.SetTileFlags(v3Int, TileFlags.None);
                 this.tilemap.SetColor(v3Int, (Color.red));
             }
@@ -67,6 +59,6 @@ public class TestTile : MonoBehaviour
     }
 }
 
-// ÀÛ¼ºÀÚ: ±èÇöÁ¤
-// ¼öÁ¤ ÀÏÀÚ: 2022-08-14
-// È£¹Ì¸¦ »ç¿ëÇßÀ» ¶§ »ı±â´Â Å¸ÀÏ ±×¸®±â ½ºÅ©¸³Æ®
+// ì‘ì„±ì: ê¹€í˜„ì •
+// ìˆ˜ì • ì¼ì: 2022-08-14
+// í˜¸ë¯¸ë¥¼ ì‚¬ìš©í–ˆì„ ë•Œ ìƒê¸°ëŠ” íƒ€ì¼ ê·¸ë¦¬ê¸° ìŠ¤í¬ë¦½íŠ¸

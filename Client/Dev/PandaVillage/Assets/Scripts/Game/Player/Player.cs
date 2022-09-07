@@ -3,25 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
+using UnityEngine.Tilemaps;
 
 public class Player : MonoBehaviour
 {
+    private GameObject modelGo;
     private PlayerMove playerMove;
+    public bool isUseTool = true;
+    public bool isUseSeed = true;
     public UnityAction<Vector2Int, Vector2Int> onDecideTargetTile;
-
+    public UnityAction<Vector3Int> onClickDirtTile;
+    
     private void Start()
     {
         this.playerMove = GetComponent<PlayerMove>();
+        this.modelGo = this.transform.GetChild(0).gameObject;
     }
     private void Update()
     {
-        // ¸¶¿ì½º ¿ŞÂÊ¹öÆ° Å¬¸¯½Ã
+        // ë§ˆìš°ìŠ¤ ì™¼ìª½ë²„íŠ¼ í´ë¦­ì‹œ
         if (Input.GetMouseButtonDown(0))
         {
-            // ¸¶¿ì½º Å¬¸¯½Ã ÁÂÇ¥¸¦ ÀÎ°ÔÀÓ ÁÂÇ¥·Î º¯È¯ÇÏ¿© mousePos º¯¼ö¿¡ ÀúÀå
+            // ë§ˆìš°ìŠ¤ í´ë¦­ì‹œ ì¢Œí‘œë¥¼ ì¸ê²Œì„ ì¢Œí‘œë¡œ ë³€í™˜í•˜ì—¬ mousePos ë³€ìˆ˜ì— ì €ì¥
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            // z°ªÀº »ç¿ëÀ» ¾ÈÇÏ¹Ç·Î x, y °ª¸¸ ÀúÀåÈÄ Move
+            // zê°’ì€ ì‚¬ìš©ì„ ì•ˆí•˜ë¯€ë¡œ x, y ê°’ë§Œ ì €ì¥í›„ Move
             int targetPosX = (int)Math.Truncate(mousePos.x);
             int targetPosY = (int)Math.Truncate(mousePos.y);
 
@@ -29,15 +34,46 @@ public class Player : MonoBehaviour
             int currentPosY = (int)Math.Round(this.transform.position.y);
             Vector2Int curPos = new Vector2Int(currentPosX, currentPosY);
             Vector2Int targetPos = new Vector2Int(targetPosX, targetPosY);
-            this.onDecideTargetTile(curPos, targetPos);
+
+            if (!this.isUseTool)
+            {
+                this.onDecideTargetTile(curPos, targetPos);
+            }
+            else
+            {
+                Vector2 dir = targetPos - curPos;
+                Vector2 startRayPos = new Vector2(this.transform.position.x + 0.5f, this.transform.position.y + 0.45f);
+
+                Debug.DrawRay(startRayPos, dir * 2f, Color.red, 3f);
+                RaycastHit2D hit = Physics2D.Raycast(startRayPos, dir, 2f, LayerMask.GetMask("Object"));
+
+                GameObject scanObject = null;
+
+                if (hit.collider != null && hit.collider.CompareTag("Dirt"))
+                {
+                    scanObject = hit.collider.gameObject;
+                    Debug.Log("scanObject" + scanObject);
+                    // ë„êµ¬ë¥¼ ë“¤ê³  ìˆì„ ë•Œ í”Œë ˆì´ì–´ê°€ ì›€ì§ì´ì§€ ì•Šë„ë¡ ìœ„ì¹˜ ê³ ì •
+                    var PosX = this.transform.position.x;
+                    var PosY = this.transform.position.y;
+                    this.transform.position = new Vector3(PosX, PosY, 0);
+
+                    // ë§µ ë§¤ë‹ˆì €ì—ê²Œ íƒ€ì¼ì„ ë°”ê¿”ë‹¬ë¼ëŠ” ì•¡ì…˜
+                    Vector3Int dirtTilePos = new Vector3Int((int)hit.point.x, (int)hit.point.y, 0);
+                    //Debug.Log(dirtTilePos);
+                    this.onClickDirtTile(dirtTilePos);
+                }
+
+            }
         }
     }
+
     public void Move(List<Vector3> pathList)
     {
         this.playerMove.Move(pathList);
     }
 }
 
-// ÀÛ¼ºÀÚ : ¹ÚÁ¤½Ä
-// ¸¶Áö¸· ¼öÁ¤ : 2022-08-14 
-// ÇÃ·¹ÀÌ¾î °ü·Ã ½ºÅ©¸³Æ®ÀÔ´Ï´Ù.
+// ì‘ì„±ì : ë°•ì •ì‹
+// ë§ˆì§€ë§‰ ìˆ˜ì • : 2022-08-14 
+// í”Œë ˆì´ì–´ ê´€ë ¨ ìŠ¤í¬ë¦½íŠ¸ì…ë‹ˆë‹¤.

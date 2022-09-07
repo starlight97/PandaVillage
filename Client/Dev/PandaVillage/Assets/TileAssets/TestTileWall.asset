@@ -36,5 +36,5 @@ MonoBehaviour:
   m_Pivot: {x: 0, y: 0, z: 0}
   m_CanChangeZPosition: 0
   m_FloodFillContiguousOnly: 1
-  m_Anchor: {x: 0.5, y: 0.5, z: 0.5}
-  m_Prefab: {fileID: 8643190884193380130, guid: d3f5a11e3a7f36a43afb595c02e898f8, type: 3}
+  m_Anchor: {x: 0, y: 0, z: 0}
+  m_Prefab: {fileID: 7642049489643082572, guid: 7e702d0d6de385a4fb31e9819e827c86, type: 3}
