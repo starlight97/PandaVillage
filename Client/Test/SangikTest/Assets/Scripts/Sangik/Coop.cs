@@ -10,7 +10,7 @@ public class Coop : MonoBehaviour
     private bool isOpen =false;
     
     public void Init()
-    {       
+    {
         this.door = this.transform.GetChild(1);
 
         //coopscene에 있는 Animal들을 찾아서 리스트에 넣는다.
@@ -21,15 +21,15 @@ public class Coop : MonoBehaviour
             animalList.Add(animal);            
         }
 
+        //집위치를 동물들에게 알려줌
         foreach (var animal in animalList)
         {
             animal.goHome = () => {
                 animal.target = new Vector2Int((int)door.position.x, (int)door.position.y -1);
             };
-        }
+        }        
+    }
 
-        Instantiate<Animal>(animalList[0]);
-    }   
 
     public void SetDoor()
     {

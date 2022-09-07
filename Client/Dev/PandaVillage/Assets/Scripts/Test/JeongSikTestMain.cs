@@ -30,7 +30,7 @@ public class JeongSikTestMain : MonoBehaviour
 
         this.testBtn.onClick.AddListener(() => 
         {            
-            mapManager.ObjectMapSetTile(pos);
+            mapManager.DirtMapSetTile(pos);
         });
 
     }

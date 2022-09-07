@@ -18,8 +18,14 @@ public class MapManager : MonoBehaviour
         public int F { get { return G + H; } }
     }
 
-    public Tilemap objectMap;
+
     public Tilemap dirtMap;
+    public Tilemap hoeDirtMap;
+    public Tilemap wateringDirtMap;
+    public Tilemap seedMap;
+    public Tilemap objectMap;
+
+    //public Tilemap[] tilemaps;
     public TileBase[] tileBases;
 
 
@@ -206,7 +212,6 @@ public class MapManager : MonoBehaviour
         }
     }
 
-
     void OnDrawGizmos()
     {
         if (FinalNodeList.Count != 0)
@@ -219,22 +224,15 @@ public class MapManager : MonoBehaviour
     }
 
     private int index = 0;
-    int[] dx = new int[]{ -1, 0, 1, -1, 0, 1, -1, 0, 1 };
-    int[] dy = new int[]{ 1, 1, 1, 0, 0, 0, -1, -1, -1 };
 
-    public void ObjectMapSetTile(Vector3Int pos, Vector3 dir)
+    public void DirtMapSetTile(Vector3Int pos)
     {
-        if (this.objectMap.GetTile(pos) != null)
-            Debug.Log(this.objectMap.GetTile(pos).name);
+        if (this.hoeDirtMap.GetTile(pos) != null)
+            Debug.Log(this.hoeDirtMap.GetTile(pos).name);
         else
             index = 0;
 
-        if (index == 4)
-            return;
-
-        this.objectMap.SetTile(pos, tileBases[index]);
-        
-        index++;
+        this.hoeDirtMap.SetTile(pos, tileBases[index]);
     }
 
     public bool GetDirtTile(Vector3Int pos)

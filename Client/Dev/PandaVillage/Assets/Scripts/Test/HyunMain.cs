@@ -24,9 +24,16 @@ public class HyunMain : MonoBehaviour
 
         mapManager.Init();
 
-        this.player.onClickDirtTile = (pos) =>
+        this.player.onRequestDirtTile = (pos) =>
         {
-            mapManager.ObjectMapSetTile(pos);
+            if (mapManager.GetDirtTile(pos))
+            {
+                this.player.RequestDirtTile();
+            }
+        };
+
+        this.player.onChangeDirtTile = (pos) => {
+            this.mapManager.DirtMapSetTile(pos);
         };
     }
 }

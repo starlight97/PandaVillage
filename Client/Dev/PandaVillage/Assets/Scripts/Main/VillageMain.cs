@@ -30,6 +30,21 @@ public class VillageMain : SceneMain
 
         mapManager.Init();
 
+        this.player.onRequestDirtTile = (pos) =>
+        {
+            if (mapManager.GetDirtTile(pos))
+            {
+                this.player.RequestDirtTile();
+            }
+        };
+
+        this.player.onChangeDirtTile = (pos) => {
+            this.mapManager.DirtMapSetTile(pos);
+        };
+
+        //this.player.onChangeHoeDirtTile = (pos) => { 
+        //    this.mapManager
+        //};
     }
 
 
