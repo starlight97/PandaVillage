@@ -9,20 +9,21 @@ public class Animal : MonoBehaviour
     private int feelings;           //기분
     public int age;                 //나이
 
-    private Coroutine moveRoutine;
+    private Coroutine roamingRoutine;
 
-    public UnityAction<Vector2Int, Vector2Int> onDecideTargetTile;
+    public UnityAction<Vector2Int, Vector2Int, List<Vector3>> onDecideTargetTile;
     public UnityAction goHome;    
     private PlayerMove playerMove;
+    private MoveMent2D moveMent2D;
     public Vector2Int target;
+    public Vector2Int mapBottomLeft, mapTopRight;
 
-    public int MapTopRightX =16;
-    public int MapTopRightY =8;
+    public Vector2Int RandomMoveRange = new Vector2Int(-3, 3);
 
     public void Init()
-    {        
-        this.playerMove = GetComponent<PlayerMove>();
-        Move();        
+    {              
+        this.moveMent2D = GetComponent<MoveMent2D>();
+        Roaming();        
     }
     private void Update()
     {
@@ -32,47 +33,55 @@ public class Animal : MonoBehaviour
         }
     }
 
-    public void Move()
+    // 돌아다니는 함수 입니다.
+    public void Roaming()
     {
-        this.moveRoutine=StartCoroutine(MoveRoutine());
-    }    
+        if (this.roamingRoutine != null)
+            this.StopCoroutine(this.roamingRoutine);
+
+        this.roamingRoutine = StartCoroutine(RoamingRoutine());
+    }
     #region 무브루틴
-    public IEnumerator MoveRoutine()
+    public IEnumerator RoamingRoutine()
     {
         while (true)
         {
             yield return new WaitForSeconds(2f);            
-            var targetPos = new Vector2Int((int)this.transform.position.x + Random.Range(-3, 4), (int)this.transform.position.y + Random.Range(-3, 4));
+            var targetPos = new Vector2Int((int)this.transform.position.x + Random.Range(RandomMoveRange.x, RandomMoveRange.y+1), 
+                (int)this.transform.position.y + Random.Range(RandomMoveRange.x, RandomMoveRange.y+1));
 
-            #region 똥같은 코드
-            if (targetPos.x < 0)
-                targetPos.x = -targetPos.x;
-            if (targetPos.x >= MapTopRightX)
-                targetPos.x = (int)this.transform.position.x + ((int)this.transform.position.x - targetPos.x);
-            if (targetPos.y < 0)
-                targetPos.y = -targetPos.y;
-            if (targetPos.y >= MapTopRightY)
-                targetPos.y = (int)this.transform.position.y + ((int)this.transform.position.y - targetPos.y);
+
+            #region 똥같은 코드            
+            if (targetPos.x < mapBottomLeft.x)
+                targetPos.x = mapBottomLeft.x;
+            if (targetPos.x >= mapTopRight.x)
+                targetPos.x = mapTopRight.x;
+            if (targetPos.y < mapBottomLeft.y)
+                targetPos.y = mapBottomLeft.y;
+            if (targetPos.y >= mapTopRight.y)
+                targetPos.y = mapTopRight.y;
             #endregion
-
+            
 
             var curPos = new Vector2Int((int)this.transform.position.x, (int)this.transform.position.y);
-            onDecideTargetTile(curPos, targetPos);
+            this.moveMent2D.pathList.Clear();
+            onDecideTargetTile(curPos, targetPos, this.moveMent2D.pathList);
         }       
     }
     #endregion
-    public void MovePlayer(List<Vector3> pathList)
+
+    // 무브먼트 2D에 무브루틴 호출
+    public void Move()
     {
-        this.playerMove.Move(pathList);
+        this.moveMent2D.Move();
     }
 
     public void GrowUp()    
     {
-
         Destroy(this.transform.GetChild(0).gameObject);
         Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/RabbitModel"), this.transform);
 
-
+        
         //this.GetComponentInChildren<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/Animals/Rabbit");
         //this.GetComponentInChildren<Animator>().runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Animator/TestRabbit_0");       
 
@@ -80,9 +89,9 @@ public class Animal : MonoBehaviour
     public void ComeBackHome()
     {
         goHome();
-        StopCoroutine(moveRoutine);        
+        StopCoroutine(roamingRoutine);        
         var curPos = new Vector2Int((int)this.transform.position.x, (int)this.transform.position.y);
-        onDecideTargetTile(curPos, target);      
+        //onDecideTargetTile(curPos, target);      
     }
     
     public void Patted()
@@ -99,7 +108,7 @@ public class Animal : MonoBehaviour
     public void Produce()
     {
         var product = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Product"));
-        product.transform.position = new Vector2(Random.Range(0,17), Random.Range(0, 9));
+        product.transform.position = new Vector2(Random.Range(mapBottomLeft.x, mapTopRight.x+1), Random.Range(mapBottomLeft.y, mapTopRight.y+1));
     }
 
     public void Childbirth()

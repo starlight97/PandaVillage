@@ -11,19 +11,20 @@ public class FarmTestMain : MonoBehaviour
     public Button DayButton;
     public Button SceneChangeButton;
     public Button OpenDoorButton;
-
+    public Button AddAnimalButton;   
 
     void Start()
     {        
         coop.Init();
 
         this.mapManager = GameObject.FindObjectOfType<MapManager>();
-        this.animal = GameObject.FindObjectsOfType<Animal>();
+        this.coop = GameObject.FindObjectOfType<Coop>();
 
+        //mapManager.Init();
 
-        mapManager.Init();
-
-        AnimalsInit();
+        this.AddAnimalButton.onClick.AddListener(() => {
+            AnimalManager.instance.AddAnimal();
+        });
         
 
         this.SceneChangeButton.onClick.AddListener(() => {
@@ -34,8 +35,25 @@ public class FarmTestMain : MonoBehaviour
 
         });
 
-        this.OpenDoorButton.onClick.AddListener(() => {
-            coop.SetDoor();
+        this.OpenDoorButton.onClick.AddListener(() =>
+        {           
+            if (coop.SetDoor()) //문이 열렸을경우에만 모든 동물들이 나온다.
+            {
+                foreach (var data in AnimalManager.instance.AnimalDic.Values)
+                {
+                    var go = Instantiate(data);
+                    go.transform.position = coop.transform.GetChild(1).position;
+
+                    go.onDecideTargetTile = (startPos, targetPos, pathList) =>
+                    {
+                        this.mapManager.PathFinding(startPos, targetPos, pathList);
+                        go.Move();
+                    };
+                }
+                this.animal = GameObject.FindObjectsOfType<Animal>();
+                AnimalsInit();
+            }
+            
         });
     }
     private IEnumerator LoadYourAsyncScene()
@@ -53,13 +71,13 @@ public class FarmTestMain : MonoBehaviour
         foreach (var ani in animal)
         {
             //Move
-            ani.onDecideTargetTile = (startPos, targetPos) =>
-            {
-                Debug.Log(startPos);
-                Debug.Log(targetPos);
-                this.mapManager.PathFinding(startPos, targetPos);
-                ani.MovePlayer(this.mapManager.PathList);
-            };
+            //ani.onDecideTargetTile = (startPos, targetPos) =>
+            //{
+            //    Debug.Log(startPos);
+            //    Debug.Log(targetPos);
+            //    //this.mapManager.PathFinding(startPos, targetPos);
+            //    //ani.MovePlayer(this.mapManager.PathList);
+            //};
 
             //초기화
             ani.Init();

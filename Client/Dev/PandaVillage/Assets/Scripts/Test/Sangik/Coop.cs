@@ -25,23 +25,25 @@ public class Coop : MonoBehaviour
         foreach (var animal in animalList)
         {
             animal.goHome = () => {
-                animal.target = new Vector2Int((int)door.position.x, (int)door.position.y -1);
+                animal.target = new Vector2Int((int)door.position.x, (int)door.position.y -1);                
             };
         }        
     }
 
 
-    public void SetDoor()
+    public bool SetDoor()
     {
         if (isOpen)
         {
             this.door.gameObject.SetActive(true);
             this.isOpen = false;
+            return isOpen;
         }
         else
         {          
             this.door.gameObject.SetActive(false);
             this.isOpen = true;
+            return isOpen;
         }
     }
 

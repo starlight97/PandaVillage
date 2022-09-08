@@ -5,12 +5,15 @@ using UnityEngine;
 public class VillageMain : SceneMain
 {
     private MapManager mapManager;
+    private TileManager tileManager;
+    public Animal animal;
     private Player player;
 
     void Start()
     {
 
         Init();
+        animal.Init();
 
     }
 
@@ -21,31 +24,36 @@ public class VillageMain : SceneMain
 
         this.player = GameObject.FindObjectOfType<Player>();
         this.mapManager = GameObject.FindObjectOfType<MapManager>();
+        this.tileManager = GameObject.FindObjectOfType<TileManager>();
 
-        this.player.onDecideTargetTile = (startPos, targetPos) =>
+        this.player.onDecideTargetTile = (startPos, targetPos, pathList) =>
         {
-            this.mapManager.PathFinding(startPos, targetPos);
-            this.player.Move(this.mapManager.PathList);
+            this.mapManager.PathFinding(startPos, targetPos, pathList);
+            this.player.Move();
         };
 
-        mapManager.Init();
 
         this.player.onRequestDirtTile = (pos) =>
         {
-            if (mapManager.GetDirtTile(pos))
+            if (tileManager.GetDirtTile(pos))
             {
                 this.player.RequestDirtTile();
             }
         };
 
-        this.player.onChangeDirtTile = (pos) => {
-            this.mapManager.DirtMapSetTile(pos);
+        this.player.onChangeDirtTile = (pos) =>
+        {
+            this.tileManager.DirtMapSetTile(pos);
         };
 
-        //this.player.onChangeHoeDirtTile = (pos) => { 
-        //    this.mapManager
-        //};
+        this.animal.onDecideTargetTile = (startPos, targetPos, pathList) =>
+        {
+            this.mapManager.PathFinding(startPos, targetPos, pathList);
+            this.animal.Move();
+        };
     }
+
+
 
 
 }

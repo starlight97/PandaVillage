@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class MapManager : MonoBehaviour
 {
@@ -18,18 +17,6 @@ public class MapManager : MonoBehaviour
         public int F { get { return G + H; } }
     }
 
-
-    public Tilemap dirtMap;
-    public Tilemap hoeDirtMap;
-    public Tilemap wateringDirtMap;
-    public Tilemap seedMap;
-    public Tilemap objectMap;
-
-    //public Tilemap[] tilemaps;
-    public TileBase[] tileBases;
-
-
-
     int sizeX, sizeY;
     Node[,] NodeArray;
     Node StartNode, TargetNode, CurNode;
@@ -42,16 +29,6 @@ public class MapManager : MonoBehaviour
     public List<Node> FinalNodeList;
 
     public bool allowDiagonal, dontCrossCorner;
-    public List<Vector3> PathList
-    {
-        get; private set;
-    }
-
-    public void Init()
-    {
-        this.PathList = new List<Vector3>();
-
-    }
 
     // 장애물 감지후 경로에 반영 로직
     private void WallSetting(int sizeY, int sizeX)
@@ -74,9 +51,8 @@ public class MapManager : MonoBehaviour
     }
 
 
-    public void PathFinding(Vector2Int startPos, Vector2Int targetPos)
+    public void PathFinding(Vector2Int startPos, Vector2Int targetPos, List<Vector3> pathList)
     {
-        this.PathList.Clear();
 
         // x , y
         if (startPos.x < targetPos.x)
@@ -159,7 +135,7 @@ public class MapManager : MonoBehaviour
                     //print(i + "번째는 " + FinalNodeList[i].x + ", " + FinalNodeList[i].y);
                     //Vector3 path = new Vector3(FinalNodeList[i].x + 0.5f, FinalNodeList[i].y, 0);
                     Vector3 path = new Vector3(FinalNodeList[i].x, FinalNodeList[i].y, 0);
-                    this.PathList.Add(path);
+                    pathList.Add(path);
                 }
                 return;
             }
@@ -222,26 +198,6 @@ public class MapManager : MonoBehaviour
             }
         }
     }
-
-    private int index = 0;
-
-    public void DirtMapSetTile(Vector3Int pos)
-    {
-        if (this.hoeDirtMap.GetTile(pos) != null)
-            Debug.Log(this.hoeDirtMap.GetTile(pos).name);
-        else
-            index = 0;
-
-        this.hoeDirtMap.SetTile(pos, tileBases[index]);
-    }
-
-    public bool GetDirtTile(Vector3Int pos)
-    {
-        if (dirtMap.GetTile(pos) != null)
-            return true;
-        return false;
-    }
-
 }
 
 // 작성자 : 박정식

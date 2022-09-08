@@ -18,19 +18,18 @@ public class JeongSikTestMain : MonoBehaviour
     {
         this.player = GameObject.FindObjectOfType<Player>();
         this.mapManager = GameObject.FindObjectOfType<MapManager>();
-        this.player.onDecideTargetTile = (startPos, targetPos) =>
+        this.player.onDecideTargetTile = (startPos, targetPos, pathList) =>
         {
-            this.mapManager.PathFinding(startPos, targetPos);
-            this.player.Move(this.mapManager.PathList);
+            this.mapManager.PathFinding(startPos, targetPos, pathList);
+            this.player.Move();
         };
         //tilemap.SetTile()
         Vector3Int pos = new Vector3Int(2, 2, 0);
 
-        mapManager.Init();
 
         this.testBtn.onClick.AddListener(() => 
         {            
-            mapManager.DirtMapSetTile(pos);
+            //mapManager.DirtMapSetTile(pos);
         });
 
     }

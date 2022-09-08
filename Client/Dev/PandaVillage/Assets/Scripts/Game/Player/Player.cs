@@ -7,9 +7,9 @@ using UnityEngine.Tilemaps;
 
 public class Player : MonoBehaviour
 {
-    private PlayerMove playerMove;
-    //public bool isUseTool = true;
-    public UnityAction<Vector2Int, Vector2Int> onDecideTargetTile;
+    private MoveMent2D moveMent2D;
+    private bool isUseTool;
+    public UnityAction<Vector2Int, Vector2Int, List<Vector3>> onDecideTargetTile;
 
     public UnityAction<Vector3Int> onRequestDirtTile;
     public UnityAction<Vector3Int> onChangeDirtTile;
@@ -17,15 +17,19 @@ public class Player : MonoBehaviour
     public UnityAction<Vector3Int> onRequestHoeDirtTile;
     public UnityAction<Vector3Int> onChangeHoeDirtTile;
 
-    public UnityAction<Vector3Int> onRequestWateringTile;
-    public UnityAction<Vector3Int> onChangeWateringTile;
+    public UnityAction<Vector3Int> onRequestObjectTile;
+    public UnityAction<Vector3Int> onChangeObjectTile;
 
     private Vector3Int dir;
     private Vector3Int pos;
 
+    private bool isUseHoe;
+    private bool isUseSeed;
+    private bool isUseWateringCan;
+
     private void Start()
     {
-        this.playerMove = GetComponent<PlayerMove>();
+        this.moveMent2D = GetComponent<MoveMent2D>();
     }
     private void Update()
     {
@@ -41,11 +45,12 @@ public class Player : MonoBehaviour
         Vector2Int targetPos = new Vector2Int(targetPosX, targetPosY);
 
         // 마우스 왼쪽버튼 클릭시
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
-            this.onDecideTargetTile(curPos, targetPos);
+            this.moveMent2D.pathList.Clear();
+            this.onDecideTargetTile(curPos, targetPos, this.moveMent2D.pathList);
 
-            // 나중에 써야할 코드
+            #region 나중에 써야할 코드
             //if (!this.isUseTool)
             //{
             //    this.onDecideTargetTile(curPos, targetPos);
@@ -62,29 +67,45 @@ public class Player : MonoBehaviour
             //        this.onRequestDirtTile(this.dir + this.pos);
             //    }
             //}
-
-            // 오른쪽 마우스 클릭 시 타일 변경됨
-            
+            #endregion
         }
 
-        if (Input.GetMouseButtonDown(1))
+        // 오른쪽 마우스 클릭 시 타일 변경됨
+        if (Input.GetMouseButtonDown(0))
         {
             this.pos = new Vector3Int(currentPosX, currentPosY, 0);
             Vector3Int tpos = new Vector3Int((int)mousePos.x, (int)mousePos.y, 0);
 
             this.dir = tpos - this.pos;
 
+            var tilePos = this.dir + this.pos;
+
             if (Mathf.Abs(dir.x) <= 1 && Mathf.Abs(dir.y) <= 1)
             {
-                this.onRequestDirtTile(this.dir + this.pos);
-                //this.onRequestHoeDirtTile(this.dir + this.pos);
+                // 밭
+                if (this.isUseHoe)
+                {
+                    this.onRequestDirtTile(tilePos);
+                }
+
+                // 씨앗
+                else if (this.isUseSeed)
+                {
+                    this.onRequestHoeDirtTile(tilePos);
+                }
+
+                // 물뿌리기
+                else if (this.isUseWateringCan)
+                {
+                    this.onRequestObjectTile(tilePos);
+                }
             }
         }
     }
 
-    public void Move(List<Vector3> pathList)
+    public void Move()
     {
-        this.playerMove.Move(pathList);
+        this.moveMent2D.Move();
     }
 
     public void UseItem()
@@ -95,14 +116,47 @@ public class Player : MonoBehaviour
         this.transform.position = new Vector3(PosX, PosY, 0);
     }
 
+    public int SeleteItem(int selete)
+    {
+        if (selete == 0)
+        {
+            this.isUseHoe = true;
+            this.isUseSeed = false;
+            this.isUseWateringCan = false;
+        }
+
+        else if(selete == 1)
+        {
+            this.isUseHoe = false;
+            this.isUseSeed = true;
+            this.isUseWateringCan = false;
+        }
+
+        else if (selete == 2)
+        {
+            this.isUseHoe = false;
+            this.isUseSeed = false;
+            this.isUseWateringCan = true;
+        }
+
+        return selete;
+    }
+
     public void RequestDirtTile()
     {
         this.onChangeDirtTile(this.dir + this.pos);
     }
 
+    // 씨앗 타일 요청
     public void RequestHoeDirtTile()
     {
         this.onChangeHoeDirtTile(this.dir + this.pos);
+    }
+
+    // 물 타일 요청
+    public void RequestObjectTile()
+    {
+        this.onChangeObjectTile(this.dir + this.pos);
     }
 }
 
