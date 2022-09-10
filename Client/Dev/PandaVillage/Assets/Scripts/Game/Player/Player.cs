@@ -3,33 +3,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Tilemaps;
 
 public class Player : MonoBehaviour
 {
-    private MoveMent2D moveMent2D;
-    private bool isUseTool;
+    public enum eItemType
+    {
+        None = -1,
+        Hoe, 
+        WateringCan, 
+        Seed
+    }
+
+
+    private Movement2D moveMent2D;
+    private Farming farming;
+    private eItemType isUseTool = eItemType.None;
     public UnityAction<Vector2Int, Vector2Int, List<Vector3>> onDecideTargetTile;
 
-    public UnityAction<Vector3Int> onRequestDirtTile;
-    public UnityAction<Vector3Int> onChangeDirtTile;
-
-    public UnityAction<Vector3Int> onRequestHoeDirtTile;
-    public UnityAction<Vector3Int> onChangeHoeDirtTile;
-
-    public UnityAction<Vector3Int> onRequestObjectTile;
-    public UnityAction<Vector3Int> onChangeObjectTile;
+    public UnityAction<Vector3Int, Farming.eFarmType> onGetFarmTile;
+    public UnityAction<Vector3Int, eItemType> onChangeFarmTile;
 
     private Vector3Int dir;
     private Vector3Int pos;
 
-    private bool isUseHoe;
-    private bool isUseSeed;
-    private bool isUseWateringCan;
 
     private void Start()
     {
-        this.moveMent2D = GetComponent<MoveMent2D>();
+        this.moveMent2D = GetComponent<Movement2D>();
+        this.farming = GetComponent<Farming>();
     }
     private void Update()
     {
@@ -44,7 +45,7 @@ public class Player : MonoBehaviour
         Vector2Int curPos = new Vector2Int(currentPosX, currentPosY);
         Vector2Int targetPos = new Vector2Int(targetPosX, targetPosY);
 
-        // 마우스 왼쪽버튼 클릭시
+        // 마우스 오른쪽버튼 클릭시
         if (Input.GetMouseButtonDown(1))
         {
             this.moveMent2D.pathList.Clear();
@@ -70,7 +71,7 @@ public class Player : MonoBehaviour
             #endregion
         }
 
-        // 오른쪽 마우스 클릭 시 타일 변경됨
+        // 왼쪽 마우스 클릭 시 타일 변경됨
         if (Input.GetMouseButtonDown(0))
         {
             this.pos = new Vector3Int(currentPosX, currentPosY, 0);
@@ -82,24 +83,10 @@ public class Player : MonoBehaviour
 
             if (Mathf.Abs(dir.x) <= 1 && Mathf.Abs(dir.y) <= 1)
             {
-                // 밭
-                if (this.isUseHoe)
-                {
-                    this.onRequestDirtTile(tilePos);
-                }
-
-                // 씨앗
-                else if (this.isUseSeed)
-                {
-                    this.onRequestHoeDirtTile(tilePos);
-                }
-
-                // 물뿌리기
-                else if (this.isUseWateringCan)
-                {
-                    this.onRequestObjectTile(tilePos);
-                }
+                if(isUseTool != eItemType.None)
+                    GetFarmTile(tilePos, isUseTool);
             }
+
         }
     }
 
@@ -108,55 +95,40 @@ public class Player : MonoBehaviour
         this.moveMent2D.Move();
     }
 
-    public void UseItem()
-    {
-        // 도구를 들고 있을 때 플레이어가 움직이지 않도록 위치 고정
-        var PosX = this.transform.position.x;
-        var PosY = this.transform.position.y;
-        this.transform.position = new Vector3(PosX, PosY, 0);
-    }
 
-    public int SeleteItem(int selete)
+    public void SelectItem(eItemType itemType)
     {
-        if (selete == 0)
+        switch (itemType)
         {
-            this.isUseHoe = true;
-            this.isUseSeed = false;
-            this.isUseWateringCan = false;
+            case eItemType.Hoe:
+                this.isUseTool = itemType;
+                break;
+            case eItemType.WateringCan:
+                this.isUseTool = itemType;
+                break;
+            case eItemType.Seed:
+                this.isUseTool = itemType;
+                break;
+            default:
+                this.isUseTool = eItemType.None;
+                break;
         }
-
-        else if(selete == 1)
-        {
-            this.isUseHoe = false;
-            this.isUseSeed = true;
-            this.isUseWateringCan = false;
-        }
-
-        else if (selete == 2)
-        {
-            this.isUseHoe = false;
-            this.isUseSeed = false;
-            this.isUseWateringCan = true;
-        }
-
-        return selete;
     }
 
-    public void RequestDirtTile()
+    public void GetFarmTile(Vector3Int pos, eItemType state)
     {
-        this.onChangeDirtTile(this.dir + this.pos);
+        Farming.eFarmType type = farming.GetFarmTile(state);
+        if (type != Farming.eFarmType.None)
+            this.onGetFarmTile(pos, type);
     }
 
-    // 씨앗 타일 요청
-    public void RequestHoeDirtTile()
+    public void ChangeFarmTile(Vector3Int pos)
     {
-        this.onChangeHoeDirtTile(this.dir + this.pos);
-    }
+        this.onChangeFarmTile(pos, this.isUseTool);
 
-    // 물 타일 요청
-    public void RequestObjectTile()
-    {
-        this.onChangeObjectTile(this.dir + this.pos);
+    //    Farming.eFarmType type = farming.ChangeFarmTile(state);
+    //    if(type != Farming.eFarmType.None)
+    //        this.onChangeFarmTile(pos, state);    
     }
 }
 

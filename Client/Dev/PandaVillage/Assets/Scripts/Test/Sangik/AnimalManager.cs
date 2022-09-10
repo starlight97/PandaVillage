@@ -8,6 +8,7 @@ public class AnimalManager
 
     private AnimalManager() { }
     public Dictionary<int, Animal> AnimalDic = new Dictionary<int, Animal>();
+    public bool coopOpened =false;
     private int i =0;
     public void AddAnimal()
     {

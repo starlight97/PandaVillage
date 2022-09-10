@@ -354,7 +354,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35bd7f4c7afba8b4ea8e324172924889, type: 3}
---- !u!1001 &331242967
+--- !u!1001 &454602269
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -408,10 +408,6 @@ PrefabInstance:
     - target: {fileID: 8412107125530616754, guid: 753022c94f0b5734db189e1bc470f3c4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8412107125571908478, guid: 753022c94f0b5734db189e1bc470f3c4, type: 3}
-      propertyPath: m_SortingOrder
-      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 753022c94f0b5734db189e1bc470f3c4, type: 3}
@@ -610,8 +606,8 @@ MonoBehaviour:
   wateringDirtMap: {fileID: 1477608481}
   tileBases:
   - {fileID: 11400000, guid: e5de0fa7bea21ed43b016e320cbe4eff, type: 2}
-  - {fileID: 11400000, guid: e110c35d0380ae748a58dab80667dcb6, type: 2}
   - {fileID: 11400000, guid: a75543afa4d5d4d4880b95b035881dae, type: 2}
+  - {fileID: 11400000, guid: e110c35d0380ae748a58dab80667dcb6, type: 2}
 --- !u!4 &1103197452
 Transform:
   m_ObjectHideFlags: 0

@@ -8,25 +8,50 @@ public class FarmTestMain : MonoBehaviour
     private Animal[] animal;
     private MapManager mapManager;
     public Coop coop;
+    public Silo silo;
     public Button DayButton;
     public Button SceneChangeButton;
     public Button OpenDoorButton;
     public Button AddAnimalButton;   
 
+    private void Test()
+    {
+        if (AnimalManager.instance.coopOpened) 
+        {
+            foreach (var data in AnimalManager.instance.AnimalDic.Values)
+            {
+                Vector3 DoorPos = coop.transform.GetChild(1).position;
+                var go = Instantiate(data);
+                var scr = go.GetComponent<Animal>();
+                go.transform.position = new Vector3(Random.Range(scr.mapBottomLeft.x, scr.mapTopRight.x + 1), Random.Range(scr.mapBottomLeft.y, scr.mapTopRight.y + 1));
+            }
+            this.animal = GameObject.FindObjectsOfType<Animal>();
+            AnimalsInit();            
+        }
+    }
+
+
+
     void Start()
-    {        
+    {
+        Test();
         coop.Init();
+        silo.Init();
 
         this.mapManager = GameObject.FindObjectOfType<MapManager>();
         this.coop = GameObject.FindObjectOfType<Coop>();
 
-        //mapManager.Init();
 
+        //coop의 문의 포지션을 가져옴
+        Vector3 DoorPos = coop.transform.GetChild(1).position;
+
+
+        //동물추가버튼
         this.AddAnimalButton.onClick.AddListener(() => {
             AnimalManager.instance.AddAnimal();
         });
         
-
+        //씬변환버튼
         this.SceneChangeButton.onClick.AddListener(() => {
 
             StartCoroutine(LoadYourAsyncScene());
@@ -35,26 +60,28 @@ public class FarmTestMain : MonoBehaviour
 
         });
 
+
+        //문열기버튼
         this.OpenDoorButton.onClick.AddListener(() =>
         {           
-            if (coop.SetDoor()) //문이 열렸을경우에만 모든 동물들이 나온다.
+            
+            if (coop.SetDoor()&& !AnimalManager.instance.coopOpened) //문이 열렸을경우에만 모든 동물들이 나온다.
             {
                 foreach (var data in AnimalManager.instance.AnimalDic.Values)
                 {
                     var go = Instantiate(data);
-                    go.transform.position = coop.transform.GetChild(1).position;
-
-                    go.onDecideTargetTile = (startPos, targetPos, pathList) =>
-                    {
-                        this.mapManager.PathFinding(startPos, targetPos, pathList);
-                        go.Move();
-                    };
+                    go.transform.position = DoorPos;                   
                 }
                 this.animal = GameObject.FindObjectsOfType<Animal>();
                 AnimalsInit();
+                AnimalManager.instance.coopOpened = true;
             }
             
         });
+
+
+
+
     }
     private IEnumerator LoadYourAsyncScene()
     {
@@ -67,22 +94,29 @@ public class FarmTestMain : MonoBehaviour
 
     public void AnimalsInit()
     {
+        //coop의 문의 포지션을 가져옴
+        var DoorPos = coop.transform.GetChild(1).position;
+
         //animal들 초기화
         foreach (var ani in animal)
-        {
-            //Move
-            //ani.onDecideTargetTile = (startPos, targetPos) =>
-            //{
-            //    Debug.Log(startPos);
-            //    Debug.Log(targetPos);
-            //    //this.mapManager.PathFinding(startPos, targetPos);
-            //    //ani.MovePlayer(this.mapManager.PathList);
-            //};
-
-            //초기화
+        {   
             ani.Init();
 
+            //동물들이 무작위로 움직이게하기
+            ani.onDecideTargetTile = (startPos, targetPos, pathList) =>
+            {
+                this.mapManager.PathFinding(startPos, targetPos, pathList);
+                ani.Move();
+            };
 
+            //동물들이 집으로 가게하기
+            ani.onGoHome = (startPos, pathList) =>
+            {
+                Vector2Int targetPos = new Vector2Int((int)DoorPos.x, (int)DoorPos.y - 1);
+                this.mapManager.PathFinding(startPos, targetPos, pathList);
+                ani.Move();
+
+            };
             //성장과 생산
             this.DayButton.onClick.AddListener(() =>
             {

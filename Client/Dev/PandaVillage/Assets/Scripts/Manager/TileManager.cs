@@ -10,65 +10,55 @@ public class TileManager : MonoBehaviour
     public Tilemap objectMap;           // 씨앗
     public Tilemap wateringDirtMap;     // 물
 
-    //public Tilemap[] tilemaps;
     public TileBase[] tileBases;
 
-    // 호미질
-    public void DirtMapSetTile(Vector3Int pos)
+    public bool GetTile(Vector3Int pos, Farming.eFarmType state)
     {
-        if (this.hoeDirtMap.GetTile(pos) != null)
-            Debug.Log("hoeDirt: " + this.hoeDirtMap.GetTile(pos).name);
-
-        if (this.dirtMap.GetTile(pos) != null)
-            this.hoeDirtMap.SetTile(pos, tileBases[0]);
-    }
-
-    public bool GetDirtTile(Vector3Int pos)
-    {
-        if (dirtMap.GetTile(pos) != null)
-            return true;
-        return false;
-    }
-
-    //private int index = 0;
-
-    // 씨앗 뿌리기
-    public void HoeDirtMapSetTile(Vector3Int pos)
-    {
-        if (this.objectMap.GetTile(pos) != null)
-            Debug.Log("object: " + this.objectMap.GetTile(pos).name);
-
-        if (this.hoeDirtMap.GetTile(pos) == null || this.objectMap.GetTile(pos) != null)
-            return;
-        else if (this.hoeDirtMap.GetTile(pos) != null)
+        bool check = false;
+        
+        switch (state)
         {
-            this.objectMap.SetTile(pos, tileBases[1]);
+            case Farming.eFarmType.None:
+                break;
+            case Farming.eFarmType.Dirt:
+                if (dirtMap.GetTile(pos) != null)
+                    check = true;
+                break;
+            case Farming.eFarmType.HoeDirt:
+                if (hoeDirtMap.GetTile(pos) != null)
+                    check = true;
+                break;
+            case Farming.eFarmType.Watering:
+                if (wateringDirtMap.GetTile(pos) != null)
+                    check = true;
+                break;
+            case Farming.eFarmType.Object:
+                if (objectMap.GetTile(pos) != null)
+                    check = true;
+                break;
+            default:
+                break;
         }
+        return check;
     }
 
-    public bool GetHoeDritTile(Vector3Int pos)
+    public void SetTile(Vector3Int pos, Player.eItemType state)
     {
-        if (this.hoeDirtMap.GetTile(pos) != null && this.objectMap.GetTile(pos) == null)
-            return true;
-        return false;
-    }
-
-    // 물 뿌리기
-    public void ObjectMapSetTile(Vector3Int pos)
-    {
-        if (this.wateringDirtMap.GetTile(pos) != null)
-            Debug.Log("wateringDirt: " + this.wateringDirtMap.GetTile(pos).name);
-
-        if(this.hoeDirtMap.GetTile(pos) != null)
+        switch (state)
         {
-            this.wateringDirtMap.SetTile(pos, tileBases[2]);
+            case Player.eItemType.None:
+                break;
+            case Player.eItemType.Hoe:
+                hoeDirtMap.SetTile(pos, tileBases[0]);
+                break;
+            case Player.eItemType.WateringCan:
+                wateringDirtMap.SetTile(pos, tileBases[1]);
+                break;
+            case Player.eItemType.Seed:
+                objectMap.SetTile(pos, tileBases[2]);
+                break;
+            default:
+                break;
         }
-    }
-
-    public bool GetObjectTile(Vector3Int pos)
-    {
-        if (hoeDirtMap.GetTile(pos) != null)
-            return true;
-        return false;
     }
 }

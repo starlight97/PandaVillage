@@ -13,22 +13,23 @@ public class CoopTestMain : MonoBehaviour
 
     void Start()
     {
-     
-
         this.mapManager = GameObject.FindObjectOfType<MapManager>();        
 
         //mapManager.Init();
-
-        foreach (var data in AnimalManager.instance.AnimalDic.Values)
+        if(!AnimalManager.instance.coopOpened)
         {
-            var go = Instantiate(data);
-            var scr = go.GetComponent<Animal>();
-            go.transform.position = new Vector3(Random.Range(scr.mapBottomLeft.x, scr.mapTopRight.x+1), Random.Range(scr.mapBottomLeft.y, scr.mapTopRight.y +1));
+            foreach (var data in AnimalManager.instance.AnimalDic.Values)
+            {
+                var go = Instantiate(data);
+                var scr = go.GetComponent<Animal>();
+                go.transform.position = new Vector3(Random.Range(scr.mapBottomLeft.x, scr.mapTopRight.x + 1), Random.Range(scr.mapBottomLeft.y, scr.mapTopRight.y + 1));
+            }
+
+            this.animal = GameObject.FindObjectsOfType<Animal>();
+            AnimalsInit();
+
         }
-
-        this.animal = GameObject.FindObjectsOfType<Animal>();
-        AnimalsInit();
-
+        
 
 
         this.SceneChangeButton.onClick.AddListener(() => {
@@ -44,13 +45,16 @@ public class CoopTestMain : MonoBehaviour
         foreach (var ani in animal)
         {
             //Move
-            //ani.onDecideTargetTile = (startPos, targetPos) =>
-            //{
-            //    Debug.Log(startPos);
-            //    Debug.Log(targetPos);
-            //    //this.mapManager.PathFinding(startPos, targetPos);
-            //    //ani.MovePlayer(this.mapManager.PathList);
-            //};
+            ani.onDecideTargetTile = (startPos, targetPos, pathList) =>
+            {
+                Debug.Log(startPos);
+                Debug.Log(targetPos);
+                Debug.Log(pathList);
+                this.mapManager.PathFinding(startPos, targetPos, pathList);
+                ani.Move();
+                //this.mapManager.PathFinding(startPos, targetPos);
+                //ani.MovePlayer(this.mapManager.PathList);
+            };
 
             //초기화
             ani.Init();

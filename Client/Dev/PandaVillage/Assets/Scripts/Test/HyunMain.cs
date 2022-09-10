@@ -25,65 +25,38 @@ public class HyunMain : MonoBehaviour
             this.mapManager.PathFinding(startPos, targetPos, pathList);
             this.player.Move();
         };
-
-        this.hoeBtn.onClick.AddListener(() => {
+        #region test
+        this.hoeBtn.onClick.AddListener(() =>
+        {
             Debug.Log("click hoe button");
-            this.player.SeleteItem(0);
+            this.player.SelectItem(Player.eItemType.Hoe);
         });
 
-        this.seedBtn.onClick.AddListener(() => {
+        this.seedBtn.onClick.AddListener(() =>
+        {
             Debug.Log("click seed button");
-            this.player.SeleteItem(1);
+            this.player.SelectItem(Player.eItemType.Seed);
         });
 
-        this.wateringcanBtn.onClick.AddListener(() => {
+        this.wateringcanBtn.onClick.AddListener(() =>
+        {
             Debug.Log("click wateringcan button");
-            this.player.SeleteItem(2);
+            this.player.SelectItem(Player.eItemType.WateringCan);
         });
+        #endregion
 
-        // 흙타일이냐?
-        this.player.onRequestDirtTile = (pos) =>
+        // 타일이 있냐?
+        this.player.onGetFarmTile = (pos, state) =>
         {
-            if (tileManager.GetDirtTile(pos))
-            {
-                this.player.RequestDirtTile();
-            }
+            bool check = tileManager.GetTile(pos, state);
+            if (check)
+                player.ChangeFarmTile(pos);
         };
 
-        // 밭타일로 바꾸기
-        this.player.onChangeDirtTile = (pos) =>
+        // 타일 변경
+        this.player.onChangeFarmTile = (pos, state) =>
         {
-            this.tileManager.DirtMapSetTile(pos);
-        };
-
-        // 밭타일이냐?
-        this.player.onRequestHoeDirtTile = (pos) =>
-        {
-            if (tileManager.GetHoeDritTile(pos))
-            {
-                this.player.RequestHoeDirtTile();
-            }
-        };
-
-        // 씨앗으로 바꾸기
-        this.player.onChangeHoeDirtTile = (pos) =>
-        {
-            this.tileManager.HoeDirtMapSetTile(pos);
-        };
-
-        // 씨앗타일이냐?
-        this.player.onRequestObjectTile = (pos) =>
-        {
-            if (tileManager.GetObjectTile(pos))
-            {
-                this.player.RequestObjectTile();
-            }
-        };
-
-        // 물타일로 바꾸기
-        this.player.onChangeObjectTile = (pos) =>
-        {
-            this.tileManager.ObjectMapSetTile(pos);
+            tileManager.SetTile(pos, state);
         };
     }
 }

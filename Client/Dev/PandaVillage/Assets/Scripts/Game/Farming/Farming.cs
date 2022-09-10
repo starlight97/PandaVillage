@@ -5,34 +5,31 @@ using UnityEngine.Tilemaps;
 using UnityEngine.Events;
 
 public class Farming : MonoBehaviour
-{
-    private Tilemap tilemap;
-    [SerializeField]
-    private TileBase tileBases;
-    public UnityAction onClick;
-
-    public void Init()
+{   
+    public enum eFarmType
     {
-        this.CreateTile();
+        None = -1,
+        Dirt, HoeDirt, Watering, Object
     }
 
-    public void CreateTile()
+    // 플레이어가 어떤 도구를 들고 있느냐에 따라 어떤 타일을 조사해야하나?
+    public eFarmType GetFarmTile(Player.eItemType state)
     {
-        //StartCoroutine(this.CreateTileRoutine());
-    }
-
-    private IEnumerator CreateTileRoutine()
-    {
-        if (Input.GetMouseButtonDown(0))
+        eFarmType type = eFarmType.None;
+        switch (state)
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            // 월드 포지션을 셀 포지션으로 변경
-            this.tilemap = GetComponent<Tilemap>();
-            Vector3Int location = this.tilemap.WorldToCell(mousePos);
-            // 해당 셀 포지션에 타일 그리기
-            this.tilemap.SetTile(location, this.tileBases);
-            this.onClick();
+            case Player.eItemType.Hoe:
+                type = eFarmType.Dirt;
+                break;
+            case Player.eItemType.WateringCan:
+            case Player.eItemType.Seed:
+                type = eFarmType.HoeDirt;
+                break;
+            default:
+                break;
         }
-        yield return null;
+        return type;
     }
+
+
 }

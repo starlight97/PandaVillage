@@ -12,9 +12,8 @@ public class Animal : MonoBehaviour
     private Coroutine roamingRoutine;
 
     public UnityAction<Vector2Int, Vector2Int, List<Vector3>> onDecideTargetTile;
-    public UnityAction goHome;    
-    private PlayerMove playerMove;
-    private MoveMent2D moveMent2D;
+    public UnityAction<Vector2Int, List<Vector3>> onGoHome;
+    private Movement2D movement2D;
     public Vector2Int target;
     public Vector2Int mapBottomLeft, mapTopRight;
 
@@ -22,7 +21,7 @@ public class Animal : MonoBehaviour
 
     public void Init()
     {              
-        this.moveMent2D = GetComponent<MoveMent2D>();
+        this.movement2D = GetComponent<Movement2D>();
         Roaming();        
     }
     private void Update()
@@ -30,6 +29,8 @@ public class Animal : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             ComeBackHome();
+            AnimalManager.instance.coopOpened = false;
+
         }
     }
 
@@ -64,8 +65,8 @@ public class Animal : MonoBehaviour
             
 
             var curPos = new Vector2Int((int)this.transform.position.x, (int)this.transform.position.y);
-            this.moveMent2D.pathList.Clear();
-            onDecideTargetTile(curPos, targetPos, this.moveMent2D.pathList);
+            this.movement2D.pathList.Clear();
+            onDecideTargetTile(curPos, targetPos, this.movement2D.pathList);
         }       
     }
     #endregion
@@ -73,7 +74,7 @@ public class Animal : MonoBehaviour
     // 무브먼트 2D에 무브루틴 호출
     public void Move()
     {
-        this.moveMent2D.Move();
+        this.movement2D.Move();
     }
 
     public void GrowUp()    
@@ -88,10 +89,11 @@ public class Animal : MonoBehaviour
     }
     public void ComeBackHome()
     {
-        goHome();
         StopCoroutine(roamingRoutine);        
         var curPos = new Vector2Int((int)this.transform.position.x, (int)this.transform.position.y);
-        //onDecideTargetTile(curPos, target);      
+
+        this.movement2D.pathList.Clear();
+        onGoHome(curPos, this.movement2D.pathList);            
     }
     
     public void Patted()

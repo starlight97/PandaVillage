@@ -32,19 +32,11 @@ public class VillageMain : SceneMain
             this.player.Move();
         };
 
-
-        this.player.onRequestDirtTile = (pos) =>
+        this.player.onGetFarmTile = (type, pos) =>
         {
-            if (tileManager.GetDirtTile(pos))
-            {
-                this.player.RequestDirtTile();
-            }
+            //this.player
         };
 
-        this.player.onChangeDirtTile = (pos) =>
-        {
-            this.tileManager.DirtMapSetTile(pos);
-        };
 
         this.animal.onDecideTargetTile = (startPos, targetPos, pathList) =>
         {

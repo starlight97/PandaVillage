@@ -6,8 +6,6 @@ using UnityEngine.Tilemaps;
 
 public class JeongSikTestMain : MonoBehaviour
 {
-
-
     private MapManager mapManager;
     private Player player;
 
@@ -31,7 +29,6 @@ public class JeongSikTestMain : MonoBehaviour
         {            
             //mapManager.DirtMapSetTile(pos);
         });
-
     }
 
 }

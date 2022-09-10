@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveMent2D : MonoBehaviour
+public class Movement2D : MonoBehaviour
 {
     public float moveSpeed;
     private Coroutine moveRoutine;
