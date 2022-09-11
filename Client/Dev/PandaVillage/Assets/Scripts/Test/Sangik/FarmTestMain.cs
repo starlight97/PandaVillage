@@ -103,11 +103,11 @@ public class FarmTestMain : MonoBehaviour
             ani.Init();
 
             //동물들이 무작위로 움직이게하기
-            ani.onDecideTargetTile = (startPos, targetPos, pathList) =>
-            {
-                this.mapManager.PathFinding(startPos, targetPos, pathList);
-                ani.Move();
-            };
+            //ani.onDecideTargetTile = (startPos, targetPos, pathList) =>
+            //{
+            //    this.mapManager.PathFinding(startPos, targetPos, pathList);
+            //    ani.Move();
+            //};
 
             //동물들이 집으로 가게하기
             ani.onGoHome = (startPos, pathList) =>

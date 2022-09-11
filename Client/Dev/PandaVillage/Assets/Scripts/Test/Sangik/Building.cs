@@ -17,12 +17,12 @@ public class Building : MonoBehaviour
         {
             if (RoofCollider.IsTouching(player))
             {
-                Debug.Log("HideObject");
+                //Debug.Log("HideObject");
                 HideObject(this.gameObject);
             }
             else
             {
-                Debug.Log("ShowObject");
+                //Debug.Log("ShowObject");
                 ShowObject(this.gameObject);
             }
             yield return null;

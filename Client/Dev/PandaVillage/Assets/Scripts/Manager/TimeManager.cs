@@ -6,12 +6,47 @@ public class TimeManager : MonoBehaviour
 {
     // 게임 내 시간
     // 실제 시간
-    public int hour;    // 시
-    public int min;     // 분
+    private int hour;    // 시
+    private int minute;     // 분
+    private float currentTime;
 
     private void Update()
     {
         
+    }
+
+    public void Init()
+    {
+        currentTime = 0;
+
+        StartCoroutine(TimeRoutine());
+    }
+
+    private IEnumerator TimeRoutine()
+    {
+        while (true)
+        {
+            currentTime += Time.deltaTime;
+
+            if (currentTime >= 7f)
+            {
+                minute += 10;
+                currentTime = 0;
+                Debug.LogFormat("hour : {0} minute : {1}", hour, minute);
+            }
+
+            if (minute == 60)
+            {
+                minute = 0;
+                hour += 1;
+                Debug.LogFormat("hour : {0} minute : {1}", hour, minute);
+            }
+
+
+
+
+            yield return null;
+        }
     }
 
 }

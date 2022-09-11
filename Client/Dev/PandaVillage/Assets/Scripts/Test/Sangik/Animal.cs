@@ -11,7 +11,7 @@ public class Animal : MonoBehaviour
 
     private Coroutine roamingRoutine;
 
-    public UnityAction<Vector2Int, Vector2Int, List<Vector3>> onDecideTargetTile;
+    public UnityAction<Vector2Int, Vector2Int, List<Vector3>, Animal> onDecideTargetTile;
     public UnityAction<Vector2Int, List<Vector3>> onGoHome;
     private Movement2D movement2D;
     public Vector2Int target;
@@ -66,7 +66,7 @@ public class Animal : MonoBehaviour
 
             var curPos = new Vector2Int((int)this.transform.position.x, (int)this.transform.position.y);
             this.movement2D.pathList.Clear();
-            onDecideTargetTile(curPos, targetPos, this.movement2D.pathList);
+            onDecideTargetTile(curPos, targetPos, this.movement2D.pathList, this);
         }       
     }
     #endregion

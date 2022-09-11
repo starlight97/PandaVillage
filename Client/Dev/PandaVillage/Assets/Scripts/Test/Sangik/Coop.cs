@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Coop : Building
 {
@@ -8,7 +9,9 @@ public class Coop : Building
     private Transform door;
     private List<Animal> animalList= new List<Animal>();
     private bool isOpen =false;
-    
+    public UnityAction<Vector2Int, Vector2Int, List<Vector3>, Animal> onDecideTargetTile;
+
+
     public void Init()
     {        
         this.door = this.transform.GetChild(1);
@@ -16,6 +19,8 @@ public class Coop : Building
         //test
         base.FindCollider();
         StartCoroutine(base.ColliderRoutine());
+
+        FindAnimals();
     }
 
     //private void Update()
@@ -60,6 +65,36 @@ public class Coop : Building
             this.isOpen = true;
             return isOpen;
         }
+    }
+
+
+    private void FindAnimals()
+    {
+        var animals = GameObject.FindObjectsOfType<Animal>();
+        foreach (var animal in animals)
+        {
+            animal.Init();
+            this.animalList.Add(animal);
+            animal.onDecideTargetTile = (startPos, targetPos, pathList, animal) =>
+            {
+                this.DecideTargetTile(startPos, targetPos, pathList, animal);
+            };
+        }
+
+    }
+
+    // 닭장안에 있는 모든 동물 성장
+    public void GrowUp()
+    {
+        foreach (var animal in animalList)
+        {
+            animal.GrowUp();
+        }
+    }
+
+    public void DecideTargetTile(Vector2Int startPos, Vector2Int targetPos, List<Vector3>pathList, Animal animal)
+    {
+        this.onDecideTargetTile(startPos, targetPos, pathList, animal);
     }
 
 

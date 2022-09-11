@@ -25,12 +25,14 @@ public class Player : MonoBehaviour
 
     private Vector3Int dir;
     private Vector3Int pos;
+    private Rigidbody2D rbody;
 
 
     private void Start()
     {
         this.moveMent2D = GetComponent<Movement2D>();
         this.farming = GetComponent<Farming>();
+        this.rbody = GetComponent<Rigidbody2D>();
     }
     private void Update()
     {
@@ -83,10 +85,10 @@ public class Player : MonoBehaviour
 
             if (Mathf.Abs(dir.x) <= 1 && Mathf.Abs(dir.y) <= 1)
             {
-                if(isUseTool != eItemType.None)
-                    GetFarmTile(tilePos, isUseTool);
+                //if(isUseTool != eItemType.None)
+                //    GetFarmTile(tilePos, isUseTool);
+                Attack(dir);
             }
-
         }
     }
 
@@ -129,6 +131,27 @@ public class Player : MonoBehaviour
     //    Farming.eFarmType type = farming.ChangeFarmTile(state);
     //    if(type != Farming.eFarmType.None)
     //        this.onChangeFarmTile(pos, state);    
+    }
+
+    public void Attack(Vector3 dir)
+    {
+        Vector3 startPos = this.transform.position;
+        startPos.x += 0.5f;
+        startPos.y += 0.5f;
+
+
+
+        Debug.DrawRay(startPos, dir * 0.7f, new Color(0,1,0), 4f);
+        //int layerMask = (-1) - (1 << LayerMask.NameToLayer("Player"));  // Everything에서 Player 레이어만 제외하고 충돌 체크함
+        int layerMask = (1 << LayerMask.NameToLayer("Object")) + (1 << LayerMask.NameToLayer("WallObject"));    // Player 와 MyTeammate 레이어만 충돌체크함
+        //int layerMask = (1 << LayerMask.NameToLayer("Object"));    // Player 와 MyTeammate 레이어만 충돌체크함
+
+        RaycastHit2D rayHit = Physics2D.Raycast(startPos, dir, 1, layerMask);
+
+        if(rayHit.collider != null)
+        {
+            Destroy(rayHit.collider.gameObject);
+        }
     }
 }
 

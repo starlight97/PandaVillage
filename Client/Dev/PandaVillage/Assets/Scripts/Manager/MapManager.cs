@@ -42,7 +42,9 @@ public class MapManager : MonoBehaviour
                 bool isWall = false;
                 foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(x + bottomLeft.x + 0.5f, y + bottomLeft.y + 0.5f), 0.4f))
                 {
-                    if (col.gameObject.layer == LayerMask.NameToLayer("Wall")) isWall = true;
+                    if (col.gameObject.layer == LayerMask.NameToLayer("Wall") || col.gameObject.layer == LayerMask.NameToLayer("WallObject")) 
+                        isWall = true;
+
                 }
 
                 NodeArray[y, x] = new Node(isWall, y + bottomLeft.y, x + bottomLeft.x);

@@ -38,11 +38,11 @@ public class VillageMain : SceneMain
         };
 
 
-        this.animal.onDecideTargetTile = (startPos, targetPos, pathList) =>
-        {
-            this.mapManager.PathFinding(startPos, targetPos, pathList);
-            this.animal.Move();
-        };
+        //this.animal.onDecideTargetTile = (startPos, targetPos, pathList) =>
+        //{
+        //    this.mapManager.PathFinding(startPos, targetPos, pathList);
+        //    this.animal.Move();
+        //};
     }
 
 

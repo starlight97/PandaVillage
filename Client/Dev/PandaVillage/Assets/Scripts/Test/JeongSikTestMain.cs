@@ -7,28 +7,50 @@ using UnityEngine.Tilemaps;
 public class JeongSikTestMain : MonoBehaviour
 {
     private MapManager mapManager;
+    private TimeManager timeManager;
+    private ObjectSpawner objectSpawner;
+    private Coop coop;
+
     private Player player;
-
-    public Button testBtn;
-
 
     void Start()
     {
+        Init();
+    }
+
+    public void Init()
+    {
+        //StartCoroutine(this.TouchToStartRoutine());
+
+
         this.player = GameObject.FindObjectOfType<Player>();
         this.mapManager = GameObject.FindObjectOfType<MapManager>();
+        this.timeManager = GameObject.FindObjectOfType<TimeManager>();
+        this.coop = GameObject.FindObjectOfType<Coop>();
+        this.objectSpawner = GameObject.FindObjectOfType<ObjectSpawner>();
+
+
         this.player.onDecideTargetTile = (startPos, targetPos, pathList) =>
         {
             this.mapManager.PathFinding(startPos, targetPos, pathList);
             this.player.Move();
         };
-        //tilemap.SetTile()
-        Vector3Int pos = new Vector3Int(2, 2, 0);
+
+        this.player.onGetFarmTile = (type, pos) =>
+        {
+            //this.player
+        };
 
 
-        this.testBtn.onClick.AddListener(() => 
-        {            
-            //mapManager.DirtMapSetTile(pos);
-        });
+        this.coop.onDecideTargetTile = (startPos, targetPos, pathList, animal) =>
+        {
+            this.mapManager.PathFinding(startPos, targetPos, pathList);
+            animal.Move();
+        };
+
+        this.timeManager.Init();
+        this.coop.Init();
+        this.objectSpawner.Init();
     }
 
 }
