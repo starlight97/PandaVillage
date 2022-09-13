@@ -1,0 +1,44 @@
+[
+  {
+    "id": 600,
+    "name": "Tiny of Gold",
+    "price": 240,
+    "dollar": "1.99",
+    "sprite_name": "set_icon_gold_0"
+  },
+  {
+    "id": 601,
+    "name": "Fistful of Gold",
+    "price": 650,
+    "dollar": "4.99",
+    "sprite_name": "set_icon_gold_1"
+  },
+  {
+    "id": 602,
+    "name": "Pouch of Gold",
+    "price": 1500,
+    "dollar": "9.99",
+    "sprite_name": "set_icon_gold_2"
+  },
+  {
+    "id": 603,
+    "name": "Box of Gold",
+    "price": 3000,
+    "dollar": "24.99",
+    "sprite_name": "set_icon_gold_3"
+  },
+  {
+    "id": 604,
+    "name": "Chest of Gold",
+    "price": 8000,
+    "dollar": "59.99",
+    "sprite_name": "set_icon_gold_4"
+  },
+  {
+    "id": 605,
+    "name": "Vault of Gold",
+    "price": 15000,
+    "dollar": "119.99",
+    "sprite_name": "set_icon_gold_5"
+  }
+]

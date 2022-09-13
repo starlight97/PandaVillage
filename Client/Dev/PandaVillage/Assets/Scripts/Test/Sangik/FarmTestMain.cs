@@ -4,15 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class FarmTestMain : MonoBehaviour
-{
-    private Animal[] animal;
+{    
     private MapManager mapManager;
+    private SangIkTimeManager timeManager;
+
     public Coop coop;
     public Silo silo;
     public Button DayButton;
     public Button SceneChangeButton;
     public Button OpenDoorButton;
-    public Button AddAnimalButton;   
+    public Button AddAnimalButton;
+    public Button AddHayButton;
+
+
 
     private void Test()
     {
@@ -25,23 +29,20 @@ public class FarmTestMain : MonoBehaviour
                 var scr = go.GetComponent<Animal>();
                 go.transform.position = new Vector3(Random.Range(scr.mapBottomLeft.x, scr.mapTopRight.x + 1), Random.Range(scr.mapBottomLeft.y, scr.mapTopRight.y + 1));
             }
-            this.animal = GameObject.FindObjectsOfType<Animal>();
+            coop.FindAnimals();
             AnimalsInit();            
         }
     }
 
-
-
+    
     void Start()
-    {
-        Test();
-        coop.Init();
-        silo.Init();
+    {       
 
         this.mapManager = GameObject.FindObjectOfType<MapManager>();
+        this.timeManager = GameObject.FindObjectOfType<SangIkTimeManager>();
         this.coop = GameObject.FindObjectOfType<Coop>();
 
-
+        
         //coop의 문의 포지션을 가져옴
         Vector3 DoorPos = coop.transform.GetChild(1).position;
 
@@ -71,16 +72,71 @@ public class FarmTestMain : MonoBehaviour
                 {
                     var go = Instantiate(data);
                     go.transform.position = DoorPos;                   
-                }
-                this.animal = GameObject.FindObjectsOfType<Animal>();
-                AnimalsInit();
+                }               
                 AnimalManager.instance.coopOpened = true;
             }
-            
+
+
+            coop.FindAnimals();
+            AnimalsInit();
+        });
+
+        //건초추가버튼
+        this.AddHayButton.onClick.AddListener(() =>
+        {
+            this.silo.hay++;
+        });
+
+        this.timeManager.timeToGoHome = () => {
+            this.coop.AnimalsGoHome();
+        };
+        //다음날 버튼 - 성장과 생산
+        this.DayButton.onClick.AddListener(() =>
+        {
+
+            this.timeManager.hour = 0;
+            this.timeManager.minute = 0;
+
+            foreach (var animal in coop.animalList)
+            {
+                //동물들이 배부른경우 성장과 생산을 할수 있음
+                if (animal.isFull)
+                {
+                    animal.yummyDay++;
+
+                    if (animal.yummyDay > 6)
+                        animal.Produce();
+
+                    if (animal.yummyDay == 6)
+                    {
+                        animal.GrowUp();
+                    }
+                }
+
+
+                // 사일로의 건초가 있으면 먹이주기
+                if (silo.hay > 0)
+                {
+                    silo.hay--;
+                    animal.isFull = true;
+                }
+                else
+                {
+                    animal.isFull = false;
+                }
+            }
         });
 
 
 
+
+
+
+
+        Test();
+        coop.Init();
+        silo.Init();
+        timeManager.Init();
 
     }
     private IEnumerator LoadYourAsyncScene()
@@ -97,40 +153,28 @@ public class FarmTestMain : MonoBehaviour
         //coop의 문의 포지션을 가져옴
         var DoorPos = coop.transform.GetChild(1).position;
 
-        //animal들 초기화
-        foreach (var ani in animal)
-        {   
-            ani.Init();
+        //animal들 초기화    
 
-            //동물들이 무작위로 움직이게하기
-            //ani.onDecideTargetTile = (startPos, targetPos, pathList) =>
-            //{
-            //    this.mapManager.PathFinding(startPos, targetPos, pathList);
-            //    ani.Move();
-            //};
+        foreach (var animal in coop.animalList)
+        {   
+            animal.Init();
+
+            //동물들 움직이기
+            this.coop.onDecideTargetTile = (startPos, targetPos, pathList, animal) =>
+            {
+                this.mapManager.PathFinding(startPos, targetPos, pathList);
+                animal.Move();
+            };           
 
             //동물들이 집으로 가게하기
-            ani.onGoHome = (startPos, pathList) =>
+            animal.goHome = (startPos, pathList) =>
             {
                 Vector2Int targetPos = new Vector2Int((int)DoorPos.x, (int)DoorPos.y - 1);
                 this.mapManager.PathFinding(startPos, targetPos, pathList);
-                ani.Move();
+                animal.Move();
 
             };
-            //성장과 생산
-            this.DayButton.onClick.AddListener(() =>
-            {
-                ani.age++;
-
-                if (ani.age > 6)
-                    ani.Produce();
-
-                if (ani.age == 6)
-                {
-                    ani.GrowUp();
-                }
-            });
-
+           
         }
     }
 }

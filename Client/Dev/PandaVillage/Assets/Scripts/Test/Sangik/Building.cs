@@ -5,9 +5,10 @@ using UnityEngine;
 public class Building : MonoBehaviour
 {
     private Collider2D RoofCollider;
-    public Collider2D player;
+    private Collider2D player;
     public void FindCollider()
     {
+        this.player = GameObject.FindObjectOfType<Player>().gameObject.GetComponent<Collider2D>();
         this.RoofCollider = this.transform.Find("Roof").GetComponent<Collider2D>();
         Debug.Log(RoofCollider.name);        
     }

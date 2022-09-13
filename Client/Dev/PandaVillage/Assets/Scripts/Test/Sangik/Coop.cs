@@ -7,8 +7,9 @@ public class Coop : Building
 {
 
     private Transform door;
-    private List<Animal> animalList= new List<Animal>();
     private bool isOpen =false;
+
+    public List<Animal> animalList= new List<Animal>();
     public UnityAction<Vector2Int, Vector2Int, List<Vector3>, Animal> onDecideTargetTile;
 
 
@@ -17,10 +18,11 @@ public class Coop : Building
         this.door = this.transform.GetChild(1);
 
         //test
-        base.FindCollider();
-        StartCoroutine(base.ColliderRoutine());
+        //base.FindCollider();
+        //StartCoroutine(base.ColliderRoutine());
 
-        FindAnimals();
+        
+        //FindAnimals();
     }
 
     //private void Update()
@@ -68,7 +70,7 @@ public class Coop : Building
     }
 
 
-    private void FindAnimals()
+    public void FindAnimals()
     {
         var animals = GameObject.FindObjectsOfType<Animal>();
         foreach (var animal in animals)
@@ -97,5 +99,13 @@ public class Coop : Building
         this.onDecideTargetTile(startPos, targetPos, pathList, animal);
     }
 
+    public void AnimalsGoHome()
+    {
+        foreach (var animal in animalList)
+        {
+            animal.ComeBackHome();
+            AnimalManager.instance.coopOpened = false;
+        }
+    }
 
 }

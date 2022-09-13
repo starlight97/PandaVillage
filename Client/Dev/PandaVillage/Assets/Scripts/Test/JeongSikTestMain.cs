@@ -8,7 +8,9 @@ public class JeongSikTestMain : MonoBehaviour
 {
     private MapManager mapManager;
     private TimeManager timeManager;
+    private TileManager tileManager;
     private ObjectSpawner objectSpawner;
+    private ObjectPlaceManager objectPlaceManager;
     private Coop coop;
 
     private Player player;
@@ -26,8 +28,10 @@ public class JeongSikTestMain : MonoBehaviour
         this.player = GameObject.FindObjectOfType<Player>();
         this.mapManager = GameObject.FindObjectOfType<MapManager>();
         this.timeManager = GameObject.FindObjectOfType<TimeManager>();
+        this.tileManager = GameObject.FindObjectOfType<TileManager>();
         this.coop = GameObject.FindObjectOfType<Coop>();
         this.objectSpawner = GameObject.FindObjectOfType<ObjectSpawner>();
+        this.objectPlaceManager = GameObject.FindObjectOfType<ObjectPlaceManager>();
 
 
         this.player.onDecideTargetTile = (startPos, targetPos, pathList) =>
@@ -36,9 +40,25 @@ public class JeongSikTestMain : MonoBehaviour
             this.player.Move();
         };
 
-        this.player.onGetFarmTile = (type, pos) =>
+        this.player.onGetFarmTile = (pos, state) =>
         {
-            //this.player
+            bool check = tileManager.GetTile(pos, state);
+            if (check)
+                player.ChangeFarmTile(pos);
+        };
+        // 타일 변경
+        this.player.onChangeFarmTile = (pos, state) =>
+        {
+            tileManager.SetTile(pos, state);
+        };
+        this.player.onSelectedBuilding = (selectedBuildingGo) =>
+        {
+            objectPlaceManager.BuildingEdit(selectedBuildingGo);
+        };
+
+        this.objectPlaceManager.onEditComplete = () =>
+        {
+            player.isBuildingSelected = false;
         };
 
 
@@ -48,9 +68,15 @@ public class JeongSikTestMain : MonoBehaviour
             animal.Move();
         };
 
+        this.timeManager.onUpdateTime = () =>
+        {
+            this.objectSpawner.SpawnObject();
+        };
+
         this.timeManager.Init();
         this.coop.Init();
         this.objectSpawner.Init();
+        //this.objectSpawner.SpawnObjects();
     }
 
 }

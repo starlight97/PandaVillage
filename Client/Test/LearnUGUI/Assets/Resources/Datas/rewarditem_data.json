@@ -1,0 +1,32 @@
+[
+  {
+    "id": 500,
+    "itemname": "coin",
+    "sprite_name": "icon_itemicon_coin"
+  },
+  {
+    "id": 501,
+    "itemname": "ticket",
+    "sprite_name": "icon_itemicon_ticket"
+  },
+  {
+    "id": 502,
+    "itemname": "bronzekey",
+    "sprite_name": "icon_itemicon_key_bronze"
+  },
+  {
+    "id": 503,
+    "itemname": "silverkey",
+    "sprite_name": "icon_itemicon_key_silver"
+  },
+  {
+    "id": 504,
+    "itemname": "goldkey",
+    "sprite_name": "icon_itemicon_key_gold"
+  },
+  {
+    "id": 505,
+    "itemname": "diamond",
+    "sprite_name": "icon_itemicon_jewel2_blue"
+  }
+]

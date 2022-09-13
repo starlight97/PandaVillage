@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TimeManager : MonoBehaviour
 {
@@ -10,10 +11,7 @@ public class TimeManager : MonoBehaviour
     private int minute;     // 분
     private float currentTime;
 
-    private void Update()
-    {
-        
-    }
+    public UnityAction onUpdateTime;
 
     public void Init()
     {
@@ -30,6 +28,7 @@ public class TimeManager : MonoBehaviour
 
             if (currentTime >= 7f)
             {
+                this.onUpdateTime();
                 minute += 10;
                 currentTime = 0;
                 Debug.LogFormat("hour : {0} minute : {1}", hour, minute);

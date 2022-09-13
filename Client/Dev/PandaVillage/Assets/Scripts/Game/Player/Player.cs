@@ -10,8 +10,10 @@ public class Player : MonoBehaviour
     {
         None = -1,
         Hoe, 
-        WateringCan, 
-        Seed
+        WateringCan,
+        Fertilizer,
+        Seed,
+        Axe
     }
 
 
@@ -23,16 +25,17 @@ public class Player : MonoBehaviour
     public UnityAction<Vector3Int, Farming.eFarmType> onGetFarmTile;
     public UnityAction<Vector3Int, eItemType> onChangeFarmTile;
 
+    public UnityAction<GameObject> onSelectedBuilding;
+
     private Vector3Int dir;
     private Vector3Int pos;
-    private Rigidbody2D rbody;
 
+    public bool isBuildingSelected = false;
 
     private void Start()
     {
         this.moveMent2D = GetComponent<Movement2D>();
         this.farming = GetComponent<Farming>();
-        this.rbody = GetComponent<Rigidbody2D>();
     }
     private void Update()
     {
@@ -47,30 +50,13 @@ public class Player : MonoBehaviour
         Vector2Int curPos = new Vector2Int(currentPosX, currentPosY);
         Vector2Int targetPos = new Vector2Int(targetPosX, targetPosY);
 
-        // 마우스 오른쪽버튼 클릭시
         if (Input.GetMouseButtonDown(1))
         {
+            this.pos = new Vector3Int(currentPosX, currentPosY, 0);
+            Vector3Int tpos = new Vector3Int((int)mousePos.x, (int)mousePos.y, 0);
+
             this.moveMent2D.pathList.Clear();
-            this.onDecideTargetTile(curPos, targetPos, this.moveMent2D.pathList);
-
-            #region 나중에 써야할 코드
-            //if (!this.isUseTool)
-            //{
-            //    this.onDecideTargetTile(curPos, targetPos);
-            //}
-            //else
-            //{
-            //    this.pos = new Vector3Int(currentPosX, currentPosY, 0);
-            //    Vector3Int tpos = new Vector3Int((int)mousePos.x, (int)mousePos.y, 0);
-
-            //    this.dir = tpos - this.pos;
-
-            //    if (Mathf.Abs(dir.x) <= 1 && Mathf.Abs(dir.y) <= 1)
-            //    {
-            //        this.onRequestDirtTile(this.dir + this.pos);
-            //    }
-            //}
-            #endregion
+            this.onDecideTargetTile(curPos, targetPos, this.moveMent2D.pathList);            
         }
 
         // 왼쪽 마우스 클릭 시 타일 변경됨
@@ -79,17 +65,98 @@ public class Player : MonoBehaviour
             this.pos = new Vector3Int(currentPosX, currentPosY, 0);
             Vector3Int tpos = new Vector3Int((int)mousePos.x, (int)mousePos.y, 0);
 
+            GameObject findGo = FindObject(tpos);
+
+            if (isBuildingSelected == false && findGo.tag == "Building")
+            {
+                this.onSelectedBuilding(findGo);
+                isBuildingSelected = true;
+                return;
+            }
+
+
             this.dir = tpos - this.pos;
 
             var tilePos = this.dir + this.pos;
 
+            
+
+            if (isUseTool == eItemType.None)
+            {
+                this.moveMent2D.pathList.Clear();
+                this.onDecideTargetTile(curPos, targetPos, this.moveMent2D.pathList);
+            }
+
             if (Mathf.Abs(dir.x) <= 1 && Mathf.Abs(dir.y) <= 1)
             {
-                //if(isUseTool != eItemType.None)
-                //    GetFarmTile(tilePos, isUseTool);
-                Attack(dir);
+                //FindObject(tilePos);
+
+                switch (isUseTool)
+                {
+                    case eItemType.None:
+                        break;
+                    case eItemType.Hoe:
+                    case eItemType.WateringCan:
+                    case eItemType.Fertilizer:
+                    case eItemType.Seed:
+                        GetFarmTile(tilePos, isUseTool);
+                        break;
+                    case eItemType.Axe:
+                        Attack(dir);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            this.isUseTool = eItemType.Hoe;
+            Debug.Log("Hoe");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            this.isUseTool = eItemType.WateringCan;
+            Debug.Log("WateringCan");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {            
+            this.isUseTool = eItemType.Fertilizer;
+            Debug.Log("Fertilizer");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            this.isUseTool = eItemType.Seed;
+            Debug.Log("Seed");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            this.isUseTool = eItemType.Axe;
+            Debug.Log("Axe");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            Debug.Log("6");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            Debug.Log("7");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            Debug.Log("8");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            Debug.Log("9");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            this.isUseTool = eItemType.None;
+            Debug.Log("None");
+        }
+
     }
 
     public void Move()
@@ -97,25 +164,6 @@ public class Player : MonoBehaviour
         this.moveMent2D.Move();
     }
 
-
-    public void SelectItem(eItemType itemType)
-    {
-        switch (itemType)
-        {
-            case eItemType.Hoe:
-                this.isUseTool = itemType;
-                break;
-            case eItemType.WateringCan:
-                this.isUseTool = itemType;
-                break;
-            case eItemType.Seed:
-                this.isUseTool = itemType;
-                break;
-            default:
-                this.isUseTool = eItemType.None;
-                break;
-        }
-    }
 
     public void GetFarmTile(Vector3Int pos, eItemType state)
     {
@@ -127,10 +175,6 @@ public class Player : MonoBehaviour
     public void ChangeFarmTile(Vector3Int pos)
     {
         this.onChangeFarmTile(pos, this.isUseTool);
-
-    //    Farming.eFarmType type = farming.ChangeFarmTile(state);
-    //    if(type != Farming.eFarmType.None)
-    //        this.onChangeFarmTile(pos, state);    
     }
 
     public void Attack(Vector3 dir)
@@ -143,15 +187,37 @@ public class Player : MonoBehaviour
 
         Debug.DrawRay(startPos, dir * 0.7f, new Color(0,1,0), 4f);
         //int layerMask = (-1) - (1 << LayerMask.NameToLayer("Player"));  // Everything에서 Player 레이어만 제외하고 충돌 체크함
-        int layerMask = (1 << LayerMask.NameToLayer("Object")) + (1 << LayerMask.NameToLayer("WallObject"));    // Player 와 MyTeammate 레이어만 충돌체크함
-        //int layerMask = (1 << LayerMask.NameToLayer("Object"));    // Player 와 MyTeammate 레이어만 충돌체크함
+        int layerMask = (1 << LayerMask.NameToLayer("Object")) + (1 << LayerMask.NameToLayer("WallObject"));    // Object 와 WallObject 레이어만 충돌체크함
+
 
         RaycastHit2D rayHit = Physics2D.Raycast(startPos, dir, 1, layerMask);
 
         if(rayHit.collider != null)
         {
-            Destroy(rayHit.collider.gameObject);
+            OtherObject obj = rayHit.collider.gameObject.GetComponent<OtherObject>();
+            obj.DestroyObject();
         }
+    }
+
+    private GameObject FindObject(Vector3Int tpos)
+    {
+        //int layerMask = (1 << LayerMask.NameToLayer("Object")) + (1 << LayerMask.NameToLayer("WallObject"));    // Object 와 WallObject 레이어만 충돌체크함
+        GameObject findGo = null;
+
+        var col = Physics2D.OverlapCircle(new Vector2(tpos.x + 0.5f, tpos.y + 0.5f), 0.4f);
+
+        if (col != null)
+        {
+            findGo = col.gameObject;
+            //OtherObject obj = col.gameObject.GetComponent<OtherObject>();
+            //obj.DestroyObject();
+        }
+        return findGo;
+    }
+
+    private void Harvest()
+    {
+
     }
 }
 

@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -19774,12 +19774,12 @@ TextureImporter:
       springobjects_41: 1400474273
       springobjects_424: 703952820
       springobjects_866: 57166818
-      springobjects_343: 1936054212
-      springobjects_807: -1278733081
       springobjects_236: -379919529
+      springobjects_343: 1936054212
       springobjects_381: -614712122
       springobjects_878: -1016540277
       springobjects_136: -590748966
+      springobjects_807: -1278733081
       springobjects_290: 724799110
       springobjects_526: 974650724
       springobjects_95: 319398930

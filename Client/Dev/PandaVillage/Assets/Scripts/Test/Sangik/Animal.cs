@@ -4,15 +4,18 @@ using UnityEngine;
 using UnityEngine.Events;
 public class Animal : MonoBehaviour
 {
-    private int animalName;         //이름
-    private int friendship;         //우정    
-    private int feelings;           //기분
-    public int age;                 //나이
+    private string animalName;           //이름
+    private int friendship;              //우정    
+    private int feelings;                //기분
+    private int age;                     //나이
+    public int yummyDay;                 //밥먹은날
+    public bool isFull = true;           //배부른가?
+
 
     private Coroutine roamingRoutine;
 
     public UnityAction<Vector2Int, Vector2Int, List<Vector3>, Animal> onDecideTargetTile;
-    public UnityAction<Vector2Int, List<Vector3>> onGoHome;
+    public UnityAction<Vector2Int, List<Vector3>> goHome;
     private Movement2D movement2D;
     public Vector2Int target;
     public Vector2Int mapBottomLeft, mapTopRight;
@@ -23,16 +26,7 @@ public class Animal : MonoBehaviour
     {              
         this.movement2D = GetComponent<Movement2D>();
         Roaming();        
-    }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ComeBackHome();
-            AnimalManager.instance.coopOpened = false;
-
-        }
-    }
+    }  
 
     // 돌아다니는 함수 입니다.
     public void Roaming()
@@ -82,7 +76,7 @@ public class Animal : MonoBehaviour
         Destroy(this.transform.GetChild(0).gameObject);
         Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/RabbitModel"), this.transform);
 
-        
+        //스프라이트 교체로 할경우 
         //this.GetComponentInChildren<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/Animals/Rabbit");
         //this.GetComponentInChildren<Animator>().runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Animator/TestRabbit_0");       
 
@@ -93,7 +87,7 @@ public class Animal : MonoBehaviour
         var curPos = new Vector2Int((int)this.transform.position.x, (int)this.transform.position.y);
 
         this.movement2D.pathList.Clear();
-        onGoHome(curPos, this.movement2D.pathList);            
+        goHome(curPos, this.movement2D.pathList);            
     }
     
     public void Patted()

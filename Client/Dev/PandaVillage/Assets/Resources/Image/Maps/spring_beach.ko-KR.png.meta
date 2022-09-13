@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -10348,11 +10348,11 @@ TextureImporter:
       spring_beach.ko-KR_314: -30536345
       spring_beach.ko-KR_272: -1727351706
       spring_beach.ko-KR_60: -1839615007
+      spring_beach.ko-KR_441: -856979766
       spring_beach.ko-KR_228: 1710803131
       spring_beach.ko-KR_330: -1171119759
       spring_beach.ko-KR_71: 1050988085
       spring_beach.ko-KR_153: 704969400
-      spring_beach.ko-KR_441: -856979766
       spring_beach.ko-KR_46: 1732470681
       spring_beach.ko-KR_284: 1940524934
       spring_beach.ko-KR_332: 1939396575
@@ -10460,8 +10460,8 @@ TextureImporter:
       spring_beach.ko-KR_457: 715402840
       spring_beach.ko-KR_263: 224594589
       spring_beach.ko-KR_24: -249915697
-      spring_beach.ko-KR_276: -1095470532
       spring_beach.ko-KR_305: 798249317
+      spring_beach.ko-KR_276: -1095470532
       spring_beach.ko-KR_345: -1432851286
       spring_beach.ko-KR_85: -452954819
       spring_beach.ko-KR_339: 368669940
@@ -10469,17 +10469,17 @@ TextureImporter:
       spring_beach.ko-KR_464: 94863400
       spring_beach.ko-KR_207: -883499727
       spring_beach.ko-KR_22: -1094439656
-      spring_beach.ko-KR_136: -1268055501
       spring_beach.ko-KR_423: 588777715
+      spring_beach.ko-KR_136: -1268055501
       spring_beach.ko-KR_47: 990734940
       spring_beach.ko-KR_262: -444731580
       spring_beach.ko-KR_308: -603519155
       spring_beach.ko-KR_379: -1485473095
       spring_beach.ko-KR_427: -1175943726
       spring_beach.ko-KR_217: 1722095235
-      spring_beach.ko-KR_298: -95384343
-      spring_beach.ko-KR_164: -133595807
       spring_beach.ko-KR_418: 784967788
+      spring_beach.ko-KR_164: -133595807
+      spring_beach.ko-KR_298: -95384343
       spring_beach.ko-KR_204: -628413810
       spring_beach.ko-KR_51: -383024097
       spring_beach.ko-KR_236: -1555880220
@@ -10587,10 +10587,10 @@ TextureImporter:
       spring_beach.ko-KR_388: -1124813225
       spring_beach.ko-KR_149: 931545355
       spring_beach.ko-KR_0: 482640447
-      spring_beach.ko-KR_59: 285786085
       spring_beach.ko-KR_134: 1796870478
       spring_beach.ko-KR_143: -822272611
       spring_beach.ko-KR_463: -2072372955
+      spring_beach.ko-KR_59: 285786085
       spring_beach.ko-KR_415: 1550776057
       spring_beach.ko-KR_311: -1791675136
       spring_beach.ko-KR_456: -1943581171
@@ -10600,8 +10600,8 @@ TextureImporter:
       spring_beach.ko-KR_79: -1634422838
       spring_beach.ko-KR_126: -2054283243
       spring_beach.ko-KR_34: -1441656328
-      spring_beach.ko-KR_293: 1963692902
       spring_beach.ko-KR_399: 122995296
+      spring_beach.ko-KR_293: 1963692902
       spring_beach.ko-KR_94: -787478374
       spring_beach.ko-KR_444: -1136582278
       spring_beach.ko-KR_114: -1990948806
@@ -10612,7 +10612,6 @@ TextureImporter:
       spring_beach.ko-KR_361: -1955003431
       spring_beach.ko-KR_266: 1187714033
       spring_beach.ko-KR_72: 1190642551
-      spring_beach.ko-KR_229: 1336780263
       spring_beach.ko-KR_352: 1953838289
       spring_beach.ko-KR_375: 714489049
       spring_beach.ko-KR_118: 421242884
@@ -10620,6 +10619,7 @@ TextureImporter:
       spring_beach.ko-KR_349: -1724466256
       spring_beach.ko-KR_401: 1711013863
       spring_beach.ko-KR_336: -1893510737
+      spring_beach.ko-KR_229: 1336780263
       spring_beach.ko-KR_473: 255947147
       spring_beach.ko-KR_476: 772617199
       spring_beach.ko-KR_89: 1312909618
@@ -10635,10 +10635,10 @@ TextureImporter:
       spring_beach.ko-KR_261: -1103604962
       spring_beach.ko-KR_238: 19169761
       spring_beach.ko-KR_169: -1105837212
-      spring_beach.ko-KR_250: 162704096
+      spring_beach.ko-KR_343: -172855234
       spring_beach.ko-KR_277: 534392743
       spring_beach.ko-KR_33: 456146881
-      spring_beach.ko-KR_343: -172855234
+      spring_beach.ko-KR_250: 162704096
       spring_beach.ko-KR_259: -874360444
       spring_beach.ko-KR_429: 857652473
       spring_beach.ko-KR_199: -698522661

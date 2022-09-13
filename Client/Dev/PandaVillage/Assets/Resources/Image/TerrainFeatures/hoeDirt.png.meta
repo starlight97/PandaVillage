@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -1168,13 +1168,13 @@ TextureImporter:
       hoeDirt_14: -1365718715
       hoeDirt_19: -490270220
       hoeDirt_9: -1651947872
-      hoeDirt_10: 122701948
-      hoeDirt_21: 1153774274
-      hoeDirt_33: 717445323
       hoeDirt_43: -549515712
+      hoeDirt_21: 1153774274
+      hoeDirt_10: 122701948
+      hoeDirt_33: 717445323
       hoeDirt_28: -1861539992
-      hoeDirt_0: -578695234
       hoeDirt_34: 5354151
+      hoeDirt_0: -578695234
       hoeDirt_15: -228749560
       hoeDirt_45: 1908671847
       hoeDirt_24: -949714886

@@ -63,12 +63,12 @@ public class CoopTestMain : MonoBehaviour
             //성장과 생산
             this.DayButton.onClick.AddListener(() =>
             {
-                ani.age++;
+                ani.yummyDay++;
 
-                if (ani.age > 6)
+                if (ani.yummyDay > 6)
                     ani.Produce();
 
-                if (ani.age == 6)
+                if (ani.yummyDay == 6)
                 {
                     ani.GrowUp();
                 }

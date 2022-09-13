@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -5983,18 +5983,18 @@ TextureImporter:
       tools_81: -1476559913
       tools_193: 963658818
       tools_72: -1629504414
+      tools_175: -18338594
       tools_68: -1571399404
       tools_160: -378973691
       tools_121: 138661536
-      tools_175: -18338594
+      tools_210: 651526590
       tools_60: -978350556
-      tools_122: -1512174267
+      tools_229: -955189139
       tools_91: -1656222381
       tools_119: 146301152
-      tools_226: 938410672
       tools_152: 1214159649
-      tools_229: -955189139
-      tools_210: 651526590
+      tools_226: 938410672
+      tools_122: -1512174267
       tools_3: -680292337
       tools_147: -973906325
       tools_265: -805986522
@@ -6011,8 +6011,8 @@ TextureImporter:
       tools_158: 607639832
       tools_82: -1366730214
       tools_118: -765688121
-      tools_55: 986594685
       tools_148: 801224159
+      tools_55: 986594685
       tools_234: -102958055
       tools_100: -1217549735
       tools_174: -1775218771

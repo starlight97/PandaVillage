@@ -10,7 +10,7 @@ public class TileManager : MonoBehaviour
     public Tilemap objectMap;           // 씨앗
     public Tilemap wateringDirtMap;     // 물
 
-    public TileBase[] tileBases;
+    public TileBase[] tileBases;        // 0: hoeDirt, 1: watering
 
     public bool GetTile(Vector3Int pos, Farming.eFarmType state)
     {
@@ -32,10 +32,6 @@ public class TileManager : MonoBehaviour
                 if (wateringDirtMap.GetTile(pos) != null)
                     check = true;
                 break;
-            case Farming.eFarmType.Object:
-                if (objectMap.GetTile(pos) != null)
-                    check = true;
-                break;
             default:
                 break;
         }
@@ -53,9 +49,6 @@ public class TileManager : MonoBehaviour
                 break;
             case Player.eItemType.WateringCan:
                 wateringDirtMap.SetTile(pos, tileBases[1]);
-                break;
-            case Player.eItemType.Seed:
-                objectMap.SetTile(pos, tileBases[2]);
                 break;
             default:
                 break;

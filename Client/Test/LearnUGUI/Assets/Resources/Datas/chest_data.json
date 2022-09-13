@@ -1,0 +1,42 @@
+[
+  {
+    "id": 500,
+    "name": "Wooden Chest",
+    "price": 100,
+    "sprite_name": "shop_img_chest_close_m_00",
+    "width": 301,
+    "height": 277
+  },
+  {
+    "id": 501,
+    "name": "sSilver Chest",
+    "price": 600,
+    "sprite_name": "shop_img_chest_close_m_01",
+    "width": 327,
+    "height": 293
+  },
+  {
+    "id": 502,
+    "name": "Golden Chest",
+    "price": 1000,
+    "sprite_name": "shop_img_chest_close_m_02",
+    "width": 318,
+    "height": 315
+  },
+  {
+    "id": 503,
+    "name": "Epic Chest",
+    "price": 1500,
+    "sprite_name": "shop_img_chest_close_m_03",
+    "width": 329,
+    "height": 341
+  },
+  {
+    "id": 504,
+    "name": "Legendary Chest",
+    "price": 999999,
+    "sprite_name": "shop_img_chest_close_m_04",
+    "width": 375,
+    "height": 350
+  }
+]

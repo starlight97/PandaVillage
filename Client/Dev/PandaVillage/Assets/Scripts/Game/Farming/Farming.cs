@@ -9,7 +9,7 @@ public class Farming : MonoBehaviour
     public enum eFarmType
     {
         None = -1,
-        Dirt, HoeDirt, Watering, Object
+        Dirt, HoeDirt, Watering, Fertilizer
     }
 
     // 플레이어가 어떤 도구를 들고 있느냐에 따라 어떤 타일을 조사해야하나?
@@ -23,6 +23,7 @@ public class Farming : MonoBehaviour
                 break;
             case Player.eItemType.WateringCan:
             case Player.eItemType.Seed:
+            case Player.eItemType.Fertilizer:
                 type = eFarmType.HoeDirt;
                 break;
             default:
@@ -30,6 +31,4 @@ public class Farming : MonoBehaviour
         }
         return type;
     }
-
-
 }
