@@ -31,7 +31,7 @@ public class SangIkTimeManager : MonoBehaviour
 
                 minute += 10;
                 currentTime = 0;
-                Debug.LogFormat("hour : {0} minute : {1}", hour, minute);
+                //Debug.LogFormat("hour : {0} minute : {1}", hour, minute);
             }
 
             if (minute == 60)

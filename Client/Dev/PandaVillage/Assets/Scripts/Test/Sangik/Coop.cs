@@ -11,47 +11,15 @@ public class Coop : Building
 
     public List<Animal> animalList= new List<Animal>();
     public UnityAction<Vector2Int, Vector2Int, List<Vector3>, Animal> onDecideTargetTile;
+    public UnityAction<string, int ,int> showAnimalUI;  //이름 우정 나이
 
 
     public void Init()
     {        
-        this.door = this.transform.GetChild(1);
-
-        //test
-        //base.FindCollider();
-        //StartCoroutine(base.ColliderRoutine());
-
-        
-        //FindAnimals();
+        this.door = this.transform.GetChild(1);        
     }
 
-    //private void Update()
-    //{
-    //    // Test
-    //    if (Input.GetMouseButtonDown(0))
-    //    {
-    //    HideObject(this.transform.GetChild(0).gameObject);
-    //    HideObject(this.transform.GetChild(1).gameObject);
-    //    }
-    //    if (Input.GetMouseButtonDown(1))
-    //    {
-    //        ShowObject(this.transform.GetChild(0).gameObject);
-    //        ShowObject(this.transform.GetChild(1).gameObject);
-    //    }
-    //}
-
-
-    //private void AddList()
-    //{
-    //    //현재 씬에 있는 Animal들을 찾아서 리스트에 넣는다.
-    //    var animalArr = GameObject.FindObjectsOfType<Animal>();
-
-    //    foreach (var animal in animalArr)
-    //    {
-    //        animalList.Add(animal);
-    //    }        
-    //}
-
+    
     //문열고닫기
     public bool SetDoor()
     {
@@ -82,7 +50,6 @@ public class Coop : Building
                 this.DecideTargetTile(startPos, targetPos, pathList, animal);
             };
         }
-
     }
 
     // 닭장안에 있는 모든 동물 성장
@@ -107,5 +74,46 @@ public class Coop : Building
             AnimalManager.instance.coopOpened = false;
         }
     }
+
+    //쓰다듬기와 UI
+    public void AnimalPatted(Vector3 mousePos)
+    {
+        foreach (var animal in animalList)
+        {
+            //var pos = new Vector2(animal.transform.position.x, animal.transform.position.y);
+
+            if (animal.transform.position == mousePos)
+            {
+                //안쓰다듬었을경우 쓰다듬기
+                if (!animal.isPatted)
+                {
+                    animal.Patted();
+                    animal.isPatted = true;
+                }
+                else
+                {
+                    showAnimalUI(animal.animalName, animal.friendship, animal.age);                  
+                }
+            }
+        }
+    }  
+
+    public void DoorOpen()
+    {
+        if (SetDoor() && !AnimalManager.instance.coopOpened) //문이 열렸을경우에만 모든 동물들이 나온다.
+        {
+            foreach (var data in AnimalManager.instance.AnimalDic.Values)
+            {
+                var go = Instantiate(data);
+                //coop의 문의 포지션을 가져옴
+                Vector3 DoorPos = transform.GetChild(1).position;
+                go.transform.position = DoorPos;
+            }
+            AnimalManager.instance.coopOpened = true;
+        }
+
+        FindAnimals();
+    }
+  
 
 }

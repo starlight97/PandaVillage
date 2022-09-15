@@ -7,15 +7,15 @@ using System.Linq;
 
 public class CropManager : MonoBehaviour
 {
-    public SpriteAtlas atlas;
     public GameObject[] cropPrefabs;
     public GameObject cropObject;
 
-    private Sprite[] sprites;
+    public List<Crop> cropList;
+    public UnityAction<Vector3Int, Crop> onGetFarmTile;
 
-    private void Start()
+    public void Init()
     {
-        this.sprites = Resources.LoadAll<Sprite>("Sprites/Seeds/Parsnip");
+        this.cropList = new List<Crop>();
     }
 
     // 해당 좌표에 레이를 쏴서 감지되는 오브젝트가 있으면 true 반환
@@ -33,35 +33,47 @@ public class CropManager : MonoBehaviour
     }
 
     // 생성
-    public void CreateCrop(Vector3Int pos) 
+    public void CreateCrop(Vector3Int pos)
     {
         bool check = FindCrop(pos);
 
         if (check == false)
         {
-            int seedRand = Random.Range(0, 2);
             GameObject cropGo = Instantiate<GameObject>(this.cropPrefabs[0]);
             cropGo.transform.position = new Vector3(pos.x, pos.y, 0);
             cropGo.transform.parent = this.cropObject.transform;
 
-            SpriteRenderer spRenderer = cropGo.GetComponent<SpriteRenderer>();
-            spRenderer.sprite = sprites[seedRand];
+            Crop crop = cropGo.GetComponent<Crop>();
+            crop.Init();
+            crop.onGetFarmTile = (pos, crop) =>
+            {
+                this.onGetFarmTile(pos, crop);
+            };
+            crop.onDestroy = (cropGo) =>
+            {
+                this.cropList.Remove(cropGo.GetComponent<Crop>());
+                Destroy(cropGo);
+            };
+            this.cropList.Add(crop);
         }
     }
 
-    //// 매일 물을 주고 시간이 자라면 작물이 자람
-    //public void GrowCrop()
-    //{
-
-    //}
-
-    // 작물이 자람에 따라 스프라이트 변경됨
-    public void ChangeCropSprite(int index)
+    // 작물이 심긴 위치에 물 타일이 있는지 조사 
+    public void CheckWateringDirt()
     {
-
+        foreach (var crop in cropList)
+        {
+            crop.CheckWateringDirt();
+        }
     }
 
-    // 작물 리스트에서 삭제
+    // 작물이 자라남
+    public void CropGrowUp(Crop crop)
+    {
+        crop.GrowUp();
+    }
+
+    // 리스트에서 작물 지우기
     public void RemoveCrop()
     {
 

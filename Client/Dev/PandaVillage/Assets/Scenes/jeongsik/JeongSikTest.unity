@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 72261426}
   - component: {fileID: 72261427}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Roof
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53250,6 +53250,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5011704763164832368, guid: 35bd7f4c7afba8b4ea8e324172924889, type: 3}
+      propertyPath: allowDiagonal
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5011704763164832368, guid: 35bd7f4c7afba8b4ea8e324172924889, type: 3}
       propertyPath: mapTopRight.x
       value: 79
       objectReference: {fileID: 0}
@@ -53363,7 +53367,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b421422fc4f687942bbac15e20e65534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animalName: 
+  friendship: 0
   age: 0
+  yummyDay: 0
+  isFull: 1
+  isPatted: 0
   target: {x: 0, y: 0}
   mapBottomLeft: {x: 11, y: 24}
   mapTopRight: {x: 24, y: 34}
@@ -53426,7 +53435,7 @@ GameObject:
   - component: {fileID: 748114841}
   - component: {fileID: 748114840}
   - component: {fileID: 748114839}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Coop
   m_TagString: Building
   m_Icon: {fileID: 0}
@@ -53445,7 +53454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d20757445669040bb9b6442bd985ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 8412107127434084192}
+  animalList: []
 --- !u!61 &748114840
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -53459,7 +53468,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 3, y: 1.5}
+  m_Offset: {x: 3.5745878, y: 1.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -53470,7 +53479,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.7369237, y: 2.8925784}
+  m_Size: {x: 5.7884884, y: 2.8925781}
   m_EdgeRadius: 0
 --- !u!4 &748114841
 Transform:
@@ -53573,7 +53582,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1129835390}
   - component: {fileID: 1129835391}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: CoopModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53673,7 +53682,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1144461376}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20c7558824d9ed64ab5f2e747c8cb7ca, type: 3}
+  m_Script: {fileID: 11500000, guid: b35e85e54554b35408ab60bbe991c87b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1144461378
@@ -53736,6 +53745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba8ae765d717d6846859a4f78e63d9dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tilePrefab: {fileID: 6438385993525677491, guid: 5a262b55b1b85e140bb65cbac0a9b50f, type: 3}
 --- !u!1 &1468295934
 GameObject:
   m_ObjectHideFlags: 0
@@ -54752,7 +54762,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1733637899}
   - component: {fileID: 1733637900}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: CoopDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54877,7 +54887,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b421422fc4f687942bbac15e20e65534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animalName: 
+  friendship: 0
   age: 0
+  yummyDay: 0
+  isFull: 1
+  isPatted: 0
   target: {x: 0, y: 0}
   mapBottomLeft: {x: 11, y: 24}
   mapTopRight: {x: 24, y: 34}
@@ -55010,12 +55025,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4949102780579494052}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55d9abaf5e4a68f43babbb45aaf0bb5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a69f3113dcfbdd468702228af3925e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundMap: {fileID: 177205778}
+  WallMap: {fileID: 178861365}
+  waterMap: {fileID: 0}
   dirtMap: {fileID: 1566483729}
   hoeDirtMap: {fileID: 6169030978536221064}
-  objectMap: {fileID: 1705314105}
   wateringDirtMap: {fileID: 6169030977798971242}
   tileBases:
   - {fileID: 11400000, guid: e5de0fa7bea21ed43b016e320cbe4eff, type: 2}
@@ -55417,6 +55434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ee6665fad0b3554c9c680ccb2818749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBuildingSelected: 0
 --- !u!4 &8412107127434084195
 Transform:
   m_ObjectHideFlags: 0

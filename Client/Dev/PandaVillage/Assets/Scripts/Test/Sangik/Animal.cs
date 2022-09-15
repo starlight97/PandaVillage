@@ -4,12 +4,16 @@ using UnityEngine;
 using UnityEngine.Events;
 public class Animal : MonoBehaviour
 {
-    private string animalName;           //이름
-    private int friendship;              //우정    
-    private int feelings;                //기분
-    private int age;                     //나이
+    public string animalName;           //이름
+    public int friendship;              //우정    
+    //public int feelings;                //기분
+    public int age;                     //나이
     public int yummyDay;                 //밥먹은날
+
     public bool isFull = true;           //배부른가?
+    public bool isPatted = false;        //쓰다듬어졌나?
+
+    private GameObject emote;
 
 
     private Coroutine roamingRoutine;
@@ -25,8 +29,9 @@ public class Animal : MonoBehaviour
     public void Init()
     {              
         this.movement2D = GetComponent<Movement2D>();
+        //this.emote = this.transform.Find("emote").gameObject;
         Roaming();        
-    }  
+    }
 
     // 돌아다니는 함수 입니다.
     public void Roaming()
@@ -92,12 +97,20 @@ public class Animal : MonoBehaviour
     
     public void Patted()
     {
+        this.friendship += 15;
+        StartCoroutine(PattedRoutine());
+    }
 
+    public IEnumerator PattedRoutine()
+    {
+        emote.SetActive(true);
+        yield return new WaitForSeconds(1.417f);
+        emote.SetActive(false);
     }
 
     public void ShowStateUI()
     {
-
+        Debug.Log("동물UI");
     }
 
 

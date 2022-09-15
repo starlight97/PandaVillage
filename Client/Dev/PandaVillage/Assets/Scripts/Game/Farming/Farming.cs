@@ -5,30 +5,59 @@ using UnityEngine.Tilemaps;
 using UnityEngine.Events;
 
 public class Farming : MonoBehaviour
-{   
-    public enum eFarmType
+{
+    // 타일 타입
+    public enum eFarmTileType
     {
         None = -1,
-        Dirt, HoeDirt, Watering, Fertilizer
+        Dirt, HoeDirt, WateringDirt
+    }
+    public enum eFarmActType
+    {
+        None = -1,
+        Plant, SetTile
     }
 
     // 플레이어가 어떤 도구를 들고 있느냐에 따라 어떤 타일을 조사해야하나?
-    public eFarmType GetFarmTile(Player.eItemType state)
+    public eFarmTileType GetFarmTile(Player.eItemType state)
     {
-        eFarmType type = eFarmType.None;
+        eFarmTileType tileType = eFarmTileType.None;
         switch (state)
         {
             case Player.eItemType.Hoe:
-                type = eFarmType.Dirt;
+                tileType = eFarmTileType.Dirt;
                 break;
             case Player.eItemType.WateringCan:
             case Player.eItemType.Seed:
-            case Player.eItemType.Fertilizer:
-                type = eFarmType.HoeDirt;
+                tileType = eFarmTileType.HoeDirt;
                 break;
             default:
                 break;
         }
-        return type;
+        return tileType;
+    }
+
+    public eFarmActType FarmingToolAct(Vector3Int pos, Player.eItemType itemType)
+    {
+        eFarmActType actType = eFarmActType.None;
+        switch (itemType)
+        {
+            case Player.eItemType.None:
+                break;
+            case Player.eItemType.Hoe:
+            case Player.eItemType.WateringCan:
+                actType = eFarmActType.SetTile;
+                break;
+            case Player.eItemType.Fertilizer:
+                break;
+            case Player.eItemType.Axe:
+                break;
+            case Player.eItemType.Seed:
+                actType = eFarmActType.Plant;
+                break;
+            default:
+                break;
+        }
+        return actType;
     }
 }

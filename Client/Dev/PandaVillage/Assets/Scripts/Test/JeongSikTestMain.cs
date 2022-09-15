@@ -43,8 +43,8 @@ public class JeongSikTestMain : MonoBehaviour
         this.player.onGetFarmTile = (pos, state) =>
         {
             bool check = tileManager.GetTile(pos, state);
-            if (check)
-                player.ChangeFarmTile(pos);
+            //if (check)
+                //player.ChangeFarmTile(pos);
         };
         // 타일 변경
         this.player.onChangeFarmTile = (pos, state) =>
@@ -59,6 +59,10 @@ public class JeongSikTestMain : MonoBehaviour
         this.objectPlaceManager.onEditComplete = () =>
         {
             player.isBuildingSelected = false;
+        };
+        this.objectPlaceManager.onFindWallPosList = () =>
+        {
+            this.objectPlaceManager.wallPosArr = mapManager.GetWallPosArr();
         };
 
 

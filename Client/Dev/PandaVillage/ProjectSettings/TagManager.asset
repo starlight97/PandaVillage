@@ -7,8 +7,9 @@ TagManager:
   - Dirt
   - HoeDirt
   - Watering
-  - Item
   - Building
+  - Item
+  - Crop
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Tile
   - WallObject
   - Object
-  - 
+  - Crop
   - 
   - 
   - 

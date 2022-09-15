@@ -4,27 +4,33 @@ using UnityEngine;
 
 public class VillageMain : SceneMain
 {
+    private Player player;
     private MapManager mapManager;
     private TileManager tileManager;
-    public Animal animal;
-    private Player player;
+    private TimeManager timeManager;
+    private CropManager cropManager;
+    private RanchManager ranchManager;
+
+    public GameObject AnimalUI;
 
     void Start()
     {
 
         Init();
-        animal.Init();
+        //animal.Init();
 
     }
 
     public override void Init(SceneParams param = null)
     {
-        //StartCoroutine(this.TouchToStartRoutine());
-
-
         this.player = GameObject.FindObjectOfType<Player>();
         this.mapManager = GameObject.FindObjectOfType<MapManager>();
         this.tileManager = GameObject.FindObjectOfType<TileManager>();
+        this.timeManager = GameObject.FindObjectOfType<TimeManager>();
+        this.cropManager = GameObject.FindObjectOfType<CropManager>();
+
+        this.timeManager.Init();
+        this.cropManager.Init();
 
         this.player.onDecideTargetTile = (startPos, targetPos, pathList) =>
         {
@@ -32,19 +38,46 @@ public class VillageMain : SceneMain
             this.player.Move();
         };
 
-        this.player.onGetFarmTile = (type, pos) =>
+        // 타일이 있냐?
+        this.player.onGetFarmTile = (pos, state) =>
         {
-            //this.player
+            bool check = tileManager.GetTile(pos, state);
+            if (check)
+                player.FarmingAct(pos);
         };
 
+        // 타일 변경
+        this.player.onChangeFarmTile = (pos, state) =>
+        {
+            tileManager.SetTile(pos, state);
+        };
 
-        //this.animal.onDecideTargetTile = (startPos, targetPos, pathList) =>
-        //{
-        //    this.mapManager.PathFinding(startPos, targetPos, pathList);
-        //    this.animal.Move();
-        //};
+        // 씨앗 뿌리기
+        this.player.onPlantCrop = (pos) =>
+        {
+            cropManager.CreateCrop(pos);
+        };
+
+        this.player.onAnimalClick = () =>
+        {
+
+        };
+
+        this.timeManager.onUpdateTime = () =>
+        {
+            cropManager.CheckWateringDirt();
+            tileManager.ClearWateringTiles();
+        };
+
+        this.cropManager.onGetFarmTile = (pos, crop) =>
+        {
+            bool check = tileManager.GetTile(pos, Farming.eFarmTileType.WateringDirt);
+            if (check == true)
+            {
+                cropManager.CropGrowUp(crop);
+            }
+        };
     }
-
 
 
 
