@@ -25,13 +25,13 @@ public class Player : MonoBehaviour
     public UnityAction<Vector3Int, eItemType> onChangeFarmTile;
 
     public UnityAction<GameObject> onSelectedBuilding;
-    public UnityAction onAnimalClick;
-
+    public UnityAction<Animal> onShowAnimalUI;
 
     public UnityAction<Vector3Int> onPlantCrop;
 
     private Vector3Int dir;
     private Vector3Int pos;
+    private bool isShowAnimalUI= false;
 
     public bool isBuildingSelected = false;
 
@@ -65,6 +65,12 @@ public class Player : MonoBehaviour
         // 왼쪽 마우스 클릭 시 타일 변경됨
         if (Input.GetMouseButtonDown(0)) 
         {
+            if(isShowAnimalUI)
+            {
+                isShowAnimalUI = false;
+                onShowAnimalUI(null);
+                return;
+            }
             this.pos = new Vector3Int(currentPosX, currentPosY, 0);
             Vector3Int tpos = new Vector3Int((int)mousePos.x, (int)mousePos.y, 0);
 
@@ -88,22 +94,40 @@ public class Player : MonoBehaviour
 
             if (isUseTool == eItemType.None)
             {
-                this.moveMent2D.pathList.Clear();
-                this.onDecideTargetTile(curPos, targetPos, this.moveMent2D.pathList);
+                //this.moveMent2D.pathList.Clear();
+                //this.onDecideTargetTile(curPos, targetPos, this.moveMent2D.pathList);
             }
 
             if (Mathf.Abs(dir.x) <= 1 && Mathf.Abs(dir.y) <= 1)
             {
                 findGo = FindObject(tilePos);
-                if(findGo != null && findGo.tag == "Crop")
+                if(findGo != null)
                 {
-                    Crop crop = findGo.GetComponent<Crop>();
-                    if (crop.isHarvest == true)
+                    Debug.Log(findGo.name);
+                    if(findGo.tag == "Crop")
                     {
-                        crop.Harvest();
+                        Crop crop = findGo.GetComponent<Crop>();
+                        if (crop.isHarvest == true)
+                        {
+                            crop.Harvest();
+                            return;
+                        }
+                    }
+                    if (findGo.tag == "Animal")
+                    {
+                        Animal animal = findGo.GetComponent<Animal>();
+                        if (animal.isPatted == false)
+                            animal.Patted();
+                        else
+                        {
+                            this.onShowAnimalUI(animal);
+                            isShowAnimalUI = true;
+                        }
+
+                        
                         return;
                     }
-                        
+
                 }
 
                 switch (isUseTool)
@@ -191,7 +215,7 @@ public class Player : MonoBehaviour
 
     public void FarmingAct(Vector3Int pos)
     {
-        Farming.eFarmActType actType = this.farming.FarmingToolAct(pos, this.isUseTool);
+        Farming.eFarmActType actType = this.farming.FarmingToolAct(this.isUseTool);
 
         switch (actType)
         {
@@ -234,7 +258,7 @@ public class Player : MonoBehaviour
             + (1 << LayerMask.NameToLayer("Crop"));    // Object 와 WallObject 레이어만 충돌체크함
         GameObject findGo = null;
 
-        var col = Physics2D.OverlapCircle(new Vector2(tpos.x + 0.5f, tpos.y + 0.5f), 0.4f , layerMask);
+        var col = Physics2D.OverlapBox(new Vector2(tpos.x + 0.5f, tpos.y + 0.5f), new Vector2(0.95f, 0.95f),0, layerMask);
 
         if (col != null)
         {

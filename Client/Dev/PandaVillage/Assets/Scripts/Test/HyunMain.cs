@@ -49,7 +49,7 @@ public class HyunMain : MonoBehaviour
             cropManager.CreateCrop(pos);   
         };
 
-        this.timeManager.onUpdateTime = () =>
+        this.timeManager.onUpdateTime = (hour, minute) =>
         {
             cropManager.CheckWateringDirt();
             tileManager.ClearWateringTiles();
@@ -60,7 +60,7 @@ public class HyunMain : MonoBehaviour
             bool check = tileManager.GetTile(pos, Farming.eFarmTileType.WateringDirt);
             if (check == true)
             {
-                cropManager.CropGrowUp(crop);
+                cropManager.GrowUpCrop(crop);
             }
         };
     }

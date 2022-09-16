@@ -77,7 +77,8 @@ public class ObjectPlaceManager : MonoBehaviour
 
             int doorPosX = (int)tiles[1, 0].transform.position.x;
             int doorPosY = (int)tiles[1, 0].transform.position.y;
-            if (wallPosArr[doorPosX, doorPosY - 1] == true)
+
+            if (doorPosY != 0 && wallPosArr[doorPosX, doorPosY - 1] == true)
             {
                 possibleBuild = false;
                 tiles[1,0].transform.GetChild(3).gameObject.SetActive(true);

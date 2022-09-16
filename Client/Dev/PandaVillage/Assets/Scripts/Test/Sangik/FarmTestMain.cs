@@ -33,14 +33,6 @@ public class FarmTestMain : MonoBehaviour
         {
             //쓰다듬기
             ranchManager.ShowSiloUI(MouseTest());
-            
-            foreach (var coop in ranchManager.coopArr)
-            {
-                coop.AnimalPatted(MouseTest());
-            }
-
-            //동물 ui보기
-            ranchManager.ShowAnimalUI();
         }
     }
 
@@ -70,7 +62,8 @@ public class FarmTestMain : MonoBehaviour
 
 
         //동물추가버튼
-        this.AddAnimalButton.onClick.AddListener(() => {
+        this.AddAnimalButton.onClick.AddListener(() => 
+        {
             AnimalManager.instance.AddAnimal();
         });
         
@@ -97,7 +90,8 @@ public class FarmTestMain : MonoBehaviour
         });
 
         //6시가 되면 동물들이 집으로 돌아감
-        this.timeManager.timeToGoHome = () => {
+        this.timeManager.timeToGoHome = () => 
+        {
             ranchManager.AnimalsGoHome();
         };
         //다음날 버튼 - 성장과 생산

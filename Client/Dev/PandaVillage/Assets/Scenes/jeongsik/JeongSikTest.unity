@@ -53373,7 +53373,6 @@ MonoBehaviour:
   yummyDay: 0
   isFull: 1
   isPatted: 0
-  target: {x: 0, y: 0}
   mapBottomLeft: {x: 11, y: 24}
   mapTopRight: {x: 24, y: 34}
   RandomMoveRange: {x: -3, y: 3}
@@ -53455,6 +53454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animalList: []
+  animalPrefab: {fileID: 0}
 --- !u!61 &748114840
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -53757,6 +53757,7 @@ GameObject:
   - component: {fileID: 1468295937}
   - component: {fileID: 1468295936}
   - component: {fileID: 1468295935}
+  - component: {fileID: 1468295938}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -53823,13 +53824,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468295934}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.34000015, y: 0.5749998, z: -5}
+  m_LocalPosition: {x: 30.34, y: 30.575, z: -5}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8412107127434084195}
-  m_RootOrder: 1
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1468295938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468295934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d39689f8f5dc1448ab1af34d345249, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerGo: {fileID: 8412107127434084193}
 --- !u!1 &1563332336
 GameObject:
   m_ObjectHideFlags: 0
@@ -53874,6 +53888,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 977de9645cf78464fae5319c1062b3e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pos: {x: 0, y: 0}
+  size: {x: 0, y: 0, z: 0}
 --- !u!1 &1566483725
 GameObject:
   m_ObjectHideFlags: 0
@@ -54893,7 +54909,6 @@ MonoBehaviour:
   yummyDay: 0
   isFull: 1
   isPatted: 0
-  target: {x: 0, y: 0}
   mapBottomLeft: {x: 11, y: 24}
   mapTopRight: {x: 24, y: 34}
   RandomMoveRange: {x: -3, y: 3}
@@ -55030,8 +55045,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundMap: {fileID: 177205778}
   WallMap: {fileID: 178861365}
-  waterMap: {fileID: 0}
-  dirtMap: {fileID: 1566483729}
   hoeDirtMap: {fileID: 6169030978536221064}
   wateringDirtMap: {fileID: 6169030977798971242}
   tileBases:
@@ -55448,7 +55461,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8412107127493717934}
-  - {fileID: 1468295937}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -15,8 +15,12 @@ public class JeongSikTestMain : MonoBehaviour
 
     private Player player;
 
+    public Vector2 pos;
+    public Vector3 size;
+
     void Start()
     {
+        
         Init();
     }
 
@@ -72,7 +76,7 @@ public class JeongSikTestMain : MonoBehaviour
             animal.Move();
         };
 
-        this.timeManager.onUpdateTime = () =>
+        this.timeManager.onUpdateTime = (hour, minute) =>
         {
             this.objectSpawner.SpawnObject();
         };
@@ -81,6 +85,26 @@ public class JeongSikTestMain : MonoBehaviour
         this.coop.Init();
         this.objectSpawner.Init();
         //this.objectSpawner.SpawnObjects();
+    }
+
+    public void Update()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            
+            var col = Physics2D.OverlapBox(pos, size, 0);
+
+            if(col != null)
+            {
+                Debug.Log(col.gameObject);
+            }
+        }
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(pos, size);
     }
 
 }

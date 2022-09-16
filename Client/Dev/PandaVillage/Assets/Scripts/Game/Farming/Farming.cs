@@ -6,19 +6,21 @@ using UnityEngine.Events;
 
 public class Farming : MonoBehaviour
 {
-    // 타일 타입
+    // 농사 타일 타입
     public enum eFarmTileType
     {
         None = -1,
         Dirt, HoeDirt, WateringDirt
     }
+    // 플레이어 농사 행위 타입
+    // Plant: 씨앗 심기, SetTile: 행위에 따른 타일 변경
     public enum eFarmActType
     {
         None = -1,
         Plant, SetTile
     }
 
-    // 플레이어가 어떤 도구를 들고 있느냐에 따라 어떤 타일을 조사해야하나?
+    // 플레이어가 들고 있는 도구에 따른 타일 타입 반환
     public eFarmTileType GetFarmTile(Player.eItemType state)
     {
         eFarmTileType tileType = eFarmTileType.None;
@@ -37,7 +39,8 @@ public class Farming : MonoBehaviour
         return tileType;
     }
 
-    public eFarmActType FarmingToolAct(Vector3Int pos, Player.eItemType itemType)
+    // 플레이어가 들고 있는 도구에 따른 행위 반환
+    public eFarmActType FarmingToolAct(Player.eItemType itemType)
     {
         eFarmActType actType = eFarmActType.None;
         switch (itemType)

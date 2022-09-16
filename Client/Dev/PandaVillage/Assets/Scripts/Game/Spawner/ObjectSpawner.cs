@@ -24,7 +24,7 @@ public class ObjectSpawner : MonoBehaviour
         {
             for (int x = mapBottomLeft.x; x <= mapTopRight.x; x++)
             {
-                var cols = Physics2D.OverlapCircleAll(new Vector2(x + 0.5f, y + 0.5f), 0.4f, layerMask);
+                var cols = Physics2D.OverlapBoxAll(new Vector2(x + 0.5f, y + 0.5f), new Vector2(0.95f, 0.95f), 0, layerMask);
                 //Debug.Log(cols.Length);
                 if (cols.Length == 0)
                 {
@@ -51,7 +51,7 @@ public class ObjectSpawner : MonoBehaviour
         {
             for (int x = mapBottomLeft.x; x <= mapTopRight.x; x++)
             {
-                var cols = Physics2D.OverlapCircleAll(new Vector2(x + 0.5f, y + 0.5f), 0.4f, layerMask);
+                var cols = Physics2D.OverlapBoxAll(new Vector2(x + 0.5f, y + 0.5f), new Vector2(0.95f, 0.95f), 0, layerMask);
                 //Debug.Log(cols.Length);
                 if (cols.Length == 0)
                 {

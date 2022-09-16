@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1951697723}
   - component: {fileID: 1951697722}
   - component: {fileID: 1951697721}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: emote
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,9 +118,9 @@ GameObject:
   - component: {fileID: -4057788833882712766}
   - component: {fileID: 7839265852751795142}
   - component: {fileID: 8070475801280456451}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Animal
-  m_TagString: Untagged
+  m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,9 +160,8 @@ MonoBehaviour:
   yummyDay: 0
   isFull: 1
   isPatted: 0
-  target: {x: 0, y: 0}
-  mapBottomLeft: {x: 0, y: 0}
-  mapTopRight: {x: 16, y: 8}
+  mapBottomLeft: {x: 10, y: 27}
+  mapTopRight: {x: 24, y: 42}
   RandomMoveRange: {x: -3, y: 3}
 --- !u!114 &-4057788833882712766
 MonoBehaviour:
@@ -235,6 +234,10 @@ PrefabInstance:
     - target: {fileID: 2790523438176610912, guid: deba8df646cc5b2479810c66f4f64c53, type: 3}
       propertyPath: m_Name
       value: BabyRabbitModel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2790523438176610912, guid: deba8df646cc5b2479810c66f4f64c53, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2790523438176610915, guid: deba8df646cc5b2479810c66f4f64c53, type: 3}
       propertyPath: m_RootOrder

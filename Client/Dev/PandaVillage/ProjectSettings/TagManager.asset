@@ -10,6 +10,7 @@ TagManager:
   - Building
   - Item
   - Crop
+  - Animal
   layers:
   - Default
   - TransparentFX

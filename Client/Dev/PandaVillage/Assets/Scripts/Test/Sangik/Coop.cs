@@ -13,6 +13,8 @@ public class Coop : Building
     public UnityAction<Vector2Int, Vector2Int, List<Vector3>, Animal> onDecideTargetTile;
     public UnityAction<string, int ,int> showAnimalUI;  //이름 우정 나이
 
+    public GameObject animalPrefab;
+
 
     public void Init()
     {        
@@ -75,28 +77,20 @@ public class Coop : Building
         }
     }
 
-    //쓰다듬기와 UI
-    public void AnimalPatted(Vector3 mousePos)
+    public void CreateAnimal()
     {
-        foreach (var animal in animalList)
-        {
-            //var pos = new Vector2(animal.transform.position.x, animal.transform.position.y);
+        GameObject animalGo = Instantiate<GameObject>(animalPrefab);
+        animalGo.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 4, 0);
+        //animalGo.transform.parent = this.transform;
 
-            if (animal.transform.position == mousePos)
-            {
-                //안쓰다듬었을경우 쓰다듬기
-                if (!animal.isPatted)
-                {
-                    animal.Patted();
-                    animal.isPatted = true;
-                }
-                else
-                {
-                    showAnimalUI(animal.animalName, animal.friendship, animal.age);                  
-                }
-            }
-        }
-    }  
+        var animal = animalGo.GetComponent<Animal>();
+        animal.Init();
+        animal.onDecideTargetTile = (startPos, targetPos, pathList, animal) =>
+        {
+            this.DecideTargetTile(startPos, targetPos, pathList, animal);
+        };
+        this.animalList.Add(animal);
+    }
 
     public void DoorOpen()
     {

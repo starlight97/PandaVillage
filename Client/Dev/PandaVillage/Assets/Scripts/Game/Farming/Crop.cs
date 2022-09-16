@@ -11,9 +11,8 @@ public class Crop : OtherObject
 
     private SpriteRenderer spRenderer;
     private Sprite[] sprites;
-    public UnityAction<Vector3Int, Crop> onGetFarmTile;
+    public UnityAction<Vector3Int, Crop> onGetWateringDirtTile;
     public UnityAction<GameObject> onDestroy;
-
 
     public void Init()
     {
@@ -36,7 +35,7 @@ public class Crop : OtherObject
         int posX = (int)this.transform.position.x;
         int posY = (int)this.transform.position.y;
         Vector3Int pos = new Vector3Int(posX, posY, 0);
-        this.onGetFarmTile(pos, this);
+        this.onGetWateringDirtTile(pos, this);
     }
 
     // 작물이 자람에 따라 스프라이트 변경됨
@@ -52,6 +51,7 @@ public class Crop : OtherObject
             isHarvest = true;
     }
 
+    // 수확하면 오브젝트 지워달라는 액션 보냄
     public void Harvest()
     {
         this.onDestroy(this.gameObject);

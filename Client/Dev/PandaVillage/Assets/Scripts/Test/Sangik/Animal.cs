@@ -21,7 +21,7 @@ public class Animal : MonoBehaviour
     public UnityAction<Vector2Int, Vector2Int, List<Vector3>, Animal> onDecideTargetTile;
     public UnityAction<Vector2Int, List<Vector3>> goHome;
     private Movement2D movement2D;
-    public Vector2Int target;
+
     public Vector2Int mapBottomLeft, mapTopRight;
 
     public Vector2Int RandomMoveRange = new Vector2Int(-3, 3);
@@ -29,7 +29,7 @@ public class Animal : MonoBehaviour
     public void Init()
     {              
         this.movement2D = GetComponent<Movement2D>();
-        //this.emote = this.transform.Find("emote").gameObject;
+        this.emote = this.transform.Find("emote").gameObject;
         Roaming();        
     }
 
@@ -95,22 +95,20 @@ public class Animal : MonoBehaviour
         goHome(curPos, this.movement2D.pathList);            
     }
     
+
+    // 쓰다듬기는 하루에 한번만 가능
     public void Patted()
-    {
-        this.friendship += 15;
+    {        
         StartCoroutine(PattedRoutine());
     }
 
-    public IEnumerator PattedRoutine()
+    private IEnumerator PattedRoutine()
     {
+        this.isPatted = true;
+        this.friendship += 15;
         emote.SetActive(true);
         yield return new WaitForSeconds(1.417f);
         emote.SetActive(false);
-    }
-
-    public void ShowStateUI()
-    {
-        Debug.Log("동물UI");
     }
 
 

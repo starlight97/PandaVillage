@@ -32,7 +32,8 @@ public class CropManager : MonoBehaviour
         return false;
     }
 
-    // 생성
+    // 물뿌린 밭에 작물을 심고 리스트에 저장
+    // 해당 타일에 작물 오브젝트가 존재하면 심지 않음
     public void CreateCrop(Vector3Int pos)
     {
         bool check = FindCrop(pos);
@@ -45,7 +46,7 @@ public class CropManager : MonoBehaviour
 
             Crop crop = cropGo.GetComponent<Crop>();
             crop.Init();
-            crop.onGetFarmTile = (pos, crop) =>
+            crop.onGetWateringDirtTile = (pos, crop) =>
             {
                 this.onGetFarmTile(pos, crop);
             };
@@ -68,14 +69,16 @@ public class CropManager : MonoBehaviour
     }
 
     // 작물이 자라남
-    public void CropGrowUp(Crop crop)
+    public void GrowUpCrop(Crop crop)
     {
         crop.GrowUp();
     }
 
+    #region 미완성 코드
     // 리스트에서 작물 지우기
     public void RemoveCrop()
     {
 
     }
+    #endregion
 }
