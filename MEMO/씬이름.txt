@@ -1,0 +1,7 @@
+오솔길 : Alley
+산맥 : MountainRange
+농장 : Farm
+버스정류장 : BusStop
+펠리컨마을 : PelicanVillage
+잉걸불수액숲 : CindersapForest
+

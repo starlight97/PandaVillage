@@ -1,13 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class App : MonoBehaviour
 {
+    /*
+    오솔길 : Alley
+    산맥 : MountainRange
+    농장 : Farm
+    버스정류장 : BusStop
+    펠리컨마을 : PelicanVillage
+    잉걸불수액숲 : CindersapForest
+     */
     public enum eSceneType
     {
-        App, LogoScene, LoadingScene, TitleScene
+        App, LogoScene, LoadingScene, Title, Alley, MountainRange, Farm, BusStop, PelicanVillage, CindersapForest
     }
 
     public static App instance;
@@ -70,7 +76,7 @@ public class App : MonoBehaviour
                             {
                                 this.uiApp.FadeOut(0.5f, () =>
                                 {
-                                    this.LoadScene<TitleMain>(eSceneType.TitleScene);
+                                    this.LoadScene<TitleMain>(eSceneType.Title);
                                 });
                             });
                             main.Init();
@@ -78,15 +84,155 @@ public class App : MonoBehaviour
 
                         break;
                     }
-                case eSceneType.TitleScene:
+                case eSceneType.Title:
                     {
                         this.uiApp.FadeIn();
 
-                        main.AddListener("onClick", (data) =>
+                        main.AddListener("onClickNewGame", (data) =>
                         {
                             this.uiApp.FadeOut(0.5f, () =>
                             {
+                                this.LoadScene<FarmMain>(eSceneType.Farm);
+                            });
+                        });
+                        main.Init();
+                        break;
+                    }
+                case eSceneType.Farm:
+                    {
+                        this.uiApp.FadeIn();
 
+                        main.AddListener("onArrivalAlleyPortal", (data) =>
+                        {
+                            this.uiApp.FadeOut(0.5f, () =>
+                            {
+                                this.LoadScene<AlleyMain>(eSceneType.Alley);
+                            });
+                        });
+                        main.AddListener("onArrivalBusStopPortal", (data) =>
+                        {
+                            this.uiApp.FadeOut(0.5f, () =>
+                            {
+                                this.LoadScene<BusStopMain>(eSceneType.BusStop);
+                            });
+                        });
+                        main.AddListener("onArrivalCindersapForestPortal", (data) =>
+                        {
+                            this.uiApp.FadeOut(0.5f, () =>
+                            {
+                                this.LoadScene<CindersapForestMain>(eSceneType.CindersapForest);
+                            });
+                        });
+                        main.Init();
+                        break;
+                    }
+                case eSceneType.Alley:
+                    {
+                        this.uiApp.FadeIn();
+
+                        main.AddListener("onArrivalFarmPortal", (data) =>
+                        {
+                            this.uiApp.FadeOut(0.5f, () =>
+                            {
+                                this.LoadScene<FarmMain>(eSceneType.Farm);
+                            });
+                        });
+                        main.AddListener("onArrivalMountainRangePortal", (data) =>
+                        {
+                            this.uiApp.FadeOut(0.5f, () =>
+                            {
+                                this.LoadScene<MountainRangeMain>(eSceneType.MountainRange);
+                            });
+                        });
+                        main.Init();
+                        break;
+                    }
+                case eSceneType.MountainRange:
+                    {
+                        this.uiApp.FadeIn();
+
+                        main.AddListener("onArrivalAlleyPortal", (data) =>
+                        {
+                            this.uiApp.FadeOut(0.5f, () =>
+                            {
+                                this.LoadScene<AlleyMain>(eSceneType.Alley);
+                            });
+                        });
+                        main.AddListener("onArrivalPelicanVillagePortal", (data) =>
+                        {
+                            this.uiApp.FadeOut(0.5f, () =>
+                            {
+                                this.LoadScene<PelicanVillageMain>(eSceneType.PelicanVillage);
+                            });
+                        });
+                        main.Init();
+                        break;
+                    }
+                case eSceneType.BusStop:
+                    {
+                        this.uiApp.FadeIn();
+
+                        main.AddListener("onArrivalFarmPortal", (data) =>
+                        {
+                            this.uiApp.FadeOut(0.5f, () =>
+                            {
+                                this.LoadScene<FarmMain>(eSceneType.Farm);
+                            });
+                        });
+                        main.AddListener("onArrivalPelicanVillagePortal", (data) =>
+                        {
+                            this.uiApp.FadeOut(0.5f, () =>
+                            {
+                                this.LoadScene<PelicanVillageMain>(eSceneType.PelicanVillage);
+                            });
+                        });
+                        main.Init();
+                        break;
+                    }
+                case eSceneType.PelicanVillage:
+                    {
+                        this.uiApp.FadeIn();
+
+                        main.AddListener("onArrivalMountainRangePortal", (data) =>
+                        {
+                            this.uiApp.FadeOut(0.5f, () =>
+                            {
+                                this.LoadScene<MountainRangeMain>(eSceneType.MountainRange);
+                            });
+                        });
+                        main.AddListener("onArrivalBusStopPortal", (data) =>
+                        {
+                            this.uiApp.FadeOut(0.5f, () =>
+                            {
+                                this.LoadScene<BusStopMain>(eSceneType.BusStop);
+                            });
+                        });
+                        main.AddListener("onArrivalCindersapForestPortal", (data) =>
+                        {
+                            this.uiApp.FadeOut(0.5f, () =>
+                            {
+                                this.LoadScene<CindersapForestMain>(eSceneType.CindersapForest);
+                            });
+                        });
+                        main.Init();
+                        break;
+                    }
+                case eSceneType.CindersapForest:
+                    {
+                        this.uiApp.FadeIn();
+
+                        main.AddListener("onArrivalMountainRangePortal", (data) =>
+                        {
+                            this.uiApp.FadeOut(0.5f, () =>
+                            {
+                                this.LoadScene<FarmMain>(eSceneType.Farm);
+                            });
+                        });
+                        main.AddListener("onArrivalPelicanVillagePortal", (data) =>
+                        {
+                            this.uiApp.FadeOut(0.5f, () =>
+                            {
+                                this.LoadScene<PelicanVillageMain>(eSceneType.PelicanVillage);
                             });
                         });
                         main.Init();
@@ -95,5 +241,4 @@ public class App : MonoBehaviour
             }
         };
     }
-
 }

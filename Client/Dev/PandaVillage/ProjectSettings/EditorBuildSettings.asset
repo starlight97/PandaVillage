@@ -16,7 +16,25 @@ EditorBuildSettings:
     guid: 5985cc62aab0d7841a3ff57d3b491d1f
   - enabled: 1
     path: Assets/Scenes/Title.unity
-    guid: 0d51dba08bf807a448e62cf5c7b27172
+    guid: 8a1be2edb8ac57446b362f76498e2158
+  - enabled: 1
+    path: Assets/Scenes/Alley.unity
+    guid: af013419c9543f945b876584bd08644c
+  - enabled: 1
+    path: Assets/Scenes/MountainRange.unity
+    guid: 86c9fb4fed6c0ca46b0c2c3464e96683
+  - enabled: 1
+    path: Assets/Scenes/Farm.unity
+    guid: c6c3e4a73daaef340abc7631995083e2
+  - enabled: 1
+    path: Assets/Scenes/BusStop.unity
+    guid: 496f893b46b3ec24a9b3f106757dbcbb
+  - enabled: 1
+    path: Assets/Scenes/PelicanVillage.unity
+    guid: 3d954161a2f799548ae9e4178a4cdd59
+  - enabled: 1
+    path: Assets/Scenes/CindersapForest.unity
+    guid: 99fd600453ab53641965414d7ec1dedb
   - enabled: 1
     path: Assets/Scenes/sangik/sangik/CoopTest.unity
     guid: 934a753ad7081a845adbbc4d5310726e

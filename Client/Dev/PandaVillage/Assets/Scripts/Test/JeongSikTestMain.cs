@@ -46,7 +46,7 @@ public class JeongSikTestMain : MonoBehaviour
 
         this.player.onGetFarmTile = (pos, state) =>
         {
-            bool check = tileManager.GetTile(pos, state);
+            bool check = tileManager.CheckTile(pos, state);
             //if (check)
                 //player.ChangeFarmTile(pos);
         };

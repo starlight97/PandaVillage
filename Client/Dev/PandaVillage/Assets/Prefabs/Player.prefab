@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8412107125530616755}
   - component: {fileID: 6793492294918985}
   - component: {fileID: 5700944159631430733}
+  - component: {fileID: 7243958830121552950}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -87,7 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: decc21c66c7424648bd217ced3ca5c2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 15
   pathList: []
 --- !u!114 &5700944159631430733
 MonoBehaviour:
@@ -101,6 +102,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5a64a0763f7cdd428cd37bfc296a3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &7243958830121552950
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8412107125530616752}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &8412107125571908476
 GameObject:
   m_ObjectHideFlags: 0

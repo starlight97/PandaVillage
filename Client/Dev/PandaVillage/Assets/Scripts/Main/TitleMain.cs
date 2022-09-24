@@ -1,21 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TitleMain : SceneMain
 {
+    public Button btnNewGame;
     public override void Init(SceneParams param = null)
     {
-        //StartCoroutine(this.TouchToStartRoutine());
-        StartCoroutine(this.WaitForClick());
+        this.useOnDestoryEvent = false;
+        btnNewGame.onClick.AddListener(() => 
+        {
+            Dispatch("onClickNewGame");
+        
+        });
+
+
+
     }
 
-    private IEnumerator WaitForClick()
-    {
-        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
-        this.StopAllCoroutines();
-
-        this.Dispatch("onClick");
-    }
 }

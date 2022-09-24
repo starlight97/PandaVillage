@@ -29,10 +29,10 @@ public class HyunMain : MonoBehaviour
             this.player.Move();
         };
 
-        // 타일이 있냐?
+        // 해당 위치에 플레이어가 원하는 타일이 있다면 농사 행위 수행
         this.player.onGetFarmTile = (pos, state) =>
         {
-            bool check = tileManager.GetTile(pos, state);
+            bool check = tileManager.CheckTile(pos, state);
             if (check)
                 player.FarmingAct(pos); 
         };
@@ -57,7 +57,7 @@ public class HyunMain : MonoBehaviour
 
         this.cropManager.onGetFarmTile = (pos, crop) =>
         {
-            bool check = tileManager.GetTile(pos, Farming.eFarmTileType.WateringDirt);
+            bool check = tileManager.CheckTile(pos, Farming.eFarmTileType.WateringDirt);
             if (check == true)
             {
                 cropManager.GrowUpCrop(crop);

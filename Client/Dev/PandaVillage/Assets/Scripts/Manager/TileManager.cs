@@ -14,7 +14,7 @@ public class TileManager : MonoBehaviour
     public TileBase[] tileBases;        // 0: hoeDirt, 1: wateringDirt
 
     // 플레이어가 터치한 위치에 타일 베이스가 존재하면 True 반환
-    public bool GetTile(Vector3Int pos, Farming.eFarmTileType state)
+    public bool CheckTile(Vector3Int pos, Farming.eFarmTileType state)
     {
         bool check = false;
         TileBase tilebase = groundMap.GetTile(pos);
@@ -25,6 +25,10 @@ public class TileManager : MonoBehaviour
                 break;
             case Farming.eFarmTileType.Dirt:
                 if (tilebase != null && tilebase.name == "Dirt")
+                    check = true;
+                break;
+            case Farming.eFarmTileType.Grass:
+                if (tilebase != null && tilebase.name == "Grass")
                     check = true;
                 break;
             case Farming.eFarmTileType.HoeDirt:
@@ -64,27 +68,29 @@ public class TileManager : MonoBehaviour
         wateringDirtMap.ClearAllTiles();
     }
 
-    #region 디테일 
-    // 타일맵에 존재하는 모든 타일 가져오기
-    public void GetAllHoeDirtTilesPos()
+    // groundMap에 존재하는 모든 타일 가져오기
+    public List<Vector3Int> GetTilesPosList(Farming.eFarmTileType state)
     {
         // BoundsInt
         // 타일맵의 경계를 셀 크기로 반환
-        BoundsInt bounds = hoeDirtMap.cellBounds;   
-        TileBase[] allTiles = hoeDirtMap.GetTilesBlock(bounds);
+        BoundsInt bounds = groundMap.cellBounds;    
+        List<Vector3Int> tilePosList = new List<Vector3Int>();
 
         for (int y = 0; y < bounds.size.y; y++)
         {
             for (int x = 0; x < bounds.size.x; x++)
             {
-                var tile = hoeDirtMap.GetTile(new Vector3Int(x, y, 0));
-                //TileBase tile = allTiles[x + y * bounds.size.x];
-                if (tile != null)
+                var tile = groundMap.GetTile(new Vector3Int(x, y, 0));
+                if (tile != null && tile.name == state.ToString())
                 {
-                    Debug.Log("x:" + x + " y:" + y + " tile:" + tile.name);
+                    tilePosList.Add(new Vector3Int(x, y, 0));
                 }
             }
         }
+
+        Debug.Log(tilePosList.Count);
+
+        return tilePosList;
     }
 
     // 씨앗이 심기지 않은 밭 타일을 랜덤으로 지움
@@ -92,5 +98,4 @@ public class TileManager : MonoBehaviour
     {
 
     }
-    #endregion
 }

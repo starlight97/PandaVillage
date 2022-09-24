@@ -12,12 +12,14 @@ public class AnimalManager
     private int i =0;
     public void AddAnimal()
     {
-        AnimalDic.Add(i, Resources.Load<Animal>("Prefabs/Animal"));
+        AnimalDic.Add(i, Resources.Load<Rabbit>("Prefabs/Rabbit"));
         i++;
+
+        AnimalDic.Add(i, Resources.Load<Cow>("Prefabs/Cow"));
+        i++;
+
+        Debug.Log(AnimalDic.Count);
     }
 
-    public void SpawnAnimal()
-    {
-        
-    }
+   
 }

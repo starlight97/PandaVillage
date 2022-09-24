@@ -10,17 +10,18 @@ public class Farming : MonoBehaviour
     public enum eFarmTileType
     {
         None = -1,
-        Dirt, HoeDirt, WateringDirt
+        Dirt, HoeDirt, WateringDirt, Grass
     }
     // 플레이어 농사 행위 타입
-    // Plant: 씨앗 심기, SetTile: 행위에 따른 타일 변경
+    // Plant: 씨앗 심기
+    // SetTile: 행위에 따른 타일 변경
     public enum eFarmActType
     {
         None = -1,
         Plant, SetTile
     }
 
-    // 플레이어가 들고 있는 도구에 따른 타일 타입 반환
+    // 플레이어가 들고 있는 아이템이 어떤 타일을 반환해야 하는가?
     public eFarmTileType GetFarmTile(Player.eItemType state)
     {
         eFarmTileType tileType = eFarmTileType.None;
@@ -40,6 +41,7 @@ public class Farming : MonoBehaviour
     }
 
     // 플레이어가 들고 있는 도구에 따른 행위 반환
+    // ex. 호미, 물뿌리개: 타일을 바꾼다. / 씨앗: 심는다.
     public eFarmActType FarmingToolAct(Player.eItemType itemType)
     {
         eFarmActType actType = eFarmActType.None;

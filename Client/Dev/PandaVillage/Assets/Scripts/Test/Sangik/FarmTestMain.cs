@@ -16,10 +16,7 @@ public class FarmTestMain : MonoBehaviour
     public Button OpenDoorButton;
     public Button AddAnimalButton;
     public Button AddHayButton;
-    public GameObject AnimalUI;
-
-
-
+    public GameObject AnimalUI;          
 
     private Vector2 MouseTest()
     {
@@ -31,7 +28,26 @@ public class FarmTestMain : MonoBehaviour
         //클릭했으면
         if (Input.GetMouseButtonDown(0))
         {
-            //쓰다듬기
+            //쓰다듬기            
+            foreach (var coop in ranchManager.coopArr)
+            {
+                foreach (var animal in coop.animalList)
+                {
+                    if (MouseTest() == (Vector2)animal.transform.position)
+                    {
+                        if (!animal.isPatted)
+                        {
+                            animal.Patted();
+                            animal.isPatted = true;
+                        }
+                        else
+                        {
+                            ShowAnimalUI(animal);
+                        }
+                    }
+                }
+            }
+
             ranchManager.ShowSiloUI(MouseTest());
         }
     }
@@ -124,6 +140,17 @@ public class FarmTestMain : MonoBehaviour
         this.timeManager.minute = 0;
         ranchManager.NextDay();
     }
+
+    public void ShowAnimalUI(Animal animal)
+    {
+        AnimalUI.SetActive(true);
+        var text = AnimalUI.transform.GetChild(1).GetComponentInChildren<Text>();
+        text.text = "이름 : " + animal.animalName + "\n" +
+                        "호감도 : " + animal.friendship + "\n" +
+                        "나이 : " + animal.age;
+    }
+
+
 
 
     private void Test()

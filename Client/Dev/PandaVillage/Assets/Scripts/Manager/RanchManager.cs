@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 public class RanchManager : MonoBehaviour
 {
@@ -11,7 +10,6 @@ public class RanchManager : MonoBehaviour
 
     public UnityAction<Vector2Int, Vector2Int, List<Vector3>, Animal> onDecideTargetTile;
 
-    public GameObject AnimalUI;
     public int hay;
     public int maxHay;
 
@@ -20,12 +18,10 @@ public class RanchManager : MonoBehaviour
         this.siloArr = GameObject.FindObjectsOfType<Silo>();
         this.coopArr = GameObject.FindObjectsOfType<Coop>();
 
-        this.maxHay = siloArr.Length * 120;
+        this.maxHay = siloArr.Length * 240;
 
         foreach (var coop in coopArr)
             coop.Init();
-
-        this.coopArr[0].CreateAnimal();
 
         AnimalsInit();
     }   
@@ -127,22 +123,10 @@ public class RanchManager : MonoBehaviour
                     //coop의 문의 포지션을 가져옴
                     var DoorPos = coop.transform.GetChild(1).position;
                     Vector2Int targetPos = new Vector2Int((int)DoorPos.x, (int)DoorPos.y - 1);
-                    this.onDecideTargetTile(startPos, targetPos, pathList, animal); 
+                    this.onDecideTargetTile(startPos, targetPos, pathList, animal);
                 };
             }
         }
     }
-    public void ShowAnimalUI()
-    {
-        foreach (var coop in coopArr)
-        {
-            coop.showAnimalUI = (name, friendship, age) => {
-                AnimalUI.SetActive(true);
-                var text = AnimalUI.transform.GetChild(1).GetComponentInChildren<Text>();
-                text.text = "이름 : " + name + "\n" +
-                            "우정도 : " + friendship + "\n" +
-                            "함께한날 : " + age;
-            };
-        }
-    }
+    
 }
