@@ -5,16 +5,12 @@ using System.Collections.Generic;
 public class GameInfo
 {
     public int playerId;
-    public List<ObjectInfo> objectInfos;
+    public List<ObjectInfo> objectInfoList;
+    public PlayerInfo playerInfo;
 
 
     public GameInfo()
     {
-        this.objectInfos = new List<ObjectInfo>();
-
-        //var datas = this.objectInfos.Where(x => x.playerId == 1);
-
-
 
     }
 }

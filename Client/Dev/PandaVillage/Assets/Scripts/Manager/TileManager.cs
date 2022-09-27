@@ -6,12 +6,21 @@ using UnityEngine.Tilemaps;
 
 public class TileManager : MonoBehaviour
 {
-    public Tilemap groundMap;           // 땅
-    public Tilemap WallMap;             // 벽 
-    public Tilemap hoeDirtMap;          // 호미질 밭
-    public Tilemap wateringDirtMap;     // 물뿌린 밭
+    private Tilemap groundMap;           // 땅
+    private Tilemap WallMap;             // 벽 
+    private Tilemap hoeDirtMap;          // 호미질 밭
+    private Tilemap wateringDirtMap;     // 물뿌린 밭
 
     public TileBase[] tileBases;        // 0: hoeDirt, 1: wateringDirt
+
+    public void Init()
+    {
+        var gridMap = GameObject.Find("GridMap");
+        this.groundMap = gridMap.transform.Find("TilemapGround").GetComponent<Tilemap>();
+        this.WallMap = gridMap.transform.Find("TilemapWall").GetComponent<Tilemap>();
+        this.hoeDirtMap = gridMap.transform.Find("TilemapHoeDirt").GetComponent<Tilemap>();
+        this.wateringDirtMap = gridMap.transform.Find("TilemapWateringDirt").GetComponent<Tilemap>();
+    }
 
     // 플레이어가 터치한 위치에 타일 베이스가 존재하면 True 반환
     public bool CheckTile(Vector3Int pos, Farming.eFarmTileType state)
@@ -73,7 +82,7 @@ public class TileManager : MonoBehaviour
     {
         // BoundsInt
         // 타일맵의 경계를 셀 크기로 반환
-        BoundsInt bounds = groundMap.cellBounds;    
+        BoundsInt bounds = this.groundMap.cellBounds;
         List<Vector3Int> tilePosList = new List<Vector3Int>();
 
         for (int y = 0; y < bounds.size.y; y++)

@@ -620,7 +620,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player1_24
+      name: use_tool_front_1
       rect:
         serializedVersion: 2
         x: 0
@@ -641,7 +641,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player1_25
+      name: use_tool_front_2
       rect:
         serializedVersion: 2
         x: 16
@@ -662,7 +662,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player1_26
+      name: use_tool_front_3
       rect:
         serializedVersion: 2
         x: 32
@@ -683,7 +683,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player1_27
+      name: use_tool_front_4
       rect:
         serializedVersion: 2
         x: 48
@@ -704,7 +704,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player1_28
+      name: use_tool_front_5
       rect:
         serializedVersion: 2
         x: 64
@@ -725,7 +725,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player1_29
+      name: use_tool_front_6
       rect:
         serializedVersion: 2
         x: 80
@@ -746,7 +746,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player1_30
+      name: use_tool_side_1
       rect:
         serializedVersion: 2
         x: 0
@@ -767,7 +767,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player1_31
+      name: use_tool_side_2
       rect:
         serializedVersion: 2
         x: 16
@@ -788,7 +788,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player1_32
+      name: use_tool_side_3
       rect:
         serializedVersion: 2
         x: 32
@@ -809,7 +809,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player1_33
+      name: use_tool_side_4
       rect:
         serializedVersion: 2
         x: 48
@@ -830,7 +830,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player1_34
+      name: use_tool_side_5
       rect:
         serializedVersion: 2
         x: 64
@@ -851,7 +851,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player1_35
+      name: use_tool_side_6
       rect:
         serializedVersion: 2
         x: 80
@@ -872,7 +872,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player1_36
+      name: use_tool_back_1
       rect:
         serializedVersion: 2
         x: 0
@@ -893,7 +893,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player1_37
+      name: use_tool_back_2
       rect:
         serializedVersion: 2
         x: 16
@@ -914,7 +914,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player1_38
+      name: use_tool_back_3
       rect:
         serializedVersion: 2
         x: 32
@@ -935,7 +935,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player1_39
+      name: use_tool_back_4
       rect:
         serializedVersion: 2
         x: 48
@@ -956,7 +956,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player1_40
+      name: use_tool_back_5
       rect:
         serializedVersion: 2
         x: 64
@@ -977,7 +977,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player1_41
+      name: use_tool_back_6
       rect:
         serializedVersion: 2
         x: 80
@@ -1009,47 +1009,47 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       run_front_1: -1107573975
-      player1_31: -1653498890
       run_side_3: -898158582
-      player1_33: -1911963168
-      run_side_5: 1103120363
+      use_tool_side_3: 849435909
+      use_tool_front_1: -2138350446
       player1_3: 1257138318
-      player1_25: -1425815918
       run_front_3: 293721790
       run_front_4: 832137626
+      use_tool_front_6: -975733566
+      use_tool_back_3: -764431612
+      use_tool_back_6: -718795739
+      use_tool_side_6: -1917402365
       player1_16: 1715655639
-      player1_39: -113483076
       run_back_1: -1269072136
       run_back_4: -1959417616
       run_back_2: -1214914800
       run_side_2: -1321725142
-      player1_29: -975733566
-      player1_36: -1997532432
+      use_tool_front_2: -1425815918
+      use_tool_front_3: -1172066029
+      use_tool_back_2: 1443454168
       player1_9: -600813397
-      player1_32: 849435909
-      player1_38: -764431612
+      use_tool_side_1: -1795080842
+      use_tool_side_4: -1911963168
       player1_10: 997665077
-      player1_41: -718795739
+      run_side_5: 1103120363
       idle_back: -264616602
       run_back_3: 685966909
       run_side_4: 1216572948
       run_side_6: 789916973
-      player1_34: 1977714477
+      use_tool_front_4: 554976570
+      use_tool_back_4: -113483076
       idle_side: -1679857476
-      player1_30: -1795080842
-      player1_28: -1968549482
-      player1_26: -1172066029
-      player1_40: 1211441895
-      run_front_2: 1388203144
       idle_front: -861999157
+      use_tool_side_2: -1653498890
+      use_tool_side_5: 1977714477
+      run_front_2: 1388203144
+      use_tool_front_5: -1968549482
       player1_4: -1723764732
-      player1_35: -1917402365
       player1_5: 2144333599
       run_side_1: -580400863
-      player1_24: -2138350446
-      player1_37: 1443454168
-      player1_27: 554976570
+      use_tool_back_1: -1997532432
       player1_15: 1182868771
+      use_tool_back_5: 1211441895
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

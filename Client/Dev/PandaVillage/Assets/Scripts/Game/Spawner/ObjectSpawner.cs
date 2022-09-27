@@ -10,64 +10,40 @@ public class ObjectSpawner : MonoBehaviour
 
     public Vector2Int mapBottomLeft, mapTopRight;
 
-    private List<Vector3Int> grassPosList = new List<Vector3Int>();
-    public UnityAction<Farming.eFarmTileType> onGetTilePosList;
-
-
     public void Init()
     {
         this.objCount = objGos.Length;
-        this.onGetTilePosList(Farming.eFarmTileType.Grass);
         //this.grassPosList = 
         //SpawnObjects();
-    }
-    public void GrassTileSetting(List<Vector3Int> grassPosList)
-    {
-        this.grassPosList = grassPosList;
     }
 
     public void SpawnObjects()
     {
-        int layerMask = (1 << LayerMask.NameToLayer("Wall")) + (1 << LayerMask.NameToLayer("WallObject"));
+        //int layerMask = (1 << LayerMask.NameToLayer("Wall")) + (1 << LayerMask.NameToLayer("WallObject"));
 
-        foreach (var grassPos in grassPosList)
-        {
-            var cols = Physics2D.OverlapBoxAll(new Vector2(grassPos.x + 0.5f, grassPos.y + 0.5f), new Vector2(0.95f, 0.95f), 0, layerMask);
-            //Debug.Log(cols.Length);
-            if (cols.Length == 0)
-            {
-                var rand = Random.Range(0, 5);
-
-                if (rand == 4)
-                {
-                    rand = Random.Range(0, objCount);
-                    GameObject objGo = Instantiate<GameObject>(objGos[rand]);
-                    objGo.transform.position = new Vector3(grassPos.x, grassPos.y, 0);
-                    objGo.transform.parent = this.transform;
-                }
-            }
-        }
-
-        //for (int y = mapBottomLeft.y; y <= mapTopRight.y; y++)
+        //foreach (var grassPos in grassPosList)
         //{
-        //    for (int x = mapBottomLeft.x; x <= mapTopRight.x; x++)
+        //    var cols = Physics2D.OverlapBoxAll(new Vector2(grassPos.x + 0.5f, grassPos.y + 0.5f), new Vector2(0.95f, 0.95f), 0, layerMask);
+        //    //Debug.Log(cols.Length);
+        //    if (cols.Length == 0)
         //    {
-        //        var cols = Physics2D.OverlapBoxAll(new Vector2(x + 0.5f, y + 0.5f), new Vector2(0.95f, 0.95f), 0, layerMask);
-        //        //Debug.Log(cols.Length);
-        //        if (cols.Length == 0)
-        //        {
-        //            var rand = Random.Range(0, 5);
+        //        var rand = Random.Range(0, 5);
 
-        //            if (rand == 4)
-        //            {
-        //                rand = Random.Range(0, objCount);
-        //                GameObject objGo = Instantiate<GameObject>(objGos[rand]);
-        //                objGo.transform.position = new Vector3(x, y, 0);
-        //                objGo.transform.parent = this.transform;
-        //            }
+        //        if (rand == 4)
+        //        {
+        //            rand = Random.Range(0, objCount);
+        //            GameObject objGo = Instantiate<GameObject>(objGos[rand]);
+        //            objGo.transform.position = new Vector3(grassPos.x, grassPos.y, 0);
+        //            objGo.transform.parent = this.transform;
         //        }
         //    }
         //}
+    }
+    public void SpawnObject(int objectId, Vector2Int pos)
+    {
+        GameObject objGo = Instantiate<GameObject>(objGos[0]);
+        objGo.transform.position = new Vector3(pos.x, pos.y, 0);
+        objGo.transform.parent = this.transform;
     }
 
     public void SpawnObject()

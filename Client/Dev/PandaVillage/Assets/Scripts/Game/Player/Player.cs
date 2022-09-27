@@ -16,6 +16,14 @@ public class Player : MonoBehaviour
         Axe
     }
 
+    private enum eDirStateType
+    {
+        None = -1,
+        IdleFront, RunFront,
+        IdleSide, RunSide,
+        IdleBack, RunBack
+    }
+
     private Movement2D moveMent2D;
     private Farming farming;
     private eItemType isUseTool = eItemType.None;
@@ -35,11 +43,15 @@ public class Player : MonoBehaviour
 
     public bool isBuildingSelected = false;
 
+    private Animator anim;
+
     private void Start()
     {
         this.moveMent2D = GetComponent<Movement2D>();
         this.farming = GetComponent<Farming>();
+        this.anim = GetComponentInChildren<Animator>();
     }
+
     private void Update()
     {
         // 마우스 클릭시 좌표를 인게임 좌표로 변환하여 mousePos 변수에 저장
@@ -53,13 +65,17 @@ public class Player : MonoBehaviour
         Vector2Int curPos = new Vector2Int(currentPosX, currentPosY);
         Vector2Int targetPos = new Vector2Int(targetPosX, targetPosY);
 
+        
+        
         if (Input.GetMouseButtonDown(1))
         {
             this.pos = new Vector3Int(currentPosX, currentPosY, 0);
             Vector3Int tpos = new Vector3Int((int)mousePos.x, (int)mousePos.y, 0);
 
+
+
             this.moveMent2D.pathList.Clear();
-            this.onDecideTargetTile(curPos, targetPos, this.moveMent2D.pathList);            
+            this.onDecideTargetTile(curPos, targetPos, this.moveMent2D.pathList);
         }
 
         // 왼쪽 마우스 클릭 시 타일 변경됨
@@ -267,11 +283,6 @@ public class Player : MonoBehaviour
             //obj.DestroyObject();
         }
         return findGo;
-    }
-
-    private void Harvest()
-    {
-
     }
 }
 

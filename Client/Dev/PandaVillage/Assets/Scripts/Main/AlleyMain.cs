@@ -28,7 +28,7 @@ public class AlleyMain : SceneMain
         this.portalManager = GameObject.FindObjectOfType<PortalManager>();
 
         this.timeManager.Init();
-        this.objectManager.Init();
+        this.objectManager.Init("Alley", tileManager.GetTilesPosList(Farming.eFarmTileType.Grass));
         this.portalManager.Init();
 
         #region PlayerAction

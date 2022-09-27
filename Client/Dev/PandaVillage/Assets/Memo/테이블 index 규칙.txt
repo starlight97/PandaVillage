@@ -4,6 +4,8 @@ item_grop_data.xlsx
 2000 ~ 3999
 item_data.xlsx
 4000 ~ 5999
+seed: 4500 ~
+
 
 tile_data.xlsx
 6000 ~ 9999
@@ -11,6 +13,6 @@ tile_data.xlsx
 player_data.xlsx
 100 ~ 199
 
-corp_data.xlsx
+crop_data.xlsx
 10000~
 

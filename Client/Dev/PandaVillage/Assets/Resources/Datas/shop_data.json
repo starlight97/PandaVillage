@@ -1,0 +1,44 @@
+[
+  {
+    "id": 22000,
+    "shop_category": 0,
+    "item_id": 1000,
+    "price": 20
+  },
+  {
+    "id": 22001,
+    "shop_category": 0,
+    "item_id": 1001,
+    "price": 80
+  },
+  {
+    "id": 22002,
+    "shop_category": 0,
+    "item_id": 1002,
+    "price": 60
+  },
+  {
+    "id": 22003,
+    "shop_category": 0,
+    "item_id": 1003,
+    "price": 70
+  },
+  {
+    "id": 22004,
+    "shop_category": 0,
+    "item_id": 1004,
+    "price": 50
+  },
+  {
+    "id": 22005,
+    "shop_category": 0,
+    "item_id": 1005,
+    "price": 30
+  },
+  {
+    "id": 22006,
+    "shop_category": 0,
+    "item_id": 1006,
+    "price": 20
+  }
+]

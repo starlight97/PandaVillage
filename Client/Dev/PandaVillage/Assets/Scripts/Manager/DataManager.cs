@@ -42,12 +42,12 @@ public class DataManager
     private IEnumerator LoadAllDataRoutine()
     {
         int idx = 0;
-        // µ¥ÀÌÅÍ ¾øÀ»¶§ Å×½ºÆ® ¿ëµµ
+        // ë°ì´í„° ì—†ì„ë•Œ í…ŒìŠ¤íŠ¸ ìš©ë„
         if (dataPathList.Count == 0)
         {
             for (int i = 0; i < 10; i++)
             {
-                this.onDataLoadComplete.Invoke("È£ÃâÇÒ µ¥ÀÌÅÍ ¾øÀ½", (float)(i+1)/10);
+                this.onDataLoadComplete.Invoke("í˜¸ì¶œí•  ë°ì´í„° ì—†ìŒ", (float)(i+1)/10);
                 yield return new WaitForSeconds(0.1f);
             }
         }
@@ -72,15 +72,15 @@ public class DataManager
     }
 
 
-    // id °ªÀ¸·Î µñ¼Å³Ê¸®¿¡¼­ °Ë»öÇÏ´Â ¸Ş¼Òµå
+    // id ê°’ìœ¼ë¡œ ë”•ì…”ë„ˆë¦¬ì—ì„œ ê²€ìƒ‰í•˜ëŠ” ë©”ì†Œë“œ
     public T GetData<T>(int id) where T : RawData
     {
         var collection = this.dicDatas.Values.Where(x => x.GetType().Equals(typeof(T)));
         return (T)collection.ToList().Find(x => x.id == id);
     }
 
-    // Æ¯Á¤ µ¥ÀÌÅÍ ±×·ìÀ» °Ë»öÇÏ°í½ÍÀ»´ë ÇØ´ç µ¥ÀÌÅÍ Å¸ÀÔÀ» È£ÃâÇÏ¸é ÇØ´ç µ¥ÀÌÅÍÅ¸ÀÔ °´Ã¼¸¸ ¹İÈ¯ÇÑ´Ù.
-    // ex(GetDatas<Student>()) = µñ¼Å³Ê¸®¿¡ ÀúÀåµÈ µ¥ÀÌÅÍµéÁß StudentÅ¸ÀÔÀ» °¡Áø °´Ã¼µé¸¸ ¹İÈ¯
+    // íŠ¹ì • ë°ì´í„° ê·¸ë£¹ì„ ê²€ìƒ‰í•˜ê³ ì‹¶ì„ëŒ€ í•´ë‹¹ ë°ì´í„° íƒ€ì…ì„ í˜¸ì¶œí•˜ë©´ í•´ë‹¹ ë°ì´í„°íƒ€ì… ê°ì²´ë§Œ ë°˜í™˜í•œë‹¤.
+    // ex(GetDatas<Student>()) = ë”•ì…”ë„ˆë¦¬ì— ì €ì¥ëœ ë°ì´í„°ë“¤ì¤‘ Studentíƒ€ì…ì„ ê°€ì§„ ê°ì²´ë“¤ë§Œ ë°˜í™˜
     public IEnumerable<T> GetDataList<T>() where T : RawData
     {
         IEnumerable<RawData> col = this.dicDatas.Values.Where(x => x.GetType().Equals(typeof(T)));

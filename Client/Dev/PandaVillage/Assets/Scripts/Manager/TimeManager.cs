@@ -27,7 +27,7 @@ public class TimeManager : MonoBehaviour
         {
             currentTime += Time.deltaTime;
 
-            if (currentTime >= 3.5f)
+            if (currentTime >= 7f)
             {                
                 minute += 10;
                 currentTime = 0;

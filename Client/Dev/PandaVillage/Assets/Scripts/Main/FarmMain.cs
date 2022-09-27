@@ -14,7 +14,6 @@ public class FarmMain : SceneMain
     private CropManager cropManager;
     private RanchManager ranchManager;
     private ObjectPlaceManager objectPlaceManager;
-    private ObjectSpawner objectSpawner;
     private ObjectManager objectManager;
     private PortalManager portalManager;
 
@@ -22,14 +21,9 @@ public class FarmMain : SceneMain
     public Button btnNext;
     public Button btnAddAnimal;
 
-    void Start()
-    {
-        LoadInfo(1);
-        Init();
-    }
-
     public override void Init(SceneParams param = null)
     {
+        LoadInfo(1);
         this.uiVillage = GameObject.FindObjectOfType<UIVillage>();
         this.player = GameObject.FindObjectOfType<Player>();
         this.mapManager = GameObject.FindObjectOfType<MapManager>();
@@ -38,15 +32,15 @@ public class FarmMain : SceneMain
         this.ranchManager = GameObject.FindObjectOfType<RanchManager>();
         this.cropManager = GameObject.FindObjectOfType<CropManager>();
         this.objectPlaceManager = GameObject.FindObjectOfType<ObjectPlaceManager>();
-        this.objectSpawner = GameObject.FindObjectOfType<ObjectSpawner>();
         this.objectManager = GameObject.FindObjectOfType<ObjectManager>();
         this.portalManager = GameObject.FindObjectOfType<PortalManager>();
 
+        this.tileManager.Init();
         this.timeManager.Init();
         this.ranchManager.Init();
         this.cropManager.Init();
         this.uiVillage.Init();
-        this.objectManager.Init();
+        this.objectManager.Init("Farm", tileManager.GetTilesPosList(Farming.eFarmTileType.Grass));
         this.portalManager.Init();
 
 
@@ -94,9 +88,10 @@ public class FarmMain : SceneMain
         {
             if(hour == 1)
             {
-                Debug.Log("1시에요 하루가 끝났어요");
+                Debug.Log("22시에요 하루가 끝났어요");
                 timeManager.EndDay();
                 ranchManager.NextDay();
+                SaveGame(1);
                 cropManager.CheckWateringDirt();
                 tileManager.ClearWateringTiles();
             }
@@ -138,20 +133,11 @@ public class FarmMain : SceneMain
             this.objectPlaceManager.wallPosArr = mapManager.GetWallPosArr();
         };
 
-        this.objectSpawner.onGetTilePosList = (tileType) =>
-        {
-            this.objectSpawner.GrassTileSetting(this.tileManager.GetTilesPosList(tileType));
-            this.objectSpawner.SpawnObjects();
-        };
 
         this.portalManager.onArrival = (sceneType) =>
         {
             Dispatch("onArrival" + sceneType.ToString() + "Portal");            
         };
-
-        this.objectSpawner.Init();
-
-
     }
 
     private void Update()
@@ -170,14 +156,24 @@ public class FarmMain : SceneMain
         if (check == false)
         {
             gameInfo.playerId = playerId;
+            gameInfo.objectInfoList = new List<ObjectInfo>();
+            gameInfo.playerInfo = new PlayerInfo("길동이", "강아지");
+
+            gameInfo.playerInfo.inventory.dicItem.Add(1000,10);
+            gameInfo.playerInfo.inventory.dicItem.Add(2000,20);
+            gameInfo.playerInfo.inventory.dicItem.Add(3000,30);
             InfoManager.instance.InsertInfo(gameInfo);
+
+            InfoManager.instance.SaveInfo();
+            Debug.Log("신규 유저 입니다.");
         }
 
         else
         {
+            Debug.Log("기존 유저 입니다.");
             gameInfo = InfoManager.instance.GetInfo(playerId);
 
-            var datas = gameInfo.objectInfos;
+            var datas = gameInfo.objectInfoList;
             foreach (var data in datas)
             {
                 Debug.Log(data.objectId);
@@ -193,6 +189,14 @@ public class FarmMain : SceneMain
         List<Vector3Int> objectPosList = this.objectManager.GetObjectInfoList();
 
         var info = InfoManager.instance.GetInfo(playerId);
+        // 10분당 1로 저장
+        // ex 하루 = 1320 분
+        // 하루마다 132 씩 ++
+        info.playerInfo.playMinute += 132;
+        //if(info.playerInfo.dicInventoryInfo.ContainsKey(1000))
+        //{
+        //    //info.playerInfo.dicInventoryInfo.Add(1000, new InventoryInfo(10, 1000, ));
+        //}
         foreach (var pos in objectPosList)
         {
             ObjectInfo objectInfo = new ObjectInfo();
@@ -201,8 +205,9 @@ public class FarmMain : SceneMain
             objectInfo.posY = pos.y;
             objectInfo.sceneName = "FarmScene";
 
-            info.objectInfos.Add(objectInfo);
+            info.objectInfoList.Add(objectInfo);
         }
+
         InfoManager.instance.SaveInfo();
     }
 

@@ -14,13 +14,12 @@ public class UIButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         this.btn.onClick.AddListener(() =>
         {
-            Debug.Log("≈¨∏Ø");
+            Debug.Log("ÌÅ¥Î¶≠");
         });
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("enter");
         transform.GetChild(1).gameObject.SetActive(true);
         transform.GetChild(0).gameObject.SetActive(false);
         this.gameObject.transform.DOScale(1.2f,0.5f);
@@ -29,7 +28,6 @@ public class UIButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("exit");       
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(1).gameObject.SetActive(false);
         this.gameObject.transform.DOScale(1, 0.5f);
