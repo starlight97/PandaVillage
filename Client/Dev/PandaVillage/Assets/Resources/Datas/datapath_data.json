@@ -1,7 +1,27 @@
 [
-  //{
-  //  "id": 0,
-  //  "res_name": "tile_data",
-  //  "type": "TileData"
-  //}
+  {
+    "id": 0,
+    "res_name": "shop_data",
+    "type": "ShopData"
+  },
+  {
+    "id": 1,
+    "res_name": "shop_item_data",
+    "type": "ShopitemData"
+  },
+  {
+    "id": 2,
+    "res_name": "gathering_data",
+    "type": "GatheringData"
+  },
+  {
+    "id": 3,
+    "res_name": "material_data",
+    "type": "MaterialData"
+  },
+  {
+    "id": 4,
+    "res_name": "ruck_data",
+    "type": "RuckData"
+  }
 ]

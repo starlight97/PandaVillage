@@ -1,0 +1,36 @@
+씨앗 테이블 seed_data 상익	1000
+아이디/ 이름/ 가격/ 심었을 때 나오는 아이템 아이디/ 스프라이트 이미지 이름//구매 가격_min/구매 가격_max /판매 가격
+id/seed_name/purchase_price/plant_item_id/sprite_name/purchase_price_min/purchase_price_max/sale_price
+int / string / int / int / string/int/int/int
+
+작물 테이블 crop_data 현정 2000
+아이디/이름/recovery_stamina/ recovery_hp/sprite_name/구매 가격_min/구매 가격_max /판매 가격
+id/crop_name/recovery_stamina/ recovery_hp/sprite_name/purchase_price_min/purchase_price_max/sale_price
+int/string/int/int/string/int/int/int
+
+채집 테이블 gathering_data 정식 3000
+아이디/이름/recovery_stamina/ recovery_hp/sprite_name/구매 가격_min/구매 가격_max /판매 가격
+id/gathering_name/recovery_stamina/ recovery_hp/sprite_name/purchase_price_min/purchase_price_max/sale_price
+int/string/int/int/string/int/int/int/
+
+재료 테이블 material_data 현정 4000
+아이디/ 이름/ 스프라이트 이름/판매 가격/구매 가격_min/구매 가격_max/판매 가격
+id/material_name/sprite_name/purchase_price_min/purchase_price_max/sale_price
+int/string/string/int/int/int
+
+ruck_data(통나무, 돌, 부쉬) 정식 5000
+아이디/이름/스프라이트이름/스프라이트 개수/획득 재료 아이템 아이디/스폰 타일 타입/ 획득한 재료 아이디/획득 재료 개수
+id/ruck_name/sprite_name/sprite_amount/material_item_id/spawn_tile_type / gain_material_id/gain_material_amount
+int/string/string/int/int/int/int/int
+
+도구 테이블 tool_data 현정 6000
+아이디/이름/아이템 타입/가격/재료 아이템 아이디/재료 아이템 개수(amount)/스프라이트 이미지 이름
+id/tool_name/type/price/material_item_id/material_amount/sprite_name
+int / string   /      int     /int      / int / int/ string 
+
+상점 데이터 7000
+
+tree_data -> 보류 8000
+아이디/이름/스프라이트 이름/상태
+id/tree_name/sprite_name/state
+int/string/string/int

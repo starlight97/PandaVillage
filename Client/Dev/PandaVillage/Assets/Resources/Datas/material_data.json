@@ -1,0 +1,83 @@
+[
+  {
+    "id": 4000,
+    "material_name": "나무",
+    "sprite_name": "wood{0}",
+    "sprite_amount": 2,
+    "purchase_price_min": 100,
+    "purchase_price_max": 1000,
+    "sale_price": 2
+  },
+  {
+    "id": 4001,
+    "material_name": "돌",
+    "sprite_name": "stone{0}",
+    "sprite_amount": 2,
+    "purchase_price_min": 100,
+    "purchase_price_max": 1000,
+    "sale_price": 2
+  },
+  {
+    "id": 4002,
+    "material_name": "섬유",
+    "sprite_name": "fiber",
+    "sprite_amount": 1,
+    "purchase_price_min": 100,
+    "purchase_price_max": 1000,
+    "sale_price": 1
+  },
+  {
+    "id": 4003,
+    "material_name": "점토",
+    "sprite_name": "clay",
+    "sprite_amount": 1,
+    "purchase_price_min": 100,
+    "purchase_price_max": 1000,
+    "sale_price": 20
+  },
+  {
+    "id": 4004,
+    "material_name": "건초",
+    "sprite_name": "hay",
+    "sprite_amount": 1,
+    "purchase_price_min": 0,
+    "purchase_price_max": 0,
+    "sale_price": 0
+  },
+  {
+    "id": 4005,
+    "material_name": "양털",
+    "sprite_name": "wool",
+    "sprite_amount": 1,
+    "purchase_price_min": 1020,
+    "purchase_price_max": 1700,
+    "sale_price": 340
+  },
+  {
+    "id": 4006,
+    "material_name": "석탄",
+    "sprite_name": "coal",
+    "sprite_amount": 1,
+    "purchase_price_min": 100,
+    "purchase_price_max": 1000,
+    "sale_price": 15
+  },
+  {
+    "id": 4007,
+    "material_name": "구리광석",
+    "sprite_name": "copperOre",
+    "sprite_amount": 1,
+    "purchase_price_min": 100,
+    "purchase_price_max": 1000,
+    "sale_price": 5
+  },
+  {
+    "id": 4008,
+    "material_name": "구리주괴",
+    "sprite_name": "copperBar",
+    "sprite_amount": 1,
+    "purchase_price_min": 180,
+    "purchase_price_max": 1000,
+    "sale_price": 60
+  }
+]

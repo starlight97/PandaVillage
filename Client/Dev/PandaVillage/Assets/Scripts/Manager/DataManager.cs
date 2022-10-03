@@ -39,6 +39,10 @@ public class DataManager
     {
         App.instance.StartCoroutine(LoadAllDataRoutine());
     }
+    public void LoadAllData(MonoBehaviour mono)
+    {
+        mono.StartCoroutine(LoadAllDataRoutine());
+    }
     private IEnumerator LoadAllDataRoutine()
     {
         int idx = 0;

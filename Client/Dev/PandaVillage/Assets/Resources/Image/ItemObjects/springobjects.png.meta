@@ -464,7 +464,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_16
+      name: wildHorseradish
       rect:
         serializedVersion: 2
         x: 256
@@ -506,7 +506,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_18
+      name: daffodil
       rect:
         serializedVersion: 2
         x: 288
@@ -548,7 +548,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_20
+      name: leek
       rect:
         serializedVersion: 2
         x: 320
@@ -590,7 +590,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_22
+      name: dandelion
       rect:
         serializedVersion: 2
         x: 352
@@ -611,7 +611,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_23
+      name: parsnip
       rect:
         serializedVersion: 2
         x: 0
@@ -3803,7 +3803,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_175
+      name: hay
       rect:
         serializedVersion: 2
         x: 160
@@ -3845,7 +3845,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_177
+      name: egg
       rect:
         serializedVersion: 2
         x: 192
@@ -3887,7 +3887,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_179
+      name: largeEgg
       rect:
         serializedVersion: 2
         x: 224
@@ -3929,7 +3929,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_181
+      name: milk
       rect:
         serializedVersion: 2
         x: 256
@@ -3971,7 +3971,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_183
+      name: largeMilk
       rect:
         serializedVersion: 2
         x: 288
@@ -4013,7 +4013,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_185
+      name: greenBean
       rect:
         serializedVersion: 2
         x: 320
@@ -4055,7 +4055,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_187
+      name: cauliflower
       rect:
         serializedVersion: 2
         x: 352
@@ -4097,7 +4097,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_189
+      name: potato
       rect:
         serializedVersion: 2
         x: 0
@@ -5315,7 +5315,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_247
+      name: kale
       rect:
         serializedVersion: 2
         x: 160
@@ -5462,7 +5462,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_254
+      name: morel
       rect:
         serializedVersion: 2
         x: 272
@@ -6218,7 +6218,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_290
+      name: woodObject1
       rect:
         serializedVersion: 2
         x: 96
@@ -6239,7 +6239,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_291
+      name: woodObejct2
       rect:
         serializedVersion: 2
         x: 112
@@ -6260,7 +6260,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_292
+      name: salmonberry
       rect:
         serializedVersion: 2
         x: 128
@@ -6281,7 +6281,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_293
+      name: grassStarter
       rect:
         serializedVersion: 2
         x: 144
@@ -6974,7 +6974,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_326
+      name: clay
       rect:
         serializedVersion: 2
         x: 288
@@ -7058,7 +7058,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_330
+      name: copperBar
       rect:
         serializedVersion: 2
         x: 352
@@ -7247,7 +7247,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_339
+      name: stoneObject1
       rect:
         serializedVersion: 2
         x: 112
@@ -8003,7 +8003,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_375
+      name: copperOre
       rect:
         serializedVersion: 2
         x: 304
@@ -8066,7 +8066,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_378
+      name: coal
       rect:
         serializedVersion: 2
         x: 352
@@ -8192,7 +8192,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_384
+      name: wood
       rect:
         serializedVersion: 2
         x: 64
@@ -8234,7 +8234,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_386
+      name: stone
       rect:
         serializedVersion: 2
         x: 96
@@ -8528,7 +8528,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_400
+      name: commonMushroom
       rect:
         serializedVersion: 2
         x: 320
@@ -9284,7 +9284,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_436
+      name: wool
       rect:
         serializedVersion: 2
         x: 128
@@ -9494,11 +9494,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_446
+      name: stoneObject2
       rect:
         serializedVersion: 2
         x: 288
-        y: 320
+        y: 321
         width: 16
         height: 16
       alignment: 6
@@ -12455,7 +12455,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_587
+      name: tuliip
       rect:
         serializedVersion: 2
         x: 240
@@ -12581,7 +12581,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_593
+      name: blueJazz
       rect:
         serializedVersion: 2
         x: 336
@@ -14072,7 +14072,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_664
+      name: 1112
       rect:
         serializedVersion: 2
         x: 320
@@ -14093,7 +14093,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_665
+      name: breakStoneObject1
       rect:
         serializedVersion: 2
         x: 336
@@ -14114,7 +14114,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_666
+      name: 112
       rect:
         serializedVersion: 2
         x: 352
@@ -14135,7 +14135,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_667
+      name: breakStoneObject2
       rect:
         serializedVersion: 2
         x: 368
@@ -14198,7 +14198,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_670
+      name: weed1
       rect:
         serializedVersion: 2
         x: 32
@@ -14219,7 +14219,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_671
+      name: weed2
       rect:
         serializedVersion: 2
         x: 48
@@ -16235,7 +16235,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_767
+      name: fiber
       rect:
         serializedVersion: 2
         x: 48
@@ -16508,7 +16508,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_780
+      name: weed3
       rect:
         serializedVersion: 2
         x: 256
@@ -16529,7 +16529,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: springobjects_781
+      name: weed4
       rect:
         serializedVersion: 2
         x: 272
@@ -19582,12 +19582,13 @@ TextureImporter:
       springobjects_893: 1726275064
       springobjects_170: -1539778126
       springobjects_633: 1176899296
+      copperOre: 842316595
       springobjects_84: 1414914984
+      stoneObject2: 276991886
       springobjects_764: 994411292
       springobjects_103: 655983900
       springobjects_233: -1956756783
       springobjects_458: 1764040290
-      springobjects_587: -1591096084
       springobjects_562: 1353901508
       springobjects_644: -2015705795
       springobjects_158: 956593331
@@ -19602,9 +19603,9 @@ TextureImporter:
       springobjects_563: 707073476
       springobjects_149: -144518748
       springobjects_383: -486208264
-      springobjects_16: 1442725051
       springobjects_25: -299600090
       springobjects_431: -1232613201
+      woodObejct2: 733303282
       springobjects_366: 1216347715
       springobjects_606: -548913786
       springobjects_604: -1211042601
@@ -19612,7 +19613,9 @@ TextureImporter:
       springobjects_474: 270587533
       springobjects_54: 10619024
       springobjects_662: -1658625503
+      blueJazz: -1365744783
       springobjects_875: 122120080
+      breakStoneObject2: 1837277828
       springobjects_401: -272584466
       springobjects_846: -1842936630
       springobjects_309: 382698275
@@ -19623,15 +19626,15 @@ TextureImporter:
       springobjects_594: 399755029
       springobjects_701: 1415289235
       springobjects_726: 1433622628
+      woodObject1: 733303282
       springobjects_567: -92718323
       springobjects_583: -113390902
       springobjects_207: 611614846
       springobjects_806: 1631565056
+      fiber: -79786919
       springobjects_550: -1901143486
-      springobjects_436: 1145901440
       springobjects_478: 926435454
       springobjects_495: 442150314
-      springobjects_330: -66405412
       springobjects_488: -765904358
       springobjects_899: -892498949
       springobjects_206: 19078663
@@ -19666,7 +19669,9 @@ TextureImporter:
       springobjects_221: 579779186
       springobjects_809: 1447155467
       springobjects_466: 525999115
+      1112: -1762251037
       springobjects_524: -1774973720
+      stoneObject1: 279736964
       springobjects_908: 1567250378
       springobjects_719: 1646902569
       springobjects_636: -640778390
@@ -19681,7 +19686,6 @@ TextureImporter:
       springobjects_915: 1809227155
       springobjects_271: 1810177595
       springobjects_81: -2021937699
-      springobjects_446: 276991886
       springobjects_42: -1789158548
       springobjects_544: -624046282
       springobjects_266: 903717607
@@ -19689,10 +19693,10 @@ TextureImporter:
       springobjects_580: 1511099782
       springobjects_4: 1243953763
       springobjects_406: 1576960844
-      springobjects_181: 2008074631
       springobjects_68: -1284353482
       springobjects_56: 1962037051
       springobjects_559: -1591960576
+      potato: 870991017
       springobjects_823: 295982172
       springobjects_346: -1319600718
       springobjects_242: -732213514
@@ -19704,7 +19708,9 @@ TextureImporter:
       springobjects_728: -511456267
       springobjects_322: -874499632
       springobjects_738: 718483568
+      wildHorseradish: 1442725051
       springobjects_6: 1833089422
+      wood: -790249030
       springobjects_589: 684622112
       springobjects_367: 216265966
       springobjects_317: 43667462
@@ -19724,16 +19730,15 @@ TextureImporter:
       springobjects_316: 2062719603
       springobjects_329: 992250532
       springobjects_732: -339650086
-      springobjects_292: 363875787
       springobjects_448: -356789077
       springobjects_476: -748489815
       springobjects_674: 1791069128
       springobjects_38: 1102798157
+      clay: 249864558
       springobjects_209: -1821201625
       springobjects_447: -1575016830
       springobjects_450: -165026347
       springobjects_59: 2041263922
-      springobjects_23: 2022909639
       springobjects_827: -827448308
       springobjects_413: 897790114
       springobjects_850: -1759277296
@@ -19763,25 +19768,24 @@ TextureImporter:
       springobjects_184: -399137362
       springobjects_410: -873985149
       springobjects_750: 1591581597
-      springobjects_187: -686908896
       springobjects_645: -304136119
       springobjects_29: -1438660995
       springobjects_623: -1358948461
+      morel: -1617350495
       springobjects_505: 209299977
       springobjects_41: 1400474273
       springobjects_424: 703952820
       springobjects_866: 57166818
-      springobjects_807: -1278733081
       springobjects_236: -379919529
+      springobjects_343: 1936054212
       springobjects_381: -614712122
       springobjects_136: -590748966
       springobjects_878: -1016540277
-      springobjects_343: 1936054212
-      springobjects_290: 724799110
+      springobjects_807: -1278733081
       springobjects_526: 974650724
       springobjects_95: 319398930
+      hay: 664445076
       springobjects_97: -1805566162
-      springobjects_326: 249864558
       springobjects_610: 1265175303
       springobjects_661: -1655436391
       springobjects_382: 1210169318
@@ -19797,7 +19801,6 @@ TextureImporter:
       springobjects_31: 2076997474
       springobjects_443: -800818326
       springobjects_214: -2104271439
-      springobjects_22: -1215070573
       springobjects_817: 781327001
       springobjects_916: 221027503
       springobjects_259: 2041072810
@@ -19812,16 +19815,16 @@ TextureImporter:
       springobjects_162: -1076165097
       springobjects_312: -1356264874
       springobjects_847: -2131456836
+      largeEgg: -1988809344
       springobjects_287: -1603369312
       springobjects_98: -1930549220
-      springobjects_375: 842316595
       springobjects_913: -986759504
+      springobjects_603: 2113539423
       springobjects_356: -1733538886
       springobjects_638: -212449522
       springobjects_440: 369206336
       springobjects_692: 1766346459
       springobjects_710: -943179733
-      springobjects_603: 2113539423
       springobjects_426: 1802586555
       springobjects_200: -202597705
       springobjects_269: -1655860873
@@ -19832,17 +19835,17 @@ TextureImporter:
       springobjects_672: -617674098
       springobjects_686: -6105484
       springobjects_884: 789649393
+      springobjects_101: 1953868202
       springobjects_76: -1674037905
       springobjects_859: 1448677018
-      springobjects_101: 1953868202
       springobjects_102: -932760276
       springobjects_176: -1912525913
       springobjects_105: 156784253
       springobjects_397: -1323994319
-      springobjects_593: -1365744783
       springobjects_731: 1689193612
       springobjects_836: -19497508
       springobjects_653: -170860827
+      copperBar: -66405412
       springobjects_613: 1548154755
       springobjects_519: 693470750
       springobjects_152: 550304315
@@ -19860,21 +19863,21 @@ TextureImporter:
       springobjects_592: 386399328
       springobjects_509: 254903869
       springobjects_139: -1264500665
-      springobjects_780: 34948331
       springobjects_568: 1406332357
-      springobjects_883: 1617601364
       springobjects_404: 1151039071
       springobjects_422: 1323458172
+      springobjects_922: 1237901607
       springobjects_262: -1803050058
       springobjects_483: -735485408
       springobjects_64: 1903952928
-      springobjects_922: 1237901607
       springobjects_843: 199660015
       springobjects_651: 2126512274
       springobjects_801: 551489979
       springobjects_492: -584069164
+      springobjects_883: 1617601364
       springobjects_523: -1938560393
       springobjects_94: 1635161042
+      tuliip: -1591096084
       springobjects_717: -1470968605
       springobjects_733: -389142347
       springobjects_1: 257915023
@@ -19894,6 +19897,7 @@ TextureImporter:
       springobjects_171: -1372892783
       springobjects_557: -1596041592
       springobjects_454: -756186763
+      weed4: 320820736
       springobjects_294: -2035479746
       springobjects_578: -1666323486
       springobjects_281: -154354613
@@ -19906,8 +19910,8 @@ TextureImporter:
       springobjects_125: 678073578
       springobjects_904: -1280974279
       springobjects_445: 55505025
-      springobjects_761: 25188820
       springobjects_877: 384803513
+      springobjects_761: 25188820
       springobjects_202: 1142751000
       springobjects_435: -1031445864
       springobjects_280: -1583494343
@@ -19919,6 +19923,8 @@ TextureImporter:
       springobjects_889: -1412884363
       springobjects_61: -1544570075
       springobjects_188: 438130143
+      largeMilk: 1074474875
+      greenBean: -561740963
       springobjects_887: -1202091400
       springobjects_301: 1164657210
       springobjects_229: 347597990
@@ -19937,7 +19943,6 @@ TextureImporter:
       springobjects_725: 1540796439
       springobjects_352: 626174251
       springobjects_253: -1305536417
-      springobjects_384: -790249030
       springobjects_678: -1896007176
       springobjects_618: 1445533590
       springobjects_696: 273393316
@@ -19960,12 +19965,12 @@ TextureImporter:
       springobjects_485: 73422399
       springobjects_500: 995905060
       springobjects_776: -2131438971
+      kale: 1919166591
       springobjects_868: -1298269252
       springobjects_548: 1916328854
       springobjects_134: -1014711373
       springobjects_331: -1374278565
       springobjects_434: 1730504910
-      springobjects_185: -561740963
       springobjects_398: -269259932
       springobjects_199: 1998831027
       springobjects_345: -966250083
@@ -20010,7 +20015,6 @@ TextureImporter:
       springobjects_3: -859187916
       springobjects_631: -712226100
       springobjects_625: -1533890758
-      springobjects_670: 1428776928
       springobjects_903: 1810806255
       springobjects_441: -1559299113
       springobjects_531: -1728736708
@@ -20026,14 +20030,13 @@ TextureImporter:
       springobjects_88: -2116216219
       springobjects_684: 936686037
       springobjects_34: -675923724
-      springobjects_666: 2039967603
+      dandelion: -1215070573
       springobjects_455: -735821783
       springobjects_840: 532625106
       springobjects_493: 1671689746
       springobjects_727: 1747408181
       springobjects_888: 851007452
       springobjects_451: 1568262917
-      springobjects_18: 492851983
       springobjects_117: 1661887642
       springobjects_642: 907972431
       springobjects_512: 1513141963
@@ -20044,23 +20047,22 @@ TextureImporter:
       springobjects_39: -335171095
       springobjects_712: 1752080564
       springobjects_412: 1877784424
-      springobjects_554: -1614683167
       springobjects_609: 8654997
+      springobjects_554: -1614683167
       springobjects_465: -1921368891
       springobjects_490: -865946787
       springobjects_201: -87499445
-      springobjects_665: -769563306
       springobjects_168: 1813825399
       springobjects_235: -840229380
       springobjects_40: 159077269
       springobjects_746: 2047856319
       springobjects_83: 1547503980
       springobjects_354: -1828693376
+      commonMushroom: 979081010
       springobjects_80: -1446696535
       springobjects_744: 1053394693
       springobjects_863: -1971496903
       springobjects_106: -545781459
-      springobjects_179: -1988809344
       springobjects_256: 1321062217
       springobjects_286: -1479472205
       springobjects_418: -1258523761
@@ -20068,30 +20070,28 @@ TextureImporter:
       springobjects_69: 1876816927
       springobjects_538: -296219834
       springobjects_358: 309072148
+      grassStarter: -2036180722
       springobjects_77: 1418276416
-      springobjects_177: -1282199823
+      springobjects_315: -1214257902
       springobjects_427: 1992633
-      springobjects_378: -2035818674
       springobjects_639: 25730861
-      springobjects_460: -834980759
       springobjects_870: -1305806570
+      springobjects_460: -834980759
       springobjects_829: -664038661
       springobjects_363: -1744653248
       springobjects_540: 1951108118
       springobjects_467: 550088576
-      springobjects_315: -1214257902
-      springobjects_325: -304952890
       tulipSeed: 1359113120
-      springobjects_293: -2036180722
+      springobjects_325: -304952890
       springobjects_521: 197961414
-      springobjects_685: 1814331463
+      springobjects_584: 1058094746
       springobjects_630: -1468540471
       springobjects_864: -302465213
       springobjects_832: -1980516620
       springobjects_237: 1122507300
       springobjects_472: -1752801685
-      springobjects_584: 1058094746
       springobjects_0: -443491491
+      springobjects_685: 1814331463
       springobjects_159: 1931107623
       springobjects_303: -29979679
       kaleSeed: -275490646
@@ -20100,10 +20100,10 @@ TextureImporter:
       springobjects_307: -897440216
       springobjects_838: -26255410
       springobjects_853: -425486445
+      cauliflower: -686908896
       springobjects_782: -518165519
       springobjects_387: -1835583276
       springobjects_321: 1429296401
-      springobjects_671: -1213632990
       springobjects_231: 1383878580
       springobjects_522: -2115730361
       springobjects_93: 113153143
@@ -20115,7 +20115,6 @@ TextureImporter:
       springobjects_349: 1811727450
       springobjects_85: 167926767
       springobjects_496: 399447055
-      springobjects_175: 664445076
       springobjects_749: 1920531769
       springobjects_694: -1735587688
       springobjects_399: -1759580314
@@ -20126,6 +20125,7 @@ TextureImporter:
       springobjects_536: -44264422
       springobjects_226: 590579925
       springobjects_854: -462053783
+      weed1: 1428776928
       springobjects_551: 1043961728
       springobjects_590: -2145577423
       springobjects_369: -2027722842
@@ -20142,6 +20142,7 @@ TextureImporter:
       springobjects_649: -1917622449
       springobjects_148: -1822332534
       springobjects_660: 331893424
+      coal: -2035818674
       springobjects_569: -847961551
       springobjects_894: -1575264839
       springobjects_92: 1994952195
@@ -20161,12 +20162,10 @@ TextureImporter:
       springobjects_588: -68620614
       springobjects_390: -359784383
       springobjects_514: 968029052
-      springobjects_781: 320820736
       springobjects_769: 1411863059
-      springobjects_20: -2078581517
       springobjects_79: -1001011645
-      springobjects_498: 439388633
       springobjects_517: 1867748582
+      springobjects_498: 439388633
       springobjects_385: 2058076453
       springobjects_858: 143968135
       springobjects_824: -693680441
@@ -20180,8 +20179,8 @@ TextureImporter:
       springobjects_277: -897922518
       potatoSeed: 1138212399
       springobjects_716: -625923194
-      springobjects_561: 1799098158
       blueJazzSeed: -407451561
+      springobjects_561: 1799098158
       springobjects_477: -1395949326
       springobjects_328: -720208227
       springobjects_570: 1139508097
@@ -20195,7 +20194,7 @@ TextureImporter:
       springobjects_565: -1816151208
       springobjects_771: 1857440655
       springobjects_737: -370251835
-      springobjects_400: 979081010
+      milk: 2008074631
       springobjects_27: -609311815
       springobjects_36: 2122093132
       springobjects_232: -1335977403
@@ -20208,6 +20207,7 @@ TextureImporter:
       springobjects_288: -980736811
       springobjects_755: 679474999
       springobjects_220: 1731188733
+      112: 2039967603
       springobjects_504: -114090452
       springobjects_204: -1272924692
       springobjects_205: 1651154290
@@ -20226,11 +20226,11 @@ TextureImporter:
       springobjects_155: 1805577002
       springobjects_70: 760201415
       springobjects_299: 232702963
-      springobjects_664: -1762251037
       springobjects_534: -1046778072
       springobjects_652: 1448275011
       springobjects_240: 910381309
       springobjects_786: -174083266
+      breakStoneObject1: -769563306
       springobjects_147: -483936886
       springobjects_680: -1417690281
       springobjects_708: 903055785
@@ -20261,13 +20261,11 @@ TextureImporter:
       springobjects_47: -1731236626
       springobjects_558: 1153224163
       springobjects_697: -2078691295
-      springobjects_247: 1919166591
-      springobjects_195: -1794360438
       springobjects_547: -12788183
+      springobjects_195: -1794360438
       springobjects_740: -1463310179
       springobjects_169: 1742174994
       springobjects_283: 443333341
-      springobjects_254: -1617350495
       springobjects_564: 731142362
       springobjects_757: 1200453753
       greenBeanSeed: 1156589435
@@ -20313,14 +20311,12 @@ TextureImporter:
       springobjects_311: -683334746
       springobjects_555: 201377354
       springobjects_890: 1606651224
-      springobjects_339: 279736964
       springobjects_415: -2056175482
+      springobjects_417: 661221046
       springobjects_192: -82766045
       springobjects_108: 1795668393
       springobjects_289: -1536203044
-      springobjects_417: 661221046
       parsnipSeed: 1179708846
-      springobjects_189: 870991017
       springobjects_355: -1346360336
       springobjects_525: -243876529
       springobjects_787: 1164994271
@@ -20357,6 +20353,7 @@ TextureImporter:
       springobjects_342: 2136141066
       springobjects_921: -1910431481
       springobjects_856: -1771280747
+      stone: -1812294137
       springobjects_582: -1932885621
       springobjects_681: -1755227887
       springobjects_808: 300280864
@@ -20365,6 +20362,7 @@ TextureImporter:
       springobjects_408: -50536724
       springobjects_421: 1073436488
       springobjects_304: 250306151
+      wool: 1145901440
       springobjects_852: 174632779
       springobjects_211: -1987807230
       springobjects_216: 1417759955
@@ -20381,11 +20379,11 @@ TextureImporter:
       springobjects_510: 969146411
       springobjects_637: -145434931
       springobjects_341: -66258613
+      egg: -1282199823
       springobjects_178: -1532171551
       springobjects_643: -1334536608
       springobjects_86: -911820746
       springobjects_867: -355307829
-      springobjects_386: -1812294137
       springobjects_663: -1369580852
       springobjects_219: -933114672
       springobjects_332: -2100072095
@@ -20402,8 +20400,8 @@ TextureImporter:
       springobjects_444: 1581163651
       springobjects_784: -683268309
       springobjects_324: -422909153
-      springobjects_183: 1074474875
       springobjects_862: 991457342
+      leek: -2078581517
       springobjects_844: -978048828
       springobjects_683: 2001420138
       springobjects_314: 200065418
@@ -20424,13 +20422,11 @@ TextureImporter:
       springobjects_796: -1821844690
       springobjects_724: -465944517
       springobjects_300: -607660511
-      springobjects_291: 733303282
       springobjects_14: 1745157888
-      springobjects_767: -79786919
+      parsnip: 2022909639
       springobjects_768: -751617094
       springobjects_75: -1259539747
       springobjects_72: 592450857
-      springobjects_667: 1837277828
       springobjects_739: -854832201
       springobjects_736: -2125645017
       springobjects_46: -914171293
@@ -20460,11 +20456,13 @@ TextureImporter:
       springobjects_607: 50956058
       springobjects_462: 2054849324
       springobjects_821: -694295614
+      daffodil: 492851983
       springobjects_596: -1660451665
       springobjects_227: -1929706860
       springobjects_62: 1290204849
       springobjects_310: -699553895
       springobjects_484: 606899142
+      weed2: -1213632990
       springobjects_244: 306170979
       springobjects_110: 99148049
       springobjects_605: 1745861616
@@ -20472,6 +20470,7 @@ TextureImporter:
       springobjects_50: 784425687
       springobjects_811: 1321041650
       springobjects_217: -1251234056
+      weed3: 34948331
       springobjects_160: 832568144
       springobjects_196: -1089991603
       springobjects_688: 218796285
@@ -20485,6 +20484,7 @@ TextureImporter:
       springobjects_818: -1676532766
       springobjects_730: 17529979
       springobjects_71: 1605934724
+      salmonberry: 363875787
       springobjects_648: -1349047388
       springobjects_898: -1544129690
       springobjects_774: 945177530

@@ -6,7 +6,7 @@ using System.Linq;
 
 public class FarmMain : SceneMain
 {
-    private UIVillage uiVillage;
+    private UIFarm uiFarm;
     private Player player;
     private MapManager mapManager;
     private TileManager tileManager;
@@ -24,7 +24,7 @@ public class FarmMain : SceneMain
     public override void Init(SceneParams param = null)
     {
         LoadInfo(1);
-        this.uiVillage = GameObject.FindObjectOfType<UIVillage>();
+        this.uiFarm = GameObject.FindObjectOfType<UIFarm>();
         this.player = GameObject.FindObjectOfType<Player>();
         this.mapManager = GameObject.FindObjectOfType<MapManager>();
         this.tileManager = GameObject.FindObjectOfType<TileManager>();
@@ -39,7 +39,7 @@ public class FarmMain : SceneMain
         this.timeManager.Init();
         this.ranchManager.Init();
         this.cropManager.Init();
-        this.uiVillage.Init();
+        this.uiFarm.Init();
         this.objectManager.Init("Farm", tileManager.GetTilesPosList(Farming.eFarmTileType.Grass));
         this.portalManager.Init();
 
@@ -73,9 +73,9 @@ public class FarmMain : SceneMain
         this.player.onShowAnimalUI = (animal) =>
         {
             if(animal != null)
-                uiVillage.ShowAnimalUI(animal.animalName, animal.friendship, animal.age);                
+                uiFarm.ShowAnimalUI(animal.animalName, animal.friendship, animal.age);                
             else
-                uiVillage.HideAnimalUI();
+                uiFarm.HideAnimalUI();
         };
         this.player.onSelectedBuilding = (selectedBuildingGo) =>
         {

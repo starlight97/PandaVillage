@@ -6,7 +6,7 @@ using System.Linq;
 
 public class HyunFarmMain : SceneMain
 {
-    private UIVillage uiVillage;
+    private UIFarm uiVillage;
     private Player player;
     private MapManager mapManager;
     private TileManager tileManager;
@@ -30,7 +30,7 @@ public class HyunFarmMain : SceneMain
 
     public override void Init(SceneParams param = null)
     {
-        this.uiVillage = GameObject.FindObjectOfType<UIVillage>();
+        this.uiVillage = GameObject.FindObjectOfType<UIFarm>();
         this.player = GameObject.FindObjectOfType<Player>();
         this.mapManager = GameObject.FindObjectOfType<MapManager>();
         this.tileManager = GameObject.FindObjectOfType<TileManager>();

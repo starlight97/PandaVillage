@@ -1,0 +1,29 @@
+[
+  {
+    "id": 5000,
+    "ruck_name": "돌",
+    "sprite_name": "stoneObject{0}",
+    "sprite_amount": 2,
+    "spawn_tile_type": 0,
+    "gain_material_id": 4001,
+    "gain_material_amount": 1
+  },
+  {
+    "id": 5001,
+    "ruck_name": "나무",
+    "sprite_name": "woodObject{0}",
+    "sprite_amount": 2,
+    "spawn_tile_type": 1,
+    "gain_material_id": 4000,
+    "gain_material_amount": 1
+  },
+  {
+    "id": 5002,
+    "ruck_name": "잡초",
+    "sprite_name": "weed{0}",
+    "sprite_amount": 4,
+    "spawn_tile_type": 1,
+    "gain_material_id": 4002,
+    "gain_material_amount": 1
+  }
+]

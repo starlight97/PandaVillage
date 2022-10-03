@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
         Axe
     }
 
-    private enum eDirStateType
+    private enum eStateType
     {
         None = -1,
         IdleFront, RunFront,
@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
         IdleBack, RunBack
     }
 
-    private Movement2D moveMent2D;
+    private Movement2D movement2D;
     private Farming farming;
     private eItemType isUseTool = eItemType.None;
     public UnityAction<Vector2Int, Vector2Int, List<Vector3>> onDecideTargetTile;
@@ -39,17 +39,27 @@ public class Player : MonoBehaviour
 
     private Vector3Int dir;
     private Vector3Int pos;
-    private bool isShowAnimalUI= false;
 
+    private bool isShowAnimalUI= false;
     public bool isBuildingSelected = false;
 
     private Animator anim;
+    private SpriteRenderer spriteR;
 
     private void Start()
     {
-        this.moveMent2D = GetComponent<Movement2D>();
+        this.spriteR = this.GetComponentInChildren<SpriteRenderer>();
+        this.movement2D = GetComponent<Movement2D>();
+        this.movement2D.onPlayAnimation = (dir) => {
+            this.SetAnimation(dir);
+        };
+        this.movement2D.onMoveComplete = (dir) =>
+        {
+            this.SetIdle(dir);
+        };
         this.farming = GetComponent<Farming>();
         this.anim = GetComponentInChildren<Animator>();
+
     }
 
     private void Update()
@@ -64,8 +74,6 @@ public class Player : MonoBehaviour
         int currentPosY = (int)Math.Round(this.transform.position.y);
         Vector2Int curPos = new Vector2Int(currentPosX, currentPosY);
         Vector2Int targetPos = new Vector2Int(targetPosX, targetPosY);
-
-        
         
         if (Input.GetMouseButtonDown(1))
         {
@@ -74,8 +82,8 @@ public class Player : MonoBehaviour
 
 
 
-            this.moveMent2D.pathList.Clear();
-            this.onDecideTargetTile(curPos, targetPos, this.moveMent2D.pathList);
+            this.movement2D.pathList.Clear();
+            this.onDecideTargetTile(curPos, targetPos, this.movement2D.pathList);
         }
 
         // 왼쪽 마우스 클릭 시 타일 변경됨
@@ -217,9 +225,77 @@ public class Player : MonoBehaviour
         #endregion
     }
 
+    private void UseTool()
+    {
+
+    }
+
+    private void GetTool()
+    {
+
+    }
+
+    public void SetAnimation(Vector3 dir)
+    {
+        // 상
+        if (dir.x == 0 && dir.y > 0)
+        {
+            this.anim.SetInteger("State", (int)eStateType.RunBack);
+        }
+
+        // 하
+        else if (dir.x == 0 && dir.y < 0)
+        {
+            this.anim.SetInteger("State", (int)eStateType.RunFront);
+        }
+
+        //좌
+        else if (dir.x < 0)
+        {
+            this.anim.SetInteger("State", (int)eStateType.RunSide);
+            spriteR.flipX = true;
+        }
+
+        // 우
+        else if (dir.x > 0)
+        {
+            this.anim.SetInteger("State", (int)eStateType.RunSide);
+            spriteR.flipX = false;
+        }
+    }
+
+    private void SetIdle(Vector3 dir)
+    {
+        // 상
+        if (dir.x == 0 && dir.y > 0)
+        {
+            this.anim.SetInteger("State", (int)eStateType.IdleBack);
+        }
+
+        // 하
+        else if (dir.x == 0 && dir.y < 0)
+        {
+            this.anim.SetInteger("State", (int)eStateType.IdleFront);
+        }
+
+        //좌
+        else if (dir.x < 0)
+        {
+            this.anim.SetInteger("State", (int)eStateType.IdleSide);
+            spriteR.flipX = true;
+        }
+
+        // 우
+        else if (dir.x > 0)
+        {
+            this.anim.SetInteger("State", (int)eStateType.IdleSide);
+            spriteR.flipX = false;
+        }
+    }
+
     public void Move()
     {
-        this.moveMent2D.Move();
+        this.movement2D.Move();
     }
 
     public void GetFarmTile(Vector3Int pos, eItemType state)

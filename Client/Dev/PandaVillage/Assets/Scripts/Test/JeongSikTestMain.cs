@@ -6,105 +6,131 @@ using UnityEngine.Tilemaps;
 
 public class JeongSikTestMain : MonoBehaviour
 {
-    private MapManager mapManager;
-    private TimeManager timeManager;
-    private TileManager tileManager;
-    private ObjectSpawner objectSpawner;
-    private ObjectPlaceManager objectPlaceManager;
-    private Coop coop;
-
     private Player player;
+    private MapManager mapManager;
+    private TileManager tileManager;
+    private TimeManager timeManager;
+    private ObjectPlaceManager objectPlaceManager;
+    private ObjectManager objectManager;
 
-    public Vector2 pos;
-    public Vector3 size;
-
-    void Start()
+    private void Start()
     {
-        
-        Init();
-    }
-
-    public void Init()
-    {
-        //StartCoroutine(this.TouchToStartRoutine());
-
-
         this.player = GameObject.FindObjectOfType<Player>();
         this.mapManager = GameObject.FindObjectOfType<MapManager>();
-        this.timeManager = GameObject.FindObjectOfType<TimeManager>();
         this.tileManager = GameObject.FindObjectOfType<TileManager>();
-        this.coop = GameObject.FindObjectOfType<Coop>();
-        this.objectSpawner = GameObject.FindObjectOfType<ObjectSpawner>();
+        this.timeManager = GameObject.FindObjectOfType<TimeManager>();
         this.objectPlaceManager = GameObject.FindObjectOfType<ObjectPlaceManager>();
+        this.objectManager = GameObject.FindObjectOfType<ObjectManager>();
+
+        this.tileManager.Init();
+        this.timeManager.Init();
+        this.objectManager.Init("JeongTest", tileManager.GetTilesPosList(Farming.eFarmTileType.Grass));
 
 
+        #region PlayerAction
         this.player.onDecideTargetTile = (startPos, targetPos, pathList) =>
         {
             this.mapManager.PathFinding(startPos, targetPos, pathList);
             this.player.Move();
         };
-
+        // 타일이 있냐?
         this.player.onGetFarmTile = (pos, state) =>
         {
             bool check = tileManager.CheckTile(pos, state);
-            //if (check)
-                //player.ChangeFarmTile(pos);
+            if (check)
+                player.FarmingAct(pos);
         };
+
         // 타일 변경
         this.player.onChangeFarmTile = (pos, state) =>
         {
             tileManager.SetTile(pos, state);
         };
+
+        // 씨앗 뿌리기
+        this.player.onPlantCrop = (pos) =>
+        {
+            //cropManager.CreateCrop(pos);
+        };
+
+        this.player.onShowAnimalUI = (animal) =>
+        {
+            //if (animal != null)
+            //    uiFarm.ShowAnimalUI(animal.animalName, animal.friendship, animal.age);
+            //else
+            //    uiFarm.HideAnimalUI();
+        };
         this.player.onSelectedBuilding = (selectedBuildingGo) =>
         {
             objectPlaceManager.BuildingEdit(selectedBuildingGo);
         };
-
-        this.objectPlaceManager.onEditComplete = () =>
-        {
-            player.isBuildingSelected = false;
-        };
-        this.objectPlaceManager.onFindWallPosList = () =>
-        {
-            this.objectPlaceManager.wallPosArr = mapManager.GetWallPosArr();
-        };
-
-
-        this.coop.onDecideTargetTile = (startPos, targetPos, pathList, animal) =>
-        {
-            this.mapManager.PathFinding(startPos, targetPos, pathList);
-            animal.Move();
-        };
+        #endregion
 
         this.timeManager.onUpdateTime = (hour, minute) =>
         {
-            this.objectSpawner.SpawnObject();
         };
-
-        this.timeManager.Init();
-        this.coop.Init();
-        this.objectSpawner.Init();
-        //this.objectSpawner.SpawnObjects();
     }
 
-    public void Update()
-    {
-        if(Input.GetMouseButtonDown(0))
-        {
-            
-            var col = Physics2D.OverlapBox(pos, size, 0);
 
-            if(col != null)
-            {
-                Debug.Log(col.gameObject);
-            }
+    private void LoadInfo(int playerId)
+    {
+        bool check = InfoManager.instance.LoadData();
+        GameInfo gameInfo = new GameInfo();
+        if (check == false)
+        {
+            gameInfo.playerId = playerId;
+            gameInfo.objectInfoList = new List<ObjectInfo>();
+            gameInfo.playerInfo = new PlayerInfo("길동이", "강아지");
+
+            gameInfo.playerInfo.inventory.dicItem.Add(1000, 10);
+            gameInfo.playerInfo.inventory.dicItem.Add(2000, 20);
+            gameInfo.playerInfo.inventory.dicItem.Add(3000, 30);
+            InfoManager.instance.InsertInfo(gameInfo);
+
+            InfoManager.instance.SaveInfo();
+            Debug.Log("신규 유저 입니다.");
         }
 
+        else
+        {
+            Debug.Log("기존 유저 입니다.");
+            gameInfo = InfoManager.instance.GetInfo(playerId);
+
+            var datas = gameInfo.objectInfoList;
+            foreach (var data in datas)
+            {
+                Debug.Log(data.objectId);
+                Debug.Log(data.sceneName);
+                Debug.Log(data.posX);
+                Debug.Log(data.posY);
+            }
+        }
     }
 
-    private void OnDrawGizmos()
+    private void SaveGame(int playerId)
     {
-        Gizmos.DrawWireCube(pos, size);
-    }
+        List<Vector3Int> objectPosList = this.objectManager.GetObjectInfoList();
 
+        var info = InfoManager.instance.GetInfo(playerId);
+        // 10분당 1로 저장
+        // ex 하루 = 1320 분
+        // 하루마다 132 씩 ++
+        info.playerInfo.playMinute += 132;
+        //if(info.playerInfo.dicInventoryInfo.ContainsKey(1000))
+        //{
+        //    //info.playerInfo.dicInventoryInfo.Add(1000, new InventoryInfo(10, 1000, ));
+        //}
+        foreach (var pos in objectPosList)
+        {
+            ObjectInfo objectInfo = new ObjectInfo();
+            objectInfo.objectId = 1;
+            objectInfo.posX = pos.x;
+            objectInfo.posY = pos.y;
+            objectInfo.sceneName = "FarmScene";
+
+            info.objectInfoList.Add(objectInfo);
+        }
+
+        InfoManager.instance.SaveInfo();
+    }
 }
