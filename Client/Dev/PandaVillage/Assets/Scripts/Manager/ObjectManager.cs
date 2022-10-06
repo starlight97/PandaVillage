@@ -6,49 +6,53 @@ using UnityEngine.Events;
 
 public class ObjectManager : MonoBehaviour
 {
+    public enum eSpawnPlace
+    {
+        All,
+        Alley,
+        MountainRange,
+        Farm,
+        BusStop,
+        PelicanVillage,
+        CindersapForest,
+        SecretForest,
+    }
+
     public UnityAction<Farming.eFarmTileType> onGetTilePosList;
     private ObjectSpawner objectSpawner;
 
-    private List<Vector3Int> objectInfoList = new List<Vector3Int>();
     private List<Vector3Int> grassPosList = new List<Vector3Int>();
 
 
     public void Init(string sceneName, List<Vector3Int> grassPosList)
     {
         this.objectSpawner = GameObject.FindObjectOfType<ObjectSpawner>();
+        this.objectSpawner.Init();
         this.grassPosList = grassPosList;
-        var objectInfoList = InfoManager.instance.GetInfo(1).objectInfoList.FindAll(x => x.sceneName == sceneName);
+        //var objectInfoList = InfoManager.instance.GetInfo(1).objectInfoList.FindAll(x => x.sceneName == sceneName);
 
-        foreach (var info in objectInfoList)
-        {
-            objectSpawner.SpawnObject(info.objectId, new Vector2Int(info.posX, info.posY));
-        }
-        if(objectInfoList.Count == 0)
-        {
+        //foreach (var info in objectInfoList)
+        //{
+        //    objectSpawner.SpawnObject(info.objectId, new Vector2Int(info.posX, info.posY));
+        //}
 
-        }
     }
 
-    private void FindObjectPosList()
+    public List<OtherObject> GetOtherObjectist()
     {
-        this.objectInfoList.Clear();
-        int objectCount = this.objectSpawner.transform.childCount;
-        for (int index = 0; index < objectCount; index++)
-        {
-            this.objectInfoList.Add(new Vector3Int((int)this.objectSpawner.transform.GetChild(index).transform.position.x, (int)this.objectSpawner.transform.GetChild(index).transform.position.y, 0));
-        }
-    }
-
-    public List<Vector3Int> GetObjectInfoList()
-    {
-        this.FindObjectPosList();
-        return objectInfoList;
+        return objectSpawner.OtherObjectList;
     }
 
     public void SpawnObjects()
     {
         //this.objectSpawner.GrassTileSetting();
-        //this.objectSpawner.SpawnObjects();
+        this.objectSpawner.SpawnObject(5000);
+        this.objectSpawner.SpawnObject(5001);
+        this.objectSpawner.SpawnObject(5002);
+        this.objectSpawner.SpawnObject(5003);
+        this.objectSpawner.SpawnObject(5004);
+        this.objectSpawner.SpawnObject(5005);
+
     }
 
 

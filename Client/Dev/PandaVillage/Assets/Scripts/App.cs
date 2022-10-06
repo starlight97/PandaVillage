@@ -41,6 +41,8 @@ public class App : MonoBehaviour
         SceneManager.LoadSceneAsync(idx).completed += (obj) =>
         {
             var main = GameObject.FindObjectOfType<T>();
+            var param = new SceneParams();
+
 
             main.onDestroy.AddListener(() =>
             {
@@ -107,10 +109,13 @@ public class App : MonoBehaviour
                             this.uiApp.FadeOut(0.5f, () =>
                             {
                                 this.LoadScene<AlleyMain>(eSceneType.Alley);
+                                param.SpawnPos = new Vector3(1,1,1);
                             });
                         });
                         main.AddListener("onArrivalBusStopPortal", (data) =>
                         {
+                            this.uiApp.FadeIn();
+
                             this.uiApp.FadeOut(0.5f, () =>
                             {
                                 this.LoadScene<BusStopMain>(eSceneType.BusStop);
@@ -123,7 +128,7 @@ public class App : MonoBehaviour
                                 this.LoadScene<CindersapForestMain>(eSceneType.CindersapForest);
                             });
                         });
-                        main.Init();
+                        main.Init(param);
                         break;
                     }
                 case eSceneType.Alley:
@@ -144,7 +149,7 @@ public class App : MonoBehaviour
                                 this.LoadScene<MountainRangeMain>(eSceneType.MountainRange);
                             });
                         });
-                        main.Init();
+                        main.Init(param);
                         break;
                     }
                 case eSceneType.MountainRange:
@@ -165,7 +170,7 @@ public class App : MonoBehaviour
                                 this.LoadScene<PelicanVillageMain>(eSceneType.PelicanVillage);
                             });
                         });
-                        main.Init();
+                        main.Init(param);
                         break;
                     }
                 case eSceneType.BusStop:
@@ -186,7 +191,7 @@ public class App : MonoBehaviour
                                 this.LoadScene<PelicanVillageMain>(eSceneType.PelicanVillage);
                             });
                         });
-                        main.Init();
+                        main.Init(param);
                         break;
                     }
                 case eSceneType.PelicanVillage:
@@ -214,7 +219,7 @@ public class App : MonoBehaviour
                                 this.LoadScene<CindersapForestMain>(eSceneType.CindersapForest);
                             });
                         });
-                        main.Init();
+                        main.Init(param);
                         break;
                     }
                 case eSceneType.CindersapForest:
@@ -235,7 +240,7 @@ public class App : MonoBehaviour
                                 this.LoadScene<PelicanVillageMain>(eSceneType.PelicanVillage);
                             });
                         });
-                        main.Init();
+                        main.Init(param);
                         break;
                     }
             }

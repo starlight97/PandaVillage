@@ -6,18 +6,18 @@
   },
   {
     "id": 1,
-    "res_name": "shop_item_data",
-    "type": "ShopitemData"
+    "res_name": "seed_data",
+    "type": "SeedData"
   },
   {
     "id": 2,
-    "res_name": "gathering_data",
-    "type": "GatheringData"
+    "res_name": "material_data",
+    "type": "MaterialData"
   },
   {
     "id": 3,
-    "res_name": "material_data",
-    "type": "MaterialData"
+    "res_name": "tool_data",
+    "type": "ToolData"
   },
   {
     "id": 4,

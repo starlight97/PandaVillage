@@ -10,14 +10,24 @@
 
 
 
-public class ShopitemData : RawData
+public class SeedData: RawData
 {
     
     //public int id;
     
     public string item_name;
     
-    public string atlas_sprite_name;
+    public int plant_item_id;
     
-    public string item_description;
+    public string sprite_name;
+    
+    public int purchase_price;
+    
+    public int purchase_price_min;
+    
+    public int purchase_price_max;
+    
+    public int sale_price;
+    
+    public int season;
 }

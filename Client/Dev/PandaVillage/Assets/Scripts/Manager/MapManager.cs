@@ -87,8 +87,6 @@ public class MapManager : MonoBehaviour
             topRight.y = startPos.y + searchRange;
         }
 
-
-
         if (bottomLeft.x < mapBottomLeft.x)
             bottomLeft.x = mapBottomLeft.x;
         if (bottomLeft.y < mapBottomLeft.y)
@@ -100,14 +98,10 @@ public class MapManager : MonoBehaviour
 
         // 맵크기 설정
         // NodeArray의 크기 정해주고, isWall, x, y 대입
-
         sizeX = topRight.x - bottomLeft.x + 1;
         sizeY = topRight.y - bottomLeft.y + 1;
 
-
-
-        NodeArray = new Node[sizeY, sizeX];
-        
+        NodeArray = new Node[sizeY, sizeX];        
 
         WallSetting(sizeY, sizeX);
         // 시작과 끝 노드, 열린리스트와 닫힌리스트, 마지막리스트 초기화
@@ -127,7 +121,6 @@ public class MapManager : MonoBehaviour
             OpenList.Remove(CurNode);
             ClosedList.Add(CurNode);
 
-
             // 마지막
             if (CurNode == TargetNode)
             {
@@ -142,14 +135,11 @@ public class MapManager : MonoBehaviour
 
                 for (int i = 0; i < FinalNodeList.Count; i++)
                 {
-                    //print(i + "번째는 " + FinalNodeList[i].x + ", " + FinalNodeList[i].y);
-                    //Vector3 path = new Vector3(FinalNodeList[i].x + 0.5f, FinalNodeList[i].y, 0);
                     Vector3 path = new Vector3(FinalNodeList[i].x, FinalNodeList[i].y, 0);
                     pathList.Add(path);
                 }
                 return;
             }
-
 
             // ↗↖↙↘
             if (allowDiagonal)

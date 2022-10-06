@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,9 @@ public class JeongSikTestMain : MonoBehaviour
 
     private void Start()
     {
+        DataManager.instance.Init();
+        DataManager.instance.LoadAllData(this);
+
         this.player = GameObject.FindObjectOfType<Player>();
         this.mapManager = GameObject.FindObjectOfType<MapManager>();
         this.tileManager = GameObject.FindObjectOfType<TileManager>();
@@ -24,7 +28,14 @@ public class JeongSikTestMain : MonoBehaviour
 
         this.tileManager.Init();
         this.timeManager.Init();
-        this.objectManager.Init("JeongTest", tileManager.GetTilesPosList(Farming.eFarmTileType.Grass));
+        DataManager.instance.onDataLoadFinished.AddListener(() =>
+        {
+            this.objectManager.Init("JeongTest", tileManager.GetTilesPosList(Farming.eFarmTileType.Grass));
+            this.objectManager.SpawnObjects();
+        });
+
+
+        //this.objectManager.Init("JeongTest", tileManager.GetTilesPosList(Farming.eFarmTileType.Grass));
 
 
         #region PlayerAction
@@ -69,6 +80,15 @@ public class JeongSikTestMain : MonoBehaviour
         this.timeManager.onUpdateTime = (hour, minute) =>
         {
         };
+
+        this.objectPlaceManager.onEditComplete = () =>
+        {
+            player.isBuildingSelected = false;
+        };
+        this.objectPlaceManager.onFindWallPosList = () =>
+        {
+            this.objectPlaceManager.wallPosArr = mapManager.GetWallPosArr();
+        };
     }
 
 
@@ -107,30 +127,30 @@ public class JeongSikTestMain : MonoBehaviour
         }
     }
 
-    private void SaveGame(int playerId)
-    {
-        List<Vector3Int> objectPosList = this.objectManager.GetObjectInfoList();
+    //private void SaveGame(int playerId)
+    //{
+    //    List<Vector3Int> objectPosList = this.objectManager.GetObjectInfoList();
 
-        var info = InfoManager.instance.GetInfo(playerId);
-        // 10분당 1로 저장
-        // ex 하루 = 1320 분
-        // 하루마다 132 씩 ++
-        info.playerInfo.playMinute += 132;
-        //if(info.playerInfo.dicInventoryInfo.ContainsKey(1000))
-        //{
-        //    //info.playerInfo.dicInventoryInfo.Add(1000, new InventoryInfo(10, 1000, ));
-        //}
-        foreach (var pos in objectPosList)
-        {
-            ObjectInfo objectInfo = new ObjectInfo();
-            objectInfo.objectId = 1;
-            objectInfo.posX = pos.x;
-            objectInfo.posY = pos.y;
-            objectInfo.sceneName = "FarmScene";
+    //    var info = InfoManager.instance.GetInfo(playerId);
+    //    // 10분당 1로 저장
+    //    // ex 하루 = 1320 분
+    //    // 하루마다 132 씩 ++
+    //    info.playerInfo.playMinute += 132;
+    //    //if(info.playerInfo.dicInventoryInfo.ContainsKey(1000))
+    //    //{
+    //    //    //info.playerInfo.dicInventoryInfo.Add(1000, new InventoryInfo(10, 1000, ));
+    //    //}
+    //    foreach (var pos in objectPosList)
+    //    {
+    //        ObjectInfo objectInfo = new ObjectInfo();
+    //        objectInfo.objectId = 1;
+    //        objectInfo.posX = pos.x;
+    //        objectInfo.posY = pos.y;
+    //        objectInfo.sceneName = "FarmScene";
 
-            info.objectInfoList.Add(objectInfo);
-        }
+    //        info.objectInfoList.Add(objectInfo);
+    //    }
 
-        InfoManager.instance.SaveInfo();
-    }
+    //    InfoManager.instance.SaveInfo();
+    //}
 }

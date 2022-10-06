@@ -97,8 +97,6 @@ public class TileManager : MonoBehaviour
             }
         }
 
-        Debug.Log(tilePosList.Count);
-
         return tilePosList;
     }
 

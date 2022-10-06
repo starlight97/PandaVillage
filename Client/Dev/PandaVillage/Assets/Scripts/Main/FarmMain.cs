@@ -21,7 +21,7 @@ public class FarmMain : SceneMain
     public Button btnNext;
     public Button btnAddAnimal;
 
-    public override void Init(SceneParams param = null)
+    public override void Init(SceneParams param)
     {
         LoadInfo(1);
         this.uiFarm = GameObject.FindObjectOfType<UIFarm>();
@@ -35,6 +35,7 @@ public class FarmMain : SceneMain
         this.objectManager = GameObject.FindObjectOfType<ObjectManager>();
         this.portalManager = GameObject.FindObjectOfType<PortalManager>();
 
+        this.player.transform.position = param.SpawnPos;
         this.tileManager.Init();
         this.timeManager.Init();
         this.ranchManager.Init();
@@ -133,7 +134,6 @@ public class FarmMain : SceneMain
             this.objectPlaceManager.wallPosArr = mapManager.GetWallPosArr();
         };
 
-
         this.portalManager.onArrival = (sceneType) =>
         {
             Dispatch("onArrival" + sceneType.ToString() + "Portal");            
@@ -186,27 +186,27 @@ public class FarmMain : SceneMain
 
     private void SaveGame(int playerId)
     {        
-        List<Vector3Int> objectPosList = this.objectManager.GetObjectInfoList();
+        //List<Vector3Int> objectPosList = this.objectManager.GetObjectInfoList();
 
-        var info = InfoManager.instance.GetInfo(playerId);
-        // 10분당 1로 저장
-        // ex 하루 = 1320 분
-        // 하루마다 132 씩 ++
-        info.playerInfo.playMinute += 132;
-        //if(info.playerInfo.dicInventoryInfo.ContainsKey(1000))
+        //var info = InfoManager.instance.GetInfo(playerId);
+        //// 10분당 1로 저장
+        //// ex 하루 = 1320 분
+        //// 하루마다 132 씩 ++
+        //info.playerInfo.playMinute += 132;
+        ////if(info.playerInfo.dicInventoryInfo.ContainsKey(1000))
+        ////{
+        ////    //info.playerInfo.dicInventoryInfo.Add(1000, new InventoryInfo(10, 1000, ));
+        ////}
+        //foreach (var pos in objectPosList)
         //{
-        //    //info.playerInfo.dicInventoryInfo.Add(1000, new InventoryInfo(10, 1000, ));
-        //}
-        foreach (var pos in objectPosList)
-        {
-            ObjectInfo objectInfo = new ObjectInfo();
-            objectInfo.objectId = 1;
-            objectInfo.posX = pos.x;
-            objectInfo.posY = pos.y;
-            objectInfo.sceneName = "FarmScene";
+        //    ObjectInfo objectInfo = new ObjectInfo();
+        //    objectInfo.objectId = 1;
+        //    objectInfo.posX = pos.x;
+        //    objectInfo.posY = pos.y;
+        //    objectInfo.sceneName = "FarmScene";
 
-            info.objectInfoList.Add(objectInfo);
-        }
+        //    info.objectInfoList.Add(objectInfo);
+        //}
 
         InfoManager.instance.SaveInfo();
     }

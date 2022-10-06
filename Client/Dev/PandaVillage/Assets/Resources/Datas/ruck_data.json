@@ -2,28 +2,73 @@
   {
     "id": 5000,
     "ruck_name": "돌",
-    "sprite_name": "stoneObject{0}",
-    "sprite_amount": 2,
+    "sprite_name": "stoneObject1",
     "spawn_tile_type": 0,
     "gain_material_id": 4001,
-    "gain_material_amount": 1
+    "gain_material_amount": 1,
+    "prefab_name": "Prefabs\\OtherObject\\Ruck\\StoneObject1"
   },
   {
     "id": 5001,
-    "ruck_name": "나무",
-    "sprite_name": "woodObject{0}",
-    "sprite_amount": 2,
-    "spawn_tile_type": 1,
-    "gain_material_id": 4000,
-    "gain_material_amount": 1
+    "ruck_name": "돌",
+    "sprite_name": "stoneObject2",
+    "spawn_tile_type": 0,
+    "gain_material_id": 4001,
+    "gain_material_amount": 1,
+    "prefab_name": "Prefabs\\OtherObject\\Ruck\\StoneObject2"
   },
   {
     "id": 5002,
+    "ruck_name": "나무",
+    "sprite_name": "woodObject1",
+    "spawn_tile_type": 1,
+    "gain_material_id": 4000,
+    "gain_material_amount": 1,
+    "prefab_name": "Prefabs\\OtherObject\\Ruck\\WoodObject1"
+  },
+  {
+    "id": 5003,
+    "ruck_name": "나무",
+    "sprite_name": "woodObject2",
+    "spawn_tile_type": 1,
+    "gain_material_id": 4000,
+    "gain_material_amount": 1,
+    "prefab_name": "Prefabs\\OtherObject\\Ruck\\WoodObject2"
+  },
+  {
+    "id": 5004,
     "ruck_name": "잡초",
-    "sprite_name": "weed{0}",
-    "sprite_amount": 4,
+    "sprite_name": "weed1",
     "spawn_tile_type": 1,
     "gain_material_id": 4002,
-    "gain_material_amount": 1
+    "gain_material_amount": 1,
+    "prefab_name": "Prefabs\\OtherObject\\Ruck\\Weed1"
+  },
+  {
+    "id": 5005,
+    "ruck_name": "잡초",
+    "sprite_name": "weed2",
+    "spawn_tile_type": 1,
+    "gain_material_id": 4002,
+    "gain_material_amount": 1,
+    "prefab_name": "Prefabs\\OtherObject\\Ruck\\Weed2"
+  },
+  {
+    "id": 5006,
+    "ruck_name": "잡초",
+    "sprite_name": "weed3",
+    "spawn_tile_type": 1,
+    "gain_material_id": 4002,
+    "gain_material_amount": 1,
+    "prefab_name": "Prefabs\\OtherObject\\Ruck\\Weed3"
+  },
+  {
+    "id": 5007,
+    "ruck_name": "잡초",
+    "sprite_name": "weed4",
+    "spawn_tile_type": 1,
+    "gain_material_id": 4002,
+    "gain_material_amount": 1,
+    "prefab_name": "Prefabs\\OtherObject\\Ruck\\Weed4"
   }
 ]

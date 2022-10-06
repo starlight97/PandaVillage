@@ -89,14 +89,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f750b15f7cffd3245a8662234b026dc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objGos:
-  - {fileID: 3646407572765926750, guid: f06c2f30c4c117f49b21683468cf8584, type: 3}
-  - {fileID: 6893051502907452510, guid: 1ba6be6641337db40bab7d974c406efb, type: 3}
-  - {fileID: 9080409519391805417, guid: 506c667b8b034dd4aadffb785265d8e6, type: 3}
-  - {fileID: 5408223662926832580, guid: c4774bec2b6cf5640964ee45e46b6c33, type: 3}
-  - {fileID: 5411441918182342352, guid: 82a8bb67382135c4587635e95b278c05, type: 3}
-  - {fileID: 7238675729951609201, guid: 7d5e01820c6950c4dac625fe5cca88c1, type: 3}
-  - {fileID: 4750611265872818341, guid: 7f3dc9fb6c84fa04bb30a06b3f32c7ca, type: 3}
-  - {fileID: 4155630735980578471, guid: ff0d6ce659581254d83e67ba0bf940e5, type: 3}
   mapBottomLeft: {x: 0, y: 0}
   mapTopRight: {x: 0, y: 0}
+  atlas: {fileID: 4343727234628468602, guid: a037b98c6cf371a4d8a0e5f3e24ef86b, type: 2}

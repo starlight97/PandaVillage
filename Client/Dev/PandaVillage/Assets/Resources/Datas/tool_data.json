@@ -1,0 +1,74 @@
+[
+  {
+    "id": 6000,
+    "tool_name": "호미",
+    "type": 0,
+    "price": 2000,
+    "material_item_id": 4008,
+    "material_amount": 5,
+    "sprite_name": "hoe"
+  },
+  {
+    "id": 6001,
+    "tool_name": "물뿌리개",
+    "type": 1,
+    "price": 2000,
+    "material_item_id": 4008,
+    "material_amount": 5,
+    "sprite_name": "wateringCan"
+  },
+  {
+    "id": 6002,
+    "tool_name": "도끼",
+    "type": 2,
+    "price": 2000,
+    "material_item_id": 4008,
+    "material_amount": 5,
+    "sprite_name": "axe"
+  },
+  {
+    "id": 6003,
+    "tool_name": "곡괭이",
+    "type": 3,
+    "price": 2000,
+    "material_item_id": 4008,
+    "material_amount": 5,
+    "sprite_name": "pick"
+  },
+  {
+    "id": 6004,
+    "tool_name": "낫",
+    "type": 4,
+    "price": 2000,
+    "material_item_id": 4008,
+    "material_amount": 5,
+    "sprite_name": "sickle"
+  },
+  {
+    "id": 6005,
+    "tool_name": "연습용 낚싯대",
+    "type": 5,
+    "price": 25,
+    "material_item_id": 0,
+    "material_amount": 0,
+    "sprite_name": "fishingRod"
+  },
+  {
+    "id": 6006,
+    "tool_name": "우유 들통",
+    "type": 6,
+    "price": 1000,
+    "material_item_id": 0,
+    "material_amount": 0,
+    "sprite_name": "milkPail"
+  },
+  {
+    "id": 6007,
+    "tool_name": "양털 가위",
+    "type": 7,
+    "price": 1000,
+    "material_item_id": 0,
+    "material_amount": 0,
+    "sprite_name": "shears"
+  }
+]

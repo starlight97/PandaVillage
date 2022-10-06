@@ -19,5 +19,5 @@ public class ShopData : RawData
     
     public int item_id;
     
-    public int price;
+    public string item_description;
 }

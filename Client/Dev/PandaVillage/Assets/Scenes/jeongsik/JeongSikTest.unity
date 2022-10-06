@@ -613,7 +613,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &418452231
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1741,7 +1741,7 @@ GameObject:
   - component: {fileID: 1563332337}
   - component: {fileID: 1563332338}
   m_Layer: 0
-  m_Name: FarmMain
+  m_Name: JeongSIkTestMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42764,6 +42764,22 @@ PrefabInstance:
     - target: {fileID: 8403122349182039541, guid: 2e21b5c2799e5f248a715f46f000d3ac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8403122349303908741, guid: 2e21b5c2799e5f248a715f46f000d3ac, type: 3}
+      propertyPath: mapTopRight.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8403122349303908741, guid: 2e21b5c2799e5f248a715f46f000d3ac, type: 3}
+      propertyPath: mapTopRight.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8403122349303908741, guid: 2e21b5c2799e5f248a715f46f000d3ac, type: 3}
+      propertyPath: mapBottomLeft.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8403122349303908741, guid: 2e21b5c2799e5f248a715f46f000d3ac, type: 3}
+      propertyPath: mapBottomLeft.y
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e21b5c2799e5f248a715f46f000d3ac, type: 3}

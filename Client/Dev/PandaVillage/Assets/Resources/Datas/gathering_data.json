@@ -9,7 +9,8 @@
     "purchase_price_max": 1000,
     "sale_price": 50,
     "season": 0,
-    "spawn_place": "everywhere"
+    "spawn_place": 0,
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\WildHorseradish"
   },
   {
     "id": 3001,
@@ -21,7 +22,8 @@
     "purchase_price_max": 1000,
     "sale_price": 30,
     "season": 0,
-    "spawn_place": "everywhere"
+    "spawn_place": 0,
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Daffodil"
   },
   {
     "id": 3002,
@@ -33,7 +35,8 @@
     "purchase_price_max": 1000,
     "sale_price": 60,
     "season": 0,
-    "spawn_place": "everywhere"
+    "spawn_place": 0,
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Leek"
   },
   {
     "id": 3003,
@@ -45,7 +48,8 @@
     "purchase_price_max": 1000,
     "sale_price": 40,
     "season": 0,
-    "spawn_place": "everywhere"
+    "spawn_place": 0,
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Dandelion"
   },
   {
     "id": 3004,
@@ -57,7 +61,8 @@
     "purchase_price_max": 1000,
     "sale_price": 8,
     "season": 0,
-    "spawn_place": "CindersapForest"
+    "spawn_place": 1,
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\SpringOnion"
   },
   {
     "id": 3005,
@@ -69,7 +74,8 @@
     "purchase_price_max": 1000,
     "sale_price": 150,
     "season": 0,
-    "spawn_place": "SecretForest"
+    "spawn_place": 2,
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Morel"
   },
   {
     "id": 3006,
@@ -81,7 +87,8 @@
     "purchase_price_max": 1000,
     "sale_price": 40,
     "season": 0,
-    "spawn_place": "SecretForest"
+    "spawn_place": 2,
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\CommonMushroom"
   },
   {
     "id": 3007,
@@ -93,7 +100,8 @@
     "purchase_price_max": 1000,
     "sale_price": 5,
     "season": 5,
-    "spawn_place": "Tree"
+    "spawn_place": 10,
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Salmonberry"
   },
   {
     "id": 3008,
@@ -105,7 +113,8 @@
     "purchase_price_max": 1000,
     "sale_price": 125,
     "season": 5,
-    "spawn_place": "1"
+    "spawn_place": 11,
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Milk"
   },
   {
     "id": 3009,
@@ -117,7 +126,8 @@
     "purchase_price_max": 1000,
     "sale_price": 190,
     "season": 5,
-    "spawn_place": "1"
+    "spawn_place": 11,
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\LargeMilk"
   },
   {
     "id": 3010,
@@ -129,7 +139,8 @@
     "purchase_price_max": 1000,
     "sale_price": 50,
     "season": 5,
-    "spawn_place": "1"
+    "spawn_place": 11,
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Egg"
   },
   {
     "id": 3011,
@@ -141,7 +152,8 @@
     "purchase_price_max": 1000,
     "sale_price": 95,
     "season": 5,
-    "spawn_place": "1"
+    "spawn_place": 11,
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\LargeEgg"
   },
   {
     "id": 3012,
@@ -153,6 +165,7 @@
     "purchase_price_max": 1000,
     "sale_price": 2,
     "season": 5,
-    "spawn_place": "1"
+    "spawn_place": 11,
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Sap"
   }
 ]

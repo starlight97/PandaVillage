@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1000,
+    "item_name": "파스닙 씨앗",
+    "plant_item_id": 2000,
+    "sprite_name": "parsnipSeed",
+    "purchase_price": 20,
+    "purchase_price_min": 100,
+    "purchase_price_max": 1000,
+    "sale_price": 10,
+    "season": 1
+  },
+  {
+    "id": 1001,
+    "item_name": "콜리플라워 씨앗",
+    "plant_item_id": 2001,
+    "sprite_name": "cauliflowerSeed",
+    "purchase_price": 80,
+    "purchase_price_min": 120,
+    "purchase_price_max": 1000,
+    "sale_price": 40,
+    "season": 1
+  },
+  {
+    "id": 1002,
+    "item_name": "콩 종자",
+    "plant_item_id": 2002,
+    "sprite_name": "greenBeanSeed",
+    "purchase_price": 60,
+    "purchase_price_min": 100,
+    "purchase_price_max": 1000,
+    "sale_price": 30,
+    "season": 1
+  },
+  {
+    "id": 1003,
+    "item_name": "케일 씨앗",
+    "plant_item_id": 2003,
+    "sprite_name": "kaleSeed",
+    "purchase_price": 70,
+    "purchase_price_min": 105,
+    "purchase_price_max": 1000,
+    "sale_price": 35,
+    "season": 1
+  },
+  {
+    "id": 1004,
+    "item_name": "감자 씨앗",
+    "plant_item_id": 2004,
+    "sprite_name": "potatoSeed",
+    "purchase_price": 50,
+    "purchase_price_min": 100,
+    "purchase_price_max": 1000,
+    "sale_price": 25,
+    "season": 1
+  },
+  {
+    "id": 1005,
+    "item_name": "푸른 재즈 씨앗",
+    "plant_item_id": 2005,
+    "sprite_name": "blueJazzSeed",
+    "purchase_price": 30,
+    "purchase_price_min": 100,
+    "purchase_price_max": 1000,
+    "sale_price": 15,
+    "season": 1
+  },
+  {
+    "id": 1006,
+    "item_name": "튤립 구근",
+    "plant_item_id": 2006,
+    "sprite_name": "tulipSeed",
+    "purchase_price": 20,
+    "purchase_price_min": 100,
+    "purchase_price_max": 1000,
+    "sale_price": 10,
+    "season": 1
+  }
+]
