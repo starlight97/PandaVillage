@@ -5,6 +5,8 @@ using UnityEngine;
 public class CameraPositionSetter : MonoBehaviour
 {
     private GameObject playerGo;
+    public float offsetX;
+    public float offsetY;
     public Vector2 bottomLeft;
     public Vector2 topRight;
 
@@ -30,6 +32,8 @@ public class CameraPositionSetter : MonoBehaviour
         if (newPos.y >= topRight.y)
             newPos.y = topRight.y;
 
+        newPos.x += offsetX;
+        newPos.y += offsetY;
         this.transform.position = newPos;
     }
 

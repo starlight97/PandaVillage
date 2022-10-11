@@ -17,13 +17,8 @@ public class FarmMain : SceneMain
     private ObjectManager objectManager;
     private PortalManager portalManager;
 
-
-    public Button btnNext;
-    public Button btnAddAnimal;
-
     public override void Init(SceneParams param)
     {
-        LoadInfo(1);
         this.uiFarm = GameObject.FindObjectOfType<UIFarm>();
         this.player = GameObject.FindObjectOfType<Player>();
         this.mapManager = GameObject.FindObjectOfType<MapManager>();
@@ -41,8 +36,18 @@ public class FarmMain : SceneMain
         this.ranchManager.Init();
         this.cropManager.Init();
         this.uiFarm.Init();
-        this.objectManager.Init("Farm", tileManager.GetTilesPosList(Farming.eFarmTileType.Grass));
         this.portalManager.Init();
+
+
+        var info = InfoManager.instance.GetInfo();
+        this.objectManager.Init(App.eMapType.Farm, tileManager.GetTilesPosList(TileManager.eTileType.Dirt));
+        if (info.isNewbie == true)
+        {
+            Debug.Log("isNEWBIE");
+            info.isNewbie = false;
+            this.objectManager.SpawnRuckObjects(400);
+        }
+        InfoManager.instance.SaveGame(App.eMapType.Farm, this.objectManager.GetOtherObjectist());
 
 
         #region PlayerAction
@@ -52,7 +57,7 @@ public class FarmMain : SceneMain
             this.player.Move();
         };
         // 타일이 있냐?
-        this.player.onGetFarmTile = (pos, state) =>
+        this.player.onGetTile = (pos, state) =>
         {
             bool check = tileManager.CheckTile(pos, state);
             if (check)
@@ -66,10 +71,10 @@ public class FarmMain : SceneMain
         };
 
         // 씨앗 뿌리기
-        this.player.onPlantCrop = (pos) =>
-        {
-            cropManager.CreateCrop(pos);
-        };
+        //this.player.onPlantCrop = (pos) =>
+        //{
+        //    cropManager.CreateCrop(pos);
+        //};
 
         this.player.onShowAnimalUI = (animal) =>
         {
@@ -87,12 +92,19 @@ public class FarmMain : SceneMain
         #region TimeManagerAction
         this.timeManager.onUpdateTime = (hour, minute) =>
         {
-            if(hour == 1)
+            var info = InfoManager.instance.GetInfo();
+            // 10분당 1로 저장
+            // ex 하루 = 1320 분
+            // 하루마다 132 씩 ++
+            info.playerInfo.playMinute += 132;
+
+            if (hour == 26)
             {
-                Debug.Log("22시에요 하루가 끝났어요");
+                Debug.Log("새벽 2시예요 하루가 끝났어요");
                 timeManager.EndDay();
                 ranchManager.NextDay();
-                SaveGame(1);
+                InfoManager.instance.SaveGame(App.eMapType.Farm, this.objectManager.GetOtherObjectist());
+                InfoManager.instance.EndDay();
                 cropManager.CheckWateringDirt();
                 tileManager.ClearWateringTiles();
             }
@@ -100,14 +112,14 @@ public class FarmMain : SceneMain
         #endregion
 
         #region CropManagerAction
-        this.cropManager.onGetFarmTile = (pos, crop) =>
-        {
-            bool check = tileManager.CheckTile(pos, Farming.eFarmTileType.WateringDirt);
-            if (check == true)
-            {
-                cropManager.GrowUpCrop(crop);
-            }
-        };
+        //this.cropManager.onGetFarmTile = (pos, crop) =>
+        //{
+        //    bool check = tileManager.CheckTile(pos, TileManager.eTileType.WateringDirt);
+        //    if (check == true)
+        //    {
+        //        cropManager.GrowUpCrop(crop);
+        //    }
+        //};
         #endregion
 
         this.ranchManager.onDecideTargetTile = (startPos, targetPos, pathList, animal) =>
@@ -115,15 +127,6 @@ public class FarmMain : SceneMain
             this.mapManager.PathFinding(startPos, targetPos, pathList);
             animal.Move();
         };
-
-        this.btnNext.onClick.AddListener(() =>
-        {
-            ranchManager.NextDay();
-        });
-        this.btnAddAnimal.onClick.AddListener(() =>
-        {
-            ranchManager.coopArr[0].CreateAnimal();
-        });
 
         this.objectPlaceManager.onEditComplete = () =>
         {
@@ -136,80 +139,21 @@ public class FarmMain : SceneMain
 
         this.portalManager.onArrival = (sceneType) =>
         {
+            InfoManager.instance.SaveGame(App.eMapType.Farm, this.objectManager.GetOtherObjectist());
             Dispatch("onArrival" + sceneType.ToString() + "Portal");            
         };
+
     }
 
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.S))
         {
-            SaveGame(1);
+            InfoManager.instance.SaveGame(App.eMapType.Farm, this.objectManager.GetOtherObjectist());
             
         }
     }
 
-    private void LoadInfo(int playerId)
-    {
-        bool check = InfoManager.instance.LoadData();
-        GameInfo gameInfo = new GameInfo();
-        if (check == false)
-        {
-            gameInfo.playerId = playerId;
-            gameInfo.objectInfoList = new List<ObjectInfo>();
-            gameInfo.playerInfo = new PlayerInfo("길동이", "강아지");
-
-            gameInfo.playerInfo.inventory.dicItem.Add(1000,10);
-            gameInfo.playerInfo.inventory.dicItem.Add(2000,20);
-            gameInfo.playerInfo.inventory.dicItem.Add(3000,30);
-            InfoManager.instance.InsertInfo(gameInfo);
-
-            InfoManager.instance.SaveInfo();
-            Debug.Log("신규 유저 입니다.");
-        }
-
-        else
-        {
-            Debug.Log("기존 유저 입니다.");
-            gameInfo = InfoManager.instance.GetInfo(playerId);
-
-            var datas = gameInfo.objectInfoList;
-            foreach (var data in datas)
-            {
-                Debug.Log(data.objectId);
-                Debug.Log(data.sceneName);
-                Debug.Log(data.posX);
-                Debug.Log(data.posY);
-            }
-        }
-    }
-
-    private void SaveGame(int playerId)
-    {        
-        //List<Vector3Int> objectPosList = this.objectManager.GetObjectInfoList();
-
-        //var info = InfoManager.instance.GetInfo(playerId);
-        //// 10분당 1로 저장
-        //// ex 하루 = 1320 분
-        //// 하루마다 132 씩 ++
-        //info.playerInfo.playMinute += 132;
-        ////if(info.playerInfo.dicInventoryInfo.ContainsKey(1000))
-        ////{
-        ////    //info.playerInfo.dicInventoryInfo.Add(1000, new InventoryInfo(10, 1000, ));
-        ////}
-        //foreach (var pos in objectPosList)
-        //{
-        //    ObjectInfo objectInfo = new ObjectInfo();
-        //    objectInfo.objectId = 1;
-        //    objectInfo.posX = pos.x;
-        //    objectInfo.posY = pos.y;
-        //    objectInfo.sceneName = "FarmScene";
-
-        //    info.objectInfoList.Add(objectInfo);
-        //}
-
-        InfoManager.instance.SaveInfo();
-    }
 
 
 }

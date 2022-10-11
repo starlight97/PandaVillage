@@ -2,20 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.U2D;
 using System.Linq;
 
 public class CropManager : MonoBehaviour
 {
-    public GameObject[] cropPrefabs;
     public GameObject cropObject;
 
     public List<Crop> cropList;
-    public UnityAction<Vector3Int, Crop> onGetFarmTile;
+    public UnityAction<int, Vector3Int, Crop> onGetFarmTile;
 
     public void Init()
     {
         this.cropList = new List<Crop>();
+        //var info = InfoManager.instance.GetInfo();
     }
 
     // 해당 좌표에 레이를 쏴서 감지되는 오브젝트가 있으면 true 반환
@@ -31,24 +30,42 @@ public class CropManager : MonoBehaviour
         }
         return false;
     }
+    
+    public void CreateCrop(Vector3Int pos)
+    {
+
+    }
+
 
     // 물뿌린 밭에 작물을 심고 리스트에 저장
     // 해당 타일에 작물 오브젝트가 존재하면 심지 않음
-    public void CreateCrop(Vector3Int pos)
+    public void CreateCrop(int seedId, Vector3Int pos)
     {
+        var seedData = DataManager.instance.GetData<SeedData>(seedId);
+        var cropDatas = DataManager.instance.GetDataList<CropData>();
+
+        List<CropData> cropDataList = new List<CropData>();
+
+        foreach (var data in cropDatas)
+        {
+            cropDataList.Add(data);
+        }
+
         bool check = FindCrop(pos);
 
         if (check == false)
         {
-            GameObject cropGo = Instantiate<GameObject>(this.cropPrefabs[0]);
+            var cropData = DataManager.instance.GetData<CropData>(seedData.plant_item_id);
+            GameObject cropGo = Instantiate(Resources.Load<GameObject>(cropData.prefab_path));
             cropGo.transform.position = new Vector3(pos.x, pos.y, 0);
             cropGo.transform.parent = this.cropObject.transform;
 
             Crop crop = cropGo.GetComponent<Crop>();
-            crop.Init();
+            crop.Init(seedData.plant_item_id);
+
             crop.onGetWateringDirtTile = (pos, crop) =>
             {
-                this.onGetFarmTile(pos, crop);
+                this.onGetFarmTile(cropData.id, pos, crop);
             };
             crop.onDestroy = (cropGo) =>
             {
@@ -69,9 +86,10 @@ public class CropManager : MonoBehaviour
     }
 
     // 작물이 자라남
-    public void GrowUpCrop(Crop crop)
+    public void GrowUpCrop(int id, Crop crop)
     {
-        crop.GrowUp();
+        var data = DataManager.instance.GetData<CropData>(id);
+        crop.GrowUp(data.id);
     }
 
     #region 미완성 코드

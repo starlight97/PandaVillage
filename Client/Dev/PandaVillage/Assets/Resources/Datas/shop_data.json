@@ -2,73 +2,61 @@
   {
     "id": 7000,
     "shop_category": 0,
-    "item_id": 1000,
-    "item_description": "봄 작물. 성장하려면 4일 소요됩니다."
+    "item_id": 1000
   },
   {
     "id": 7001,
     "shop_category": 0,
-    "item_id": 1001,
-    "item_description": "봄 작물. 심으면 12일 후 큰 콜리플라워를 생산합니다."
+    "item_id": 1001
   },
   {
     "id": 7002,
     "shop_category": 0,
-    "item_id": 1002,
-    "item_description": "봄 작물. 성장하려면 10일 소요되지만, 수확한 후에도 계속 작물이 생산됩니다. 격자 구조물에 감겨 자랍니다."
+    "item_id": 1002
   },
   {
     "id": 7003,
     "shop_category": 0,
-    "item_id": 1003,
-    "item_description": "봄 작물, 성장하려면 6일 소요됩니다. 낫으로 수확할 수 있습니다."
+    "item_id": 1003
   },
   {
     "id": 7004,
     "shop_category": 0,
-    "item_id": 1004,
-    "item_description": "봄 작물. 성장하려면 6일 소요되며, 한번 수확할 때 여러 개 수확할 확률이 있습니다."
+    "item_id": 1004
   },
   {
     "id": 7005,
     "shop_category": 0,
-    "item_id": 1005,
-    "item_description": "봄에 심으세요. 7일 후 푸른 민들레 꽃이 핍니다."
+    "item_id": 1005
   },
   {
     "id": 7006,
     "shop_category": 0,
-    "item_id": 1006,
-    "item_description": "봄에 심으세요. 6일 후 다채로운 꽃이핍니다. 여러가지 색이 있습니다."
+    "item_id": 1006
   },
   {
     "id": 7007,
     "shop_category": 1,
-    "item_id": 4000,
-    "item_description": "사용 용도가 다양한 유연하면서 견고한 식물 재료."
+    "item_id": 4000
   },
   {
     "id": 7008,
     "shop_category": 1,
-    "item_id": 4001,
-    "item_description": "제작과 건설에 많이 사용되는 흔한 재료."
+    "item_id": 4001
   },
   {
     "id": 7009,
     "shop_category": 2,
-    "item_id": 4004,
-    "item_description": "동물 사료로 사용되는 말린 잔디."
+    "item_id": 4004
   },
   {
     "id": 7010,
     "shop_category": 2,
-    "item_id": 6006,
-    "item_description": "동물의 젖을 짤 때 사용합니다."
+    "item_id": 6006
   },
   {
     "id": 7011,
     "shop_category": 2,
-    "item_id": 6007,
-    "item_description": "양으로부터 양털을 모을 때 사용합니다."
+    "item_id": 6007
   }
 ]

@@ -23,5 +23,15 @@
     "id": 4,
     "res_name": "ruck_data",
     "type": "RuckData"
+  },
+  {
+    "id": 5,
+    "res_name": "gathering_data",
+    "type": "GatheringData"
+  },
+  {
+    "id": 6,
+    "res_name": "crop_data",
+    "type": "CropData"
   }
 ]

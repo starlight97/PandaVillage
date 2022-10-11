@@ -8,7 +8,7 @@ public class TimeManager : MonoBehaviour
     // 게임 내 시간
     // 실제 시간
     private int day;    // 일
-    private int hour;    // 시
+    private int hour=6;    // 시
     private int minute;     // 분
     private float currentTime;
 
@@ -48,7 +48,7 @@ public class TimeManager : MonoBehaviour
 
     public void EndDay()
     {
-        hour = 0;
+        hour = 6;
         minute = 0;
     }
 

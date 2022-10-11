@@ -21,13 +21,12 @@ public class PlayerInfo
     public PlayerInfo(string playerName, string pet, int gold = 500,
         int playMinute = 0, int currentEnegy = 100, int currentHp = 100)
     {
-        inventory = new Inventory(12);
+        inventory = new Inventory(36);
         this.playerName = playerName;
         this.pet = pet;
         this.gold = gold;
         this.playMinute = playMinute;
         this.currentEnegy = currentEnegy;
         this.currentHp = currentHp;
-
     }
 }

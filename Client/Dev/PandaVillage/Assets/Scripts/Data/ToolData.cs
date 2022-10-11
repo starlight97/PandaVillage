@@ -10,10 +10,8 @@
 
 
 
-public class ToolData: RawData
+public class ToolData : RawData
 {
-    
-    
     public string tool_name;
     
     public int type;
@@ -25,4 +23,6 @@ public class ToolData: RawData
     public int material_amount;
     
     public string sprite_name;
+    
+    public string description;
 }

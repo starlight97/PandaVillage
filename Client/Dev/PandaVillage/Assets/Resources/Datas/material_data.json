@@ -2,22 +2,24 @@
   {
     "id": 4000,
     "material_name": "나무",
-    "sprite_name": "wood",
+    "sprite_name": "wood{0}",
     "sprite_amount": 2,
     "purchase_price_min": 100,
     "purchase_price_max": 1000,
     "sale_price": 2,
-    "purchase_price": 10
+    "purchase_price": 10,
+    "description": "사용 용도가 다양한 유연하면서 견고한 식물 재료."
   },
   {
     "id": 4001,
     "material_name": "돌",
-    "sprite_name": "stone",
+    "sprite_name": "stone{0}",
     "sprite_amount": 2,
     "purchase_price_min": 100,
     "purchase_price_max": 1000,
     "sale_price": 2,
-    "purchase_price": 20
+    "purchase_price": 20,
+    "description": "제작과 건설에 많이 사용되는 흔한 재료."
   },
   {
     "id": 4002,
@@ -27,7 +29,8 @@
     "purchase_price_min": 100,
     "purchase_price_max": 1000,
     "sale_price": 1,
-    "purchase_price": 0
+    "purchase_price": 0,
+    "description": "식물에서 나온 원자재."
   },
   {
     "id": 4003,
@@ -37,7 +40,8 @@
     "purchase_price_min": 100,
     "purchase_price_max": 1000,
     "sale_price": 20,
-    "purchase_price": 0
+    "purchase_price": 0,
+    "description": "건축이나 물품을 제작할 때 사용됩니다."
   },
   {
     "id": 4004,
@@ -47,7 +51,8 @@
     "purchase_price_min": 0,
     "purchase_price_max": 0,
     "sale_price": 0,
-    "purchase_price": 50
+    "purchase_price": 50,
+    "description": "동물 사료로 사용되는 말린 잔디."
   },
   {
     "id": 4005,
@@ -57,7 +62,8 @@
     "purchase_price_min": 1020,
     "purchase_price_max": 1700,
     "sale_price": 340,
-    "purchase_price": 0
+    "purchase_price": 0,
+    "description": "부드럽고 푹신푹신한 양털."
   },
   {
     "id": 4006,
@@ -67,7 +73,8 @@
     "purchase_price_min": 100,
     "purchase_price_max": 1000,
     "sale_price": 15,
-    "purchase_price": 0
+    "purchase_price": 0,
+    "description": "제작과 제련 활동에 사용되는 불이 잘 붙는 돌."
   },
   {
     "id": 4007,
@@ -77,16 +84,18 @@
     "purchase_price_min": 100,
     "purchase_price_max": 1000,
     "sale_price": 5,
-    "purchase_price": 0
+    "purchase_price": 0,
+    "description": "주괴로 제련할 수 있는 흔한 광석."
   },
   {
     "id": 4008,
-    "material_name": "구리주괴",
+    "material_name": "구리 주괴",
     "sprite_name": "copperBar",
     "sprite_amount": 1,
     "purchase_price_min": 180,
     "purchase_price_max": 1000,
     "sale_price": 60,
-    "purchase_price": 0
+    "purchase_price": 0,
+    "description": "순수한 구리 주괴 하나."
   }
 ]

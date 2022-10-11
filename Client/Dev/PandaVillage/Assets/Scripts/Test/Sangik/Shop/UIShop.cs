@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.U2D;
 using System.IO;
 using System.Linq;
+using System;
 
 public enum eShopCategory
 {
@@ -25,8 +26,6 @@ public class UIShop : MonoBehaviour
     private UIPlayerGold uIPlayerGold;
     private Button inventoryButton;
     private Button exitButton;
-
-    public SpriteAtlas springObjectAtlas;
 
     private GameInfo gameInfo;
 
@@ -57,115 +56,54 @@ public class UIShop : MonoBehaviour
         {
             if (shop.shop_category == (int)eShopCategory)
             {
-               // Test3(shop);
-                Test4(shop);
+                //Test4(shop);
+                Test5(shop);
             }
         }       
 
         //===========================================================
-        gameInfo = InfoManager.instance.GetInfo(1);
+        gameInfo = InfoManager.instance.GetInfo();
         ButtonInit();
 
     }
-    //===============================
-    public void Test3(ShopData shop)
-    {
-        Sprite sp;
-
-        switch (eShopCategory)
-        {
-            case eShopCategory.GeneralStore :
-                var seed = DataManager.instance.GetData<SeedData>(shop.item_id);
-                sp = springObjectAtlas.GetSprite(seed.sprite_name);
-                uIShopItemScrollView.SetItem(seed, shop.item_description, sp);
-                break;
-            case eShopCategory.CarpenterShop :                    
-                var carpenter = DataManager.instance.GetData<MaterialData>(shop.item_id);
-                sp = springObjectAtlas.GetSprite(carpenter.sprite_name);
-                uIShopItemScrollView.SetItem(carpenter, shop.item_description, sp);
-                break;
-            case eShopCategory.MarniesRanch :
-                if (shop.item_id < 5000)
-                {
-                    var materialData = DataManager.instance.GetData<MaterialData>(shop.item_id);
-                    sp = springObjectAtlas.GetSprite(materialData.sprite_name);
-                    uIShopItemScrollView.SetItem(materialData, shop.item_description, sp);
-                }
-                else
-                {
-                    var toolData = DataManager.instance.GetData<ToolData>(shop.item_id);
-                    sp = springObjectAtlas.GetSprite(toolData.sprite_name);
-                    uIShopItemScrollView.SetItem(toolData, shop.item_description, sp);
-                }
-                break;
-            default: break;
-        }                
-    }
+   
+    //이전버전
     public void Test4(ShopData shop)
     {
-        Sprite sp;
-        int i = shop.item_id / 1000;
+        int i = shop.item_id / 1000;        
         switch (i)
         {
             case 1:
                 var seedData = DataManager.instance.GetData<SeedData>(shop.item_id);
-                sp = springObjectAtlas.GetSprite(seedData.sprite_name);
-                uIShopItemScrollView.SetItem(seedData, shop.item_description, sp);
+                uIShopItemScrollView.SetItem(seedData);
                 break;
             case 4:
                 var materialData = DataManager.instance.GetData<MaterialData>(shop.item_id);
-                sp = springObjectAtlas.GetSprite(materialData.sprite_name);
-                uIShopItemScrollView.SetItem(materialData, shop.item_description, sp);
+                uIShopItemScrollView.SetItem(materialData);
                 break;
             case 6:
                 var toolData = DataManager.instance.GetData<ToolData>(shop.item_id);
-                sp = springObjectAtlas.GetSprite(toolData.sprite_name);
-                uIShopItemScrollView.SetItem(toolData, shop.item_description, sp);
+                uIShopItemScrollView.SetItem(toolData);
                 break;
 
             default: break;
         }
     }
 
-
-    private void LoadInfo(int playerId)
+    //통일장이론
+    public void Test5(ShopData shop)
     {
-        bool check = InfoManager.instance.LoadData();
-        GameInfo gameInfo = new GameInfo();
-        if (check == false)
-        {
-            gameInfo.playerId = playerId;
-            gameInfo.objectInfoList = new List<ObjectInfo>();
-            gameInfo.playerInfo = new PlayerInfo("강아지", "강아지");
-
-            gameInfo.playerInfo.inventory.dicItem.Add(1000, 10);
-            gameInfo.playerInfo.inventory.dicItem.Add(2000, 20);
-            gameInfo.playerInfo.inventory.dicItem.Add(3000, 30);
-            InfoManager.instance.InsertInfo(gameInfo);
-
-            InfoManager.instance.SaveInfo();
-            Debug.Log("신규 유저 입니다.");
-        }
-
-        else
-        {
-            Debug.Log("기존 유저 입니다.");
-            gameInfo = InfoManager.instance.GetInfo(playerId);
-
-            var datas = gameInfo.objectInfoList;
-            foreach (var data in datas)
-            {
-                Debug.Log(data.objectId);
-                Debug.Log(data.sceneName);
-                Debug.Log(data.posX);
-                Debug.Log(data.posY);
-            }
-        }
+        var typeDef = DataManager.instance.GetData(shop.item_id).GetType();
+        var data = DataManager.instance.GetType().GetMethod(nameof(DataManager.instance.GetData), 1, new Type[] { typeof(int) })
+            .MakeGenericMethod(typeDef).Invoke(DataManager.instance, new object[] { shop.item_id });
+        
+        uIShopItemScrollView.SetItem(data);        
     }
+    
 
     private void Start()
     {
-        LoadInfo(1);
+        InfoManager.instance.LoadData();
         this.uIShopItemScrollView = this.transform.Find("UIShopItemScrollView").GetComponent<UIShopItemScrollView>();
         this.uIShopItemBuy = this.transform.Find("UIShopItemBuy").GetComponent<UIShopItemBuy>();
         this.uIPlayerGold = this.transform.Find("UIPlayerGold").GetComponent<UIPlayerGold>();
@@ -177,11 +115,12 @@ public class UIShop : MonoBehaviour
 
     }
 
-    private UIShopItem selectedItemTemp;
+    private UIShopItem selectedItem;
     private void ButtonInit()
     {
         uIShopItemScrollView.Init();
 
+        
 
         exitButton.onClick.AddListener(() => {
             this.gameObject.SetActive(false);
@@ -196,43 +135,44 @@ public class UIShop : MonoBehaviour
         uIShopItemScrollView.onItemSelected = (item) => {
             uIShopItemBuy.SetText(item);
             uIShopItemBuy.SetSliderMaxValue(gameInfo.playerInfo.gold, item.price);    //슬라이더의 최댓값은 플레이어가 살수있는 최대수량이어야함
-            this.selectedItemTemp = item;
+            selectedItem = item;
         };
+
+        var uiShopItems = uIShopItemScrollView.GetComponentsInChildren<UIShopItem>();
+        foreach (var item in uiShopItems)
+        {
+            item.onItemSelected = (item) => {
+                uIShopItemBuy.SetText(item);
+                uIShopItemBuy.SetSliderMaxValue(gameInfo.playerInfo.gold, item.price);    //슬라이더의 최댓값은 플레이어가 살수있는 최대수량이어야함
+                selectedItem = item;
+            };
+        }        
 
         this.uIPlayerGold.onChangeGold(gameInfo.playerInfo.gold);
 
         this.uIShopItemBuy.buyButtonClicked = (amount) => {
-
-            if (selectedItemTemp != null)
+            var bill = selectedItem.price * amount;
+            Debug.Log(bill);
+            if (gameInfo.playerInfo.gold - bill >= 0)
             {
-                var bill = selectedItemTemp.price * amount;
-                Debug.Log(bill);
-                if (gameInfo.playerInfo.gold - bill >= 0)
+                if (BuyingItem(amount, selectedItem))
                 {
-                    BuyingItem(amount);
                     gameInfo.playerInfo.gold = gameInfo.playerInfo.gold - bill;
                     this.uIPlayerGold.onChangeGold(gameInfo.playerInfo.gold);
                     InfoManager.instance.UpdateInfo(gameInfo);
                     InfoManager.instance.SaveInfo();
                 }
-                else
-                    Debug.Log("잔액이 부족합니다");
-
-            }                          
+            }           
         };
+
+        uIShopItemScrollView.FirstItemSelect();
     }
-    public void BuyingItem(int amount)
-    {
-        if(!gameInfo.playerInfo.inventory.dicItem.ContainsKey(selectedItemTemp.id))
-        gameInfo.playerInfo.inventory.dicItem.Add(selectedItemTemp.id, amount);
-        else
-        {
-            int itemAmount = gameInfo.playerInfo.inventory.dicItem.GetValueOrDefault(selectedItemTemp.id);
-            itemAmount += amount;
-            gameInfo.playerInfo.inventory.dicItem.Remove(selectedItemTemp.id);
-            gameInfo.playerInfo.inventory.dicItem.Add(selectedItemTemp.id, itemAmount);
-            Debug.LogFormat("아이템 : {0} 양 : {1}", selectedItemTemp.item_name, itemAmount);
-        }
+
+    //구매성공하면 true 아니면 false
+    public bool BuyingItem(int selectedItemAmount, UIShopItem selectedItem)
+    { 
+        var dicPlayerInventory = gameInfo.playerInfo.inventory;
+        return dicPlayerInventory.AddItem(selectedItem.id, selectedItemAmount);
     }
 
     

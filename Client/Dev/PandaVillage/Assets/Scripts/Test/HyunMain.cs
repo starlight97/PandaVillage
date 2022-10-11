@@ -30,7 +30,7 @@ public class HyunMain : MonoBehaviour
         };
 
         // 해당 위치에 플레이어가 원하는 타일이 있다면 농사 행위 수행
-        this.player.onGetFarmTile = (pos, state) =>
+        this.player.onGetTile = (pos, state) =>
         {
             bool check = tileManager.CheckTile(pos, state);
             if (check)
@@ -43,11 +43,11 @@ public class HyunMain : MonoBehaviour
             tileManager.SetTile(pos, state);
         };
 
-        // 씨앗 뿌리기
-        this.player.onPlantCrop = (pos) => 
-        {
-            cropManager.CreateCrop(pos);   
-        };
+        //// 씨앗 뿌리기
+        //this.player.onPlantCrop = (pos) => 
+        //{
+        //    cropManager.CreateCrop(pos);   
+        //};
 
         this.timeManager.onUpdateTime = (hour, minute) =>
         {
@@ -55,13 +55,13 @@ public class HyunMain : MonoBehaviour
             tileManager.ClearWateringTiles();
         };
 
-        this.cropManager.onGetFarmTile = (pos, crop) =>
-        {
-            bool check = tileManager.CheckTile(pos, Farming.eFarmTileType.WateringDirt);
-            if (check == true)
-            {
-                cropManager.GrowUpCrop(crop);
-            }
-        };
+        //this.cropManager.onGetFarmTile = (pos, crop) =>
+        //{
+        //    bool check = tileManager.CheckTile(pos, TileManager.eTileType.WateringDirt);
+        //    if (check == true)
+        //    {
+        //        cropManager.GrowUpCrop(crop);
+        //    }
+        //};
     }
 }

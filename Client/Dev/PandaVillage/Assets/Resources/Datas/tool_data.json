@@ -6,7 +6,8 @@
     "price": 2000,
     "material_item_id": 4008,
     "material_amount": 5,
-    "sprite_name": "hoe"
+    "sprite_name": "hoe",
+    "description": "땅을 파고 밭을 갈 때 사용됩니다."
   },
   {
     "id": 6001,
@@ -15,7 +16,8 @@
     "price": 2000,
     "material_item_id": 4008,
     "material_amount": 5,
-    "sprite_name": "wateringCan"
+    "sprite_name": "wateringCan",
+    "description": "작물에 물을 줄 때 사용됩니다. 물이 있는 곳 어디에서라도 다시 채울 수 있습니다."
   },
   {
     "id": 6002,
@@ -24,7 +26,8 @@
     "price": 2000,
     "material_item_id": 4008,
     "material_amount": 5,
-    "sprite_name": "axe"
+    "sprite_name": "axe",
+    "description": "나무를 베는데 사용됩니다."
   },
   {
     "id": 6003,
@@ -33,7 +36,8 @@
     "price": 2000,
     "material_item_id": 4008,
     "material_amount": 5,
-    "sprite_name": "pick"
+    "sprite_name": "pick",
+    "description": "돌을 부술 때 사용됩니다."
   },
   {
     "id": 6004,
@@ -42,16 +46,18 @@
     "price": 2000,
     "material_item_id": 4008,
     "material_amount": 5,
-    "sprite_name": "sickle"
+    "sprite_name": "sickle",
+    "description": "저장고가 있다면 잔디를 잘라서 건초를 만들 수 있습니다."
   },
   {
     "id": 6005,
-    "tool_name": "연습용 낚싯대",
+    "tool_name": "대나무 막대",
     "type": 5,
     "price": 25,
     "material_item_id": 0,
     "material_amount": 0,
-    "sprite_name": "fishingRod"
+    "sprite_name": "fishingRod",
+    "description": "물가에서 사용하여 물고기를 잡을 수 있습니다."
   },
   {
     "id": 6006,
@@ -60,7 +66,8 @@
     "price": 1000,
     "material_item_id": 0,
     "material_amount": 0,
-    "sprite_name": "milkPail"
+    "sprite_name": "milkPail",
+    "description": "동물의 젖을 짤 때 사용됩니다."
   },
   {
     "id": 6007,
@@ -69,6 +76,7 @@
     "price": 1000,
     "material_item_id": 0,
     "material_amount": 0,
-    "sprite_name": "shears"
+    "sprite_name": "shears",
+    "description": "양으로부터 양털을 모을 때 사용합니다."
   }
 ]

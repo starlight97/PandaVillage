@@ -31,4 +31,6 @@ public class GatheringData : RawData
     public int spawn_place;
     
     public string prefab_name;
+    
+    public string description;
 }

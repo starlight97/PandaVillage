@@ -81,7 +81,15 @@ public class DataManager
     {
         var collection = this.dicDatas.Values.Where(x => x.GetType().Equals(typeof(T)));
         return (T)collection.ToList().Find(x => x.id == id);
-    }
+    }   
+    public RawData GetData(int id)
+    {
+        if (this.dicDatas.ContainsKey(id) == true)
+            return this.dicDatas[id];
+        else
+            return null;
+
+    }    
 
     // 특정 데이터 그룹을 검색하고싶을대 해당 데이터 타입을 호출하면 해당 데이터타입 객체만 반환한다.
     // ex(GetDatas<Student>()) = 딕셔너리에 저장된 데이터들중 Student타입을 가진 객체들만 반환

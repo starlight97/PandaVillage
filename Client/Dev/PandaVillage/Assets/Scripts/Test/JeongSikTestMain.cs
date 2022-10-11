@@ -16,6 +16,7 @@ public class JeongSikTestMain : MonoBehaviour
 
     private void Start()
     {
+        InfoManager.instance.Init(10);
         DataManager.instance.Init();
         DataManager.instance.LoadAllData(this);
 
@@ -30,8 +31,16 @@ public class JeongSikTestMain : MonoBehaviour
         this.timeManager.Init();
         DataManager.instance.onDataLoadFinished.AddListener(() =>
         {
-            this.objectManager.Init("JeongTest", tileManager.GetTilesPosList(Farming.eFarmTileType.Grass));
-            this.objectManager.SpawnObjects();
+            //// check 불러온 인포가 있다면 true
+            //// 없다면 false반환 하므로 뉴비처리
+            //bool check = InfoManager.instance.LoadData();
+            //this.objectManager.Init("JeongTest", tileManager.GetTilesPosList(TileManager.eTileType.Grass));
+
+            //if (check == false)
+            //{
+            //    this.objectManager.SpawnGatheringObjects(0, 20);
+            //}
+            //SaveGame();
         });
 
 
@@ -45,7 +54,7 @@ public class JeongSikTestMain : MonoBehaviour
             this.player.Move();
         };
         // 타일이 있냐?
-        this.player.onGetFarmTile = (pos, state) =>
+        this.player.onGetTile = (pos, state) =>
         {
             bool check = tileManager.CheckTile(pos, state);
             if (check)
@@ -59,10 +68,10 @@ public class JeongSikTestMain : MonoBehaviour
         };
 
         // 씨앗 뿌리기
-        this.player.onPlantCrop = (pos) =>
-        {
-            //cropManager.CreateCrop(pos);
-        };
+        //this.player.onPlantCrop = (pos) =>
+        //{
+        //    //cropManager.CreateCrop(pos);
+        //};
 
         this.player.onShowAnimalUI = (animal) =>
         {
@@ -91,66 +100,43 @@ public class JeongSikTestMain : MonoBehaviour
         };
     }
 
-
-    private void LoadInfo(int playerId)
+    public void Update()
     {
-        bool check = InfoManager.instance.LoadData();
-        GameInfo gameInfo = new GameInfo();
-        if (check == false)
-        {
-            gameInfo.playerId = playerId;
-            gameInfo.objectInfoList = new List<ObjectInfo>();
-            gameInfo.playerInfo = new PlayerInfo("길동이", "강아지");
-
-            gameInfo.playerInfo.inventory.dicItem.Add(1000, 10);
-            gameInfo.playerInfo.inventory.dicItem.Add(2000, 20);
-            gameInfo.playerInfo.inventory.dicItem.Add(3000, 30);
-            InfoManager.instance.InsertInfo(gameInfo);
-
-            InfoManager.instance.SaveInfo();
-            Debug.Log("신규 유저 입니다.");
-        }
-
-        else
-        {
-            Debug.Log("기존 유저 입니다.");
-            gameInfo = InfoManager.instance.GetInfo(playerId);
-
-            var datas = gameInfo.objectInfoList;
-            foreach (var data in datas)
-            {
-                Debug.Log(data.objectId);
-                Debug.Log(data.sceneName);
-                Debug.Log(data.posX);
-                Debug.Log(data.posY);
-            }
-        }
+        if (Input.GetKeyDown(KeyCode.Space))
+            SaveGame();
     }
 
-    //private void SaveGame(int playerId)
-    //{
-    //    List<Vector3Int> objectPosList = this.objectManager.GetObjectInfoList();
+    private void SaveGame()
+    {
+        List<OtherObject> otherObjList = this.objectManager.GetOtherObjectist();
 
-    //    var info = InfoManager.instance.GetInfo(playerId);
-    //    // 10분당 1로 저장
-    //    // ex 하루 = 1320 분
-    //    // 하루마다 132 씩 ++
-    //    info.playerInfo.playMinute += 132;
-    //    //if(info.playerInfo.dicInventoryInfo.ContainsKey(1000))
-    //    //{
-    //    //    //info.playerInfo.dicInventoryInfo.Add(1000, new InventoryInfo(10, 1000, ));
-    //    //}
-    //    foreach (var pos in objectPosList)
-    //    {
-    //        ObjectInfo objectInfo = new ObjectInfo();
-    //        objectInfo.objectId = 1;
-    //        objectInfo.posX = pos.x;
-    //        objectInfo.posY = pos.y;
-    //        objectInfo.sceneName = "FarmScene";
+        var info = InfoManager.instance.GetInfo();
+        // 10분당 1로 저장
+        // ex 하루 = 1320 분
+        // 하루마다 132 씩 ++
+        info.playerInfo.playMinute += 132;
+        foreach (var obj in otherObjList)
+        {
+            ObjectInfo objectInfo = new ObjectInfo();
+            objectInfo.objectId = obj.id;
+            objectInfo.posX = (int)obj.gameObject.transform.position.x;
+            objectInfo.posY = (int)obj.gameObject.transform.position.y;
+            objectInfo.objectType = obj.objectType;
+            objectInfo.sceneName = "JeongTest";
 
-    //        info.objectInfoList.Add(objectInfo);
-    //    }
+            info.objectInfoList.Add(objectInfo);
+        }
 
-    //    InfoManager.instance.SaveInfo();
-    //}
+        var objectInfoList = info.objectInfoList;
+        for (int index = objectInfoList.Count-1; index >= 0; index--)
+        {
+            if (objectInfoList[index].objectType == 2)
+            {
+                objectInfoList.RemoveAt(index);
+                Debug.Log("DELETE");
+            }
+        }
+
+        InfoManager.instance.SaveInfo();
+    }
 }

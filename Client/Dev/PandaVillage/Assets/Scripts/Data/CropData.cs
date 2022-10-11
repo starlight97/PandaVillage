@@ -10,11 +10,8 @@
 
 
 
-public class CropData
-{
-    
-    public int id;
-    
+public class CropData : RawData
+{    
     public string crop_name;
     
     public string sprite_name;
@@ -26,16 +23,8 @@ public class CropData
     public int regrowth_time;
     
     public int harvest_tool_id;
-    
-    public int recovery_stamina;
-    
-    public int recovery_hp;
-    
-    public int purchase_price_min;
-    
-    public int purchase_price_max;
-    
-    public int sale_price;
-    
-    public int season;
+
+    public int gain_gathering_id;
+
+    public string prefab_path;
 }

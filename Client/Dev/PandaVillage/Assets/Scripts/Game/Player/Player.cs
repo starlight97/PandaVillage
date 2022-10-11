@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     private eItemType isUseTool = eItemType.None;
     public UnityAction<Vector2Int, Vector2Int, List<Vector3>> onDecideTargetTile;
 
-    public UnityAction<Vector3Int, Farming.eFarmTileType> onGetFarmTile;
+    public UnityAction<Vector3Int, TileManager.eTileType> onGetTile;
     public UnityAction<Vector3Int, eItemType> onChangeFarmTile;
 
     public UnityAction<GameObject> onSelectedBuilding;
@@ -100,6 +100,7 @@ public class Player : MonoBehaviour
 
             GameObject findGo = FindObject(tpos);
 
+
             
             if (findGo != null && isBuildingSelected == false && findGo.tag == "Building")
             {
@@ -124,6 +125,12 @@ public class Player : MonoBehaviour
 
             if (Mathf.Abs(dir.x) <= 1 && Mathf.Abs(dir.y) <= 1)
             {
+                if (findGo != null && findGo.tag == "Portal")
+                {
+                    findGo.GetComponent<Portal>().ClickPotal();
+                    return;
+                }
+
                 findGo = FindObject(tilePos);
                 if(findGo != null)
                 {
@@ -235,6 +242,7 @@ public class Player : MonoBehaviour
 
     }
 
+    #region Animation
     public void SetAnimation(Vector3 dir)
     {
         // 상
@@ -292,6 +300,7 @@ public class Player : MonoBehaviour
             spriteR.flipX = false;
         }
     }
+    #endregion
 
     public void Move()
     {
@@ -300,9 +309,9 @@ public class Player : MonoBehaviour
 
     public void GetFarmTile(Vector3Int pos, eItemType state)
     {
-        Farming.eFarmTileType type = farming.GetFarmTile(state);
-        if (type != Farming.eFarmTileType.None)
-            this.onGetFarmTile(pos, type);
+        TileManager.eTileType type = farming.GetFarmTile(state);
+        if (type != TileManager.eTileType.None)
+            this.onGetTile(pos, type);
     }
 
     public void FarmingAct(Vector3Int pos)

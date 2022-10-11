@@ -6,7 +6,6 @@ using UnityEngine.Events;
 
 public class ObjectSpawner : MonoBehaviour
 {
-    public Vector2Int mapBottomLeft, mapTopRight;
     public SpriteAtlas atlas;
 
     public List<OtherObject> OtherObjectList
@@ -15,55 +14,69 @@ public class ObjectSpawner : MonoBehaviour
         get;
     }
 
-    public void Init()
+    private List<Vector3Int> spawnTilePosList;
+
+    public void Init(List<Vector3Int> spawnTilePosList)
     {
         this.OtherObjectList = new List<OtherObject>();
+        this.spawnTilePosList = spawnTilePosList;
     }
 
-    public void SpawnObject(int objectId, Vector2Int pos)
+    public void SpawnObject(string prefab_name, string sprite_name, Vector3Int pos)
     {
-        var objData = DataManager.instance.GetData<RuckData>(objectId);
+        if (WallCheck(pos) == true)
+            return;
 
-        GameObject objGo = Instantiate(Resources.Load<GameObject>(objData.prefab_name),
-    new Vector3(pos.x, pos.y, 0), Quaternion.identity);
+        GameObject objGo = Instantiate(Resources.Load<GameObject>(prefab_name),
+    pos, Quaternion.identity);
         objGo.transform.parent = this.transform;
 
         var otherObj = objGo.GetComponent<OtherObject>();
+        otherObj.Init(atlas.GetSprite(sprite_name));
         this.OtherObjectList.Add(otherObj);
     }
 
-    public void SpawnObject(int objectId)
+    public void SpawnObject(string prefab_name, string sprite_name)
     {
-        List<Vector2> emptyPosList = new List<Vector2>();
-        int layerMask = (1 << LayerMask.NameToLayer("Wall")) + (1 << LayerMask.NameToLayer("WallObject"));
-
-        for (int y = mapBottomLeft.y; y <= mapTopRight.y; y++)
+        if (spawnTilePosList.Count == 0)
         {
-            for (int x = mapBottomLeft.x; x <= mapTopRight.x; x++)
-            {
-                var cols = Physics2D.OverlapBoxAll(new Vector2(x + 0.5f, y + 0.5f), new Vector2(0.95f, 0.95f), 0, layerMask);
-                //Debug.Log(cols.Length);
-                if (cols.Length == 0)
-                {
-                    emptyPosList.Add(new Vector2(x, y));
-                }
-            }
+            Debug.Log("빈공간 없음");
+            return;
         }
-        var randPosIdx = Random.Range(0, emptyPosList.Count);
 
-        var objData = DataManager.instance.GetData<RuckData>(objectId);
-        //GameObject objGo = Instantiate<GameObject>(objGos[randObj]);
-        GameObject objGo = Instantiate(Resources.Load<GameObject>(objData.prefab_name),
-            new Vector3(emptyPosList[randPosIdx].x, emptyPosList[randPosIdx].y, 0), Quaternion.identity);
+        var randPosIdx = Random.Range(0, spawnTilePosList.Count);
+
+        Vector3Int spawnPos = spawnTilePosList[randPosIdx];
+        if (WallCheck(spawnPos) == true)
+        {
+            spawnTilePosList.RemoveAt(randPosIdx);
+            return;
+        }
+        GameObject objGo = Instantiate(Resources.Load<GameObject>(prefab_name), spawnPos, Quaternion.identity);
         objGo.transform.parent = this.transform;
 
         var otherObj = objGo.GetComponent<OtherObject>();
-        otherObj.Init(atlas.GetSprite(objData.sprite_name));
+        otherObj.Init(atlas.GetSprite(sprite_name));
         this.OtherObjectList.Add(otherObj);
+        spawnTilePosList.RemoveAt(randPosIdx);
     }
 
     public void DestroyObject(OtherObject obj)
     {
         this.OtherObjectList.Remove(obj);
     }
+
+    private bool WallCheck(Vector3Int pos)
+    {
+        int layerMask = (1 << LayerMask.NameToLayer("Object")) + (1 << LayerMask.NameToLayer("WallObject"))
+                        + (1 << LayerMask.NameToLayer("Wall"));    // Object 와 WallObject 레이어만 충돌체크함
+        var col = Physics2D.OverlapBox(new Vector2(pos.x + 0.5f, pos.y + 0.5f), new Vector2(0.95f, 0.95f), 0, layerMask);
+        if (col != null)
+        {
+            Debug.Log("징애물 있음");
+            return true;
+        }
+        return false;
+    }
+
 }

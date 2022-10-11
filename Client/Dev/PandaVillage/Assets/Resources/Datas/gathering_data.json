@@ -8,9 +8,10 @@
     "purchase_price_min": 150,
     "purchase_price_max": 1000,
     "sale_price": 50,
-    "season": 0,
+    "season": 1,
     "spawn_place": 0,
-    "prefab_name": "Prefabs\\OtherObject\\Gathering\\WildHorseradish"
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\WildHorseradish",
+    "description": "봄에 볼 수 있는 매콤한 식물 뿌리."
   },
   {
     "id": 3001,
@@ -21,9 +22,10 @@
     "purchase_price_min": 100,
     "purchase_price_max": 1000,
     "sale_price": 30,
-    "season": 0,
+    "season": 1,
     "spawn_place": 0,
-    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Daffodil"
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Daffodil",
+    "description": "전형적인 봄꽃으로, 선물로도 좋습니다."
   },
   {
     "id": 3002,
@@ -34,9 +36,10 @@
     "purchase_price_min": 180,
     "purchase_price_max": 1000,
     "sale_price": 60,
-    "season": 0,
+    "season": 1,
     "spawn_place": 0,
-    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Leek"
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Leek",
+    "description": "양파의 맛있는 친척."
   },
   {
     "id": 3003,
@@ -47,9 +50,10 @@
     "purchase_price_min": 120,
     "purchase_price_max": 1000,
     "sale_price": 40,
-    "season": 0,
+    "season": 1,
     "spawn_place": 0,
-    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Dandelion"
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Dandelion",
+    "description": "가장 예쁜 꽃은 아니지만, 잎으로 맛있는 샐러드를 만들 수 있습니다."
   },
   {
     "id": 3004,
@@ -60,9 +64,10 @@
     "purchase_price_min": 100,
     "purchase_price_max": 1000,
     "sale_price": 8,
-    "season": 0,
+    "season": 1,
     "spawn_place": 1,
-    "prefab_name": "Prefabs\\OtherObject\\Gathering\\SpringOnion"
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\SpringOnion",
+    "description": "봄에 야생에서 자랍니다."
   },
   {
     "id": 3005,
@@ -73,9 +78,10 @@
     "purchase_price_min": 450,
     "purchase_price_max": 1000,
     "sale_price": 150,
-    "season": 0,
+    "season": 1,
     "spawn_place": 2,
-    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Morel"
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Morel",
+    "description": "견과류 향 때문에 인기가 좋은 버섯."
   },
   {
     "id": 3006,
@@ -86,9 +92,10 @@
     "purchase_price_min": 120,
     "purchase_price_max": 1000,
     "sale_price": 40,
-    "season": 0,
+    "season": 1,
     "spawn_place": 2,
-    "prefab_name": "Prefabs\\OtherObject\\Gathering\\CommonMushroom"
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\CommonMushroom",
+    "description": "살짝 견과 향이 나고 질감이 좋습니다."
   },
   {
     "id": 3007,
@@ -101,7 +108,8 @@
     "sale_price": 5,
     "season": 5,
     "spawn_place": 10,
-    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Salmonberry"
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Salmonberry",
+    "description": "숲의 풍미가 나는 봄철 베리."
   },
   {
     "id": 3008,
@@ -114,7 +122,8 @@
     "sale_price": 125,
     "season": 5,
     "spawn_place": 11,
-    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Milk"
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Milk",
+    "description": "우유 한 통."
   },
   {
     "id": 3009,
@@ -127,7 +136,8 @@
     "sale_price": 190,
     "season": 5,
     "spawn_place": 11,
-    "prefab_name": "Prefabs\\OtherObject\\Gathering\\LargeMilk"
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\LargeMilk",
+    "description": "우유가 가득한 큰 통."
   },
   {
     "id": 3010,
@@ -140,7 +150,8 @@
     "sale_price": 50,
     "season": 5,
     "spawn_place": 11,
-    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Egg"
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Egg",
+    "description": "평범한 갈색 달걀."
   },
   {
     "id": 3011,
@@ -153,7 +164,8 @@
     "sale_price": 95,
     "season": 5,
     "spawn_place": 11,
-    "prefab_name": "Prefabs\\OtherObject\\Gathering\\LargeEgg"
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\LargeEgg",
+    "description": "흔치 않은 크기의 갈색 달걀입니다!"
   },
   {
     "id": 3012,
@@ -166,6 +178,105 @@
     "sale_price": 2,
     "season": 5,
     "spawn_place": 11,
-    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Sap"
+    "prefab_name": "Prefabs\\OtherObject\\Gathering\\Sap",
+    "description": "나무에서 채취한 액체."
+  },
+  {
+    "id": 3013,
+    "gathering_name": "파스닙",
+    "recovery_stamina": 25,
+    "recovery_hp": 11,
+    "sprite_name": "parsnip",
+    "purchase_price_min": 105,
+    "purchase_price_max": 1000,
+    "sale_price": 35,
+    "season": 5,
+    "spawn_place": 11,
+    "prefab_name": "Prefabs\\OtherObject\\Farming\\Parsnip",
+    "description": "당근과 비슷한, 봄철 덩이줄기 식물. 대지의 맛이 나고 영양분이 듬뿍 들어있습니다."
+  },
+  {
+    "id": 3014,
+    "gathering_name": "콜리플라워",
+    "recovery_stamina": 75,
+    "recovery_hp": 33,
+    "sprite_name": "cauliflower",
+    "purchase_price_min": 525,
+    "purchase_price_max": 1000,
+    "sale_price": 175,
+    "season": 5,
+    "spawn_place": 11,
+    "prefab_name": "Prefabs\\OtherObject\\Farming\\Cauliflower",
+    "description": "값이 비싸지만, 천천히 자랍니다. 창백한 색과는 다르게, 꽃 부분에 영양소가 풍부합니다."
+  },
+  {
+    "id": 3015,
+    "gathering_name": "완두콩",
+    "recovery_stamina": 25,
+    "recovery_hp": 11,
+    "sprite_name": "greenBean",
+    "purchase_price_min": 120,
+    "purchase_price_max": 1000,
+    "sale_price": 40,
+    "season": 5,
+    "spawn_place": 11,
+    "prefab_name": "Prefabs\\OtherObject\\Farming\\Greenbean",
+    "description": "시원하고 바삭한 맛이 있는 통통한 콩."
+  },
+  {
+    "id": 3016,
+    "gathering_name": "케일",
+    "recovery_stamina": 50,
+    "recovery_hp": 22,
+    "sprite_name": "kale",
+    "purchase_price_min": 330,
+    "purchase_price_max": 1000,
+    "sale_price": 110,
+    "season": 5,
+    "spawn_place": 11,
+    "prefab_name": "Prefabs\\OtherObject\\Farming\\Kale",
+    "description": "스프나 볶음요리에 알맞은 잎사귀."
+  },
+  {
+    "id": 3017,
+    "gathering_name": "감자",
+    "recovery_stamina": 25,
+    "recovery_hp": 11,
+    "sprite_name": "potato",
+    "purchase_price_min": 240,
+    "purchase_price_max": 1000,
+    "sale_price": 80,
+    "season": 5,
+    "spawn_place": 11,
+    "prefab_name": "Prefabs\\OtherObject\\Farming\\Potato",
+    "description": "널리 재배되는 덩이줄기 식물."
+  },
+  {
+    "id": 3018,
+    "gathering_name": "푸른 재즈",
+    "recovery_stamina": 45,
+    "recovery_hp": 20,
+    "sprite_name": "blueJazz",
+    "purchase_price_min": 150,
+    "purchase_price_max": 1000,
+    "sale_price": 50,
+    "season": 5,
+    "spawn_place": 11,
+    "prefab_name": "Prefabs\\OtherObject\\Farming\\Bluejazz",
+    "description": "최대한 많은 수의 나비를 받아들이기 위해 꽃이 구형으로 자랍니다."
+  },
+  {
+    "id": 3019,
+    "gathering_name": "튤립",
+    "recovery_stamina": 45,
+    "recovery_hp": 20,
+    "sprite_name": "tulip",
+    "purchase_price_min": 100,
+    "purchase_price_max": 1000,
+    "sale_price": 30,
+    "season": 5,
+    "spawn_place": 11,
+    "prefab_name": "Prefabs\\OtherObject\\Farming\\Tulip",
+    "description": "가장 인기 있는 봄철 꽃. 은은하게 달콤한 향이 납니다."
   }
 ]

@@ -1,32 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.Events;
 
 public class Crop : OtherObject
 {
     private int state;
-    private int maxState = 5;
+    private int maxState;
     public bool isHarvest = false;
 
     private SpriteRenderer spRenderer;
-    private Sprite[] sprites;
+    public SpriteAtlas atlas;
+    private Sprite sprite;
     public UnityAction<Vector3Int, Crop> onGetWateringDirtTile;
-    public UnityAction<GameObject> onDestroy;
+    public UnityAction<GameObject> onHarvest;
 
-    public void Init()
+    public void Init(int id)
     {
-        this.state = 1;
         this.spRenderer = this.GetComponent<SpriteRenderer>();
-        this.sprites = Resources.LoadAll<Sprite>("Sprites/Seeds/Parsnip");
-        GetSeedSprite();
-    }
+        var data = DataManager.instance.GetData<CropData>(id);
+        data.id = id;
+        this.maxState = data.max_state;
+        this.state = 1;
+        int rand = Random.Range(1, 2);
+        Debug.Log(string.Format(data.sprite_name, rand));
+        var sprite = this.atlas.GetSprite(string.Format(data.sprite_name, rand));
 
-    // 씨앗 스프라이트 2개 랜덤으로 지정
-    public void GetSeedSprite()
-    {
-        int rand = Random.Range(0, 2);
-        this.spRenderer.sprite = this.sprites[rand];
+        this.spRenderer.sprite = sprite;
     }
 
     // 물타일 있냐?
@@ -39,12 +40,16 @@ public class Crop : OtherObject
     }
 
     // 작물이 자람에 따라 스프라이트 변경됨
-    public void GrowUp()
+    public void GrowUp(int id)
     {
+        var data = DataManager.instance.GetData<CropData>(id);
         if (state <= maxState)
         {
             state++;
-            this.spRenderer.sprite = sprites[state];
+            Debug.LogFormat("{0} / {1}", state, maxState);
+            Debug.Log("tnghkr: "+ isHarvest);
+            var sprite = this.atlas.GetSprite(string.Format(data.sprite_name, state + 1));
+            this.spRenderer.sprite = sprite;
         }
 
         if (state == maxState)
@@ -54,6 +59,6 @@ public class Crop : OtherObject
     // 수확하면 오브젝트 지워달라는 액션 보냄
     public void Harvest()
     {
-        this.onDestroy(this.gameObject);
+        this.onHarvest(this.gameObject);
     }
 }

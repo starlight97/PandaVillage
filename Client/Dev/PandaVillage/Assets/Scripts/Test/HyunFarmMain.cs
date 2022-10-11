@@ -19,17 +19,17 @@ public class HyunFarmMain : SceneMain
     private PortalManager portalManager;
 
 
-    public Button btnNext;
-    public Button btnAddAnimal;
-
-    void Start()
+    private void Start()
     {
-        //LoadInfo(1);
-        Init();
+        this.Init();
     }
 
     public override void Init(SceneParams param = null)
     {
+        InfoManager.instance.Init(10);
+        DataManager.instance.Init();
+        DataManager.instance.LoadAllData(this);
+
         this.uiVillage = GameObject.FindObjectOfType<UIFarm>();
         this.player = GameObject.FindObjectOfType<Player>();
         this.mapManager = GameObject.FindObjectOfType<MapManager>();
@@ -38,7 +38,6 @@ public class HyunFarmMain : SceneMain
         this.ranchManager = GameObject.FindObjectOfType<RanchManager>();
         this.cropManager = GameObject.FindObjectOfType<CropManager>();
         this.objectPlaceManager = GameObject.FindObjectOfType<ObjectPlaceManager>();
-        this.objectSpawner = GameObject.FindObjectOfType<ObjectSpawner>();
         this.objectManager = GameObject.FindObjectOfType<ObjectManager>();
         this.portalManager = GameObject.FindObjectOfType<PortalManager>();
 
@@ -46,8 +45,6 @@ public class HyunFarmMain : SceneMain
         this.tileManager.Init();
         this.ranchManager.Init();
         this.cropManager.Init();
-        this.uiVillage.Init();
-        //this.objectManager.Init();
         this.portalManager.Init();
 
 
@@ -58,7 +55,7 @@ public class HyunFarmMain : SceneMain
             this.player.Move();
         };
         // 타일이 있냐?
-        this.player.onGetFarmTile = (pos, state) =>
+        this.player.onGetTile = (pos, state) =>
         {
             bool check = tileManager.CheckTile(pos, state);
             if (check)
@@ -74,7 +71,7 @@ public class HyunFarmMain : SceneMain
         // 씨앗 뿌리기
         this.player.onPlantCrop = (pos) =>
         {
-            cropManager.CreateCrop(pos);
+            cropManager.CreateCrop(1001, pos);
         };
 
         this.player.onShowAnimalUI = (animal) =>
@@ -93,7 +90,7 @@ public class HyunFarmMain : SceneMain
         #region TimeManagerAction
         this.timeManager.onUpdateTime = (hour, minute) =>
         {
-            if (hour == 1)
+            if (hour == 6 && minute == 10)
             {
                 Debug.Log("1시에요 하루가 끝났어요");
                 timeManager.EndDay();
@@ -105,12 +102,12 @@ public class HyunFarmMain : SceneMain
         #endregion
 
         #region CropManagerAction
-        this.cropManager.onGetFarmTile = (pos, crop) =>
+        this.cropManager.onGetFarmTile = (id, pos, crop) =>
         {
-            bool check = tileManager.CheckTile(pos, Farming.eFarmTileType.WateringDirt);
+            bool check = tileManager.CheckTile(pos, TileManager.eTileType.WateringDirt);
             if (check == true)
             {
-                cropManager.GrowUpCrop(crop);
+                cropManager.GrowUpCrop(id, crop);
             }
         };
         #endregion
@@ -121,15 +118,6 @@ public class HyunFarmMain : SceneMain
             animal.Move();
         };
 
-        this.btnNext.onClick.AddListener(() =>
-        {
-            ranchManager.NextDay();
-        });
-        this.btnAddAnimal.onClick.AddListener(() =>
-        {
-            ranchManager.coopArr[0].CreateAnimal();
-        });
-
         this.objectPlaceManager.onEditComplete = () =>
         {
             player.isBuildingSelected = false;
@@ -139,20 +127,23 @@ public class HyunFarmMain : SceneMain
             this.objectPlaceManager.wallPosArr = mapManager.GetWallPosArr();
         };
 
-        //this.objectSpawner.onGetTilePosList = (tileType) =>
-        //{
-        //    this.objectSpawner.GrassTileSetting(this.tileManager.GetTilesPosList(tileType));
-        //    this.objectSpawner.SpawnObjects();
-        //};
-
         this.portalManager.onArrival = (sceneType) =>
         {
             Dispatch("onArrival" + sceneType.ToString() + "Portal");
         };
-
-        this.objectSpawner.Init();
-
-
+        DataManager.instance.onDataLoadFinished.AddListener(() =>
+        {
+            // check 불러온 인포가 있다면 true
+            // 없다면 false반환 하므로 뉴비처리
+            //bool check = InfoManager.instance.LoadData();
+            //this.objectManager.Init("HyunCopyFarm", tileManager.GetTilesPosList(TileManager.eTileType.Dirt));
+            //this.objectManager.SpawnGatheringObjects(0, Random.Range(0,4));
+            //if (check == false)
+            //{
+            //    this.objectManager.SpawnGatheringObjects(0, 4);
+            //}
+            //SaveGame();
+        });
     }
 
     //private void Update()
@@ -164,46 +155,31 @@ public class HyunFarmMain : SceneMain
     //    }
     //}
 
-    //private void LoadInfo(int playerId)
-    //{
-    //    bool check = InfoManager.instance.LoadData();
-    //    GameInfo gameInfo = new GameInfo();
-    //    if (check == false)
-    //    {
-    //        gameInfo.playerId = playerId;
-    //        InfoManager.instance.InsertInfo(gameInfo);
-    //    }
+  
+    private void SaveGame()
+    {
+        List<OtherObject> otherObjList = this.objectManager.GetOtherObjectist();
 
-    //    else
-    //    {
-    //        gameInfo = InfoManager.instance.GetInfo(playerId);
+        var info = InfoManager.instance.GetInfo();
+        // 10분당 1로 저장
+        // ex 하루 = 1320 분
+        // 하루마다 132 씩 ++
+        info.playerInfo.playMinute += 132;
+        //if(info.playerInfo.dicInventoryInfo.ContainsKey(1000))
+        //{
+        //    //info.playerInfo.dicInventoryInfo.Add(1000, new InventoryInfo(10, 1000, ));
+        //}
+        foreach (var obj in otherObjList)
+        {
+            ObjectInfo objectInfo = new ObjectInfo();
+            objectInfo.objectId = obj.id;
+            objectInfo.posX = (int)obj.gameObject.transform.position.x;
+            objectInfo.posY = (int)obj.gameObject.transform.position.y;
+            objectInfo.sceneName = "HyunCopyFarm";
 
-    //        //var datas = gameInfo.objectInfos;
-    //        foreach (var data in datas)
-    //        {
-    //            Debug.Log(data.objectId);
-    //            Debug.Log(data.sceneName);
-    //            Debug.Log(data.posX);
-    //            Debug.Log(data.posY);
-    //        }
-    //    }
-    //}
+            info.objectInfoList.Add(objectInfo);
+        }
 
-    //private void SaveGame(int playerId)
-    //{
-    //    List<Vector3Int> objectPosList = this.objectManager.GetObjectInfoList();
-
-    //    var info = InfoManager.instance.GetInfo(playerId);
-    //    foreach (var pos in objectPosList)
-    //    {
-    //        ObjectInfo objectInfo = new ObjectInfo();
-    //        objectInfo.objectId = 1;
-    //        objectInfo.posX = pos.x;
-    //        objectInfo.posY = pos.y;
-    //        objectInfo.sceneName = "FarmScene";
-
-    //        info.objectInfos.Add(objectInfo);
-    //    }
-    //    InfoManager.instance.SaveInfo();
-    //}
+        InfoManager.instance.SaveInfo();
+    }
 }

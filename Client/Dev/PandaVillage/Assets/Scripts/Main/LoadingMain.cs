@@ -21,6 +21,10 @@ public class LoadingMain : SceneMain
         });
         DataManager.instance.Init();
         DataManager.instance.LoadAllData();
+        InfoManager.instance.Init(10);
+        InfoManager.instance.LoadData();
+
+
 
     }
 }

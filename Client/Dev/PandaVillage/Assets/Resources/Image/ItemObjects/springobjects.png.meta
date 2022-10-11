@@ -69,7 +69,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -114,6 +114,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -6239,7 +6251,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: woodObejct2
+      name: woodObject2
       rect:
         serializedVersion: 2
         x: 112
@@ -19605,7 +19617,6 @@ TextureImporter:
       springobjects_383: -486208264
       springobjects_25: -299600090
       springobjects_431: -1232613201
-      woodObejct2: 733303282
       springobjects_366: 1216347715
       springobjects_606: -548913786
       springobjects_604: -1211042601
@@ -19778,10 +19789,10 @@ TextureImporter:
       springobjects_866: 57166818
       springobjects_236: -379919529
       springobjects_343: 1936054212
+      springobjects_807: -1278733081
       springobjects_381: -614712122
       springobjects_136: -590748966
       springobjects_878: -1016540277
-      springobjects_807: -1278733081
       springobjects_526: 974650724
       springobjects_95: 319398930
       hay: 664445076
@@ -19829,6 +19840,7 @@ TextureImporter:
       springobjects_200: -202597705
       springobjects_269: -1655860873
       springobjects_392: 118514918
+      woodObject2: 733303282
       springobjects_753: -1339498902
       springobjects_208: -1627492854
       springobjects_285: 272013617

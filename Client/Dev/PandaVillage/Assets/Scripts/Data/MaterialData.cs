@@ -25,4 +25,6 @@ public class MaterialData : RawData
     public int sale_price;
     
     public int purchase_price;
+    
+    public string description;
 }

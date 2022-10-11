@@ -7,12 +7,8 @@
     "growth_time": 4,
     "regrowth_time": 0,
     "harvest_tool_id": 0,
-    "recovery_stamina": 25,
-    "recovery_hp": 11,
-    "purchase_price_min": 105,
-    "purchase_price_max": 1000,
-    "sale_price": 35,
-    "season": 1
+    "gain_gathering_id": 3013,
+    "prefab_path": "Prefabs\\CropObject\\Spring\\Parsnip"
   },
   {
     "id": 2001,
@@ -22,12 +18,8 @@
     "growth_time": 12,
     "regrowth_time": 0,
     "harvest_tool_id": 0,
-    "recovery_stamina": 75,
-    "recovery_hp": 33,
-    "purchase_price_min": 525,
-    "purchase_price_max": 1000,
-    "sale_price": 175,
-    "season": 1
+    "gain_gathering_id": 3014,
+    "prefab_path": "Prefabs\\CropObject\\Spring\\Cauliflower"
   },
   {
     "id": 2002,
@@ -37,12 +29,8 @@
     "growth_time": 10,
     "regrowth_time": 3,
     "harvest_tool_id": 0,
-    "recovery_stamina": 25,
-    "recovery_hp": 11,
-    "purchase_price_min": 120,
-    "purchase_price_max": 1000,
-    "sale_price": 40,
-    "season": 1
+    "gain_gathering_id": 3015,
+    "prefab_path": "Prefabs\\CropObject\\Spring\\Greenbean"
   },
   {
     "id": 2003,
@@ -52,12 +40,8 @@
     "growth_time": 6,
     "regrowth_time": 0,
     "harvest_tool_id": 6004,
-    "recovery_stamina": 50,
-    "recovery_hp": 22,
-    "purchase_price_min": 330,
-    "purchase_price_max": 1000,
-    "sale_price": 110,
-    "season": 1
+    "gain_gathering_id": 3016,
+    "prefab_path": "Prefabs\\CropObject\\Spring\\Kale"
   },
   {
     "id": 2004,
@@ -67,12 +51,8 @@
     "growth_time": 6,
     "regrowth_time": 0,
     "harvest_tool_id": 0,
-    "recovery_stamina": 25,
-    "recovery_hp": 11,
-    "purchase_price_min": 240,
-    "purchase_price_max": 1000,
-    "sale_price": 80,
-    "season": 1
+    "gain_gathering_id": 3017,
+    "prefab_path": "Prefabs\\CropObject\\Spring\\Potato"
   },
   {
     "id": 2005,
@@ -82,12 +62,8 @@
     "growth_time": 7,
     "regrowth_time": 0,
     "harvest_tool_id": 0,
-    "recovery_stamina": 45,
-    "recovery_hp": 20,
-    "purchase_price_min": 150,
-    "purchase_price_max": 1000,
-    "sale_price": 50,
-    "season": 1
+    "gain_gathering_id": 3018,
+    "prefab_path": "Prefabs\\CropObject\\Spring\\Bluejazz"
   },
   {
     "id": 2006,
@@ -97,11 +73,7 @@
     "growth_time": 6,
     "regrowth_time": 0,
     "harvest_tool_id": 0,
-    "recovery_stamina": 45,
-    "recovery_hp": 20,
-    "purchase_price_min": 100,
-    "purchase_price_max": 1000,
-    "sale_price": 30,
-    "season": 1
+    "gain_gathering_id": 3019,
+    "prefab_path": "Prefabs\\CropObject\\Spring\\Tulip"
   }
 ]

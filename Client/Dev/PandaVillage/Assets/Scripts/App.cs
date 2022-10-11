@@ -8,12 +8,16 @@ public class App : MonoBehaviour
     산맥 : MountainRange
     농장 : Farm
     버스정류장 : BusStop
-    펠리컨마을 : PelicanVillage
+    판다마을 : PandaVillage
     잉걸불수액숲 : CindersapForest
      */
     public enum eSceneType
     {
-        App, LogoScene, LoadingScene, Title, Alley, MountainRange, Farm, BusStop, PelicanVillage, CindersapForest
+        App, LogoScene, LoadingScene, Title, Alley, MountainRange, Farm, BusStop, PandaVillage, CindersapForest, House
+    }
+    public enum eMapType
+    {
+        Alley, MountainRange, Farm, BusStop, PandaVillage, CindersapForest, SecretForest
     }
 
     public static App instance;
@@ -35,14 +39,14 @@ public class App : MonoBehaviour
         this.LoadScene<LogoMain>(eSceneType.LogoScene);
     }
 
+    SceneParams param = new SceneParams();
+
     public void LoadScene<T>(eSceneType sceneType) where T : SceneMain
     {
         var idx = (int)sceneType;
         SceneManager.LoadSceneAsync(idx).completed += (obj) =>
         {
             var main = GameObject.FindObjectOfType<T>();
-            var param = new SceneParams();
-
 
             main.onDestroy.AddListener(() =>
             {
@@ -61,7 +65,6 @@ public class App : MonoBehaviour
                             {
                                 this.LoadScene<LoadingMain>(eSceneType.LoadingScene);
                             });
-
                         });
 
                         this.uiApp.FadeIn(2f, () =>
@@ -94,7 +97,8 @@ public class App : MonoBehaviour
                         {
                             this.uiApp.FadeOut(0.5f, () =>
                             {
-                                this.LoadScene<FarmMain>(eSceneType.Farm);
+                                param.SpawnPos = new Vector3(39, 32, 0);
+                                this.LoadScene<HouseMain>(eSceneType.House);
                             });
                         });
                         main.Init();
@@ -109,7 +113,7 @@ public class App : MonoBehaviour
                             this.uiApp.FadeOut(0.5f, () =>
                             {
                                 this.LoadScene<AlleyMain>(eSceneType.Alley);
-                                param.SpawnPos = new Vector3(1,1,1);
+                                param.SpawnPos = new Vector3(14, 0.7f, 0);
                             });
                         });
                         main.AddListener("onArrivalBusStopPortal", (data) =>
@@ -119,6 +123,7 @@ public class App : MonoBehaviour
                             this.uiApp.FadeOut(0.5f, () =>
                             {
                                 this.LoadScene<BusStopMain>(eSceneType.BusStop);
+                                param.SpawnPos = new Vector3(1, 6, 0);
                             });
                         });
                         main.AddListener("onArrivalCindersapForestPortal", (data) =>
@@ -126,6 +131,15 @@ public class App : MonoBehaviour
                             this.uiApp.FadeOut(0.5f, () =>
                             {
                                 this.LoadScene<CindersapForestMain>(eSceneType.CindersapForest);
+                                param.SpawnPos = new Vector3(68, 116.5f, 0);
+                            });
+                        });
+                        main.AddListener("onArrivalHousePortal", (data) =>
+                        {
+                            this.uiApp.FadeOut(0.5f, () =>
+                            {
+                                this.LoadScene<HouseMain>(eSceneType.House);
+                                param.SpawnPos = new Vector3(33, 30.5f, 0);
                             });
                         });
                         main.Init(param);
@@ -140,6 +154,7 @@ public class App : MonoBehaviour
                             this.uiApp.FadeOut(0.5f, () =>
                             {
                                 this.LoadScene<FarmMain>(eSceneType.Farm);
+                                param.SpawnPos = new Vector3(40.5f, 62.25f, 0);
                             });
                         });
                         main.AddListener("onArrivalMountainRangePortal", (data) =>
@@ -147,8 +162,10 @@ public class App : MonoBehaviour
                             this.uiApp.FadeOut(0.5f, () =>
                             {
                                 this.LoadScene<MountainRangeMain>(eSceneType.MountainRange);
+                                param.SpawnPos = new Vector3(1, 27, 0);
                             });
                         });
+
                         main.Init(param);
                         break;
                     }
@@ -161,13 +178,15 @@ public class App : MonoBehaviour
                             this.uiApp.FadeOut(0.5f, () =>
                             {
                                 this.LoadScene<AlleyMain>(eSceneType.Alley);
+                                param.SpawnPos = new Vector3(48.25f, 25, 0);
                             });
                         });
-                        main.AddListener("onArrivalPelicanVillagePortal", (data) =>
+                        main.AddListener("onArrivalPandaVillagePortal", (data) =>
                         {
                             this.uiApp.FadeOut(0.5f, () =>
                             {
-                                this.LoadScene<PelicanVillageMain>(eSceneType.PelicanVillage);
+                                this.LoadScene<PandaVillageMain>(eSceneType.PandaVillage);
+                                param.SpawnPos = new Vector3(81f, 106.5f, 0);
                             });
                         });
                         main.Init(param);
@@ -182,19 +201,21 @@ public class App : MonoBehaviour
                             this.uiApp.FadeOut(0.5f, () =>
                             {
                                 this.LoadScene<FarmMain>(eSceneType.Farm);
+                                param.SpawnPos = new Vector3(78.5f, 47, 0);
                             });
                         });
-                        main.AddListener("onArrivalPelicanVillagePortal", (data) =>
+                        main.AddListener("onArrivalPandaVillagePortal", (data) =>
                         {
                             this.uiApp.FadeOut(0.5f, () =>
                             {
-                                this.LoadScene<PelicanVillageMain>(eSceneType.PelicanVillage);
+                                this.LoadScene<PandaVillageMain>(eSceneType.PandaVillage);
+                                param.SpawnPos = new Vector3(1, 54.75f, 0);
                             });
                         });
                         main.Init(param);
                         break;
                     }
-                case eSceneType.PelicanVillage:
+                case eSceneType.PandaVillage:
                     {
                         this.uiApp.FadeIn();
 
@@ -203,6 +224,7 @@ public class App : MonoBehaviour
                             this.uiApp.FadeOut(0.5f, () =>
                             {
                                 this.LoadScene<MountainRangeMain>(eSceneType.MountainRange);
+                                param.SpawnPos = new Vector3(15.5f, 0.7f, 0);
                             });
                         });
                         main.AddListener("onArrivalBusStopPortal", (data) =>
@@ -210,6 +232,7 @@ public class App : MonoBehaviour
                             this.uiApp.FadeOut(0.5f, () =>
                             {
                                 this.LoadScene<BusStopMain>(eSceneType.BusStop);
+                                param.SpawnPos = new Vector3(33, 6, 0);
                             });
                         });
                         main.AddListener("onArrivalCindersapForestPortal", (data) =>
@@ -217,6 +240,7 @@ public class App : MonoBehaviour
                             this.uiApp.FadeOut(0.5f, () =>
                             {
                                 this.LoadScene<CindersapForestMain>(eSceneType.CindersapForest);
+                                param.SpawnPos = new Vector3(117.5f, 94, 0);
                             });
                         });
                         main.Init(param);
@@ -226,18 +250,35 @@ public class App : MonoBehaviour
                     {
                         this.uiApp.FadeIn();
 
-                        main.AddListener("onArrivalMountainRangePortal", (data) =>
+                        main.AddListener("onArrivalFarmPortal", (data) =>
                         {
                             this.uiApp.FadeOut(0.5f, () =>
                             {
                                 this.LoadScene<FarmMain>(eSceneType.Farm);
+                                param.SpawnPos = new Vector3(40.5f, 0.5f, 0);
                             });
                         });
-                        main.AddListener("onArrivalPelicanVillagePortal", (data) =>
+                        main.AddListener("onArrivalPandaVillagePortal", (data) =>
                         {
                             this.uiApp.FadeOut(0.5f, () =>
                             {
-                                this.LoadScene<PelicanVillageMain>(eSceneType.PelicanVillage);
+                                this.LoadScene<PandaVillageMain>(eSceneType.PandaVillage);
+                                param.SpawnPos = new Vector3(1, 18, 0);
+                            });
+                        });
+                        main.Init(param);
+                        break;
+                    }
+                case eSceneType.House:
+                    {
+                        this.uiApp.FadeIn();
+
+                        main.AddListener("onArrivalFarmPortal", (data) =>
+                        {
+                            this.uiApp.FadeOut(0.5f, () =>
+                            {
+                                this.LoadScene<FarmMain>(eSceneType.Farm);
+                                param.SpawnPos = new Vector3(64f, 49f, 0);
                             });
                         });
                         main.Init(param);

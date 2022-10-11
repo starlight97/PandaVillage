@@ -6,15 +6,11 @@ using UnityEngine.Events;
 
 public class Farming : MonoBehaviour
 {
-    // 농사 타일 타입
-    public enum eFarmTileType
-    {
-        None = -1,
-        Dirt, HoeDirt, WateringDirt, Grass
-    }
+
     // 플레이어 농사 행위 타입
     // Plant: 씨앗 심기
     // SetTile: 행위에 따른 타일 변경
+
     public enum eFarmActType
     {
         None = -1,
@@ -22,17 +18,17 @@ public class Farming : MonoBehaviour
     }
 
     // 플레이어가 들고 있는 아이템이 어떤 타일을 반환해야 하는가?
-    public eFarmTileType GetFarmTile(Player.eItemType state)
+    public TileManager.eTileType GetFarmTile(Player.eItemType state)
     {
-        eFarmTileType tileType = eFarmTileType.None;
+        TileManager.eTileType tileType = TileManager.eTileType.None;
         switch (state)
         {
             case Player.eItemType.Hoe:
-                tileType = eFarmTileType.Dirt;
+                tileType = TileManager.eTileType.Dirt;
                 break;
             case Player.eItemType.WateringCan:
             case Player.eItemType.Seed:
-                tileType = eFarmTileType.HoeDirt;
+                tileType = TileManager.eTileType.HoeDirt;
                 break;
             default:
                 break;

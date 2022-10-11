@@ -17,25 +17,44 @@ public class ObjectManager : MonoBehaviour
         CindersapForest,
         SecretForest,
     }
+    public enum eObjectType
+    {
+        Ruck,
+        Gathering
+    }
 
-    public UnityAction<Farming.eFarmTileType> onGetTilePosList;
     private ObjectSpawner objectSpawner;
+    private List<Vector3Int> spawnTilePosList = new List<Vector3Int>();
 
-    private List<Vector3Int> grassPosList = new List<Vector3Int>();
 
-
-    public void Init(string sceneName, List<Vector3Int> grassPosList)
+    public void Init(App.eMapType mapType, List<Vector3Int> spawnTilePosList)
     {
         this.objectSpawner = GameObject.FindObjectOfType<ObjectSpawner>();
-        this.objectSpawner.Init();
-        this.grassPosList = grassPosList;
-        //var objectInfoList = InfoManager.instance.GetInfo(1).objectInfoList.FindAll(x => x.sceneName == sceneName);
+        this.spawnTilePosList = spawnTilePosList;
+        this.objectSpawner.Init(this.spawnTilePosList);
 
-        //foreach (var info in objectInfoList)
-        //{
-        //    objectSpawner.SpawnObject(info.objectId, new Vector2Int(info.posX, info.posY));
-        //}
+        var info = InfoManager.instance.GetInfo();
+        var datas = info.objectInfoList.FindAll(x => x.sceneName == mapType.ToString());
 
+        foreach (var data in datas)
+        {
+            Vector3Int pos = new Vector3Int(data.posX, data.posY, 0);
+            var objType = DataManager.instance.GetData(data.objectId).GetType().ToString();
+
+            if (objType == "RuckData")
+            {
+                var objData = DataManager.instance.GetData<RuckData>(data.objectId);
+                this.objectSpawner.SpawnObject(objData.prefab_name, objData.sprite_name, pos);
+            }
+            else if (objType == "GatheringData")
+            {
+                var objData = DataManager.instance.GetData<GatheringData>(data.objectId);
+                this.objectSpawner.SpawnObject(objData.prefab_name, objData.sprite_name, pos);
+            }
+
+            //this.objectSpawner.SpawnObject(data.objectId, pos);
+        }
+        
     }
 
     public List<OtherObject> GetOtherObjectist()
@@ -43,17 +62,62 @@ public class ObjectManager : MonoBehaviour
         return objectSpawner.OtherObjectList;
     }
 
-    public void SpawnObjects()
+    public void SpawnGatheringObjects(int spawnPlace, int amount)
     {
-        //this.objectSpawner.GrassTileSetting();
-        this.objectSpawner.SpawnObject(5000);
-        this.objectSpawner.SpawnObject(5001);
-        this.objectSpawner.SpawnObject(5002);
-        this.objectSpawner.SpawnObject(5003);
-        this.objectSpawner.SpawnObject(5004);
-        this.objectSpawner.SpawnObject(5005);
+        var datas = DataManager.instance.GetDataList<GatheringData>().ToList();
+        List<GatheringData> seasonGatheringDataList = new List<GatheringData>();
+        foreach (var data in datas)
+        {
+            if (data.spawn_place == spawnPlace)
+                seasonGatheringDataList.Add(data);
+        }
+
+        for (int count = 0; count < amount; count++)
+        {
+            var rand = Random.Range(0, seasonGatheringDataList.Count - 1);
+            var randPosIdx = Random.Range(0, spawnTilePosList.Count - 1);
+            if(spawnTilePosList.Count == 0)
+            {
+                Debug.Log("빈공간이 없어요");
+                break;
+            }
+            this.objectSpawner.SpawnObject(seasonGatheringDataList[rand].prefab_name, seasonGatheringDataList[rand].sprite_name, spawnTilePosList[randPosIdx]);
+            spawnTilePosList.RemoveAt(randPosIdx);
+        }
+    }
+
+    public void SpawnRuckObjects(int amount)
+    {        
+        var datas = DataManager.instance.GetDataList<RuckData>().ToList();
+        List<int> idList = new List<int>();
+
+        foreach (var data in datas)
+        {
+            idList.Add(data.id);
+        }
+
+        for (int count = 0; count < amount; count++)
+        {
+            var randObjIdIndex = Random.Range(0, idList.Count - 1);
+            var randPosIdx = Random.Range(0, spawnTilePosList.Count - 1);
+            if(spawnTilePosList.Count == 0)
+            {
+                Debug.Log("빈공간 없어요");
+                break;
+            }
+
+            var objData = DataManager.instance.GetData<RuckData>(idList[randObjIdIndex]);
+            this.objectSpawner.SpawnObject(objData.prefab_name, objData.sprite_name, spawnTilePosList[randPosIdx]);
+
+
+
+            //this.objectSpawner.SpawnObject(randObjId, spawnTilePosList[randPosIdx]);
+            spawnTilePosList.RemoveAt(randPosIdx);
+        }
 
     }
+
+
 
 
 

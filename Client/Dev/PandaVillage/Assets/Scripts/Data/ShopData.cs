@@ -11,13 +11,8 @@
 
 
 public class ShopData : RawData
-{
-    
-    //public int id;
-    
+{    
     public int shop_category;
     
     public int item_id;
-    
-    public string item_description;
 }

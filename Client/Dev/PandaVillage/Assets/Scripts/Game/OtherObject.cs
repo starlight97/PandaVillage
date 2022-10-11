@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class OtherObject : MonoBehaviour
 {
     public int id;
+    public int objectType;
     private Sprite sp;
     private SpriteRenderer spriteRenderer;
 

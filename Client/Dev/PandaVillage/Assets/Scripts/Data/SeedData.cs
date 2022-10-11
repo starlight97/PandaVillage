@@ -10,11 +10,8 @@
 
 
 
-public class SeedData: RawData
-{
-    
-    //public int id;
-    
+public class SeedData : RawData
+{    
     public string item_name;
     
     public int plant_item_id;
@@ -30,4 +27,6 @@ public class SeedData: RawData
     public int sale_price;
     
     public int season;
+    
+    public string description;
 }

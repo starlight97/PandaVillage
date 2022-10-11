@@ -11,15 +11,8 @@ public class AlleyMain : SceneMain
     private ObjectManager objectManager;
     private PortalManager portalManager;
 
-    private void Start()
+    public override void Init(SceneParams param)
     {
-        Init();
-    }
-
-    public override void Init(SceneParams param = null)
-    {
-        base.Init(param);
-
         this.player = GameObject.FindObjectOfType<Player>();
         this.mapManager = GameObject.FindObjectOfType<MapManager>();
         this.tileManager = GameObject.FindObjectOfType<TileManager>();
@@ -27,8 +20,17 @@ public class AlleyMain : SceneMain
         this.objectManager = GameObject.FindObjectOfType<ObjectManager>();
         this.portalManager = GameObject.FindObjectOfType<PortalManager>();
 
+        this.player.transform.position = param.SpawnPos;
         this.timeManager.Init();
-        this.objectManager.Init("Alley", tileManager.GetTilesPosList(Farming.eFarmTileType.Grass));
+        this.tileManager.Init();
+        this.objectManager.Init(App.eMapType.Alley, tileManager.GetTilesPosList(TileManager.eTileType.Grass));
+        var info = InfoManager.instance.GetInfo();
+        if(info.dicVisited[App.eMapType.Alley] == false)
+        {
+            info.dicVisited[App.eMapType.Alley] = true;
+            this.objectManager.SpawnGatheringObjects(0, Random.Range(0,4));
+        }
+        
         this.portalManager.Init();
 
         #region PlayerAction
@@ -38,7 +40,7 @@ public class AlleyMain : SceneMain
             this.player.Move();
         };
         // 타일이 있냐?
-        this.player.onGetFarmTile = (pos, state) =>
+        this.player.onGetTile = (pos, state) =>
         {
             bool check = tileManager.CheckTile(pos, state);
             if (check)
@@ -70,6 +72,7 @@ public class AlleyMain : SceneMain
 
         this.portalManager.onArrival = (sceneType) =>
         {
+            InfoManager.instance.SaveGame(App.eMapType.Alley, this.objectManager.GetOtherObjectist());
             Dispatch("onArrival" + sceneType.ToString() + "Portal");
         };
     }
