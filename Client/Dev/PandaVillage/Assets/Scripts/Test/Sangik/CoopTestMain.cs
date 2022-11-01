@@ -57,7 +57,7 @@ public class CoopTestMain : MonoBehaviour
             //};
 
             //초기화
-            ani.Init();
+            //ani.Init();
 
 
             //성장과 생산

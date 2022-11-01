@@ -1131,6 +1131,7 @@ MonoBehaviour:
       m_Calls: []
   useOnDestoryEvent: 1
   btnNewGame: {fileID: 66727660}
+  btnLoadGame: {fileID: 368166573}
 --- !u!4 &409075863
 Transform:
   m_ObjectHideFlags: 0

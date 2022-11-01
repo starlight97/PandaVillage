@@ -726,7 +726,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Rabbit_10: -82792356
+      Rabbit_2: -175217766
       Rabbit_1: -710423604
       Rabbit_17: 719321880
       Rabbit_11: 215588051
@@ -750,10 +750,10 @@ TextureImporter:
       Rabbit_20: 1406566957
       Rabbit_12: 1297666909
       Rabbit_5: 1835757667
-      Rabbit_8: 1892809607
-      Rabbit_2: -175217766
-      Rabbit_9: -1714886945
       Rabbit_24: 919686991
+      Rabbit_10: -82792356
+      Rabbit_8: 1892809607
+      Rabbit_9: -1714886945
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

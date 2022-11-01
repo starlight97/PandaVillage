@@ -2,7 +2,7 @@
   {
     "id": 4000,
     "material_name": "나무",
-    "sprite_name": "wood{0}",
+    "sprite_name": "wood",
     "sprite_amount": 2,
     "purchase_price_min": 100,
     "purchase_price_max": 1000,
@@ -13,7 +13,7 @@
   {
     "id": 4001,
     "material_name": "돌",
-    "sprite_name": "stone{0}",
+    "sprite_name": "stone",
     "sprite_amount": 2,
     "purchase_price_min": 100,
     "purchase_price_max": 1000,

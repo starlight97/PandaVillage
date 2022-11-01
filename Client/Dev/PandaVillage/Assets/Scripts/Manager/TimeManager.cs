@@ -5,19 +5,43 @@ using UnityEngine.Events;
 
 public class TimeManager : MonoBehaviour
 {
+    public static TimeManager instance;
     // 게임 내 시간
     // 실제 시간
+    private int year;   // 년도
     private int day;    // 일
-    private int hour=6;    // 시
-    private int minute;     // 분
-    private float currentTime;
+    public int hour = 6;    // 시
+    public int minute = 0;      // 분
+    private float currentTime = 0;
 
-    public UnityAction<int, int> onUpdateTime;
+    public UnityAction<int, int> onUpdateTime;    
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
 
     public void Init()
     {
+        var info = InfoManager.instance.GetInfo();
+        this.year = info.playerInfo.playYear;
+        this.day = info.playerInfo.playDay;
+        StopAllCoroutines();
+        this.TimeStart();
+    }
+    public void StopTimeRoutine()
+    {
+        hour = 6;    // 시
+        minute = 0;      // 분
         currentTime = 0;
-
+        StopAllCoroutines();
+    }
+    private void TimeStart()
+    {
         StartCoroutine(TimeRoutine());
     }
 
@@ -29,19 +53,16 @@ public class TimeManager : MonoBehaviour
 
             if (currentTime >= 7f)
             {                
-                minute += 10;
+                minute += 1;
                 currentTime = 0;
 
-                if (minute == 60)
+                if (minute == 6)
                 {
                     minute = 0;
                     hour += 1;
                 }
-                Debug.LogFormat("hour : {0} minute : {1}", hour, minute);
                 this.onUpdateTime(hour, minute);
             }
-
-
             yield return null;
         }
     }
@@ -50,6 +71,16 @@ public class TimeManager : MonoBehaviour
     {
         hour = 6;
         minute = 0;
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0F;
+    }
+
+    public void Resume()
+    {
+        Time.timeScale = 1.0F;
     }
 
 }

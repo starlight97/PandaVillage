@@ -12,6 +12,13 @@ TagManager:
   - Crop
   - Animal
   - Portal
+  - Gathering
+  - Ruck
+  - Shop
+  - TransparentObject
+  - Roof
+  - UI
+  - ClickPortal
   layers:
   - Default
   - TransparentFX

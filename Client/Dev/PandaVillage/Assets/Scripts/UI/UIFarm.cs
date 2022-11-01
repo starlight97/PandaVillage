@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIFarm : MonoBehaviour
+public class UIFarm : UIBase
 {
     private GameObject animalUI;
 
-    public void Init()
+    public override void Init()
     {
+        base.Init();
         this.animalUI = transform.Find("animalUI").gameObject;
     }
 

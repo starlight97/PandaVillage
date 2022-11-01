@@ -158,6 +158,109 @@ public class MapManager : MonoBehaviour
         }
     }
 
+
+    // 벽오브젝트로 가는길 탐색
+    public void WallPathFinding(Vector2Int startPos, Vector2Int targetPos, List<Vector3> pathList)
+    {
+
+        // x , y
+        if (startPos.x < targetPos.x)
+        {
+            bottomLeft.x = startPos.x - searchRange;
+            topRight.x = targetPos.x + searchRange;
+        }
+        else
+        {
+            bottomLeft.x = targetPos.x - searchRange;
+            topRight.x = startPos.x + searchRange;
+        }
+
+        if (startPos.y < targetPos.y)
+        {
+            bottomLeft.y = startPos.y - searchRange;
+            topRight.y = targetPos.y + searchRange;
+        }
+        else
+        {
+            bottomLeft.y = targetPos.y - searchRange;
+            topRight.y = startPos.y + searchRange;
+        }
+
+        if (bottomLeft.x < mapBottomLeft.x)
+            bottomLeft.x = mapBottomLeft.x;
+        if (bottomLeft.y < mapBottomLeft.y)
+            bottomLeft.y = mapBottomLeft.y;
+        if (topRight.x >= mapTopRight.x)
+            topRight.x = mapTopRight.x;
+        if (topRight.y >= mapTopRight.y)
+            topRight.y = mapTopRight.y;
+
+        // 맵크기 설정
+        // NodeArray의 크기 정해주고, isWall, x, y 대입
+        sizeX = topRight.x - bottomLeft.x + 1;
+        sizeY = topRight.y - bottomLeft.y + 1;
+
+        NodeArray = new Node[sizeY, sizeX];
+
+        WallSetting(sizeY, sizeX);
+        //NodeArray[targetPos.y, targetPos.x].isWall = false;
+
+
+        // 시작과 끝 노드, 열린리스트와 닫힌리스트, 마지막리스트 초기화
+        StartNode = NodeArray[startPos.y - bottomLeft.y, startPos.x - bottomLeft.x];
+        TargetNode = NodeArray[targetPos.y - bottomLeft.y, targetPos.x - bottomLeft.x];
+        TargetNode.isWall = false;
+        OpenList = new List<Node>() { StartNode };
+        ClosedList = new List<Node>();
+        FinalNodeList = new List<Node>();
+
+        while (OpenList.Count > 0)
+        {
+            // 열린리스트 중 가장 F가 작고 F가 같다면 H가 작은 걸 현재노드로 하고 열린리스트에서 닫힌리스트로 옮기기
+            CurNode = OpenList[0];
+            for (int i = 1; i < OpenList.Count; i++)
+                if (OpenList[i].F <= CurNode.F && OpenList[i].H < CurNode.H) CurNode = OpenList[i];
+
+            OpenList.Remove(CurNode);
+            ClosedList.Add(CurNode);
+
+            // 마지막
+            if (CurNode == TargetNode)
+            {
+                Node TargetCurNode = TargetNode;
+                while (TargetCurNode != StartNode)
+                {
+                    FinalNodeList.Add(TargetCurNode);
+                    TargetCurNode = TargetCurNode.ParentNode;
+                }
+                FinalNodeList.Add(StartNode);
+                FinalNodeList.Reverse();
+
+                for (int i = 0; i < FinalNodeList.Count; i++)
+                {
+                    Vector3 path = new Vector3(FinalNodeList[i].x, FinalNodeList[i].y, 0);
+                    pathList.Add(path);
+                }
+                return;
+            }
+
+            // ↗↖↙↘
+            if (allowDiagonal)
+            {
+                OpenListAdd(CurNode.y + 1, CurNode.x + 1);
+                OpenListAdd(CurNode.y - 1, CurNode.x + 1);
+                OpenListAdd(CurNode.y - 1, CurNode.x - 1);
+                OpenListAdd(CurNode.y + 1, CurNode.x - 1);
+            }
+
+            // ↑ → ↓ ←
+            OpenListAdd(CurNode.y, CurNode.x + 1);
+            OpenListAdd(CurNode.y + 1, CurNode.x);
+            OpenListAdd(CurNode.y, CurNode.x - 1);
+            OpenListAdd(CurNode.y - 1, CurNode.x);
+        }
+    }
+
     void OpenListAdd(int checkY, int checkX)
     {
         // 상하좌우 범위를 벗어나지 않고, 벽이 아니면서, 닫힌리스트에 없다면
@@ -212,18 +315,18 @@ public class MapManager : MonoBehaviour
         for (int x = mapBottomLeft.x; x < mapTopRight.x; x++)
         {
             for (int y = mapBottomLeft.y; y < mapTopRight.y; y++)
-            {   
+            {
                 var col = Physics2D.OverlapBox(new Vector2(x + 0.5f, y + 0.5f), new Vector2(0.95f, 0.95f), 0, layerMask);
 
-                if(col != null)
+                if (col != null)
                 {
                     wallPosArr[x, y] = true;
                 }
             }
         }
-
         return wallPosArr;
     }
+
 }
 
 // 작성자 : 박정식

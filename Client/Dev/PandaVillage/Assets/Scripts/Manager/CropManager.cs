@@ -9,12 +9,15 @@ public class CropManager : MonoBehaviour
     public GameObject cropObject;
 
     public List<Crop> cropList;
+    public List<Vector3Int> cropPosList;
     public UnityAction<int, Vector3Int, Crop> onGetFarmTile;
+    public UnityAction onUseSeed;
 
     public void Init()
     {
         this.cropList = new List<Crop>();
-        //var info = InfoManager.instance.GetInfo();
+        this.cropPosList = new List<Vector3Int>();
+        SpawnCrop();
     }
 
     // 해당 좌표에 레이를 쏴서 감지되는 오브젝트가 있으면 true 반환
@@ -24,32 +27,21 @@ public class CropManager : MonoBehaviour
         int layerMask = (1 << LayerMask.NameToLayer("Object")) + (1 << LayerMask.NameToLayer("WallObject"))
              + (1 << LayerMask.NameToLayer("Crop"));    // Object 와 WallObject, Crop 레이어만 충돌체크함
         var col = Physics2D.OverlapCircle(new Vector2(pos.x + 0.5f, pos.y + 0.5f), 0.4f, layerMask);
+        
         if (col != null)
         {
             return true;
         }
         return false;
     }
-    
-    public void CreateCrop(Vector3Int pos)
-    {
-
-    }
-
 
     // 물뿌린 밭에 작물을 심고 리스트에 저장
     // 해당 타일에 작물 오브젝트가 존재하면 심지 않음
     public void CreateCrop(int seedId, Vector3Int pos)
     {
+        var info = InfoManager.instance.GetInfo();
+
         var seedData = DataManager.instance.GetData<SeedData>(seedId);
-        var cropDatas = DataManager.instance.GetDataList<CropData>();
-
-        List<CropData> cropDataList = new List<CropData>();
-
-        foreach (var data in cropDatas)
-        {
-            cropDataList.Add(data);
-        }
 
         bool check = FindCrop(pos);
 
@@ -57,46 +49,93 @@ public class CropManager : MonoBehaviour
         {
             var cropData = DataManager.instance.GetData<CropData>(seedData.plant_item_id);
             GameObject cropGo = Instantiate(Resources.Load<GameObject>(cropData.prefab_path));
-            cropGo.transform.position = new Vector3(pos.x, pos.y, 0);
+            cropGo.transform.position = new Vector3Int(pos.x, pos.y, 0);
             cropGo.transform.parent = this.cropObject.transform;
 
             Crop crop = cropGo.GetComponent<Crop>();
             crop.Init(seedData.plant_item_id);
 
-            crop.onGetWateringDirtTile = (pos, crop) =>
-            {
-                this.onGetFarmTile(cropData.id, pos, crop);
-            };
+            int cropX = (int)crop.transform.position.x;
+            int cropY = (int)crop.transform.position.y;
+
+            var cropPos = new Vector3Int(cropX, cropY, 0);
+
+            info.playerInfo.inventory.RemoveItem(seedData.id, 1);
+            InfoManager.instance.SaveGame();
+            onUseSeed();
+
             crop.onDestroy = (cropGo) =>
             {
                 this.cropList.Remove(cropGo.GetComponent<Crop>());
                 Destroy(cropGo);
             };
+
             this.cropList.Add(crop);
+            this.cropPosList.Add(cropPos);
         }
     }
 
-    // 작물이 심긴 위치에 물 타일이 있는지 조사 
-    public void CheckWateringDirt()
+    private void LoadCrop(int cropId, Vector3Int pos, int state, int wateringCount, bool isWatering)
     {
-        foreach (var crop in cropList)
+        var data = DataManager.instance.GetData<CropData>(cropId);
+        GameObject cropGo = Instantiate(Resources.Load<GameObject>(data.prefab_path));
+        cropGo.transform.position = pos;
+        cropGo.transform.parent = this.cropObject.transform;
+
+        Crop crop = cropGo.GetComponent<Crop>();
+        crop.state = state;
+        Debug.Log("isWatering : " + isWatering);
+        if (isWatering)
         {
-            crop.CheckWateringDirt();
+            crop.Load(data.id, state-1, wateringCount, isWatering);
+        }
+        else
+        {
+            crop.Load(data.id, state, wateringCount, isWatering);
+        }
+
+        int cropX = (int)crop.transform.position.x;
+        int cropY = (int)crop.transform.position.y;
+
+        var cropPos = new Vector3Int(cropX, cropY, 0);
+        //this.onGetFarmTile(crop.id, cropPos, crop);
+
+
+        crop.onDestroy = (cropGo) =>
+        {
+            this.cropList.Remove(cropGo.GetComponent<Crop>());
+            Destroy(cropGo);
+        };
+        this.cropList.Add(crop);
+        this.cropPosList.Add(cropPos);
+    }
+
+    public void SpawnCrop()
+    {
+        var gameInfo = InfoManager.instance.GetInfo();
+        if (gameInfo.cropInfoList.Count != 0)
+        {
+            foreach (var cropInfo in gameInfo.cropInfoList)
+            {
+                Vector3Int pos = new Vector3Int(cropInfo.posX, cropInfo.posY, 0);
+                Debug.Log("cropInfo.isWatering : " + cropInfo.isWatering);
+                LoadCrop(cropInfo.id, pos, cropInfo.state, cropInfo.wateringCount, cropInfo.isWatering);
+            }
         }
     }
 
     // 작물이 자라남
-    public void GrowUpCrop(int id, Crop crop)
-    {
-        var data = DataManager.instance.GetData<CropData>(id);
-        crop.GrowUp(data.id);
-    }
-
-    #region 미완성 코드
-    // 리스트에서 작물 지우기
-    public void RemoveCrop()
+    public void GrowUpCrop()
     {
 
+        foreach (var crop in cropList)
+        {
+            var x = (int)crop.transform.position.x;
+            var y = (int)crop.transform.position.y;
+
+            var pos = new Vector3Int(x, y, 0);
+            if(crop.isWatering == false)
+                this.onGetFarmTile(crop.id, pos, crop);
+        }
     }
-    #endregion
 }

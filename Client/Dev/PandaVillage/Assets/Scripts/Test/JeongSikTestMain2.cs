@@ -119,7 +119,7 @@ public class JeongSikTestMain2 : MonoBehaviour
             NextDay();
         });
 
-        Test();
+        //Test();
         timeManager.Init();
         ranchManager.Init();
 
@@ -140,19 +140,19 @@ public class JeongSikTestMain2 : MonoBehaviour
     }
 
 
-    private void Test()
-    {
-        if (AnimalManager.instance.coopOpened)
-        {
-            foreach (var data in AnimalManager.instance.AnimalDic.Values)
-            {
-                Vector3 DoorPos = ranchManager.coopArr[0].transform.GetChild(1).position;
-                var go = Instantiate(data);
-                var scr = go.GetComponent<Animal>();
-                go.transform.position = new Vector3(Random.Range(scr.mapBottomLeft.x, scr.mapTopRight.x + 1), Random.Range(scr.mapBottomLeft.y, scr.mapTopRight.y + 1));
-            }
-            ranchManager.coopArr[0].FindAnimals();
-            ranchManager.AnimalsInit();
-        }
-    }
+    //private void Test()
+    //{
+    //    if (AnimalManager.instance.coopOpened)
+    //    {
+    //        foreach (var data in AnimalManager.instance.AnimalDic.Values)
+    //        {
+    //            Vector3 DoorPos = ranchManager.coopArr[0].transform.GetChild(1).position;
+    //            var go = Instantiate(data);
+    //            var scr = go.GetComponent<Animal>();
+    //            go.transform.position = new Vector3(Random.Range(scr.mapBottomLeft.x, scr.mapTopRight.x + 1), Random.Range(scr.mapBottomLeft.y, scr.mapTopRight.y + 1));
+    //        }
+    //        ranchManager.coopArr[0].FindAnimals();
+    //        ranchManager.AnimalsInit();
+    //    }
+    //}
 }

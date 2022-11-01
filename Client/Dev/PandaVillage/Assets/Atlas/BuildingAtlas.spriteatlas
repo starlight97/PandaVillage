@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BuildingAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 2
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: ef0c183377f7601488abe0cb80ed4444, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: c9c9e0805ab362d4ca568e11647f908a, type: 2}
+  - {fileID: 21300000, guid: f5a6387157582834395406bffb95b869, type: 2}
+  - {fileID: 21300000, guid: 1a6f8412dc833844c8ea1bacabc7ab90, type: 2}
+  - {fileID: 21300000, guid: 35f0028396e9f2b438b7ae1cdbd57cea, type: 2}
+  - {fileID: 21300000, guid: 70472e375307a454fbb44f9078ed965c, type: 2}
+  - {fileID: 21300000, guid: bec1181ab8d9acf41a84c7d5e14bb3ca, type: 2}
+  - {fileID: 21300000, guid: b3ca2b7bc2c407043bdc6433ab771540, type: 2}
+  - {fileID: 21300000, guid: 95c85d110ab33e841b4d4948a6694f79, type: 2}
+  - {fileID: 21300000, guid: 04fef891b464bc5418cfe451aa0db5d1, type: 2}
+  - {fileID: 21300000, guid: d4cde785e924371468ba97287d691f20, type: 2}
+  - {fileID: 21300000, guid: eda2b5396b4afd04eb2aa10b9e23a7d1, type: 2}
+  - {fileID: 21300000, guid: c3943fdd112ddae4daa75823eeff3040, type: 2}
+  - {fileID: 21300000, guid: 438157ce383be5440b2fb1a97035ecf2, type: 2}
+  - {fileID: 21300000, guid: 33be6a2fe65a2524d8172d9be4fca1b7, type: 2}
+  - {fileID: 21300000, guid: 866ebab22d3f70a45bba1bb226a41eb8, type: 2}
+  - {fileID: 21300000, guid: 2e01c2c49f1de87479004a43d310cf6c, type: 2}
+  - {fileID: 21300000, guid: d185e56e05b5a884e98e5479e8a470ed, type: 2}
+  - {fileID: 21300000, guid: cb8c90cfb8ad75c4e83008eae81e650f, type: 2}
+  - {fileID: 21300000, guid: d7ac6c76088158e40b7184471caf13ac, type: 2}
+  - {fileID: 21300000, guid: c81025562b326524c920fbdb04377666, type: 2}
+  - {fileID: 21300000, guid: 5595410a68fdae14a8c30429bbaf2484, type: 2}
+  - {fileID: 21300000, guid: 1daeb99b5037226438c5c3a85ca780b4, type: 2}
+  - {fileID: 21300000, guid: 4b730c5c92008f345a2d2cbc124169f4, type: 2}
+  - {fileID: 21300000, guid: b152af3f00055094e9ddc224d5a8d1dc, type: 2}
+  - {fileID: 21300000, guid: 6d7512c25cb409540baf20531b3f166a, type: 2}
+  m_PackedSpriteNamesToIndex:
+  - Deluxe Coop_0
+  - Big Coop_40
+  - Deluxe Coop_42
+  - Coop_0
+  - houses_0
+  - Big Coop_39
+  - Barn_23
+  - Barn_22
+  - houses_1
+  - Silo
+  - Big Coop_0
+  - houses_2
+  - Barn_0
+  - Deluxe Barn_22
+  - Deluxe Barn_0
+  - Deluxe Coop_41
+  - Barn_21
+  - Big Barn_22
+  - Big Barn_21
+  - Big Barn_20
+  - Big Barn_0
+  - Deluxe Barn_20
+  - Deluxe Barn_21
+  - Coop_36
+  - Coop_37
+  m_RenderDataMap: {}
+  m_Tag: BuildingAtlas
+  m_IsVariant: 0

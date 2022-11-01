@@ -26,8 +26,15 @@ public class Animal : MonoBehaviour
 
     public Vector2Int RandomMoveRange = new Vector2Int(-3, 3);
 
-    public void Init()
-    {              
+    public void Init(AnimalInfo animalInfo)
+    {
+        this.animalName = animalInfo.animalName;
+        this.friendship = animalInfo.friendship;
+        this.age = animalInfo.age;
+        this.yummyDay = animalInfo.yummyDay;
+        this.isFull = animalInfo.isFull;
+        this.isPatted = animalInfo.isPatted;
+
         this.movement2D = GetComponent<Movement2D>();
         this.emote = this.transform.Find("emote").gameObject;
         Roaming();

@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 8120473057965286821}
   m_Layer: 8
   m_Name: Coop
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -216,7 +216,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d20757445669040bb9b6442bd985ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  door: {fileID: 0}
   animalList: []
+  animalPrefab: {fileID: 0}
 --- !u!1 &8120473058411506249
 GameObject:
   m_ObjectHideFlags: 0

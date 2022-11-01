@@ -13,17 +13,65 @@ public class RanchManager : MonoBehaviour
     public int hay;
     public int maxHay;
 
+
     public void Init()
     {
+
+        var gameInfo = InfoManager.instance.GetInfo();
+
+        //오브젝트 매니저에서 포지션 받아서 씬에 뿌려줄 예정임
+        //var coopInfoList = gameInfo.ranchInfo.coopInfoList;
+        //var siloInfoList = gameInfo.ranchInfo.siloInfoList;
+        //foreach (var info in siloInfoList)
+        //{
+        //    var go = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Building/Silo"));
+        //    go.GetComponent<Silo>().Init(info.PosX, info.PosY);
+        //}
+
+        //foreach (var info in coopInfoList)
+        //{
+        //    var go = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Building/Coop"));
+        //    var coop = go.GetComponent<Coop>();
+        //    coop.Init(info.PosX, info.PosY);
+        //    var animalInfoList= info.animalinfoList;
+
+        //    foreach(var animalInfo in animalInfoList)
+        //    {
+        //        //동물들 AnimalInfo에있는 id로 AnimalData에있는 prefab_path를 찾아와서   Instantiate 해줌
+        //        var AnimalGo = Instantiate<GameObject>(Resources.Load<GameObject>
+        //        (DataManager.instance.GetData<AnimalData>(animalInfo.animalDataId).prefab_path),
+        //        this.animalObject.transform);
+
+        //        AnimalGo.SetActive(false);
+
+        //        var animal = AnimalGo.GetComponent<Animal>();
+        //        animal.Init();                
+        //    }
+        //}
+
+        var coopInfoList = gameInfo.ranchInfo.coopInfoList;
+
+        foreach (var info in coopInfoList)
+        {
+            //var go = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Building/Coop"));
+            //var coop = go.GetComponent<Coop>();
+            //coop.Init(info);
+        }
+
+
         this.siloArr = GameObject.FindObjectsOfType<Silo>();
         this.coopArr = GameObject.FindObjectsOfType<Coop>();
 
-        this.maxHay = siloArr.Length * 240;
+        this.hay = gameInfo.ranchInfo.hay;
 
-        foreach (var coop in coopArr)
-            coop.Init();
+        
+
+
+        this.maxHay = siloArr.Length * 240;
+        
 
         AnimalsInit();
+
     }   
 
     //건초추가
@@ -73,7 +121,7 @@ public class RanchManager : MonoBehaviour
                 }
             }
 
-
+                
             // 사일로의 건초가 있으면 먹이주기
             if (hay > 0)
             {

@@ -6,59 +6,80 @@ using UnityEngine.Events;
 
 public class Crop : OtherObject
 {
-    private int state;
-    private int maxState;
+    public int state;
+    public int maxState;
+    public int wateringCount;
+    public int growthTime;
     public bool isHarvest = false;
+    public bool isWatering = false;
 
     private SpriteRenderer spRenderer;
-    public SpriteAtlas atlas;
+    [SerializeField]
+    private SpriteAtlas atlas;
     private Sprite sprite;
     public UnityAction<Vector3Int, Crop> onGetWateringDirtTile;
     public UnityAction<GameObject> onHarvest;
 
     public void Init(int id)
-    {
+    {            
         this.spRenderer = this.GetComponent<SpriteRenderer>();
         var data = DataManager.instance.GetData<CropData>(id);
-        data.id = id;
-        this.maxState = data.max_state;
+        this.id = id;
+        this.wateringCount = 0;
         this.state = 1;
-        int rand = Random.Range(1, 2);
-        Debug.Log(string.Format(data.sprite_name, rand));
+        this.maxState = data.max_state;
+        this.growthTime = data.growth_time;
+        int rand = Random.Range(1, 3);
         var sprite = this.atlas.GetSprite(string.Format(data.sprite_name, rand));
-
         this.spRenderer.sprite = sprite;
     }
 
-    // 물타일 있냐?
-    public void CheckWateringDirt()
+    public void Load(int id, int state, int wateringCount, bool isWatering)
     {
-        int posX = (int)this.transform.position.x;
-        int posY = (int)this.transform.position.y;
-        Vector3Int pos = new Vector3Int(posX, posY, 0);
+        this.spRenderer = this.GetComponent<SpriteRenderer>();
+        var data = DataManager.instance.GetData<CropData>(id);
+        this.id = id;
+        this.wateringCount = wateringCount;
+        this.maxState = data.max_state;
+        this.growthTime = data.growth_time;
+        var sprite = this.atlas.GetSprite(string.Format(data.sprite_name, state));
+        this.spRenderer.sprite = sprite;
+        this.isWatering = isWatering;
+        this.CheckHarvest(state);
+    }
+
+    // 물타일 있냐?
+    public void CheckWateringDirt(Vector3Int pos)
+    {
         this.onGetWateringDirtTile(pos, this);
     }
 
     // 작물이 자람에 따라 스프라이트 변경됨
-    public void GrowUp(int id)
+    public void GrowUp()
     {
-        var data = DataManager.instance.GetData<CropData>(id);
-        if (state <= maxState)
-        {
-            state++;
-            Debug.LogFormat("{0} / {1}", state, maxState);
-            Debug.Log("tnghkr: "+ isHarvest);
-            var sprite = this.atlas.GetSprite(string.Format(data.sprite_name, state + 1));
-            this.spRenderer.sprite = sprite;
-        }
+        if (this.state == 1)
+            this.state += 2;
+        else
+            this.state++;
 
-        if (state == maxState)
-            isHarvest = true;
+        if (isWatering == false)
+        {
+            isWatering = true;
+            this.wateringCount++;
+        }
     }
 
-    // 수확하면 오브젝트 지워달라는 액션 보냄
-    public void Harvest()
+    public bool CheckHarvest(int state)
     {
-        this.onHarvest(this.gameObject);
+        if (state == maxState)
+        {
+            isHarvest = true;
+        }
+        else
+        {
+            isHarvest = false;
+        }
+
+        return isHarvest;
     }
 }

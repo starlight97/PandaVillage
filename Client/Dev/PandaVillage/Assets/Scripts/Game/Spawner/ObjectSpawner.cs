@@ -24,8 +24,8 @@ public class ObjectSpawner : MonoBehaviour
 
     public void SpawnObject(string prefab_name, string sprite_name, Vector3Int pos)
     {
-        if (WallCheck(pos) == true)
-            return;
+        //if (WallCheck(pos) == true)
+        //    return;
 
         GameObject objGo = Instantiate(Resources.Load<GameObject>(prefab_name),
     pos, Quaternion.identity);
@@ -33,6 +33,10 @@ public class ObjectSpawner : MonoBehaviour
 
         var otherObj = objGo.GetComponent<OtherObject>();
         otherObj.Init(atlas.GetSprite(sprite_name));
+        otherObj.onDestroy = (obj) =>
+        {
+            DestroyObject(obj);
+        };
         this.OtherObjectList.Add(otherObj);
     }
 
@@ -57,6 +61,10 @@ public class ObjectSpawner : MonoBehaviour
 
         var otherObj = objGo.GetComponent<OtherObject>();
         otherObj.Init(atlas.GetSprite(sprite_name));
+        otherObj.onDestroy = (obj) =>
+        {
+            DestroyObject(obj);
+        };
         this.OtherObjectList.Add(otherObj);
         spawnTilePosList.RemoveAt(randPosIdx);
     }
@@ -73,7 +81,7 @@ public class ObjectSpawner : MonoBehaviour
         var col = Physics2D.OverlapBox(new Vector2(pos.x + 0.5f, pos.y + 0.5f), new Vector2(0.95f, 0.95f), 0, layerMask);
         if (col != null)
         {
-            Debug.Log("징애물 있음");
+            Debug.Log("장애물 있음");
             return true;
         }
         return false;

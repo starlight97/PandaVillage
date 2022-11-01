@@ -33,5 +33,20 @@
     "id": 6,
     "res_name": "crop_data",
     "type": "CropData"
+  },
+  {
+    "id": 7,
+    "res_name": "usetoolgroup_data",
+    "type": "UsetoolgroupData"
+  },
+  {
+    "id": 8,
+    "res_name": "animal_data",
+    "type": "AnimalData"
+  },
+  {
+    "id": 9,
+    "res_name": "building_data",
+    "type": "BuildingData"
   }
 ]

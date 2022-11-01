@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Coop : Building
+public class Coop : TransparentObject
 {
 
     public Transform door;
@@ -17,13 +17,36 @@ public class Coop : Building
 
     private GameObject animalObject;
 
-    public void Init()
-    {        
+    public override void Init(Sprite sp)
+    {
+        base.Init(sp);
+
+        //var info = InfoManager.instance.GetInfo();
+        //var coopInfo = info.ranchInfo.coopInfoList
+    }
+
+    public void Init(CoopInfo coopInfo)
+    {
+        var animalinfoList = coopInfo.animalinfoList;
+        foreach (var info in animalinfoList)
+        {            
+            GameObject animalGo = Instantiate(Resources.Load<GameObject>
+            (DataManager.instance.GetData<AnimalData>(info.animalId).prefab_path),
+            this.animalObject.transform);
+            animalGo.transform.position = door.position;
+            var animal = animalGo.GetComponent<Animal>();
+            animal.Init(info);
+            animal.onDecideTargetTile = (startPos, targetPos, pathList, animal) =>
+            {
+                this.DecideTargetTile(startPos, targetPos, pathList, animal);
+            };
+        }
+
+
         this.door = this.transform.GetChild(1);
         this.animalObject = GameObject.Find("AnimalObject");
 
-    }
-
+    }   
     
     //문열고닫기
     public bool SetDoor()
@@ -43,19 +66,19 @@ public class Coop : Building
     }
 
 
-    public virtual void FindAnimals()
-    {
-        var animals = GameObject.FindObjectsOfType<CoopAnimal>();
-        foreach (var animal in animals)
-        {
-            animal.Init();
-            this.animalList.Add(animal);
-            animal.onDecideTargetTile = (startPos, targetPos, pathList, animal) =>
-            {
-                this.DecideTargetTile(startPos, targetPos, pathList, animal);
-            };
-        }
-    }
+    //public virtual void FindAnimals()
+    //{
+    //    var animals = GameObject.FindObjectsOfType<CoopAnimal>();
+    //    foreach (var animal in animals)
+    //    {
+    //        animal.Init();
+    //        this.animalList.Add(animal);
+    //        animal.onDecideTargetTile = (startPos, targetPos, pathList, animal) =>
+    //        {
+    //            this.DecideTargetTile(startPos, targetPos, pathList, animal);
+    //        };
+    //    }
+    //}
 
     // 닭장안에 있는 모든 동물 성장
     public void GrowUp()
@@ -98,7 +121,7 @@ public class Coop : Building
     public void DoorOpen()
     {
 
-        FindAnimals();
+        //FindAnimals();
 
 
         //if (SetDoor() && !AnimalManager.instance.coopOpened) //문이 열렸을경우에만 모든 동물들이 나온다.

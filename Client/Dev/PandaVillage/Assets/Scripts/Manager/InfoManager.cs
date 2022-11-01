@@ -37,11 +37,11 @@ public class InfoManager
         }
         else
         {
-            Debug.Log("신규 유저 입니다.");
-            GameInfo gameInfo = new GameInfo(PlayerId, "길동이", true);
-            dicInfos.Add(gameInfo.playerId, gameInfo);
+            //Debug.Log("신규 유저 입니다.");
+            //GameInfo gameInfo = new GameInfo(PlayerId, "길동이", "dd", "dd", true, "강아지");
+            //dicInfos.Add(gameInfo.playerId, gameInfo);
         }
-        SaveInfo();
+        SaveGame();
     }
 
 
@@ -49,6 +49,16 @@ public class InfoManager
     public GameInfo GetInfo()
     {
         return this.dicInfos[PlayerId];
+    }
+
+    public List<GameInfo> GetInfoList()
+    {
+        return this.dicInfos.Values.ToList();
+    }
+
+    public int GetInfoCount()
+    {
+        return this.dicInfos.Count;
     }
 
 
@@ -59,6 +69,18 @@ public class InfoManager
     public void InsertInfo(GameInfo info)
     {
         this.dicInfos.Add(info.playerId, info);
+        SaveGame();
+    }
+    public void DeleteInfo(GameInfo info)
+    {
+        var infoId = info.playerId;       
+        for (int index = infoId; index < dicInfos.Count-1; index++)
+        {
+            dicInfos[index] = dicInfos[index + 1];
+            dicInfos[index].playerId = index;
+        }
+        dicInfos.Remove(dicInfos.Count-1);
+        SaveGame();
     }
 
     public void SaveInfo()
@@ -71,12 +93,25 @@ public class InfoManager
         File.WriteAllText(path, json);
     }
 
-    public void SaveGame(App.eMapType mapType, List<OtherObject> objList)
+    public void SaveGame()
+    {
+        //IEnumerable<RawData> col = this.dicInfos.Values.Where(x => x.GetType().Equals(typeof(T)));
+        //var json = JsonConvert.SerializeObject(col.Select(x => (T)Convert.ChangeType(x, typeof(T))).ToList());
+
+        var json = JsonConvert.SerializeObject(this.dicInfos.Values);
+        var path = string.Format("{0}/game_info.json", Application.persistentDataPath);
+        File.WriteAllText(path, json);
+    }
+
+    public void SaveOtherObject(App.eMapType mapType, List<OtherObject> objList)
     {
         List<OtherObject> otherObjList = objList;
 
         var info = this.GetInfo();
 
+
+        // 여기부터봐야함
+        // 건물 인포 다 날리고있어서 문제임
         info.objectInfoList.RemoveAll(x => x.sceneName == mapType.ToString());
 
         foreach (var obj in otherObjList)
@@ -90,9 +125,54 @@ public class InfoManager
 
             info.objectInfoList.Add(objectInfo);
         }
+    }
 
+    public void SaveHoeDirtTilePos(List<Vector3Int> posList)
+    {
+        var info = this.GetInfo();
+        info.hoeDirtTileList.Clear();
+        foreach(var pos in posList)
+        {
+            HoeDirtTileInfo tileInfo = new HoeDirtTileInfo();
+            tileInfo.posX = pos.x;
+            tileInfo.posY = pos.y;
 
-        this.SaveInfo();
+            info.hoeDirtTileList.Add(tileInfo);
+        }
+    }
+
+    public void SaveWateringDirtTilePos(List<Vector3Int> posList)
+    {
+        var info = this.GetInfo();
+        info.wateringDirtTileList.Clear();
+        foreach (var pos in posList)
+        {
+            WateringDirtTileInfo tileInfo = new WateringDirtTileInfo();
+            tileInfo.posX = pos.x;
+            tileInfo.posY = pos.y;
+
+            info.wateringDirtTileList.Add(tileInfo);
+        }
+    }
+
+    public void SaveCrop(List<Crop> cropList)
+    {
+        var info = this.GetInfo();
+
+        info.cropInfoList.Clear();
+
+        foreach (var crop in cropList)
+        {
+            CropInfo cropInfo = new CropInfo();
+            cropInfo.id = crop.id;
+            cropInfo.state = crop.state;
+            cropInfo.wateringCount = crop.wateringCount;
+            cropInfo.posX = (int)crop.gameObject.transform.position.x;
+            cropInfo.posY = (int)crop.gameObject.transform.position.y;
+            cropInfo.isWatering = crop.isWatering;
+
+            info.cropInfoList.Add(cropInfo);
+        }
     }
 
     // 하루가 끝나면 채집오브젝트는 다 삭제
@@ -102,31 +182,26 @@ public class InfoManager
 
         info.objectInfoList.RemoveAll(x => x.objectType == 2);
 
-        this.SaveInfo();
-    }
-
-    [MenuItem("PandaVillage/game_info/delete")]
-    public static void DeleteGameInfo()
-    {
-        var path = string.Format("{0}/game_info.json", Application.persistentDataPath);
-        if (File.Exists(path))
+        for (int index = 0; index < info.dicVisited.Count; index++)
         {
-            File.Delete(path);
-            Debug.Log("game_info.json deleted");
-        }
-        else
-        {
-            Debug.Log("game_info.json not found.");
+            info.dicVisited[info.dicVisited.Keys.ToList()[index]] = false;
         }
 
-        // https://answers.unity.com/questions/43422/how-to-implement-show-in-explorer.html
-        Application.OpenURL(string.Format("file://{0}", Application.persistentDataPath));
-    }
+        info.playerInfo.playDay += 1; 
+        if(info.playerInfo.playDay == 113)
+        {
+            info.playerInfo.playDay = 1;
+            info.playerInfo.playYear += 1;
+        }
 
-    [MenuItem("PandaVillage/game_info/show in explorer")]
-    public static void ShowInExplorer()
-    {
-        Application.OpenURL(string.Format("file://{0}", Application.persistentDataPath));
+        info.wateringDirtTileList.Clear();
+
+        foreach (var crop in info.cropInfoList)
+        {
+            crop.isWatering = false;
+        }
+
+        this.SaveGame();
     }
 
 }

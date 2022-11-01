@@ -1,0 +1,26 @@
+[
+  {
+    "id": 8000,
+    "animal_name": "닭",
+    "price": 800,
+    "animal_sprite": "White Chicken_0",
+    "prefab_path": "Prefabs\\Animal\\Chicken",
+    "description": "잘 보살펴진 성숙한 닭은 매일 계란을 낳습니다. 닭장에서 지냅니다."
+  },
+  {
+    "id": 8001,
+    "animal_name": "젖소",
+    "price": 1500,
+    "animal_sprite": "White Cow_0",
+    "prefab_path": "Prefabs\\Animal\\Cow",
+    "description": "다 자란 젖소는 매일 우유를 생산합니다. 우유를 모으려면 우유통이 필요합니다. 외양간에서 지냅니다."
+  },
+  {
+    "id": 8002,
+    "animal_name": "토끼",
+    "price": 8000,
+    "animal_sprite": "Rabbit_0",
+    "prefab_path": "Prefabs\\Animal\\Rabbit",
+    "description": "털이 많은 토끼입니다! 며칠에 한번씩 털을 생산합니다. 닭장에서 지냅니다."
+  }
+]

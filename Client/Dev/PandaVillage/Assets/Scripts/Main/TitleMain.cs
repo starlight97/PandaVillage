@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class TitleMain : SceneMain
 {
     public Button btnNewGame;
+    public Button btnLoadGame;
     public override void Init(SceneParams param = null)
     {
         this.useOnDestoryEvent = false;
@@ -15,7 +16,11 @@ public class TitleMain : SceneMain
         
         });
 
+        btnLoadGame.onClick.AddListener(() =>
+        {
+            Dispatch("onClickLoadGame");
 
+        });
 
     }
 

@@ -49,8 +49,6 @@ public class Farming : MonoBehaviour
             case Player.eItemType.WateringCan:
                 actType = eFarmActType.SetTile;
                 break;
-            case Player.eItemType.Fertilizer:
-                break;
             case Player.eItemType.Axe:
                 break;
             case Player.eItemType.Seed:

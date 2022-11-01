@@ -13,6 +13,11 @@ public class TileManager : MonoBehaviour
 
     public TileBase[] tileBases;        // 0: hoeDirt, 1: wateringDirt
 
+    public List<Vector3Int> hoeDirtPosList;
+    public List<Vector3Int> wateringDirtPosList;
+
+    public UnityAction<Vector3Int> onFinishedSetTile;
+
     public enum eTileType
     {
         None = -1,
@@ -26,6 +31,7 @@ public class TileManager : MonoBehaviour
         this.WallMap = gridMap.transform.Find("TilemapWall").GetComponent<Tilemap>();
         this.hoeDirtMap = gridMap.transform.Find("TilemapHoeDirt").GetComponent<Tilemap>();
         this.wateringDirtMap = gridMap.transform.Find("TilemapWateringDirt").GetComponent<Tilemap>();
+        LoadTiles();
     }
 
     // 플레이어가 터치한 위치에 타일 베이스가 존재하면 True 반환
@@ -68,14 +74,26 @@ public class TileManager : MonoBehaviour
             case Player.eItemType.None:
                 break;
             case Player.eItemType.Hoe:
-                hoeDirtMap.SetTile(pos, tileBases[0]);
+                bool checkHoeDirt = CheckTile(pos, eTileType.HoeDirt);
+                if (checkHoeDirt == false)
+                {
+                    hoeDirtMap.SetTile(pos, tileBases[0]);
+                    hoeDirtPosList.Add(pos);
+                }
                 break;
             case Player.eItemType.WateringCan:
-                wateringDirtMap.SetTile(pos, tileBases[1]);
+                bool checkWateringDirt = CheckTile(pos, eTileType.WateringDirt);
+                if (checkWateringDirt == false)
+                {
+                    wateringDirtMap.SetTile(pos, tileBases[1]);
+                    wateringDirtPosList.Add(pos);
+                }
                 break;
             default:
                 break;
         }
+
+        onFinishedSetTile(pos);
     }
 
     // 일정 시간(하루)이 지나면 물 타일을 지워준다: 플레이어가 매일 물을 줘야하기 때문이다.
@@ -107,9 +125,37 @@ public class TileManager : MonoBehaviour
         return tilePosList;
     }
 
-    // 씨앗이 심기지 않은 밭 타일을 랜덤으로 지움
-    public void RandomClearHoeDirtTile()
+    private void LoadTiles()
     {
+        LoadHoeDirtTile();
+        LoadWateringDirtTile();
+    }
 
+    private void LoadHoeDirtTile()
+    {
+        var gameInfo = InfoManager.instance.GetInfo();
+        if (gameInfo.hoeDirtTileList.Count != 0)
+        {
+            foreach(var info in gameInfo.hoeDirtTileList)
+            {
+                var pos = new Vector3Int(info.posX, info.posY, 0);
+                hoeDirtMap.SetTile(pos, tileBases[0]);
+                this.hoeDirtPosList.Add(pos);
+            }
+        }
+    }
+
+    private void LoadWateringDirtTile()
+    {
+        var gameInfo = InfoManager.instance.GetInfo();
+        if (gameInfo.wateringDirtTileList.Count != 0)
+        {
+            foreach (var info in gameInfo.wateringDirtTileList)
+            {
+                var pos = new Vector3Int(info.posX, info.posY, 0);
+                wateringDirtMap.SetTile(pos, tileBases[1]);
+                this.wateringDirtPosList.Add(pos);
+            }
+        }
     }
 }

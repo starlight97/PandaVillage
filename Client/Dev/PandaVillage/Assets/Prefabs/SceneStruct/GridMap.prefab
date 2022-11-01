@@ -363,7 +363,8 @@ GameObject:
   - component: {fileID: 582633751504628208}
   - component: {fileID: 582633751504628222}
   - component: {fileID: 582633751504628223}
-  m_Layer: 0
+  - component: {fileID: 7562079722224060648}
+  m_Layer: 9
   m_Name: TilemapHoeDirt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -504,6 +505,22 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!19719996 &7562079722224060648
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582633751504628209}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0.00001
 --- !u!1 &582633751805957547
 GameObject:
   m_ObjectHideFlags: 0

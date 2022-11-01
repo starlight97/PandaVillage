@@ -1,0 +1,32 @@
+[
+  {
+    "id": 30000,
+    "usetool_type_group_id": 1,
+    "tool_type": 4
+  },
+  {
+    "id": 30001,
+    "usetool_type_group_id": 2,
+    "tool_type": 3
+  },
+  {
+    "id": 30002,
+    "usetool_type_group_id": 3,
+    "tool_type": 1
+  },
+  {
+    "id": 30003,
+    "usetool_type_group_id": 3,
+    "tool_type": 3
+  },
+  {
+    "id": 30004,
+    "usetool_type_group_id": 3,
+    "tool_type": 4
+  },
+  {
+    "id": 30005,
+    "usetool_type_group_id": 3,
+    "tool_type": 5
+  }
+]

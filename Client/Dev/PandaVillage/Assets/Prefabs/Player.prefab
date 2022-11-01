@@ -30,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 8412107125530616752}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.92929, y: 0.92929, z: 0.92929}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8412107125571908479}
   m_Father: {fileID: 0}
@@ -50,7 +50,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.5, y: 1.4}
+  m_Offset: {x: 0.5, y: 1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -61,7 +61,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.741289, y: 1.8}
+  m_Size: {x: 0.741289, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &8412107125530616755
 MonoBehaviour:
@@ -75,6 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ee6665fad0b3554c9c680ccb2818749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useItemId: -1
   isBuildingSelected: 0
 --- !u!114 &6793492294918985
 MonoBehaviour:
@@ -88,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: decc21c66c7424648bd217ced3ca5c2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 6
+  moveSpeed: 20
   pathList: []
 --- !u!114 &5700944159631430733
 MonoBehaviour:
@@ -196,7 +197,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1000
+  m_SortingOrder: 11
   m_Sprite: {fileID: -861999157, guid: 14568e802bc085346af304094549e2ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -16,6 +16,8 @@ public class RuckData : RawData
     
     public string sprite_name;
     
+    public int usetool_type_group_id;
+    
     public int spawn_tile_type;
     
     public int gain_material_id;

@@ -20,7 +20,7 @@ public class HyunMain : MonoBehaviour
         this.timeManager = GameObject.FindObjectOfType<TimeManager>();
         this.cropManager = GameObject.FindObjectOfType<CropManager>();
 
-        this.timeManager.Init();
+        //this.timeManager.Init();
         this.cropManager.Init();
 
         this.player.onDecideTargetTile = (startPos, targetPos, pathList) =>
@@ -51,7 +51,7 @@ public class HyunMain : MonoBehaviour
 
         this.timeManager.onUpdateTime = (hour, minute) =>
         {
-            cropManager.CheckWateringDirt();
+            //cropManager.CheckWateringDirt();
             tileManager.ClearWateringTiles();
         };
 

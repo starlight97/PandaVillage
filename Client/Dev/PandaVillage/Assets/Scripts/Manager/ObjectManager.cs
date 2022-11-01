@@ -25,7 +25,7 @@ public class ObjectManager : MonoBehaviour
 
     private ObjectSpawner objectSpawner;
     private List<Vector3Int> spawnTilePosList = new List<Vector3Int>();
-
+    public UnityAction onSpawnComplete;
 
     public void Init(App.eMapType mapType, List<Vector3Int> spawnTilePosList)
     {
@@ -51,9 +51,16 @@ public class ObjectManager : MonoBehaviour
                 var objData = DataManager.instance.GetData<GatheringData>(data.objectId);
                 this.objectSpawner.SpawnObject(objData.prefab_name, objData.sprite_name, pos);
             }
+            else if (objType == "BuildingData")
+            {
+                var objData = DataManager.instance.GetData<BuildingData>(data.objectId);
+
+                this.objectSpawner.SpawnObject(objData.prefab_path, objData.sprite_name, pos);
+            }
 
             //this.objectSpawner.SpawnObject(data.objectId, pos);
         }
+        //this.onSpawnComplete();
         
     }
 
@@ -75,14 +82,8 @@ public class ObjectManager : MonoBehaviour
         for (int count = 0; count < amount; count++)
         {
             var rand = Random.Range(0, seasonGatheringDataList.Count - 1);
-            var randPosIdx = Random.Range(0, spawnTilePosList.Count - 1);
-            if(spawnTilePosList.Count == 0)
-            {
-                Debug.Log("빈공간이 없어요");
-                break;
-            }
-            this.objectSpawner.SpawnObject(seasonGatheringDataList[rand].prefab_name, seasonGatheringDataList[rand].sprite_name, spawnTilePosList[randPosIdx]);
-            spawnTilePosList.RemoveAt(randPosIdx);
+
+            this.objectSpawner.SpawnObject(seasonGatheringDataList[rand].prefab_name, seasonGatheringDataList[rand].sprite_name);
         }
     }
 
@@ -99,20 +100,8 @@ public class ObjectManager : MonoBehaviour
         for (int count = 0; count < amount; count++)
         {
             var randObjIdIndex = Random.Range(0, idList.Count - 1);
-            var randPosIdx = Random.Range(0, spawnTilePosList.Count - 1);
-            if(spawnTilePosList.Count == 0)
-            {
-                Debug.Log("빈공간 없어요");
-                break;
-            }
-
             var objData = DataManager.instance.GetData<RuckData>(idList[randObjIdIndex]);
-            this.objectSpawner.SpawnObject(objData.prefab_name, objData.sprite_name, spawnTilePosList[randPosIdx]);
-
-
-
-            //this.objectSpawner.SpawnObject(randObjId, spawnTilePosList[randPosIdx]);
-            spawnTilePosList.RemoveAt(randPosIdx);
+            this.objectSpawner.SpawnObject(objData.prefab_name, objData.sprite_name);
         }
 
     }

@@ -1,19 +1,29 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
     public enum eItemType
     {
         None = -1,
-        Hoe, 
+        Hoe = 1, 
         WateringCan,
-        Fertilizer,
+        Axe,
+        Pick,
+        Sickle,
         Seed,
-        Axe
+    }
+
+    public enum eRuckType
+    {
+        Stone = 1,
+        Wood,
+        Weed
     }
 
     private enum eStateType
@@ -27,21 +37,24 @@ public class Player : MonoBehaviour
     private Movement2D movement2D;
     private Farming farming;
     private eItemType isUseTool = eItemType.None;
-    public UnityAction<Vector2Int, Vector2Int, List<Vector3>> onDecideTargetTile;
 
+    public int useItemId = -1;
+    public UnityAction<Vector2Int, Vector2Int, List<Vector3>> onDecideTargetTile;
+    public UnityAction<Vector2Int, Vector2Int, List<Vector3>> onDecideTargetObject;
+    
     public UnityAction<Vector3Int, TileManager.eTileType> onGetTile;
     public UnityAction<Vector3Int, eItemType> onChangeFarmTile;
 
-    public UnityAction<GameObject> onSelectedBuilding;
     public UnityAction<Animal> onShowAnimalUI;
+    public UnityAction onGetItem;
 
-    public UnityAction<Vector3Int> onPlantCrop;
+    public UnityAction<int, Vector3Int> onPlantCrop;
+    public UnityAction<int> onSelectedItem;
 
     private Vector3Int dir;
     private Vector3Int pos;
 
     private bool isShowAnimalUI= false;
-    public bool isBuildingSelected = false;
 
     private Animator anim;
     private SpriteRenderer spriteR;
@@ -53,10 +66,7 @@ public class Player : MonoBehaviour
         this.movement2D.onPlayAnimation = (dir) => {
             this.SetAnimation(dir);
         };
-        this.movement2D.onMoveComplete = (dir) =>
-        {
-            this.SetIdle(dir);
-        };
+        this.movement2D.onMoveComplete = (dir) => { SetIdle(dir); };
         this.farming = GetComponent<Farming>();
         this.anim = GetComponentInChildren<Animator>();
 
@@ -64,6 +74,10 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject() == true)
+        {
+            return;
+        }
         // 마우스 클릭시 좌표를 인게임 좌표로 변환하여 mousePos 변수에 저장
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         // z값은 사용을 안하므로 x, y 값만 저장후 Move
@@ -79,8 +93,6 @@ public class Player : MonoBehaviour
         {
             this.pos = new Vector3Int(currentPosX, currentPosY, 0);
             Vector3Int tpos = new Vector3Int((int)mousePos.x, (int)mousePos.y, 0);
-
-
 
             this.movement2D.pathList.Clear();
             this.onDecideTargetTile(curPos, targetPos, this.movement2D.pathList);
@@ -100,146 +112,129 @@ public class Player : MonoBehaviour
 
             GameObject findGo = FindObject(tpos);
 
-
-            
-            if (findGo != null && isBuildingSelected == false && findGo.tag == "Building")
-            {
-                findGo.transform.position = new Vector3(-10, -10, 0);
-                this.onSelectedBuilding(findGo);
-                isBuildingSelected = true;
-                return;
-            }
-
-
             this.dir = tpos - this.pos;
 
             var tilePos = this.dir + this.pos;
 
-            
+            findGo = FindObject(tilePos);
 
-            if (isUseTool == eItemType.None)
+            if (findGo == null || (findGo.CompareTag("Portal") && findGo.GetComponent<Portal>().isClickPortal == false))
             {
-                //this.moveMent2D.pathList.Clear();
-                //this.onDecideTargetTile(curPos, targetPos, this.moveMent2D.pathList);
-            }
-
-            if (Mathf.Abs(dir.x) <= 1 && Mathf.Abs(dir.y) <= 1)
-            {
-                if (findGo != null && findGo.tag == "Portal")
+                //Debug.Log("11111111111111111111111");
+                if (isUseTool != eItemType.None)
                 {
-                    findGo.GetComponent<Portal>().ClickPotal();
+                    //Debug.Log("2222222222222222222222222");
+                    this.movement2D.onMoveComplete = (dir) => 
+                    {
+                        GetFarmTile(tilePos, isUseTool);
+                        SetIdle(dir);
+                        return;
+                    };
+
+                    this.movement2D.pathList.Clear();
+                    this.onDecideTargetObject(curPos, targetPos, this.movement2D.pathList);
                     return;
                 }
+                this.movement2D.pathList.Clear();
+                this.onDecideTargetTile(curPos, targetPos, this.movement2D.pathList);
+                return;
+            }
+            
+            else 
+            {
+                //Debug.Log("333333333333333333333333333333");
 
-                findGo = FindObject(tilePos);
-                if(findGo != null)
+                this.movement2D.pathList.Clear();
+                this.onDecideTargetObject(curPos, targetPos, this.movement2D.pathList);
+
+                this.movement2D.onMoveComplete += (dir) => 
                 {
-                    Debug.Log(findGo.name);
-                    if(findGo.tag == "Crop")
+                    if (findGo != null)
                     {
-                        Crop crop = findGo.GetComponent<Crop>();
-                        if (crop.isHarvest == true)
+                        if (findGo.tag == "Portal")
                         {
-                            crop.Harvest();
+                            var portal = findGo.GetComponent<Portal>();
+                            if (portal.isClickPortal)
+                            {
+                                portal.ClickPotal();
+                                return;
+                            }
+                            else
+                                return;
+                        }
+
+                        if (findGo.tag == "Crop")
+                        {
+                            if (isUseTool == eItemType.WateringCan)
+                            {
+                                GetFarmTile(tilePos, isUseTool);
+                                return;
+                            }
+
+                            Crop crop = findGo.GetComponent<Crop>();
+                            if (crop.isHarvest == true)
+                            {
+                                Harvest(findGo);
+                                return;
+                            }
+                        }
+
+                        else if (findGo.tag == "Animal")
+                        {
+                            Animal animal = findGo.GetComponent<Animal>();
+                            if (animal.isPatted == false)
+                                animal.Patted();
+                            else
+                            {
+                                this.onShowAnimalUI(animal);
+                                isShowAnimalUI = true;
+                            }
                             return;
                         }
-                    }
-                    if (findGo.tag == "Animal")
-                    {
-                        Animal animal = findGo.GetComponent<Animal>();
-                        if (animal.isPatted == false)
-                            animal.Patted();
-                        else
+                        else if (findGo.tag == "Gathering")
                         {
-                            this.onShowAnimalUI(animal);
-                            isShowAnimalUI = true;
+                            Gather(findGo);
+                            return;
                         }
-
-                        
-                        return;
+                        else if (findGo.tag == "Ruck")
+                        {
+                            Break(findGo);
+                            return;
+                        }
+                        else if (findGo.tag == "Shop")
+                        {
+                            var shop = findGo.GetComponent<ShopObject>();
+                            shop.ShowShop();
+                        }
                     }
-
-                }
-
-                switch (isUseTool)
-                {
-                    case eItemType.None:
-                        break;
-                    case eItemType.Hoe:
-                    case eItemType.WateringCan:
-                        GetFarmTile(tilePos, isUseTool);
-                        break;
-                    case eItemType.Fertilizer:
-                        break;
-                    case eItemType.Seed:
-                        GetFarmTile(tilePos, isUseTool);
-                        break;
-                    case eItemType.Axe:
-                        Attack(dir);
-                        break;
-                    default:
-                        break;
-                }
+                    SetIdle(dir);
+                };
             }
         }
-        #region 키보드로 장비 고르기
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            this.isUseTool = eItemType.Hoe;
-            Debug.Log("Hoe");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            this.isUseTool = eItemType.WateringCan;
-            Debug.Log("WateringCan");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            this.isUseTool = eItemType.Seed;
-            Debug.Log("Seed");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            this.isUseTool = eItemType.Axe;
-            Debug.Log("Axe");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            this.isUseTool = eItemType.Fertilizer;
-            Debug.Log("Fertilizer");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            Debug.Log("6");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            Debug.Log("7");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            Debug.Log("8");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            Debug.Log("9");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            this.isUseTool = eItemType.None;
-            Debug.Log("None");
-        }
-        #endregion
     }
 
-    private void UseTool()
+    public void ItemSelected(int id)
     {
+        this.useItemId = id;
+        var toolList = DataManager.instance.GetDataList<ToolData>().ToList();
+        var seedList = DataManager.instance.GetDataList<SeedData>().ToList();
 
-    }
+        var tool = toolList.Find(x => x.id == id);
+        var seed = seedList.Find(x => x.id == id);
 
-    private void GetTool()
-    {
+        if (tool != null)
+        {
+            isUseTool = (eItemType)tool.type;
+            return;
+        }
 
+        if(seed != null)
+        {
+            isUseTool = eItemType.Seed;
+            return;
+        }
+
+        isUseTool = eItemType.None;
     }
 
     #region Animation
@@ -307,6 +302,11 @@ public class Player : MonoBehaviour
         this.movement2D.Move();
     }
 
+    public void MoveAction()
+    {
+        this.movement2D.MoveAction();
+    }
+
     public void GetFarmTile(Vector3Int pos, eItemType state)
     {
         TileManager.eTileType type = farming.GetFarmTile(state);
@@ -323,40 +323,99 @@ public class Player : MonoBehaviour
             case Farming.eFarmActType.None:
                 break;
             case Farming.eFarmActType.Plant:
-                this.onPlantCrop(pos);
+                var info = InfoManager.instance.GetInfo();
+                this.onPlantCrop(this.useItemId, pos);
+                if (info.playerInfo.inventory.GetItemCount(this.useItemId) == 0)
+                {
+                    this.useItemId = -1;
+                    this.isUseTool = eItemType.None;
+                }
                 break;
             case Farming.eFarmActType.SetTile:
-                this.onChangeFarmTile(pos, this.isUseTool);
+                this.onChangeFarmTile(pos, isUseTool);
                 break;
             default:
                 break;
         }
     }
 
-    public void Attack(Vector3 dir)
+    public void Harvest(GameObject findGo)
     {
-        Vector3 startPos = this.transform.position;
-        startPos.x += 0.5f;
-        startPos.y += 0.5f;
+        Crop crop = findGo.GetComponent<Crop>();
+        var info = InfoManager.instance.GetInfo();
+        var data = DataManager.instance.GetData<CropData>(crop.id);
 
-        Debug.DrawRay(startPos, dir * 0.7f, new Color(0,1,0), 4f);
-        //int layerMask = (-1) - (1 << LayerMask.NameToLayer("Player"));  // Everything에서 Player 레이어만 제외하고 충돌 체크함
-        int layerMask = (1 << LayerMask.NameToLayer("Object")) + (1 << LayerMask.NameToLayer("WallObject"));    // Object 와 WallObject 레이어만 충돌체크함
-
-
-        RaycastHit2D rayHit = Physics2D.Raycast(startPos, dir, 1, layerMask);
-
-        if(rayHit.collider != null)
+        bool invenCheck = info.playerInfo.inventory.AddItem(data.gain_gathering_id, 1);
+        if (invenCheck)
         {
-            OtherObject obj = rayHit.collider.gameObject.GetComponent<OtherObject>();
-            obj.DestroyObject();
+            crop.DestroyObject();
+            InfoManager.instance.SaveGame();
+            onGetItem();
         }
+        else
+        {
+            Debug.Log("자리가 없어요");
+        }
+
+    }
+
+    // 찾은 오브젝트가 채집 오브젝트라면
+    public void Gather(GameObject findGo)
+    {
+        OtherObject otherObject = findGo.GetComponent<OtherObject>();
+        var data = DataManager.instance.GetData<GatheringData>(otherObject.id);
+        var info = InfoManager.instance.GetInfo();
+
+        bool check = info.playerInfo.inventory.AddItem(data.id, 1);
+        if(check == true)
+        {
+            otherObject.DestroyObject();
+            //InfoManager.instance.SaveGame();
+            onGetItem();
+        }
+        else
+        {
+            Debug.Log("인벤 꽉참");
+        }
+    }
+
+    public void Break(GameObject findGo)
+    {
+        if(isUseTool == eItemType.Hoe || isUseTool == eItemType.Pick 
+            || isUseTool == eItemType.Axe || isUseTool == eItemType.Sickle )
+        {
+            var useToolType = DataManager.instance.GetData<ToolData>(useItemId).type;
+            OtherObject otherObject = findGo.GetComponent<OtherObject>();
+            var data = DataManager.instance.GetData<RuckData>(otherObject.id);
+            var info = InfoManager.instance.GetInfo();
+
+            List<UsetoolgroupData> toolgroupdataList = DataManager.instance.GetDataList<UsetoolgroupData>().ToList();
+            var toolList = toolgroupdataList.FindAll(x => x.usetool_type_group_id == data.usetool_type_group_id);
+            foreach (var tool in toolList)
+            {
+                if (tool.tool_type == useToolType)
+                {
+                    bool invencheck = info.playerInfo.inventory.AddItem(data.gain_material_id, data.gain_material_amount);
+                    if (invencheck == true)
+                    {
+                        otherObject.DestroyObject();
+                        //InfoManager.instance.SaveGame();
+                        onGetItem();
+                    }
+                    else
+                    {
+                        Debug.Log("인벤 꽉참");
+                    }
+                }
+            }
+        }
+
     }
 
     private GameObject FindObject(Vector3Int tpos)
     {
         int layerMask = (1 << LayerMask.NameToLayer("Object")) + (1 << LayerMask.NameToLayer("WallObject"))
-            + (1 << LayerMask.NameToLayer("Crop"));    // Object 와 WallObject 레이어만 충돌체크함
+            + (1 << LayerMask.NameToLayer("Crop")) + (1 << LayerMask.NameToLayer("UI"));    // Object 와 WallObject 레이어만 충돌체크함
         GameObject findGo = null;
 
         var col = Physics2D.OverlapBox(new Vector2(tpos.x + 0.5f, tpos.y + 0.5f), new Vector2(0.95f, 0.95f),0, layerMask);
@@ -364,10 +423,24 @@ public class Player : MonoBehaviour
         if (col != null)
         {
             findGo = col.gameObject;
-            //OtherObject obj = col.gameObject.GetComponent<OtherObject>();
-            //obj.DestroyObject();
         }
         return findGo;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Roof")
+        {
+            collision.transform.parent.GetComponent<TransparentObject>().HideObject();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Roof")
+        {
+            collision.transform.parent.GetComponent<TransparentObject>().ShowObject();
+        }
     }
 }
 

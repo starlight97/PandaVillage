@@ -58,5 +58,40 @@
     "id": 7011,
     "shop_category": 2,
     "item_id": 6007
+  },
+  {
+    "id": 7012,
+    "shop_category": 3,
+    "item_id": 9003
+  },
+  {
+    "id": 7013,
+    "shop_category": 3,
+    "item_id": 9004
+  },
+  {
+    "id": 7014,
+    "shop_category": 3,
+    "item_id": 9005
+  },
+  {
+    "id": 7015,
+    "shop_category": 3,
+    "item_id": 9006
+  },
+  {
+    "id": 7016,
+    "shop_category": 3,
+    "item_id": 9007
+  },
+  {
+    "id": 7017,
+    "shop_category": 3,
+    "item_id": 9008
+  },
+  {
+    "id": 7018,
+    "shop_category": 3,
+    "item_id": 9009
   }
 ]

@@ -80,20 +80,13 @@ public class JeongSikTestMain : MonoBehaviour
             //else
             //    uiFarm.HideAnimalUI();
         };
-        this.player.onSelectedBuilding = (selectedBuildingGo) =>
-        {
-            objectPlaceManager.BuildingEdit(selectedBuildingGo);
-        };
+
         #endregion
 
         this.timeManager.onUpdateTime = (hour, minute) =>
         {
         };
 
-        this.objectPlaceManager.onEditComplete = () =>
-        {
-            player.isBuildingSelected = false;
-        };
         this.objectPlaceManager.onFindWallPosList = () =>
         {
             this.objectPlaceManager.wallPosArr = mapManager.GetWallPosArr();
@@ -114,7 +107,7 @@ public class JeongSikTestMain : MonoBehaviour
         // 10분당 1로 저장
         // ex 하루 = 1320 분
         // 하루마다 132 씩 ++
-        info.playerInfo.playMinute += 132;
+        //info.playerInfo.playMinute += 132;
         foreach (var obj in otherObjList)
         {
             ObjectInfo objectInfo = new ObjectInfo();

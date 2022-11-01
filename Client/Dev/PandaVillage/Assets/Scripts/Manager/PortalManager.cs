@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class PortalManager : MonoBehaviour
 {
-    public UnityAction<App.eSceneType> onArrival;
+    public UnityAction<App.eSceneType, int> onArrival;
 
     public void Init()
     {
@@ -13,9 +13,9 @@ public class PortalManager : MonoBehaviour
         for(int index = 0; index < portalCount; index++)
         {
             var portal = this.transform.GetChild(index).GetComponent<Portal>();
-            portal.onArrival = (sceneType) =>
+            portal.onArrival = (sceneType, index) =>
             {
-                this.onArrival(sceneType);
+                this.onArrival(sceneType, index);
             };
 
         }

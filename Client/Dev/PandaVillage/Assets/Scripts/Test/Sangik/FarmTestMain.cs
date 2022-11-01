@@ -47,17 +47,14 @@ public class FarmTestMain : MonoBehaviour
                     }
                 }
             }
-
             ranchManager.ShowSiloUI(MouseTest());
-        }
+        }        
     }
 
 
-
-
+   
     void Start()
-    {       
-
+    {
         this.mapManager = GameObject.FindObjectOfType<MapManager>();
         this.timeManager = GameObject.FindObjectOfType<SangIkTimeManager>();
         this.ranchManager = GameObject.FindObjectOfType<RanchManager>();
@@ -164,7 +161,7 @@ public class FarmTestMain : MonoBehaviour
                 var scr = go.GetComponent<Animal>();
                 go.transform.position = new Vector3(Random.Range(scr.mapBottomLeft.x, scr.mapTopRight.x + 1), Random.Range(scr.mapBottomLeft.y, scr.mapTopRight.y + 1));
             }
-            ranchManager.coopArr[0].FindAnimals();
+            //ranchManager.coopArr[0].FindAnimals();
             ranchManager.AnimalsInit();
         }
     }

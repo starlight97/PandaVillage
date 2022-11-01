@@ -16,12 +16,23 @@ public class OtherObject : MonoBehaviour
         //Debug.LogFormat("{0} 아이템 획득", objectName);
         this.onDestroy(this);
         Destroy(this.gameObject);
+
     }
 
-    public void Init(Sprite sp)
+    public virtual void Init(Sprite sp)
     {
-        this.spriteRenderer = this.GetComponent<SpriteRenderer>();
+        if(objectType == 0)
+        {
+            this.spriteRenderer = this.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        }
+        else
+        {
+            this.spriteRenderer = this.GetComponent<SpriteRenderer>();
+        }
+
+
         this.spriteRenderer.sprite = sp;
     }
+
 
 }

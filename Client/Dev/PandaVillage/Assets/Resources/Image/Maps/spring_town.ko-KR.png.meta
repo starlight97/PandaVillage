@@ -69,7 +69,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -102,6 +102,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -41760,13 +41772,13 @@ TextureImporter:
       spring_town.ko-KR_322: -802868978
       spring_town.ko-KR_1055: 148515027
       spring_town.ko-KR_1482: -1467466219
-      spring_town.ko-KR_676: -1961528899
       spring_town.ko-KR_1940: 499097172
+      spring_town.ko-KR_676: -1961528899
       spring_town.ko-KR_1571: -1997836601
       spring_town.ko-KR_1572: 1071935786
       spring_town.ko-KR_200: 2142041628
-      spring_town.ko-KR_163: -1500407902
       spring_town.ko-KR_1660: -1074822350
+      spring_town.ko-KR_163: -1500407902
       spring_town.ko-KR_1903: 1500908361
       spring_town.ko-KR_689: 2067322131
       spring_town.ko-KR_1740: 220476671
@@ -41786,9 +41798,9 @@ TextureImporter:
       spring_town.ko-KR_1058: 2083365389
       spring_town.ko-KR_396: 670482826
       spring_town.ko-KR_756: 1747392485
-      spring_town.ko-KR_428: -1387504610
-      spring_town.ko-KR_1380: 89229936
       spring_town.ko-KR_1604: -1604740993
+      spring_town.ko-KR_1380: 89229936
+      spring_town.ko-KR_428: -1387504610
       spring_town.ko-KR_1213: 1042842223
       spring_town.ko-KR_104: 103947461
       spring_town.ko-KR_1401: -1454722854
@@ -41867,8 +41879,8 @@ TextureImporter:
       spring_town.ko-KR_822: 1811692173
       spring_town.ko-KR_235: 1975230550
       spring_town.ko-KR_671: -1802389052
-      spring_town.ko-KR_294: 1755651570
       spring_town.ko-KR_1545: 1562746504
+      spring_town.ko-KR_294: 1755651570
       spring_town.ko-KR_516: -2120012729
       spring_town.ko-KR_1512: 1965172316
       spring_town.ko-KR_1267: 1495882219
@@ -41891,9 +41903,9 @@ TextureImporter:
       spring_town.ko-KR_89: 431999463
       spring_town.ko-KR_287: -571445904
       spring_town.ko-KR_72: -1113001471
-      spring_town.ko-KR_244: 1905010726
       spring_town.ko-KR_511: 731509645
       spring_town.ko-KR_874: 1467646173
+      spring_town.ko-KR_244: 1905010726
       spring_town.ko-KR_2: -649301127
       spring_town.ko-KR_697: 1809325053
       spring_town.ko-KR_1050: -221796365
@@ -41984,10 +41996,10 @@ TextureImporter:
       spring_town.ko-KR_1739: -1831302375
       spring_town.ko-KR_1861: 647822874
       spring_town.ko-KR_148: 2014232131
-      spring_town.ko-KR_518: -917776589
-      spring_town.ko-KR_568: 1116254762
       spring_town.ko-KR_522: -1243640707
+      spring_town.ko-KR_518: -917776589
       spring_town.ko-KR_707: -1898318471
+      spring_town.ko-KR_568: 1116254762
       spring_town.ko-KR_575: -102466774
       spring_town.ko-KR_1160: 1417998444
       spring_town.ko-KR_1502: 620670350
@@ -42022,9 +42034,8 @@ TextureImporter:
       spring_town.ko-KR_1570: 1298587680
       spring_town.ko-KR_1168: 885707612
       spring_town.ko-KR_34: 984440777
-      spring_town.ko-KR_62: 1487750063
-      spring_town.ko-KR_1705: 2119562657
       spring_town.ko-KR_886: 1185298283
+      spring_town.ko-KR_62: 1487750063
       spring_town.ko-KR_485: -701676371
       spring_town.ko-KR_1397: -2051144232
       spring_town.ko-KR_140: -539517391
@@ -42032,6 +42043,7 @@ TextureImporter:
       spring_town.ko-KR_1303: 1723044004
       spring_town.ko-KR_1426: -1227692840
       spring_town.ko-KR_1179: 1465372153
+      spring_town.ko-KR_1705: 2119562657
       spring_town.ko-KR_1373: -108744643
       spring_town.ko-KR_129: -131291021
       spring_town.ko-KR_1007: -905206403
@@ -42229,23 +42241,23 @@ TextureImporter:
       spring_town.ko-KR_1145: 1238677141
       spring_town.ko-KR_176: -295500835
       spring_town.ko-KR_951: -507008092
+      spring_town.ko-KR_1914: -682224630
       spring_town.ko-KR_251: 921890972
       spring_town.ko-KR_813: 1259715307
       spring_town.ko-KR_490: -1248396073
       spring_town.ko-KR_262: 744650613
-      spring_town.ko-KR_647: -927407882
       spring_town.ko-KR_538: 930535174
+      spring_town.ko-KR_647: -927407882
       spring_town.ko-KR_728: 1909153425
-      spring_town.ko-KR_1631: -870354925
       spring_town.ko-KR_1711: -529616817
       spring_town.ko-KR_1351: 844595446
       spring_town.ko-KR_1226: 1991878048
+      spring_town.ko-KR_1631: -870354925
       spring_town.ko-KR_1893: -1776253939
       spring_town.ko-KR_1890: 162636374
       spring_town.ko-KR_1655: 1735851476
       spring_town.ko-KR_1807: -299268184
       spring_town.ko-KR_1477: -2087873345
-      spring_town.ko-KR_1914: -682224630
       spring_town.ko-KR_295: 786713122
       spring_town.ko-KR_985: -937250819
       spring_town.ko-KR_1210: -426451762
@@ -42325,17 +42337,18 @@ TextureImporter:
       spring_town.ko-KR_201: -1122595114
       spring_town.ko-KR_1367: 111968952
       spring_town.ko-KR_480: 828292108
-      spring_town.ko-KR_528: -1697152027
       spring_town.ko-KR_788: 1772023458
+      spring_town.ko-KR_961: -2011807282
       spring_town.ko-KR_805: -238333683
       spring_town.ko-KR_685: 1718782888
+      spring_town.ko-KR_1904: 1962543625
+      spring_town.ko-KR_528: -1697152027
       spring_town.ko-KR_1214: -1026230446
-      spring_town.ko-KR_1343: 1774708859
-      spring_town.ko-KR_961: -2011807282
       spring_town.ko-KR_1234: 1564464039
-      spring_town.ko-KR_1478: 838433672
+      spring_town.ko-KR_1343: 1774708859
       spring_town.ko-KR_1566: 32261364
       spring_town.ko-KR_1931: -801619749
+      spring_town.ko-KR_1478: 838433672
       spring_town.ko-KR_759: -1466806817
       spring_town.ko-KR_1799: 863980008
       spring_town.ko-KR_1791: 85628794
@@ -42344,7 +42357,6 @@ TextureImporter:
       spring_town.ko-KR_1228: -1430890836
       spring_town.ko-KR_1417: -722231466
       spring_town.ko-KR_1960: -379247214
-      spring_town.ko-KR_1904: 1962543625
       spring_town.ko-KR_1172: -189524706
       spring_town.ko-KR_1811: 1239116148
       spring_town.ko-KR_716: 512176716
@@ -42354,11 +42366,11 @@ TextureImporter:
       spring_town.ko-KR_497: 713606959
       spring_town.ko-KR_660: 499057704
       spring_town.ko-KR_65: -120333013
-      spring_town.ko-KR_275: -629085591
-      spring_town.ko-KR_529: -1065526137
       spring_town.ko-KR_642: 1010641726
-      spring_town.ko-KR_414: 523962028
+      spring_town.ko-KR_275: -629085591
       spring_town.ko-KR_1680: -211693720
+      spring_town.ko-KR_414: 523962028
+      spring_town.ko-KR_529: -1065526137
       spring_town.ko-KR_645: 753151506
       spring_town.ko-KR_690: -1825503850
       spring_town.ko-KR_1929: 1687051164
@@ -42718,8 +42730,8 @@ TextureImporter:
       spring_town.ko-KR_1756: -515744787
       spring_town.ko-KR_1199: 2046610425
       spring_town.ko-KR_1410: 885091282
-      spring_town.ko-KR_495: 1984421622
       spring_town.ko-KR_130: 998588715
+      spring_town.ko-KR_495: 1984421622
       spring_town.ko-KR_531: -136842321
       spring_town.ko-KR_1191: -227330520
       spring_town.ko-KR_638: -1226354454
@@ -42757,9 +42769,9 @@ TextureImporter:
       spring_town.ko-KR_1274: 580317722
       spring_town.ko-KR_1389: -1781145197
       spring_town.ko-KR_366: 837606191
-      spring_town.ko-KR_904: -676145377
-      spring_town.ko-KR_532: -1684550953
       spring_town.ko-KR_1909: -1543818367
+      spring_town.ko-KR_532: -1684550953
+      spring_town.ko-KR_904: -676145377
       spring_town.ko-KR_745: -1739530110
       spring_town.ko-KR_1520: -511825784
       spring_town.ko-KR_1170: 1983603322
@@ -42797,9 +42809,9 @@ TextureImporter:
       spring_town.ko-KR_527: 1511394361
       spring_town.ko-KR_1697: 1751515955
       spring_town.ko-KR_283: 609363597
-      spring_town.ko-KR_1585: -1410685553
-      spring_town.ko-KR_187: 1362125603
       spring_town.ko-KR_1927: -1857796284
+      spring_town.ko-KR_187: 1362125603
+      spring_town.ko-KR_1585: -1410685553
       spring_town.ko-KR_1737: 1330817029
       spring_town.ko-KR_700: -60827753
       spring_town.ko-KR_113: -187903587
@@ -42827,15 +42839,15 @@ TextureImporter:
       spring_town.ko-KR_306: -1982040440
       spring_town.ko-KR_1853: 653161359
       spring_town.ko-KR_336: -1894024030
-      spring_town.ko-KR_458: 1590382100
       spring_town.ko-KR_1297: -2071155363
+      spring_town.ko-KR_458: 1590382100
       spring_town.ko-KR_661: 1600068148
       spring_town.ko-KR_911: -448197031
       spring_town.ko-KR_1700: -580541031
       spring_town.ko-KR_657: 1547361442
       spring_town.ko-KR_1022: -108097165
-      spring_town.ko-KR_1106: -1952691702
       spring_town.ko-KR_1814: -2043668536
+      spring_town.ko-KR_1106: -1952691702
       spring_town.ko-KR_1402: 993074478
       spring_town.ko-KR_526: 1686459624
       spring_town.ko-KR_797: -1915825178
@@ -42910,14 +42922,14 @@ TextureImporter:
       spring_town.ko-KR_794: 441365984
       spring_town.ko-KR_298: -500975640
       spring_town.ko-KR_460: 1794372594
-      spring_town.ko-KR_572: 959301166
       spring_town.ko-KR_1450: -311851435
+      spring_town.ko-KR_1637: -278631019
       spring_town.ko-KR_1365: -597557410
       spring_town.ko-KR_1511: 601439099
       spring_town.ko-KR_1725: -308808693
-      spring_town.ko-KR_1781: 883054653
-      spring_town.ko-KR_1637: -278631019
+      spring_town.ko-KR_572: 959301166
       spring_town.ko-KR_916: 1829508400
+      spring_town.ko-KR_1781: 883054653
       spring_town.ko-KR_1733: 604269536
       spring_town.ko-KR_644: -915861015
       spring_town.ko-KR_349: 318045193
@@ -42996,6 +43008,7 @@ TextureImporter:
       spring_town.ko-KR_233: -1266521494
       spring_town.ko-KR_1354: -425109815
       spring_town.ko-KR_9: 1705824061
+      spring_town.ko-KR_1322: 677469331
       spring_town.ko-KR_413: -1192875637
       spring_town.ko-KR_1836: 194857768
       spring_town.ko-KR_946: -577403303
@@ -43003,7 +43016,6 @@ TextureImporter:
       spring_town.ko-KR_469: 589051248
       spring_town.ko-KR_118: 441933255
       spring_town.ko-KR_1117: 1873742540
-      spring_town.ko-KR_1322: 677469331
       spring_town.ko-KR_623: -1868818181
       spring_town.ko-KR_1491: -524461922
       spring_town.ko-KR_1795: -1545279688
@@ -43011,13 +43023,13 @@ TextureImporter:
       spring_town.ko-KR_1827: -1270942177
       spring_town.ko-KR_1532: 1811225852
       spring_town.ko-KR_580: -242531923
-      spring_town.ko-KR_1209: 1494657317
+      spring_town.ko-KR_1876: -1284222824
       spring_town.ko-KR_259: 711743331
       spring_town.ko-KR_249: 1482277159
       spring_town.ko-KR_1757: 317160101
       spring_town.ko-KR_342: 1886363851
       spring_town.ko-KR_1590: -295903950
-      spring_town.ko-KR_1876: -1284222824
+      spring_town.ko-KR_1209: 1494657317
       spring_town.ko-KR_1020: -342712100
       spring_town.ko-KR_360: -1621548386
       spring_town.ko-KR_1497: 606548947
@@ -43046,9 +43058,9 @@ TextureImporter:
       spring_town.ko-KR_1766: -571800870
       spring_town.ko-KR_566: -404692605
       spring_town.ko-KR_692: -581633653
-      spring_town.ko-KR_1115: 822073386
-      spring_town.ko-KR_607: -660125852
       spring_town.ko-KR_1804: -131825730
+      spring_town.ko-KR_607: -660125852
+      spring_town.ko-KR_1115: 822073386
       spring_town.ko-KR_1687: -524281062
       spring_town.ko-KR_1762: -1396953248
       spring_town.ko-KR_857: -1721262034
