@@ -76,7 +76,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useItemId: -1
-  isBuildingSelected: 0
 --- !u!114 &6793492294918985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,7 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: decc21c66c7424648bd217ced3ca5c2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 20
+  moveSpeed: 5
   pathList: []
 --- !u!114 &5700944159631430733
 MonoBehaviour:
