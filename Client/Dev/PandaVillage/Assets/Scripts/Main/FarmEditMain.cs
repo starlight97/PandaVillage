@@ -70,7 +70,7 @@ public class FarmEditMain : GameSceneMain
             if(this.editType == eEditType.Move)
             {
                 objectPlaceManager.Init(buildingGo);
-
+                this.objectDetector.StopDetecting();
             }
             else if(this.editType == eEditType.Demolition)
             {
@@ -109,12 +109,14 @@ public class FarmEditMain : GameSceneMain
         this.objectPlaceManager.onMoveComplete = (oldPos, newPos) =>
         {
             this.objectDetector.Detecting();
-            this.objectDetector.StopDetecting();
             this.uiFarmEdit.HideBtnOk();
+
+            var oldSpriteRenderer = this.selectedBuildingGo.transform.GetChild(0).GetComponent<SpriteRenderer>();
+            oldSpriteRenderer.color = Color.white;
+
             selectedBuildingGo = null;
 
-            var obj = info.objectInfoList.Find(x => x.sceneName == "Farm" && x.posY == oldPos.x && x.posY == (int)oldPos.y);
-
+            var obj = info.objectInfoList.Find(x => x.sceneName == "Farm" && x.posX == oldPos.x && x.posY == oldPos.y);
             obj.posX = (int)newPos.x;
             obj.posY = (int)newPos.y;
         };
@@ -165,7 +167,12 @@ public class FarmEditMain : GameSceneMain
                 info.objectInfoList.Remove(objInfo);
                 Dispatch("onEditComplete");
             }
-            else if(this.editType == eEditType.CoopPurchase)
+            else if (this.editType == eEditType.CoopPurchase)
+            {
+                this.PurchaseAnimal(mainParam.objectId);
+
+            }
+            else if (this.editType == eEditType.BarnPurchase)
             {
                 //info.ranchInfo.coopInfoList.Add();
             }
@@ -189,8 +196,14 @@ public class FarmEditMain : GameSceneMain
                 else if (this.editType == eEditType.Move)
                 {
                     // 현재 선택한 건물 취소
+                    var oldSpriteRenderer = this.selectedBuildingGo.transform.GetChild(0).GetComponent<SpriteRenderer>();
+                    oldSpriteRenderer.color = Color.white;
+
                     selectedBuildingGo = null;
                     this.objectPlaceManager.BuildingEditCancel();
+                    objectDetector.Detecting();
+
+
                 }
                 else if (this.editType == eEditType.Demolition)
                 {
@@ -200,10 +213,18 @@ public class FarmEditMain : GameSceneMain
             }
 
         };
-            //var info = InfoManager.instance.GetInfo();
-            //int year = info.playerInfo.playYear;
-            //int day = info.playerInfo.playDay;
-            //TimeManager.instance.Init();
+
+    }
+
+    private void PurchaseAnimal(int animalId)
+    {
+        var info = InfoManager.instance.GetInfo();
+        var pos = selectedBuildingGo.transform.position;
+
+        var coopinfo = info.ranchInfo.coopInfoList.Find(x => x.posX == pos.x && x.posY == pos.y);
+        AnimalInfo animalInfo = new AnimalInfo("dd", 11);
+        coopinfo.animalinfoList.Add(animalInfo);
+        //info.ranchInfo.coopInfoList.Add();
     }
 
 

@@ -7,7 +7,7 @@ public class WoodworkingStoreMain : GameSceneMain
     private UIWoodworkingStore uiWoodworkingStore;
     private ShopObject shopObject;
 
-    public int purchaseBuildingId;
+    public int objectId;
     // 1 = create   // 신규 설치
     // 2 = move     // 이동
     // 3 = delete   // 철거
@@ -31,7 +31,7 @@ public class WoodworkingStoreMain : GameSceneMain
         {
             // 신규 생성
             this.editType = editType;
-            this.purchaseBuildingId = id;
+            this.objectId = id;
             Dispatch("onClickFarmEdit");
             //Dispatch("onClickEditBuilding");
         };

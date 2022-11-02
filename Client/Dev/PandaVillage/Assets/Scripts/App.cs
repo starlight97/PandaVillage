@@ -24,7 +24,9 @@ public class App : MonoBehaviour
 
     public static App instance;
 
+    private eMapType beforeMap;
     private WoodworkingStoreMain woodworkingStoreMain;
+    private ManiRanchMain maniRanch;
 
     private UIApp uiApp;
 
@@ -391,6 +393,7 @@ public class App : MonoBehaviour
                                 //param.SpawnPos = new Vector3(8, 18.5f, 0);
                             });
                         });
+                        beforeMap = eMapType.WoodworkingStore;
                         main.Init(param);
                         break;
                     }
@@ -398,7 +401,9 @@ public class App : MonoBehaviour
                     {
                         this.uiApp.FadeIn();
 
-                        main.AddListener("onArrivalCindersapForestPortal0", (data) =>
+                        this.maniRanch = GameObject.FindObjectOfType<ManiRanchMain>();
+
+                        maniRanch.AddListener("onArrivalCindersapForestPortal0", (data) =>
                         {
                             this.uiApp.FadeOut(0.5f, () =>
                             {
@@ -406,7 +411,15 @@ public class App : MonoBehaviour
                                 param.SpawnPos = new Vector3(89.5f, 101, 0);
                             });
                         });
-                        main.Init(param);
+                        maniRanch.AddListener("onClickFarmEdit", (data) =>
+                        {
+                            this.uiApp.FadeOut(0.5f, () =>
+                            {
+                                this.LoadScene<FarmEditMain>(eSceneType.FarmEdit);
+                            });
+                        });
+                        beforeMap = eMapType.ManiRanch;
+                        maniRanch.Init(param);
                         break;
                     }
                 case eSceneType.LoadGame:
@@ -454,17 +467,35 @@ public class App : MonoBehaviour
                 case eSceneType.FarmEdit:
                     {
                         this.uiApp.FadeIn();
-                        main.AddListener("onEditComplete", (data) =>
-                        {
-                            this.uiApp.FadeOut(0.5f, () =>
-                            {
-                                param.SpawnPos = new Vector3(7, 2.5f, 0);
-                                this.LoadScene<WoodworkingStoreMain>(eSceneType.WoodworkingStore);
-                            });
-                        });
                         var farmEditParam = new FarmEditParam();
-                        farmEditParam.objectId = this.woodworkingStoreMain.purchaseBuildingId;
-                        farmEditParam.editType = this.woodworkingStoreMain.editType;
+                        if(beforeMap == eMapType.WoodworkingStore)
+                        {
+                            main.AddListener("onEditComplete", (data) =>
+                            {
+                                this.uiApp.FadeOut(0.5f, () =>
+                                {
+                                    param.SpawnPos = new Vector3(7, 2.5f, 0);
+                                    this.LoadScene<WoodworkingStoreMain>(eSceneType.WoodworkingStore);
+                                });
+                            });
+
+                            farmEditParam.objectId = this.woodworkingStoreMain.objectId;
+                            farmEditParam.editType = this.woodworkingStoreMain.editType;
+                        }
+                        else if (beforeMap == eMapType.ManiRanch)
+                        {
+                            main.AddListener("onEditComplete", (data) =>
+                            {
+                                this.uiApp.FadeOut(0.5f, () =>
+                                {
+                                    param.SpawnPos = new Vector3(7, 2.5f, 0);
+                                    this.LoadScene<ManiRanchMain>(eSceneType.ManiRanch);
+                                });
+                            });
+
+                            //farmEditParam.objectId = this.maniRanch.objectId;
+                            //farmEditParam.editType = this.maniRanch.editType;
+                        }
                         main.Init(farmEditParam);
                         break;
                     }
