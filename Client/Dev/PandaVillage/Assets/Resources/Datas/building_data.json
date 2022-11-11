@@ -12,7 +12,9 @@
     "side_door_pos": "NULL",
     "description": "집의 크기를 늘리고 주방을 추가해줄 수 있어. 가격은 10,000골드고 나무가 450개 필요해. 어때?",
     "prefab_path": "NULL",
-    "required_upgrade": false
+    "required_upgrade": false,
+    "player_spawn_pos_x": -1.0,
+    "player_spawn_pos_y": -1.0
   },
   {
     "id": 9001,
@@ -27,7 +29,9 @@
     "side_door_pos": "NULL",
     "description": "집의 크기를 늘리고 어린이방을 추가해줄 수 있어. 가격은 50,000골드야. 어때?",
     "prefab_path": "NULL",
-    "required_upgrade": false
+    "required_upgrade": false,
+    "player_spawn_pos_x": -1.0,
+    "player_spawn_pos_y": -1.0
   },
   {
     "id": 9002,
@@ -42,7 +46,9 @@
     "side_door_pos": "NULL",
     "description": "집에 지하실을 추가해줄 수 있어. 지하실로 특정 물픔을 숙성시킬 수 있어. 와인이나 치즈 이런 것들. 가격은 100,000골드야. 어때?",
     "prefab_path": "NULL",
-    "required_upgrade": false
+    "required_upgrade": false,
+    "player_spawn_pos_x": -1.0,
+    "player_spawn_pos_y": -1.0
   },
   {
     "id": 9003,
@@ -57,7 +63,9 @@
     "side_door_pos": "NULL",
     "description": "잔디를 잘라서 사료로 쓰기 위해 저장할 수 있습니다.",
     "prefab_path": "Prefabs\\Building\\Silo",
-    "required_upgrade": false
+    "required_upgrade": false,
+    "player_spawn_pos_x": -1.0,
+    "player_spawn_pos_y": -1.0
   },
   {
     "id": 9004,
@@ -72,7 +80,9 @@
     "side_door_pos": "0, 2",
     "description": "닭을 최대 4마리 사육할 수 있습니다.",
     "prefab_path": "Prefabs\\Building\\Coop",
-    "required_upgrade": false
+    "required_upgrade": false,
+    "player_spawn_pos_x": 32.0,
+    "player_spawn_pos_y": 31.0
   },
   {
     "id": 9005,
@@ -87,7 +97,9 @@
     "side_door_pos": "0, 2",
     "description": "닭장에서 지내는 동물을 최대 8마리 사육 가능합니다. 부화기가 포함되어 있습니다. 오리가 사육 가능해집니다.",
     "prefab_path": "Prefabs\\Building\\BigCoop",
-    "required_upgrade": true
+    "required_upgrade": true,
+    "player_spawn_pos_x": 62.0,
+    "player_spawn_pos_y": 31.0
   },
   {
     "id": 9006,
@@ -102,7 +114,9 @@
     "side_door_pos": "0, 2",
     "description": "닭장에서 지내는 동물을 최대 12마리 사육 가능합니다. 자동 사료 지급 시스템이 포함되어 있습니다. 토끼가 사육 가능해집니다.",
     "prefab_path": "Prefabs\\Building\\DeluxeCoop",
-    "required_upgrade": true
+    "required_upgrade": true,
+    "player_spawn_pos_x": 92.0,
+    "player_spawn_pos_y": 31.0
   },
   {
     "id": 9007,
@@ -117,7 +131,9 @@
     "side_door_pos": "0, 3",
     "description": "젖소를 최대 4마리 사육할 수 있습니다.",
     "prefab_path": "Prefabs\\Building\\Barn",
-    "required_upgrade": false
+    "required_upgrade": false,
+    "player_spawn_pos_x": 41.0,
+    "player_spawn_pos_y": 61.0
   },
   {
     "id": 9008,
@@ -132,7 +148,9 @@
     "side_door_pos": "0, 4",
     "description": "외양간에서 지내는 가축을 최대 8마리 사육할 수 있습니다. 동물들이 출산할 수 있게 됩니다. 염소가 사육 가능해집니다.",
     "prefab_path": "Prefabs\\Building\\BigBarn",
-    "required_upgrade": true
+    "required_upgrade": true,
+    "player_spawn_pos_x": 86.0,
+    "player_spawn_pos_y": 61.0
   },
   {
     "id": 9009,
@@ -147,6 +165,25 @@
     "side_door_pos": "0, 4",
     "description": "외양간에서 지내는 가축을 최대 12마리 사육할 수 있습니다. 자동 사료 지급 시스템이 포함되어 있습니다. 양과 돼지가 사육 가능해집니다.",
     "prefab_path": "Prefabs\\Building\\DeluxeBarn",
-    "required_upgrade": true
+    "required_upgrade": true,
+    "player_spawn_pos_x": 131.0,
+    "player_spawn_pos_y": 61.0
+  },
+  {
+    "id": 9010,
+    "buliding_name": "배송 상자",
+    "sprite_name": "Shipping Bin",
+    "width": 2,
+    "height": 1,
+    "require_gold": 250,
+    "require_wood": 150,
+    "require_stone": 0,
+    "door_pos": "NULL",
+    "side_door_pos": "NULL",
+    "description": "밤사이 안에 넣어둔 아이템이 팔립니다.",
+    "prefab_path": "Prefabs\\Building\\ShippingBin",
+    "required_upgrade": false,
+    "player_spawn_pos_x": -1.0,
+    "player_spawn_pos_y": -1.0
   }
 ]

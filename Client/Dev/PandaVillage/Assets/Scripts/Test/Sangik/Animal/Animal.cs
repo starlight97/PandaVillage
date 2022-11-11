@@ -4,6 +4,16 @@ using UnityEngine;
 using UnityEngine.Events;
 public class Animal : MonoBehaviour
 {
+    private enum eStateType
+    {
+        None = -1,
+        RunBottom,
+        RunRight,
+        RunTop,
+        RunLeft
+    }
+
+    public int id;
     public string animalName;           //이름
     public int friendship;              //우정, 호감도    
     //public int mood;                //기분
@@ -12,6 +22,7 @@ public class Animal : MonoBehaviour
 
     public bool isFull = true;           //배부른가?
     public bool isPatted = false;        //쓰다듬어졌나?
+    public bool isAnimalOut = false;
 
     private GameObject emote;
 
@@ -20,25 +31,53 @@ public class Animal : MonoBehaviour
 
     public UnityAction<Vector2Int, Vector2Int, List<Vector3>, Animal> onDecideTargetTile;
     public UnityAction<Vector2Int, List<Vector3>> goHome;
+    public UnityAction onAnimalOut;
+
     private Movement2D movement2D;
 
     public Vector2Int mapBottomLeft, mapTopRight;
 
     public Vector2Int RandomMoveRange = new Vector2Int(-3, 3);
+    public Animator babyAnim;
+    public Animator anim;
 
-    public void Init(AnimalInfo animalInfo)
+
+    public void Init(AnimalInfo animalInfo, Vector2Int mapTopRight)
     {
+        this.mapBottomLeft = new Vector2Int(0,0);
+        this.mapTopRight = mapTopRight;
+        this.id = animalInfo.animalId;
         this.animalName = animalInfo.animalName;
         this.friendship = animalInfo.friendship;
         this.age = animalInfo.age;
         this.yummyDay = animalInfo.yummyDay;
         this.isFull = animalInfo.isFull;
         this.isPatted = animalInfo.isPatted;
+        this.isAnimalOut = animalInfo.isAnimalOut;
 
         this.movement2D = GetComponent<Movement2D>();
         this.emote = this.transform.Find("emote").gameObject;
-        Roaming();
 
+        //돌아다니기
+        //Roaming();
+
+        this.movement2D.onPlayAnimation = (dir) => {
+            this.SetAnimation(dir);
+        };
+        movement2D.onMoveComplete = (dir) => { };
+
+        AnimalGrow();
+
+        AnimalRunOut();
+    }        
+
+    public void AnimalGrow()
+    {     
+        //6일이상 밥먹었으면 무적권 성장
+        if (this.yummyDay >= 6)
+        {
+            this.GrowUp();
+        }
     }
 
     // 돌아다니는 함수 입니다.
@@ -84,8 +123,13 @@ public class Animal : MonoBehaviour
         this.movement2D.Move();
     }
 
-    public virtual void GrowUp()    
+    public void GrowUp()    
     {
+        Debug.Log("성장함");
+
+        this.transform.GetChild(0).gameObject.SetActive(false);
+        this.transform.GetChild(1).gameObject.SetActive(true);
+
         //Destroy(this.transform.GetChild(0).gameObject);
         //Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/RabbitModel"), this.transform);
 
@@ -106,31 +150,98 @@ public class Animal : MonoBehaviour
 
     // 쓰다듬기는 하루에 한번만 가능
     public void Patted()
-    {        
-        StartCoroutine(PattedRoutine());
-    }
-
-    private IEnumerator PattedRoutine()
     {
         this.isPatted = true;
         this.friendship += 15;
+
+        var animalInfo = InfoManager.instance.GetInfo().ranchInfo.GetAnimalInfo(this.animalName);
+        animalInfo.isPatted = true;
+        animalInfo.friendship = this.friendship;
+
+        StartCoroutine(SetAnimalEmote());
+    }   
+
+    protected IEnumerator SetAnimalEmote()
+    {
         emote.SetActive(true);
         yield return new WaitForSeconds(1.417f);
         emote.SetActive(false);
     }
 
-
-    public virtual void Produce()
+    public void AnimalRunOut()
     {
-        var product = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Product"));
-        product.transform.position = new Vector2(Random.Range(mapBottomLeft.x, mapTopRight.x+1), Random.Range(mapBottomLeft.y, mapTopRight.y+1));
+        if (isAnimalOut)
+        {
+            this.gameObject.SetActive(true);
+            this.Roaming();
+        }
+        else
+        {
+            this.gameObject.SetActive(false);
+        }         
     }
 
-    public void Childbirth()
+    public virtual bool Produce()
     {
-
+        return false;
     }
 
+    public void SetAnimation(Vector3 dir)
+    {
+        if(this.yummyDay > 6)
+        {
+            // 상
+            if (dir.x == 0 && dir.y > 0)
+            {
+                this.anim.SetInteger("State", (int)eStateType.RunTop);
+            }
+
+            // 하
+            else if (dir.x == 0 && dir.y < 0)
+            {
+                this.anim.SetInteger("State", (int)eStateType.RunBottom);
+            }
+
+            //좌
+            else if (dir.x < 0)
+            {
+                this.anim.SetInteger("State", (int)eStateType.RunLeft);
+            }
+
+            // 우
+            else if (dir.x > 0)
+            {
+                this.anim.SetInteger("State", (int)eStateType.RunRight);
+            }
+        }
+        else
+        {
+            // 상
+            if (dir.x == 0 && dir.y > 0)
+            {
+                this.babyAnim.SetInteger("State", (int)eStateType.RunTop);
+            }
+
+            // 하
+            else if (dir.x == 0 && dir.y < 0)
+            {
+                this.babyAnim.SetInteger("State", (int)eStateType.RunBottom);
+            }
+
+            //좌
+            else if (dir.x < 0)
+            {
+                this.babyAnim.SetInteger("State", (int)eStateType.RunLeft);
+            }
+
+            // 우
+            else if (dir.x > 0)
+            {
+                this.babyAnim.SetInteger("State", (int)eStateType.RunRight);
+            }
+        }
+
+    }
 
 
 }

@@ -9,4 +9,17 @@ public class ObjectInfo
     public int objectId;
     public int objectType;
 
+    public ObjectInfo(string sceneName, int posX, int posY, int objectId, int objectType)
+    {
+        this.sceneName = sceneName;
+        this.posX = posX;
+        this.posY = posY;
+        this.objectId = objectId;
+        this.objectType = objectType;
+    }
+
+    public ObjectInfo()
+    {
+
+    }
 }

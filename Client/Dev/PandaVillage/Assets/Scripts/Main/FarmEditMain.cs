@@ -15,7 +15,6 @@ public class FarmEditMain : GameSceneMain
     }
     private UIFarmEdit uiFarmEdit;
     private ObjectDetector objectDetector;
-    private MapManager mapManager;
     private ObjectPlaceManager objectPlaceManager;
     private eEditType editType;
     private GameObject selectedBuildingGo = null;
@@ -23,7 +22,8 @@ public class FarmEditMain : GameSceneMain
     private void Start()
     {
         //var param = new FarmEditParam();
-        //param.objectId = 9004;
+        //param.objectId = 8002;
+        //param.editType = 4;
 
         //DataManager.instance.Init();
         //DataManager.instance.LoadAllData(this);
@@ -52,7 +52,8 @@ public class FarmEditMain : GameSceneMain
         this.uiFarmEdit.Init();
 
         var info = InfoManager.instance.GetInfo();
-        if (editType == eEditType.Move || editType == eEditType.Demolition)
+        Debug.Log("editType : " + editType);
+        if (editType == eEditType.Move || editType == eEditType.Demolition || editType == eEditType.CoopPurchase || editType == eEditType.BarnPurchase)
         {
             Debug.Log("디텍터");
             this.objectDetector.Init();
@@ -76,8 +77,7 @@ public class FarmEditMain : GameSceneMain
             {
                 if (this.selectedBuildingGo != null)
                 {
-                    var oldSpriteRenderer = this.selectedBuildingGo.transform.GetChild(0).GetComponent<SpriteRenderer>();
-                    oldSpriteRenderer.color = Color.white;
+                    CancelSelectedBuilding();
                 }
             }
             else if (this.editType == eEditType.CoopPurchase)
@@ -88,6 +88,10 @@ public class FarmEditMain : GameSceneMain
                     Debug.Log("COOP 아님");
                     return;
                 }
+                if (this.selectedBuildingGo != null)
+                {
+                    CancelSelectedBuilding();
+                }
             }
             else if (this.editType == eEditType.BarnPurchase)
             {
@@ -97,9 +101,14 @@ public class FarmEditMain : GameSceneMain
                     Debug.Log("COOP 아님");
                     return;
                 }
+                if (this.selectedBuildingGo != null)
+                {
+                    CancelSelectedBuilding();
+                }
             }
             this.uiFarmEdit.ShowBtnOk();
             selectedBuildingGo = buildingGo;
+
 
             var spriteRenderer = this.selectedBuildingGo.transform.GetChild(0).GetComponent<SpriteRenderer>();
             spriteRenderer.color = Color.green;
@@ -111,14 +120,26 @@ public class FarmEditMain : GameSceneMain
             this.objectDetector.Detecting();
             this.uiFarmEdit.HideBtnOk();
 
-            var oldSpriteRenderer = this.selectedBuildingGo.transform.GetChild(0).GetComponent<SpriteRenderer>();
-            oldSpriteRenderer.color = Color.white;
+            CancelSelectedBuilding();
 
-            selectedBuildingGo = null;
+            
 
             var obj = info.objectInfoList.Find(x => x.sceneName == "Farm" && x.posX == oldPos.x && x.posY == oldPos.y);
             obj.posX = (int)newPos.x;
             obj.posY = (int)newPos.y;
+
+            var coop = selectedBuildingGo.GetComponent<Coop>();
+
+            // 사일로가 아닐때 (외양간, 닭장)
+            if (coop != null)
+            {
+                var coopInfo = info.ranchInfo.coopInfoList.Find(x => x.posX == oldPos.x && x.posY == oldPos.y);
+                coopInfo.posX = (int)newPos.x;
+                coopInfo.posY = (int)newPos.y;
+                info.ranchInfo.coopInfoList.Add(coopInfo);
+            }
+
+            selectedBuildingGo = null;
         };
 
         this.objectPlaceManager.onBuildComplete = (pos) =>
@@ -133,14 +154,12 @@ public class FarmEditMain : GameSceneMain
             objectInfo.posY = (int)pos.y;
             info.objectInfoList.Add(objectInfo);
 
-            if(objectInfo.objectType == 0)
+
+            // 사일로가 아닐때 (외양간, 닭장)
+            if(objectInfo.objectId != 9003)
             {
-                // 사일로가 아닐때 (외양간, 닭장)
-                if(objectInfo.objectId != 9003)
-                {
-                    var coopInfo = new CoopInfo(objectInfo.objectId, (int)pos.x, (int)pos.y);
-                    info.ranchInfo.coopInfoList.Add(coopInfo);
-                }
+                var coopInfo = new CoopInfo(objectInfo.objectId, (int)pos.x, (int)pos.y);
+                info.ranchInfo.coopInfoList.Add(coopInfo);
             }
             Dispatch("onEditComplete");
             
@@ -165,18 +184,25 @@ public class FarmEditMain : GameSceneMain
                 var pos = selectedBuildingGo.transform.position;
                 var objInfo = info.objectInfoList.Find(x => x.sceneName == "Farm" && x.posX == pos.x && x.posY == pos.y);
                 info.objectInfoList.Remove(objInfo);
+
+                var coop = selectedBuildingGo.GetComponent<Coop>();
+                // 사일로가 아닐때 (외양간, 닭장)
+                if (coop != null)
+                {
+                    info.ranchInfo.coopInfoList.RemoveAll(x => x.posX == pos.x && x.posY == pos.y);
+                }
+
                 Dispatch("onEditComplete");
             }
-            else if (this.editType == eEditType.CoopPurchase)
+            else if (this.editType == eEditType.CoopPurchase || this.editType == eEditType.BarnPurchase)
             {
-                this.PurchaseAnimal(mainParam.objectId);
-
-            }
-            else if (this.editType == eEditType.BarnPurchase)
-            {
-                //info.ranchInfo.coopInfoList.Add();
+                this.uiFarmEdit.ShowUIAnimalPurchase();
             }
 
+        };
+        uiFarmEdit.onPurchaseAnimal = (animalName) =>
+        {
+            this.PurchaseAnimal(animalName, mainParam.objectId);
         };
 
         this.uiFarmEdit.onCLickBtnCancel = () =>
@@ -186,7 +212,7 @@ public class FarmEditMain : GameSceneMain
             {
                 Dispatch("onEditComplete");
             }
-            // 현재 건물 선택중이 라면
+            // 현재 건물 선택중 이라면
             else
             {
                 if (this.editType == eEditType.Build)
@@ -196,8 +222,7 @@ public class FarmEditMain : GameSceneMain
                 else if (this.editType == eEditType.Move)
                 {
                     // 현재 선택한 건물 취소
-                    var oldSpriteRenderer = this.selectedBuildingGo.transform.GetChild(0).GetComponent<SpriteRenderer>();
-                    oldSpriteRenderer.color = Color.white;
+                    CancelSelectedBuilding();
 
                     selectedBuildingGo = null;
                     this.objectPlaceManager.BuildingEditCancel();
@@ -216,16 +241,27 @@ public class FarmEditMain : GameSceneMain
 
     }
 
-    private void PurchaseAnimal(int animalId)
+    private void PurchaseAnimal(string animalName, int animalId)
     {
         var info = InfoManager.instance.GetInfo();
+
+        // 동물 중복이름 체크
+        var check = info.ranchInfo.CheckAnimalName(animalName);
+        if (check == false)
+        {
+            return;
+        }
         var pos = selectedBuildingGo.transform.position;
 
         var coopinfo = info.ranchInfo.coopInfoList.Find(x => x.posX == pos.x && x.posY == pos.y);
-        AnimalInfo animalInfo = new AnimalInfo("dd", 11);
+        AnimalInfo animalInfo = new AnimalInfo(animalName, animalId);
         coopinfo.animalinfoList.Add(animalInfo);
-        //info.ranchInfo.coopInfoList.Add();
+        Dispatch("onEditComplete");
     }
 
-
+    private void CancelSelectedBuilding()
+    {
+        var oldSpriteRenderer = this.selectedBuildingGo.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        oldSpriteRenderer.color = Color.white;
+    }
 }

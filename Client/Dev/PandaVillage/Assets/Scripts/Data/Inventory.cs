@@ -70,7 +70,11 @@ public class Inventory
                 dicItem[itemKey].amount -= amount;
             }
         }
+
+        if (GetItemCount(id) == 0)
+            dicItem[itemKey] = null;
     }
+
 
     //아이템 아이디를 입력해서 아이템이 있으면 키값을 반환하고 없으면 -1을 반환
     private int GetItemIndex(int ItemID)
@@ -84,6 +88,8 @@ public class Inventory
         return -1;
     }
 
+
+
     public int GetItemCount(int itemId)
     {
         int cnt = 0;
@@ -93,5 +99,15 @@ public class Inventory
                 cnt = item.Value.amount;
         }
         return cnt;
+    }
+
+    public bool SearchItem(int itemId)
+    {
+        foreach (var item in dicItem)
+        {
+            if (item.Value != null && item.Value.itemId == itemId)
+                return true;
+        }
+        return false;
     }
 }

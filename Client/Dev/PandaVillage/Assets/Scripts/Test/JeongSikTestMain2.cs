@@ -84,7 +84,7 @@ public class JeongSikTestMain2 : MonoBehaviour
         //동물추가버튼
         this.AddAnimalButton.onClick.AddListener(() =>
         {
-            AnimalManager.instance.AddAnimal();
+            //AnimalManager.instance.AddAnimal();
         });
 
         //씬변환버튼
@@ -136,7 +136,7 @@ public class JeongSikTestMain2 : MonoBehaviour
     {
         this.timeManager.hour = 0;
         this.timeManager.minute = 0;
-        ranchManager.NextDay();
+        //ranchManager.NextDay();
     }
 
 

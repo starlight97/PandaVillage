@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.U2D;
+using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
@@ -17,13 +19,6 @@ public class Player : MonoBehaviour
         Pick,
         Sickle,
         Seed,
-    }
-
-    public enum eRuckType
-    {
-        Stone = 1,
-        Wood,
-        Weed
     }
 
     private enum eStateType
@@ -43,21 +38,29 @@ public class Player : MonoBehaviour
     public UnityAction<Vector2Int, Vector2Int, List<Vector3>> onDecideTargetObject;
     
     public UnityAction<Vector3Int, TileManager.eTileType> onGetTile;
+    public UnityAction<Vector3Int, TileManager.eTileType> onCheckTile;
     public UnityAction<Vector3Int, eItemType> onChangeFarmTile;
 
     public UnityAction<Animal> onShowAnimalUI;
+    public UnityAction<Silo> onShowStateUI;
     public UnityAction onGetItem;
+    public UnityAction onCutGrassComplete;
 
     public UnityAction<int, Vector3Int> onPlantCrop;
     public UnityAction<int> onSelectedItem;
+    public UnityAction<int> onFillHay;
 
     private Vector3Int dir;
     private Vector3Int pos;
 
     private bool isShowAnimalUI= false;
+    private bool isFarmAction = false;
+
 
     private Animator anim;
     private SpriteRenderer spriteR;
+    [SerializeField] private SpriteAtlas atlas;
+
 
     private void Start()
     {
@@ -67,8 +70,11 @@ public class Player : MonoBehaviour
             this.SetAnimation(dir);
         };
         this.movement2D.onMoveComplete = (dir) => { SetIdle(dir); };
+        this.movement2D.onMoveActionComplete = (dir) => { SetIdle(dir); };
         this.farming = GetComponent<Farming>();
         this.anim = GetComponentInChildren<Animator>();
+
+        SoundManager.instance.Init();
 
     }
 
@@ -89,14 +95,14 @@ public class Player : MonoBehaviour
         Vector2Int curPos = new Vector2Int(currentPosX, currentPosY);
         Vector2Int targetPos = new Vector2Int(targetPosX, targetPosY);
         
-        if (Input.GetMouseButtonDown(1))
-        {
-            this.pos = new Vector3Int(currentPosX, currentPosY, 0);
-            Vector3Int tpos = new Vector3Int((int)mousePos.x, (int)mousePos.y, 0);
+        //if (Input.GetMouseButton(1))
+        //{
+        //    this.pos = new Vector3Int(currentPosX, currentPosY, 0);
+        //    Vector3Int tpos = new Vector3Int((int)mousePos.x, (int)mousePos.y, 0);
 
-            this.movement2D.pathList.Clear();
-            this.onDecideTargetTile(curPos, targetPos, this.movement2D.pathList);
-        }
+        //    this.movement2D.pathList.Clear();
+        //    this.onDecideTargetTile(curPos, targetPos, this.movement2D.pathList);
+        //}
 
         // 왼쪽 마우스 클릭 시 타일 변경됨
         if (Input.GetMouseButtonDown(0)) 
@@ -120,20 +126,27 @@ public class Player : MonoBehaviour
 
             if (findGo == null || (findGo.CompareTag("Portal") && findGo.GetComponent<Portal>().isClickPortal == false))
             {
-                //Debug.Log("11111111111111111111111");
+                CheckFarmTile(tilePos, isUseTool);
                 if (isUseTool != eItemType.None)
                 {
-                    //Debug.Log("2222222222222222222222222");
-                    this.movement2D.onMoveComplete = (dir) => 
+                    if (isFarmAction)
                     {
-                        GetFarmTile(tilePos, isUseTool);
-                        SetIdle(dir);
+                        this.movement2D.onMoveActionComplete = (dir) =>
+                        {
+                            GetFarmTile(tilePos, isUseTool);
+                            ShowUseToolSprite();
+                            SetIdle(dir);
+                        };
+                        this.movement2D.pathList.Clear();
+                        this.onDecideTargetObject(curPos, targetPos, this.movement2D.pathList);
                         return;
-                    };
-
-                    this.movement2D.pathList.Clear();
-                    this.onDecideTargetObject(curPos, targetPos, this.movement2D.pathList);
-                    return;
+                    }
+                    else
+                    {
+                        this.movement2D.pathList.Clear();
+                        this.onDecideTargetTile(curPos, targetPos, this.movement2D.pathList);
+                        return;
+                    }
                 }
                 this.movement2D.pathList.Clear();
                 this.onDecideTargetTile(curPos, targetPos, this.movement2D.pathList);
@@ -142,12 +155,7 @@ public class Player : MonoBehaviour
             
             else 
             {
-                //Debug.Log("333333333333333333333333333333");
-
-                this.movement2D.pathList.Clear();
-                this.onDecideTargetObject(curPos, targetPos, this.movement2D.pathList);
-
-                this.movement2D.onMoveComplete += (dir) => 
+                this.movement2D.onMoveActionComplete = (dir) => 
                 {
                     if (findGo != null)
                     {
@@ -156,7 +164,9 @@ public class Player : MonoBehaviour
                             var portal = findGo.GetComponent<Portal>();
                             if (portal.isClickPortal)
                             {
+                                SoundManager.instance.PlaySound(SoundManager.eButtonSound.Portal);
                                 portal.ClickPotal();
+                                SetIdle(dir);
                                 return;
                             }
                             else
@@ -167,23 +177,50 @@ public class Player : MonoBehaviour
                         {
                             if (isUseTool == eItemType.WateringCan)
                             {
+                                isFarmAction = true;
+                                PlayToolSound();
                                 GetFarmTile(tilePos, isUseTool);
+                                isFarmAction = false;
+                                SetIdle(dir);
                                 return;
                             }
 
                             Crop crop = findGo.GetComponent<Crop>();
                             if (crop.isHarvest == true)
                             {
+                                PlaySound(ePlayerSound.GetItem);
                                 Harvest(findGo);
+                                SetIdle(dir);
                                 return;
                             }
+                            else
+                            {
+                                this.movement2D.pathList.Clear();
+                                this.onDecideTargetTile(curPos, targetPos, this.movement2D.pathList);
+                                return;
+                            }
+                        }
+
+                        else if (findGo.tag == "Building")
+                        {
+                            Silo silo = findGo.GetComponent<Silo>();
+                            this.onShowStateUI(silo);
+                            if (useItemId == 4004)
+                            {
+                                FillHay();
+                                useItemId = -1;
+                            }
+                            SetIdle(dir);
                         }
 
                         else if (findGo.tag == "Animal")
                         {
                             Animal animal = findGo.GetComponent<Animal>();
                             if (animal.isPatted == false)
+                            {
                                 animal.Patted();
+                                SetIdle(dir);
+                            }
                             else
                             {
                                 this.onShowAnimalUI(animal);
@@ -193,12 +230,18 @@ public class Player : MonoBehaviour
                         }
                         else if (findGo.tag == "Gathering")
                         {
+                            PlaySound(ePlayerSound.GetItem);
                             Gather(findGo);
+                            SetIdle(dir);
                             return;
                         }
                         else if (findGo.tag == "Ruck")
                         {
-                            Break(findGo);
+                            useItemId = GetTooltype(findGo);
+                            PlayToolSound();
+                            Break(findGo, useItemId);
+                            ShowUseToolSprite();
+                            SetIdle(dir);
                             return;
                         }
                         else if (findGo.tag == "Shop")
@@ -206,9 +249,25 @@ public class Player : MonoBehaviour
                             var shop = findGo.GetComponent<ShopObject>();
                             shop.ShowShop();
                         }
+                        else if (findGo.tag == "ShippingBin")
+                        {
+                            PlaySound(ePlayerSound.OpenShippingBox);
+                            var uiFarm = GameObject.FindObjectOfType<UIFarm>();
+                            uiFarm.ShowShippingUI();
+                        }
+                        else if (findGo.tag == "AnimalDoor")
+                        {
+                            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Portal);
+                            var coop = findGo.GetComponentInParent<Coop>();
+                            coop.ClickedDoor();
+                        }
                     }
                     SetIdle(dir);
                 };
+
+                this.movement2D.pathList.Clear();
+                this.onDecideTargetObject(curPos, targetPos, this.movement2D.pathList);
+                return;
             }
         }
     }
@@ -235,6 +294,7 @@ public class Player : MonoBehaviour
         }
 
         isUseTool = eItemType.None;
+        PlaySound(ePlayerSound.SelectItem);
     }
 
     #region Animation
@@ -310,8 +370,24 @@ public class Player : MonoBehaviour
     public void GetFarmTile(Vector3Int pos, eItemType state)
     {
         TileManager.eTileType type = farming.GetFarmTile(state);
-        if (type != TileManager.eTileType.None)
+        if (isFarmAction && type != TileManager.eTileType.None)
+        {
             this.onGetTile(pos, type);
+        }
+    }
+
+    public void CheckFarmTile(Vector3Int pos, eItemType state)
+    {
+        TileManager.eTileType type = farming.GetFarmTile(state);
+        onCheckTile(pos, type);
+    }
+
+    public void CheckFarmingAct(bool check)
+    {
+        if (check)
+            isFarmAction = true;
+        else
+            isFarmAction = false;
     }
 
     public void FarmingAct(Vector3Int pos)
@@ -339,6 +415,13 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void FillHay()
+    {
+        var inventory = InfoManager.instance.GetInfo().playerInfo.inventory;
+        var hayAmount = inventory.GetItemCount(useItemId);
+        onFillHay(hayAmount);
+    }
+
     public void Harvest(GameObject findGo)
     {
         Crop crop = findGo.GetComponent<Crop>();
@@ -349,11 +432,11 @@ public class Player : MonoBehaviour
         if (invenCheck)
         {
             crop.DestroyObject();
-            InfoManager.instance.SaveGame();
             onGetItem();
         }
         else
         {
+            PlaySound(ePlayerSound.FullInventory);
             Debug.Log("자리가 없어요");
         }
 
@@ -369,17 +452,57 @@ public class Player : MonoBehaviour
         bool check = info.playerInfo.inventory.AddItem(data.id, 1);
         if(check == true)
         {
+            PlaySound(ePlayerSound.GetItem);
             otherObject.DestroyObject();
-            //InfoManager.instance.SaveGame();
             onGetItem();
         }
         else
         {
+            PlaySound(ePlayerSound.FullInventory);
             Debug.Log("인벤 꽉참");
         }
     }
 
-    public void Break(GameObject findGo)
+    private void ShowUseToolSprite()
+    {
+        var toolImage = this.transform.Find("ToolImg");
+        toolImage.gameObject.SetActive(true);
+        toolImage.transform.localPosition = new Vector3(0.5f, 2.2f, 0);
+        var spRenderer = toolImage.GetComponent<SpriteRenderer>();
+        var tool = DataManager.instance.GetData<ToolData>(useItemId);
+        var toolSpriteName = tool.sprite_name;
+
+        var sprite = atlas.GetSprite(toolSpriteName);
+        spRenderer.sprite = sprite;
+        toolImage.DOLocalMoveY(2.8f, 0.3f).SetEase(Ease.OutQuad).OnComplete(() => {
+            toolImage.gameObject.SetActive(false);
+        });
+    }
+
+    public int GetTooltype(GameObject findGo)
+    {
+        OtherObject obj = findGo.GetComponent<OtherObject>();
+        var ruckData = DataManager.instance.GetData<RuckData>(obj.id);
+        var autoToolType = ruckData.auto_tool_type;
+
+        int toolId = -1;
+        var toolList = DataManager.instance.GetDataList<ToolData>().ToList();
+        
+
+        foreach (var tool in toolList)
+        {
+            if (tool.type == autoToolType)
+            {
+                toolId = tool.id;
+                isUseTool = (eItemType)tool.type;
+            }
+        }
+        
+        return toolId;
+    }
+
+    // Ruck 인벤토리에 추가
+    public void Break(GameObject findGo, int useItemId)
     {
         if(isUseTool == eItemType.Hoe || isUseTool == eItemType.Pick 
             || isUseTool == eItemType.Axe || isUseTool == eItemType.Sickle )
@@ -387,35 +510,43 @@ public class Player : MonoBehaviour
             var useToolType = DataManager.instance.GetData<ToolData>(useItemId).type;
             OtherObject otherObject = findGo.GetComponent<OtherObject>();
             var data = DataManager.instance.GetData<RuckData>(otherObject.id);
+
             var info = InfoManager.instance.GetInfo();
 
             List<UsetoolgroupData> toolgroupdataList = DataManager.instance.GetDataList<UsetoolgroupData>().ToList();
             var toolList = toolgroupdataList.FindAll(x => x.usetool_type_group_id == data.usetool_type_group_id);
+
             foreach (var tool in toolList)
             {
                 if (tool.tool_type == useToolType)
                 {
+                    if (data.ruck_name == "잔디")
+                    {
+                        otherObject.DestroyObject();
+                        onCutGrassComplete();
+                        return;
+                    }
+
                     bool invencheck = info.playerInfo.inventory.AddItem(data.gain_material_id, data.gain_material_amount);
                     if (invencheck == true)
                     {
                         otherObject.DestroyObject();
-                        //InfoManager.instance.SaveGame();
                         onGetItem();
                     }
                     else
                     {
+                        PlaySound(ePlayerSound.FullInventory);
                         Debug.Log("인벤 꽉참");
                     }
                 }
             }
         }
-
     }
 
     private GameObject FindObject(Vector3Int tpos)
     {
         int layerMask = (1 << LayerMask.NameToLayer("Object")) + (1 << LayerMask.NameToLayer("WallObject"))
-            + (1 << LayerMask.NameToLayer("Crop")) + (1 << LayerMask.NameToLayer("UI"));    // Object 와 WallObject 레이어만 충돌체크함
+            + (1 << LayerMask.NameToLayer("Crop"));    // Object 와 WallObject 레이어만 충돌체크함
         GameObject findGo = null;
 
         var col = Physics2D.OverlapBox(new Vector2(tpos.x + 0.5f, tpos.y + 0.5f), new Vector2(0.95f, 0.95f),0, layerMask);
@@ -442,6 +573,43 @@ public class Player : MonoBehaviour
             collision.transform.parent.GetComponent<TransparentObject>().ShowObject();
         }
     }
+
+    public enum ePlayerSound
+    {
+        Hoe,        // 호미 사용
+        watringCan, // 물뿌리개 사용
+        Pick,      // 곡괭이 사용
+        Sickle,       // 낫 사용
+        Axe,       // 도끼 사용
+        Walk,
+        Plant,
+        GetItem,
+        SelectItem,
+        FullInventory,
+        OpenShippingBox
+    }
+
+    public AudioClip[] arrPlayerSound;
+
+    public void PlaySound(ePlayerSound soundType)
+    {
+        SoundManager.instance.PlaySound(arrPlayerSound[(int)soundType]);
+    }
+
+    public void PlayToolSound()
+    {
+        if (useItemId == 6000)
+            PlaySound(ePlayerSound.Hoe);
+        else if (useItemId == 6001)
+            PlaySound(ePlayerSound.watringCan);
+        else if (useItemId == 6002)
+            PlaySound(ePlayerSound.Axe);
+        else if (useItemId == 6003)
+            PlaySound(ePlayerSound.Pick);
+        else if (useItemId == 6004)
+            PlaySound(ePlayerSound.Sickle);
+    }
+
 }
 
 // 작성자 : 박정식

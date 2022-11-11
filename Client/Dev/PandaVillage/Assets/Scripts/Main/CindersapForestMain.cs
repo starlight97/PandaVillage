@@ -15,8 +15,10 @@ public class CindersapForestMain : GameSceneMain
         {
             info.dicVisited[App.eMapType.CindersapForest] = true;
             this.objectManager.SpawnGatheringObjects(0, Random.Range(0, 4));
+            this.objectManager.SpawnRuckObjects(200);
         }
-        this.portalManager.onArrival = (sceneType, index) =>
+
+        this.portalManager.onArrival = (sceneType, index, pos) =>
         {
             InfoManager.instance.SaveOtherObject(App.eMapType.CindersapForest, this.objectManager.GetOtherObjectist());
             Dispatch("onArrival" + sceneType.ToString() + "Portal" + index);

@@ -52,4 +52,12 @@ public class UIBase : MonoBehaviour
     {
         this.uiInGameMenu.uiDateTime.SetUITimeText(hour, minute);
     }
+
+    public void HideUI(GameObject go)
+    {
+        go.SetActive(false);
+        this.uiInGameMenu.gameObject.SetActive(true);
+        this.uiInGameMenu.RePainting(12);
+        this.uiMenu.RePainting(36);
+    }
 }

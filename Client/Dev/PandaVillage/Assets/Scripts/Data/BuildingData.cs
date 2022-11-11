@@ -38,4 +38,8 @@ public class BuildingData :RawData
     public string prefab_path;
 
     public bool required_upgrade;
+
+    public float player_spawn_pos_x;
+
+    public float player_spawn_pos_y;
 }

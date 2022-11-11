@@ -25,4 +25,6 @@ public class RuckData : RawData
     public int gain_material_amount;
     
     public string prefab_name;
+
+    public int auto_tool_type;
 }

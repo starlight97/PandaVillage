@@ -12,4 +12,7 @@ public class FarmEditParam : SceneParams
     public int objectId;
     public int editType;
 }
-
+public class CoopParam : SceneParams
+{
+    public CoopInfo coopInfo;
+}

@@ -5,82 +5,79 @@ using UnityEngine.Events;
 
 public class RanchManager : MonoBehaviour
 {
+
     public Silo[] siloArr;
     public Coop[] coopArr;
 
     public UnityAction<Vector2Int, Vector2Int, List<Vector3>, Animal> onDecideTargetTile;
-
+    public UnityAction<int> onFillHayComplete;
     public int hay;
     public int maxHay;
 
+    private GameInfo gameInfo;
 
     public void Init()
     {
 
-        var gameInfo = InfoManager.instance.GetInfo();
-
-        //오브젝트 매니저에서 포지션 받아서 씬에 뿌려줄 예정임
-        //var coopInfoList = gameInfo.ranchInfo.coopInfoList;
-        //var siloInfoList = gameInfo.ranchInfo.siloInfoList;
-        //foreach (var info in siloInfoList)
-        //{
-        //    var go = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Building/Silo"));
-        //    go.GetComponent<Silo>().Init(info.PosX, info.PosY);
-        //}
-
-        //foreach (var info in coopInfoList)
-        //{
-        //    var go = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Building/Coop"));
-        //    var coop = go.GetComponent<Coop>();
-        //    coop.Init(info.PosX, info.PosY);
-        //    var animalInfoList= info.animalinfoList;
-
-        //    foreach(var animalInfo in animalInfoList)
-        //    {
-        //        //동물들 AnimalInfo에있는 id로 AnimalData에있는 prefab_path를 찾아와서   Instantiate 해줌
-        //        var AnimalGo = Instantiate<GameObject>(Resources.Load<GameObject>
-        //        (DataManager.instance.GetData<AnimalData>(animalInfo.animalDataId).prefab_path),
-        //        this.animalObject.transform);
-
-        //        AnimalGo.SetActive(false);
-
-        //        var animal = AnimalGo.GetComponent<Animal>();
-        //        animal.Init();                
-        //    }
-        //}
-
-        var coopInfoList = gameInfo.ranchInfo.coopInfoList;
-
-        foreach (var info in coopInfoList)
-        {
-            //var go = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Building/Coop"));
-            //var coop = go.GetComponent<Coop>();
-            //coop.Init(info);
-        }
-
+        gameInfo = InfoManager.instance.GetInfo();          
 
         this.siloArr = GameObject.FindObjectsOfType<Silo>();
         this.coopArr = GameObject.FindObjectsOfType<Coop>();
 
-        this.hay = gameInfo.ranchInfo.hay;
-
-        
-
-
+        this.hay = gameInfo.ranchInfo.hay;     
         this.maxHay = siloArr.Length * 240;
         
-
+        CoopInit();
         AnimalsInit();
 
     }   
+    private void CoopInit()
+    {
+        foreach (var coop in coopArr)
+        {
+            var coopInfo = gameInfo.ranchInfo.coopInfoList.Find(x => x.posX == coop.transform.position.x && x.posY == coop.transform.position.y);
+            coop.Init(coopInfo);
+            Debug.LogFormat("ranchManager CoopInit : {0}", coopInfo);
+        }
+    }
+    
+    // 사일로가 존재하면 true 반환, 아니면 false
+    public bool CheckSilo()
+    {
+        if (siloArr.Length > 0)
+            return true;
+        else
+            return false;
+    }
 
-    //건초추가
+    // 플레이어가 가지고 있는 건초들 추가
+    public void AddHays(int hayAmount)
+    {
+        var currHayAmount = maxHay - hay;
+        if (hay == maxHay)
+            return;
+        if (currHayAmount >= hayAmount)
+            this.hay += hayAmount;
+        else if (currHayAmount < hayAmount)
+        {
+            hayAmount = currHayAmount;
+            this.hay += hayAmount;
+        }
+        gameInfo.playerInfo.inventory.RemoveItem(4004, hayAmount);
+        onFillHayComplete(hayAmount);
+        gameInfo.ranchInfo.hay = this.hay;
+    }
+
+    // 낫으로 잔디 베면 건초 1개 추가
     public void AddHay()
     {
         if (hay < maxHay)
-        {
-            hay++;
-        }
+            this.hay++;
+        else if (hay <= 0)
+            this.hay = 0;
+        else if (hay >= maxHay)
+            this.hay = this.maxHay;
+        gameInfo.ranchInfo.hay = this.hay;
     }
 
     //사일로 UI보이게하기
@@ -92,49 +89,9 @@ public class RanchManager : MonoBehaviour
             {
                 Debug.LogFormat("건초의양 : {0} / {1}", hay, maxHay);
             }
-        }        
-    }
-
-
-    public void NextDay()
-    {
-        foreach(var coop in coopArr)
-        foreach (var animal in coop.animalList)
-        {
-            //나이먹기
-            animal.age++;
-            //쓰다듬초기화
-            animal.isPatted = false;
-
-
-            //동물들이 배부른경우 성장과 생산을 할수 있음
-            if (animal.isFull)
-            {
-                animal.yummyDay++;
-
-                if (animal.yummyDay > 6)
-                    animal.Produce();
-
-                if (animal.yummyDay == 6)
-                {
-                    animal.GrowUp();
-                }
-            }
-
-                
-            // 사일로의 건초가 있으면 먹이주기
-            if (hay > 0)
-            {
-                hay--;
-                animal.isFull = true;
-            }
-            else
-            {
-                animal.isFull = false;
-            }
         }
     }
-
+   
     public void DoorOpen()
     {
         foreach (var coop in this.coopArr)

@@ -2,92 +2,112 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using DG.Tweening;
 
 public class Coop : TransparentObject
 {
 
-    public Transform door;
-    private bool isOpen =false;
+    private GameObject coopDoor;
+    private CoopInfo coopInfo;
+    public GameObject coopPortal;
 
     public List<Animal> animalList= new List<Animal>();
     public UnityAction<Vector2Int, Vector2Int, List<Vector3>, Animal> onDecideTargetTile;
-    //public UnityAction<string, int ,int> showAnimalUI;  //이름 우정 나이
-
-    public GameObject animalPrefab;
-
-    private GameObject animalObject;
+    public UnityAction<GameObject> setAnimalPos;
+    
 
     public override void Init(Sprite sp)
     {
         base.Init(sp);
 
-        //var info = InfoManager.instance.GetInfo();
-        //var coopInfo = info.ranchInfo.coopInfoList
     }
 
     public void Init(CoopInfo coopInfo)
     {
+        this.coopDoor = this.transform.GetChild(1).gameObject;
+        this.coopInfo = coopInfo;
+
         var animalinfoList = coopInfo.animalinfoList;
         foreach (var info in animalinfoList)
-        {            
-            GameObject animalGo = Instantiate(Resources.Load<GameObject>
-            (DataManager.instance.GetData<AnimalData>(info.animalId).prefab_path),
-            this.animalObject.transform);
-            animalGo.transform.position = door.position;
-            var animal = animalGo.GetComponent<Animal>();
-            animal.Init(info);
-            animal.onDecideTargetTile = (startPos, targetPos, pathList, animal) =>
-            {
-                this.DecideTargetTile(startPos, targetPos, pathList, animal);
-            };
-        }
-
-
-        this.door = this.transform.GetChild(1);
-        this.animalObject = GameObject.Find("AnimalObject");
-
-    }   
-    
-    //문열고닫기
-    public bool SetDoor()
-    {
-        if (isOpen)
         {
-            this.door.gameObject.SetActive(true);
-            this.isOpen = false;
-            return isOpen;
+            CreateAnimal(info);
+        }     
+        //어제 문을 열어뒀을경우 문이 열려있어야함
+        if (coopInfo.isOpen)
+        {
+            DoorOpen();
         }
         else
-        {          
-            this.door.gameObject.SetActive(false);
-            this.isOpen = true;
-            return isOpen;
+        {
+            AnimalOut();
         }
+
+        CoopPortalInit();
     }
-
-
-    //public virtual void FindAnimals()
-    //{
-    //    var animals = GameObject.FindObjectsOfType<CoopAnimal>();
-    //    foreach (var animal in animals)
-    //    {
-    //        animal.Init();
-    //        this.animalList.Add(animal);
-    //        animal.onDecideTargetTile = (startPos, targetPos, pathList, animal) =>
-    //        {
-    //            this.DecideTargetTile(startPos, targetPos, pathList, animal);
-    //        };
-    //    }
-    //}
-
-    // 닭장안에 있는 모든 동물 성장
-    public void GrowUp()
+    public void InitCoopScene(CoopInfo coopInfo)
     {
+        this.coopDoor = this.gameObject;
+        var animalinfoList = coopInfo.animalinfoList;
+        foreach (var info in animalinfoList)
+        {
+            CreateAnimal(info);
+        }
+
         foreach (var animal in animalList)
         {
-            animal.GrowUp();
+
+            if (!animal.isAnimalOut)
+            {
+                animal.gameObject.SetActive(true);
+                animal.Roaming();
+                setAnimalPos(animal.gameObject);
+            }
+            else
+            {
+                animal.gameObject.SetActive(false);
+            }
+        }
+        SpawnProduct(coopInfo);
+    }
+
+    public void SpawnProduct(CoopInfo coopInfo)
+    {
+        foreach (var product in coopInfo.productInfoList)
+        {
+            var prefabPath = DataManager.instance.GetData<GatheringData>(product.productId).prefab_name;
+            var productGo = Instantiate<GameObject>(Resources.Load<GameObject>(prefabPath));
+            productGo.transform.position = new Vector3(product.posX, product.posY, 0);
+            productGo.GetComponent<OtherObject>().onDestroy = (otherObj) => {
+                var selectProduct= coopInfo.productInfoList.Find(x => x.posX == otherObj.transform.position.x && x.posY == otherObj.transform.position.y);
+                coopInfo.productInfoList.Remove(selectProduct);
+            };
         }
     }
+    public void AnimalOut()
+    {       
+        foreach (var animal in animalList)
+        {
+            if (animal.isAnimalOut)
+            {
+                animal.gameObject.SetActive(true);
+                animal.Roaming();
+            }
+        }
+
+    }
+    public void ClickedDoor()
+    {       
+        if (!coopInfo.isOpen)
+        {                
+            DoorOpen();
+
+        }
+        else if (coopInfo.isOpen)
+        {
+            DoorClose();
+        }        
+    }    
+    
 
     public void DecideTargetTile(Vector2Int startPos, Vector2Int targetPos, List<Vector3>pathList, Animal animal)
     {
@@ -99,42 +119,50 @@ public class Coop : TransparentObject
         foreach (var animal in animalList)
         {
             animal.ComeBackHome();
-            AnimalManager.instance.coopOpened = false;
         }
     }
 
-    public void CreateAnimal()
+    public void CreateAnimal(AnimalInfo info)
     {
-        GameObject animalGo = Instantiate<GameObject>(animalPrefab, this.animalObject.transform);
-        animalGo.transform.position = door.position;
-        //animalGo.transform.parent = this.transform;
-
-        //var animal = animalGo.GetComponent<Animal>();
-        //animal.Init();
-        //animal.onDecideTargetTile = (startPos, targetPos, pathList, animal) =>
-        //{
-        //    this.DecideTargetTile(startPos, targetPos, pathList, animal);
-        //};
-        //this.animalList.Add(animal);
+        GameObject animalGo = Instantiate(Resources.Load<GameObject>
+       (DataManager.instance.GetData<AnimalData>(info.animalId).prefab_path), this.transform);
+        animalGo.transform.position = coopDoor.transform.position + new Vector3(0, -1, 0);
+        var animal = animalGo.GetComponent<Animal>();
+        var mapTopRight = GameObject.FindObjectOfType<MapManager>().mapTopRight;        
+        animal.Init(info, mapTopRight);
+        animal.onDecideTargetTile = (startPos, targetPos, pathList, animal) =>
+        {
+            this.DecideTargetTile(startPos, targetPos, pathList, animal);
+        };
+        animalList.Add(animal);
     }
 
     public void DoorOpen()
+    {            
+        this.coopDoor.transform.DOLocalMoveY(0.8f,1);
+
+        foreach (var animal in animalList)
+        {
+            animal.isAnimalOut = true;
+            animal.AnimalRunOut();
+        }
+        foreach (var info in coopInfo.animalinfoList)        
+            info.isAnimalOut = true;
+        
+        coopInfo.isOpen = true;
+    }
+
+    public void DoorClose()
     {
+        this.coopDoor.transform.DOLocalMoveY(0f, 1);
 
-        //FindAnimals();
+        coopInfo.isOpen = false;
+    }
 
-
-        //if (SetDoor() && !AnimalManager.instance.coopOpened) //문이 열렸을경우에만 모든 동물들이 나온다.
-        //{
-        //    foreach (var data in AnimalManager.instance.AnimalDic.Values)
-        //    {
-        //        CreateAnimal();
-        //    }
-
-        //    FindAnimals();
-
-        //    AnimalManager.instance.coopOpened = true;
-        //}        
-    } 
+    public void CoopPortalInit()
+    {
+        var portalManager = GameObject.FindObjectOfType<PortalManager>();
+        var portalGo = Instantiate<GameObject>(coopPortal,this.transform.position + coopPortal.transform.position, Quaternion.Euler(0,0,0),portalManager.transform);
+    }
 
 }

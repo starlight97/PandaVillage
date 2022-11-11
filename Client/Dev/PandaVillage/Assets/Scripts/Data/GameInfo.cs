@@ -43,5 +43,7 @@ public class GameInfo
         playerInfo.inventory.AddItem(1000, 1500);
         playerInfo.inventory.AddItem(4000, 1000);
         playerInfo.inventory.AddItem(4001, 1000);
+
+        objectInfoList.Add(new ObjectInfo("Farm", 71, 50, 9010, 0));
     }
 }

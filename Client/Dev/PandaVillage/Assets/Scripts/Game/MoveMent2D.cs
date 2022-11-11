@@ -12,6 +12,7 @@ public class Movement2D : MonoBehaviour
     private Vector3 dir;
 
     public UnityAction<Vector3> onMoveComplete;
+    public UnityAction<Vector3> onMoveActionComplete;
     public UnityAction<Vector3> onPlayAnimation;
 
 
@@ -19,15 +20,16 @@ public class Movement2D : MonoBehaviour
     // 매개변수 pathList를 입력받아 경로 단위로 움직입니다.
     public void Move()
     {
-        if (this.moveRoutine != null) 
-            this.StopCoroutine(moveRoutine);
+        if (moveActionRoutine != null || moveRoutine != null)
+        {
+            StopAllCoroutines();
+        }
         moveRoutine = this.StartCoroutine(this.MoveRoutine());
     }
 
     private IEnumerator MoveRoutine()
     {
         int pathCount = this.pathList.Count;
-
         for (int index = 1; index < this.pathList.Count; index++)
         {
             this.dir = this.pathList[index] - this.transform.position;
@@ -60,22 +62,24 @@ public class Movement2D : MonoBehaviour
 
     public void MoveAction()
     {
-        if (moveActionRoutine != null)
-            StopCoroutine(MoveActionRoutine());
+        if (moveActionRoutine != null || moveRoutine != null)
+        {
+            StopAllCoroutines();
+        }
         moveActionRoutine = StartCoroutine(MoveActionRoutine());
     }
 
     private IEnumerator MoveActionRoutine()
     {
-        int pathCount = this.pathList.Count-1;
+        int pathCount = this.pathList.Count;
 
         for (int index = 1; index < pathCount; index++)
         {
             this.dir = this.pathList[index] - this.transform.position;
+
             this.onPlayAnimation(this.dir);
             if (pathCount < 1)
                 break;
-
 
             while (true)
             {
@@ -95,8 +99,8 @@ public class Movement2D : MonoBehaviour
             }
         }
         // move루틴 끝났으므로 null로 초기화
-        this.moveRoutine = null;
-        this.onMoveComplete(this.dir);
+        this.moveActionRoutine = null;
+        this.onMoveActionComplete(this.dir);
     }
 
 }

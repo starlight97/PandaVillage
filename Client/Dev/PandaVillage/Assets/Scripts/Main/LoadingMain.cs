@@ -5,6 +5,7 @@ using UnityEngine;
 public class LoadingMain : SceneMain
 {
     private UILoading uiLoading;
+
     public override void Init(SceneParams param = null)
     {
         this.uiLoading = GameObject.FindObjectOfType<UILoading>();
@@ -17,13 +18,12 @@ public class LoadingMain : SceneMain
 
         DataManager.instance.onDataLoadFinished.AddListener(() => 
         {
+            SoundManager.instance.StopSound();
             this.Dispatch("onLoadComplete");
         });
         DataManager.instance.Init();
         DataManager.instance.LoadAllData();
         InfoManager.instance.LoadData();
-
-
-
+        SoundManager.instance.Init();
     }
 }

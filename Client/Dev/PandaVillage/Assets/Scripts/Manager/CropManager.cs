@@ -61,7 +61,6 @@ public class CropManager : MonoBehaviour
             var cropPos = new Vector3Int(cropX, cropY, 0);
 
             info.playerInfo.inventory.RemoveItem(seedData.id, 1);
-            InfoManager.instance.SaveGame();
             onUseSeed();
 
             crop.onDestroy = (cropGo) =>
@@ -84,7 +83,7 @@ public class CropManager : MonoBehaviour
 
         Crop crop = cropGo.GetComponent<Crop>();
         crop.state = state;
-        Debug.Log("isWatering : " + isWatering);
+
         if (isWatering)
         {
             crop.Load(data.id, state-1, wateringCount, isWatering);
@@ -118,7 +117,6 @@ public class CropManager : MonoBehaviour
             foreach (var cropInfo in gameInfo.cropInfoList)
             {
                 Vector3Int pos = new Vector3Int(cropInfo.posX, cropInfo.posY, 0);
-                Debug.Log("cropInfo.isWatering : " + cropInfo.isWatering);
                 LoadCrop(cropInfo.id, pos, cropInfo.state, cropInfo.wateringCount, cropInfo.isWatering);
             }
         }

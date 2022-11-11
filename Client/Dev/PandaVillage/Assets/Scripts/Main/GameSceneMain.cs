@@ -57,8 +57,17 @@ public class GameSceneMain : SceneMain
         this.player.onGetTile = (pos, state) =>
         {
             bool check = tileManager.CheckTile(pos, state);
+
             if (check)
+            {
                 player.FarmingAct(pos);
+            }
+        };
+
+        this.player.onCheckTile = (pos, state) => 
+        {
+            bool check = tileManager.CheckTile(pos, state);
+            player.CheckFarmingAct(check);
         };
 
         // 타일 변경
@@ -91,7 +100,7 @@ public class GameSceneMain : SceneMain
         };
         #endregion
 
-        this.portalManager.onArrival = (sceneType, index) =>
+        this.portalManager.onArrival = (sceneType, index, pos) =>
         {
             //InfoManager.instance.SaveGame(App.eMapType.BusStop, this.objectManager.GetOtherObjectist());
             Dispatch("onArrival" + sceneType.ToString() + "Portal"+ index);

@@ -18,7 +18,7 @@ public class MountainRangeMain : GameSceneMain
             this.objectManager.SpawnGatheringObjects(0, Random.Range(0, 4));
         }
 
-        this.portalManager.onArrival = (sceneType, index) =>
+        this.portalManager.onArrival = (sceneType, index, pos) =>
         {
             InfoManager.instance.SaveOtherObject(App.eMapType.MountainRange, this.objectManager.GetOtherObjectist());
             Dispatch("onArrival" + sceneType.ToString() + "Portal" + index);

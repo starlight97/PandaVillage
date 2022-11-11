@@ -12,6 +12,7 @@ public class AnimalInfo
 
     public bool isFull;
     public bool isPatted;
+    public bool isAnimalOut;
     public AnimalInfo(string animalName, int animalId) 
     {
         this.animalName = animalName;
@@ -21,8 +22,8 @@ public class AnimalInfo
         this.yummyDay = 0;
         this.isFull = true;
         this.isPatted = false;
-    }
-    
-    
+        this.isAnimalOut = false;
+    }   
+ 
     
 }

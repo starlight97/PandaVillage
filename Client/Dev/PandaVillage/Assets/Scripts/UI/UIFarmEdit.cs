@@ -8,9 +8,11 @@ public class UIFarmEdit : MonoBehaviour
 {
     public UnityAction onCLickBtnOkay;
     public UnityAction onCLickBtnCancel;
+    public UnityAction<string> onPurchaseAnimal;
     private GameObject buttons;
     private Button btnOk;
     private Button btnCancel;
+    public UIAnimalPurchase uiAnimalPurchase;
     public void Init()
     {
         this.buttons = transform.Find("Buttons").gameObject;
@@ -25,6 +27,17 @@ public class UIFarmEdit : MonoBehaviour
             this.onCLickBtnCancel();
         });
 
+        this.uiAnimalPurchase.onClickOkay = (animalName) =>
+        {
+            this.onPurchaseAnimal(animalName);
+        };
+        this.uiAnimalPurchase.onClickCancel = () =>
+        {
+            uiAnimalPurchase.gameObject.SetActive(false);
+        };
+
+
+        uiAnimalPurchase.Init();
         this.HideBtnOk();
     }
 
@@ -35,5 +48,10 @@ public class UIFarmEdit : MonoBehaviour
     public void HideBtnOk()
     {
         this.btnOk.gameObject.SetActive(false);
+    }
+
+    public void ShowUIAnimalPurchase()
+    {
+        uiAnimalPurchase.gameObject.SetActive(true);
     }
 }

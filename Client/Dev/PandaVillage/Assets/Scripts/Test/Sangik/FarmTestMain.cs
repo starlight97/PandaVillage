@@ -77,7 +77,7 @@ public class FarmTestMain : MonoBehaviour
         //동물추가버튼
         this.AddAnimalButton.onClick.AddListener(() => 
         {
-            AnimalManager.instance.AddAnimal();
+            //AnimalManager.instance.AddAnimal();
         });
         
         //씬변환버튼
@@ -113,7 +113,6 @@ public class FarmTestMain : MonoBehaviour
             NextDay();
         });
 
-        Test();
         timeManager.Init();
         ranchManager.Init();
 
@@ -135,7 +134,7 @@ public class FarmTestMain : MonoBehaviour
     {
         this.timeManager.hour = 0;
         this.timeManager.minute = 0;
-        ranchManager.NextDay();
+        //ranchManager.NextDay();
     }
 
     public void ShowAnimalUI(Animal animal)
@@ -150,20 +149,6 @@ public class FarmTestMain : MonoBehaviour
 
 
 
-    private void Test()
-    {
-        if (AnimalManager.instance.coopOpened)
-        {
-            foreach (var data in AnimalManager.instance.AnimalDic.Values)
-            {
-                Vector3 DoorPos = ranchManager.coopArr[0].transform.GetChild(1).position;
-                var go = Instantiate(data);
-                var scr = go.GetComponent<Animal>();
-                go.transform.position = new Vector3(Random.Range(scr.mapBottomLeft.x, scr.mapTopRight.x + 1), Random.Range(scr.mapBottomLeft.y, scr.mapTopRight.y + 1));
-            }
-            //ranchManager.coopArr[0].FindAnimals();
-            ranchManager.AnimalsInit();
-        }
-    }
+
 
 }

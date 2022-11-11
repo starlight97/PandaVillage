@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3096568986971273406}
   - component: {fileID: 3096568986971273407}
   - component: {fileID: 3096568986971273404}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: emote
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 3219187643895292449}
   - component: {fileID: 3219187643895292451}
   - component: {fileID: 3219187643895292450}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WhiteCowModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 1048254346, guid: 79c68e521134326429d7060cdd9720e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 3311362667040969223}
   - component: {fileID: 3311362667040969221}
   - component: {fileID: 3311362667040969222}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BabyWhiteCowModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +283,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 2101527224, guid: 6e0f2ae21bc3df345b0b677d77ac5710, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -328,9 +328,9 @@ GameObject:
   - component: {fileID: 5058549347015434307}
   - component: {fileID: 6555323428793504902}
   - component: {fileID: 8440722220063043122}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cow
-  m_TagString: Untagged
+  m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -426,12 +426,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 661a5d207c61af94b911b1b4d32b171c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   animalName: 
   friendship: 0
   age: 0
   yummyDay: 0
   isFull: 1
   isPatted: 0
+  isAnimalOut: 0
   mapBottomLeft: {x: 0, y: 0}
-  mapTopRight: {x: 16, y: 8}
+  mapTopRight: {x: 76, y: 53}
   RandomMoveRange: {x: -3, y: 3}
+  babyAnim: {fileID: 3311362667040969222}
+  anim: {fileID: 3219187643895292450}

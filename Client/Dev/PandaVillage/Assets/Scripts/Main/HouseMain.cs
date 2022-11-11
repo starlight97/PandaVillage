@@ -11,12 +11,12 @@ public class HouseMain : GameSceneMain
     {
         base.Init(param);
         this.bed = GameObject.FindObjectOfType<Bed>();
-
+        
         bed.onTrigger = () =>
         {
             this.uiHouse.ShowSleepCheckUi();
         };
-
+        
         this.uiHouse = this.uiBase.GetComponent<UIHouse>();
 
         this.uiHouse.onSleepCheck = (check) =>

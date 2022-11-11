@@ -14,12 +14,12 @@ public class App : MonoBehaviour
     public enum eSceneType
     {
         App, LogoScene, LoadingScene, Title, Alley, MountainRange, Farm, BusStop, 
-        PandaVillage, CindersapForest, House, VarietyStore, WoodworkingStore, ManiRanch, LoadGame, NewGame, FarmEdit
+        PandaVillage, CindersapForest, House, VarietyStore, WoodworkingStore, ManiRanch, LoadGame, NewGame, FarmEdit, CoopScene
     }
     public enum eMapType
     {
-        Alley, MountainRange, Farm, BusStop, PandaVillage, CindersapForest,
-        SecretForest, VarietyStore, WoodworkingStore, ManiRanch, FarmEdit
+        Alley = 1, MountainRange, Farm, BusStop, PandaVillage, CindersapForest,
+        SecretForest, VarietyStore, WoodworkingStore, ManiRanch, FarmEdit, CoopScene
     }
 
     public static App instance;
@@ -27,6 +27,8 @@ public class App : MonoBehaviour
     private eMapType beforeMap;
     private WoodworkingStoreMain woodworkingStoreMain;
     private ManiRanchMain maniRanch;
+    private FarmMain farmMain;
+    
 
     private UIApp uiApp;
 
@@ -91,7 +93,7 @@ public class App : MonoBehaviour
                             });
                         });
 
-                        this.uiApp.FadeIn(2f, () =>
+                        this.uiApp.FadeIn(0.555f, () =>
                         {
                             logoMain.Init();
                         });
@@ -137,7 +139,7 @@ public class App : MonoBehaviour
                 case eSceneType.Farm:
                     {
                         this.uiApp.FadeIn();
-
+                        this.farmMain = GameObject.FindObjectOfType<FarmMain>();
                         main.AddListener("onArrivalAlleyPortal0", (data) =>
                         {
                             this.uiApp.FadeOut(0.5f, () =>
@@ -170,6 +172,14 @@ public class App : MonoBehaviour
                             {
                                 this.LoadScene<HouseMain>(eSceneType.House);
                                 param.SpawnPos = new Vector3(33, 31.5f, 0);
+                            });
+                        });
+                        main.AddListener("onArrivalCoopScenePortal0", (data) =>
+                        {
+                            this.uiApp.FadeOut(0.5f, () =>
+                            {
+                                this.LoadScene<CoopSceneMain>(eSceneType.CoopScene);
+                                param.SpawnPos = new Vector3(32, 30, 0);
                             });
                         });
                         main.Init(param);
@@ -488,15 +498,31 @@ public class App : MonoBehaviour
                             {
                                 this.uiApp.FadeOut(0.5f, () =>
                                 {
-                                    param.SpawnPos = new Vector3(7, 2.5f, 0);
+                                    param.SpawnPos = new Vector3(13, 1f, 0);
                                     this.LoadScene<ManiRanchMain>(eSceneType.ManiRanch);
                                 });
                             });
 
-                            //farmEditParam.objectId = this.maniRanch.objectId;
-                            //farmEditParam.editType = this.maniRanch.editType;
+                            farmEditParam.objectId = this.maniRanch.objectId;
+                            farmEditParam.editType = this.maniRanch.editType;
                         }
                         main.Init(farmEditParam);
+                        break;
+                    }
+                case eSceneType.CoopScene: 
+                    {                        
+                        this.uiApp.FadeIn();
+                        var coopParam = new CoopParam();
+                        coopParam.coopInfo = farmMain.enterCoopInfo;                        
+                        main.AddListener("onArrivalFarmPortal0", (data) =>
+                        {
+                            this.uiApp.FadeOut(0.5f, () =>
+                            {
+                                param.SpawnPos = new Vector3(coopParam.coopInfo.posX +1, coopParam.coopInfo.posY -1, 0);
+                                this.LoadScene<FarmMain>(eSceneType.Farm);
+                            });
+                        });
+                        main.Init(coopParam);
                         break;
                     }
             }

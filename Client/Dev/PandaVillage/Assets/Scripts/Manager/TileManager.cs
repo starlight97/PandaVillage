@@ -103,12 +103,12 @@ public class TileManager : MonoBehaviour
     }
 
     // groundMap에 존재하는 모든 타일 가져오기
-    public List<Vector3Int> GetTilesPosList(eTileType state)
+    public List<Vector3> GetTilesPosList(eTileType state)
     {
         // BoundsInt
         // 타일맵의 경계를 셀 크기로 반환
         BoundsInt bounds = this.groundMap.cellBounds;
-        List<Vector3Int> tilePosList = new List<Vector3Int>();
+        List<Vector3> tilePosList = new List<Vector3>();
 
         for (int y = 0; y < bounds.size.y; y++)
         {
@@ -117,7 +117,7 @@ public class TileManager : MonoBehaviour
                 var tile = groundMap.GetTile(new Vector3Int(x, y, 0));
                 if (tile != null && tile.name == state.ToString())
                 {
-                    tilePosList.Add(new Vector3Int(x, y, 0));
+                    tilePosList.Add(new Vector3(x, y, 0));
                 }
             }
         }

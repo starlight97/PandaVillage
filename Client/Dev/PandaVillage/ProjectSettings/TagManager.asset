@@ -19,6 +19,8 @@ TagManager:
   - Roof
   - UI
   - ClickPortal
+  - ShippingBin
+  - AnimalDoor
   layers:
   - Default
   - TransparentFX

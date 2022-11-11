@@ -17,7 +17,7 @@ public class PandaVillageMain : GameSceneMain
             info.dicVisited[App.eMapType.PandaVillage] = true;
             this.objectManager.SpawnGatheringObjects(0, Random.Range(0, 4));
         }
-        this.portalManager.onArrival = (sceneType, index) =>
+        this.portalManager.onArrival = (sceneType, index, pos) =>
         {
             InfoManager.instance.SaveOtherObject(App.eMapType.PandaVillage, this.objectManager.GetOtherObjectist());
             Dispatch("onArrival" + sceneType.ToString() + "Portal" + index);

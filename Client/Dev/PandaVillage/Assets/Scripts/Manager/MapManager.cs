@@ -236,7 +236,7 @@ public class MapManager : MonoBehaviour
                 FinalNodeList.Add(StartNode);
                 FinalNodeList.Reverse();
 
-                for (int i = 0; i < FinalNodeList.Count; i++)
+                for (int i = 0; i < FinalNodeList.Count-1; i++)
                 {
                     Vector3 path = new Vector3(FinalNodeList[i].x, FinalNodeList[i].y, 0);
                     pathList.Add(path);
@@ -306,7 +306,11 @@ public class MapManager : MonoBehaviour
     {
         bool[,] wallPosArr = new bool[mapTopRight.x, mapTopRight.y];
 
-        int layerMask = (1 << LayerMask.NameToLayer("Object")) + (1 << LayerMask.NameToLayer("WallObject"))
+        //int layerMask = (1 << LayerMask.NameToLayer("Object")) + (1 << LayerMask.NameToLayer("WallObject"))
+        //    + (1 << LayerMask.NameToLayer("Wall"));    // Object 와 WallObject 레이어만 충돌체크함
+
+
+        int layerMask =(1 << LayerMask.NameToLayer("WallObject"))
             + (1 << LayerMask.NameToLayer("Wall"));    // Object 와 WallObject 레이어만 충돌체크함
 
 

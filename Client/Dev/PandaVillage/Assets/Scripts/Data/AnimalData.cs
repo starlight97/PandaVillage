@@ -24,4 +24,10 @@ public class AnimalData : RawData
     public string prefab_path;
     
     public string description;
+
+    public int home_type;
+
+    public int product_id;
+
+    public int tool_id;
 }

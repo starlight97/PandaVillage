@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System.IO;
 
 public class FarmMain : GameSceneMain
 {
@@ -10,6 +11,9 @@ public class FarmMain : GameSceneMain
     private CropManager cropManager;
     private RanchManager ranchManager;
     private ObjectPlaceManager objectPlaceManager;
+    public CoopInfo enterCoopInfo;
+    public AudioClip[] farmBgms;
+    public List<AudioClip> farmClips;
 
     public override void Init(SceneParams param)
     {
@@ -19,8 +23,8 @@ public class FarmMain : GameSceneMain
         this.cropManager = GameObject.FindObjectOfType<CropManager>();
         this.objectPlaceManager = GameObject.FindObjectOfType<ObjectPlaceManager>();
 
-        this.ranchManager.Init();
         this.objectManager.Init(App.eMapType.Farm, tileManager.GetTilesPosList(TileManager.eTileType.Dirt));
+        this.ranchManager.Init();
         //this.uiFarm.Init();
 
         var info = InfoManager.instance.GetInfo();
@@ -28,7 +32,10 @@ public class FarmMain : GameSceneMain
         {
             info.isNewbie = false;
 
-            this.objectManager.SpawnRuckObjects(2);
+            //this.objectManager.SpawnRuckObjects(1500);
+            //this.objectManager.SpawnGrass(10, mapManager.mapTopRight.y, mapManager.mapTopRight.x, mapManager.GetWallPosArr());
+
+            this.objectManager.SpawnRuckObjects(1);
         }
         InfoManager.instance.SaveOtherObject(App.eMapType.Farm, this.objectManager.GetOtherObjectist());
 
@@ -39,6 +46,27 @@ public class FarmMain : GameSceneMain
                 uiFarm.ShowAnimalUI(animal.animalName, animal.friendship, animal.age);                
             else
                 uiFarm.HideAnimalUI();
+        };
+
+        this.player.onShowStateUI = (silo) =>
+        {
+            if (silo != null)
+                uiFarm.ShowSiloHayAmountUI(ranchManager.hay, ranchManager.maxHay);
+        };
+
+        this.player.onCutGrassComplete = () => 
+        {
+            var check = ranchManager.CheckSilo();
+            if (check)
+                ranchManager.AddHay();
+            else
+                return;
+        };
+
+        this.player.onFillHay = (hayAmount) => 
+        {
+            ranchManager.AddHays(hayAmount);
+            uiBase.UpdateInventory();
         };
 
         // 씨앗 뿌리기
@@ -56,8 +84,7 @@ public class FarmMain : GameSceneMain
             uiBase.TimeUpdate(hour, minute);
             if (hour == 26)
             {
-                Debug.Log("새벽 2시예요 하루가 끝났어요");
-                ranchManager.NextDay();
+                Debug.Log("새벽 2시예요 하루가 끝났어요");                
                 InfoManager.instance.SaveOtherObject(App.eMapType.Farm, this.objectManager.GetOtherObjectist());
 
                 tileManager.ClearWateringTiles();
@@ -71,8 +98,8 @@ public class FarmMain : GameSceneMain
         #region TileManagerAction
         this.tileManager.onFinishedSetTile = (pos) =>
         {
-            InfoManager.instance.SaveHoeDirtTilePos(tileManager.hoeDirtPosList);
-            InfoManager.instance.SaveWateringDirtTilePos(tileManager.wateringDirtPosList);
+            //InfoManager.instance.SaveHoeDirtTilePos(tileManager.hoeDirtPosList);
+            //InfoManager.instance.SaveWateringDirtTilePos(tileManager.wateringDirtPosList);
         };
         #endregion
 
@@ -99,31 +126,44 @@ public class FarmMain : GameSceneMain
             animal.Move();
         };
 
+        this.ranchManager.onFillHayComplete = (amount) => 
+        {
+            uiFarm.ShowSiloFillHayUI(amount);        
+        };
+
         this.objectPlaceManager.onFindWallPosList = () =>
         {
             this.objectPlaceManager.wallPosArr = mapManager.GetWallPosArr();
         };
 
-        this.portalManager.onArrival = (sceneType, index) =>
+        this.portalManager.onArrival = (sceneType, index, pos) =>
         {
             InfoManager.instance.SaveOtherObject(App.eMapType.Farm, this.objectManager.GetOtherObjectist());
+            this.enterCoopInfo = InfoManager.instance.GetInfo().ranchInfo.coopInfoList.Find(x => x.posX == pos.x -1.5f && x.posY == pos.y);
             Dispatch("onArrival" + sceneType.ToString() + "Portal"+ index);
             //foreach (var item in this.cropManager.cropList)
             //{
             //    Debug.LogFormat("{0} {1} {2}", item.wateringCount, item.state, item.name);
             //}
-
+            InfoManager.instance.SaveHoeDirtTilePos(tileManager.hoeDirtPosList);
+            InfoManager.instance.SaveWateringDirtTilePos(tileManager.wateringDirtPosList);
             this.cropManager.GrowUpCrop();
             InfoManager.instance.SaveCrop(this.cropManager.cropList);
 
         };
 
         this.cropManager.Init();
+
+        SoundManager.instance.Init();
+        var currAudioSoruce = farmBgms[Random.Range(0, 3)];
+        farmClips.Insert(0, currAudioSoruce);
+
+        //////////////////////
+        if (info.dicVisited[App.eMapType.Farm] == false)
+            SoundManager.instance.PlayBGMSound(farmClips.ToArray());
+        else
+            return;
     }
-
-
-
-
 }
 
 

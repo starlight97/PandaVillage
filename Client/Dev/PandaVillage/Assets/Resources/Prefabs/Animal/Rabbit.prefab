@@ -178,7 +178,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 95361509, guid: ba7db4cee5dab1644a85b0df66723df6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -321,17 +321,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ba2401c7b1f0e489f2155a2c0c0581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   animalName: 
   friendship: 0
   age: 0
   yummyDay: 0
   isFull: 1
   isPatted: 0
+  isAnimalOut: 0
   mapBottomLeft: {x: 0, y: 0}
-  mapTopRight: {x: 16, y: 8}
+  mapTopRight: {x: 76, y: 53}
   RandomMoveRange: {x: -3, y: 3}
-  modelGo: {fileID: 5226135340588716838, guid: fe10452c2ae2a3a48a27b24f19b1bc19, type: 3}
-  productGo: {fileID: 2647703928033812520, guid: 94a28e77138c9834188e945a09f9b78c, type: 3}
+  babyAnim: {fileID: 5005629066629466118}
+  anim: {fileID: 1535867156237629861}
 --- !u!1 &5559316159307289764
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,7 +407,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2006203486, guid: 142c8540ec38b3a4db891702b02d9346, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

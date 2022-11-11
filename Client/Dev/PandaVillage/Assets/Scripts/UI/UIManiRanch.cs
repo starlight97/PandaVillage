@@ -8,7 +8,7 @@ public class UIManiRanch : UIBase
     private UIShop uiShop;
     private UIAnimalShop uIAnimalShop;
     private UIMarniesRanchSelect uIMarniesRanchSelect;
-    public UnityAction<int> onAnimalBuyButtonClick;
+    public UnityAction<int, int> onAnimalBuyButtonClick;
 
     public override void Init()
     {
@@ -39,8 +39,9 @@ public class UIManiRanch : UIBase
             this.uiShop.gameObject.SetActive(true);
         };
 
-        this.uIAnimalShop.onAnimalBuyButtonClick = (selectAnimalId) => {
-            onAnimalBuyButtonClick(selectAnimalId);
+        //돈이 있을때만 액션 날라옴
+        this.uIAnimalShop.onAnimalBuyButtonClick = (selectAnimalId, homeType) => {
+            onAnimalBuyButtonClick(selectAnimalId, homeType);
         };
         this.uIMarniesRanchSelect.Init();
         this.uiShop.Init();

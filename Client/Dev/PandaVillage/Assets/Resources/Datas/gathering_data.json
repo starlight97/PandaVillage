@@ -278,5 +278,19 @@
     "spawn_place": 11,
     "prefab_name": "Prefabs\\OtherObject\\Farming\\Tulip",
     "description": "가장 인기 있는 봄철 꽃. 은은하게 달콤한 향이 납니다."
+  },
+  {
+    "id": 3020,
+    "gathering_name": "양털",
+    "recovery_stamina": 0,
+    "recovery_hp": 0,
+    "sprite_name": "wool",
+    "purchase_price_min": 180,
+    "purchase_price_max": 1000,
+    "sale_price": 60,
+    "season": 5,
+    "spawn_place": 11,
+    "prefab_name": "Prefabs\\OtherObject\\Farming\\Wool",
+    "description": "부드럽고 푹신푹신한 양털."
   }
 ]

@@ -200,6 +200,13 @@ public class InfoManager
         {
             crop.isWatering = false;
         }
+        info.playerInfo.gold += info.playerInfo.dailySaleGold;
+        info.playerInfo.dailySaleGold = 0;
+        info.playerInfo.lastShippedItem = null;
+
+        //동물들 업데이트해주기
+        info.ranchInfo.NextDay();
+
 
         this.SaveGame();
     }

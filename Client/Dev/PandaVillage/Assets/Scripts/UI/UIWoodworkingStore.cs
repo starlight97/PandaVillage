@@ -20,8 +20,11 @@ public class UIWoodworkingStore : UIBase
         this.uIBuildBuilding = this.transform.Find("UIBuildBuilding").GetComponent<UIBuildBuilding>();
 
 
+        this.uIBuildBuilding.onExitClick = () => {
+            this.HideUI(uIBuildBuilding.gameObject);
+        };
         this.uiShop.onExitClick = () => {
-            this.HideShopUI(uiShop.gameObject);
+            this.HideUI(uiShop.gameObject);
         };
         this.uICarpentersSelect.onCarpentersShopClick = () => {
             SelectUI(uiShop.gameObject);
@@ -48,15 +51,7 @@ public class UIWoodworkingStore : UIBase
     public void ShowShopUI()
     {        
         this.uICarpentersSelect.gameObject.SetActive(true);
-    }
-
-    public void HideShopUI(GameObject go)
-    {
-        go.SetActive(false);
-        this.uiInGameMenu.gameObject.SetActive(true);
-        this.uiInGameMenu.RePainting(12);
-        this.uiMenu.RePainting(36);
-    }
+    }  
     public void SelectUI(GameObject go)
     {
         this.uICarpentersSelect.gameObject.SetActive(false);

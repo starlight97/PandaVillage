@@ -156,6 +156,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   useOnDestoryEvent: 1
+  loadingClip: {fileID: 8300000, guid: 22cc632f97209454da01a11abe4ff7f5, type: 3}
 --- !u!4 &81984557
 Transform:
   m_ObjectHideFlags: 0

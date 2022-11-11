@@ -5,7 +5,10 @@
     "price": 800,
     "animal_sprite": "White Chicken_0",
     "prefab_path": "Prefabs\\Animal\\Chicken",
-    "description": "잘 보살펴진 성숙한 닭은 매일 계란을 낳습니다. 닭장에서 지냅니다."
+    "description": "잘 보살펴진 성숙한 닭은 매일 계란을 낳습니다. 닭장에서 지냅니다.",
+    "home_type": 0,
+    "product_id": 3010,
+    "tool_id": -1
   },
   {
     "id": 8001,
@@ -13,7 +16,10 @@
     "price": 1500,
     "animal_sprite": "White Cow_0",
     "prefab_path": "Prefabs\\Animal\\Cow",
-    "description": "다 자란 젖소는 매일 우유를 생산합니다. 우유를 모으려면 우유통이 필요합니다. 외양간에서 지냅니다."
+    "description": "다 자란 젖소는 매일 우유를 생산합니다. 우유를 모으려면 우유통이 필요합니다. 외양간에서 지냅니다.",
+    "home_type": 1,
+    "product_id": 3008,
+    "tool_id": 6006
   },
   {
     "id": 8002,
@@ -21,6 +27,20 @@
     "price": 8000,
     "animal_sprite": "Rabbit_0",
     "prefab_path": "Prefabs\\Animal\\Rabbit",
-    "description": "털이 많은 토끼입니다! 며칠에 한번씩 털을 생산합니다. 닭장에서 지냅니다."
+    "description": "털이 많은 토끼입니다! 며칠에 한번씩 털을 생산합니다. 닭장에서 지냅니다.",
+    "home_type": 0,
+    "product_id": 3020,
+    "tool_id": -1
+  },
+  {
+    "id": 8003,
+    "animal_name": "양",
+    "price": 8000,
+    "animal_sprite": "Sheep_0",
+    "prefab_path": "Prefabs\\Animal\\Sheep",
+    "description": "다 자란 양의 털을 깎을 수 있습니다. 주인과 사이가 좋은 양이 털을 더 빨리 생산합니다. 양털을 깎으려면 양털 가위가 필요합니다. 외양간에서 지냅니다.",
+    "home_type": 1,
+    "product_id": 3020,
+    "tool_id": 6007
   }
 ]

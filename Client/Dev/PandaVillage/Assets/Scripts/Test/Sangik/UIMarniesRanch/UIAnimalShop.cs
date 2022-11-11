@@ -20,7 +20,7 @@ public class UIAnimalShop : MonoBehaviour
 
    
     public UnityAction onExitClick;
-    public UnityAction<int> onAnimalBuyButtonClick;
+    public UnityAction<int, int> onAnimalBuyButtonClick;
     private void Start()
     {
         //DataManager.instance.Init();
@@ -92,17 +92,20 @@ public class UIAnimalShop : MonoBehaviour
 
         this.uIShopItemBuy.buyButtonClicked = (garbageamount) => {
 
-            onAnimalBuyButtonClick(selectedItem.id);
             var bill = selectedItem.price;
             Debug.Log(bill);
 
             //씬전환 후 원하는 건물에 동물을 선택한후 다시돌아와서 실행해야함
             if (gameInfo.playerInfo.gold - bill >= 0)
-            {                
-                gameInfo.playerInfo.gold = gameInfo.playerInfo.gold - bill;
-                this.uIShopPlayerGold.onChangeGold(gameInfo.playerInfo.gold);
-                InfoManager.instance.UpdateInfo(gameInfo);
-                InfoManager.instance.SaveGame();                
+            {
+                Debug.Log("돈있음");
+                //돈이있는경우에만 액션 실행
+                var selectAnimal = DataManager.instance.GetData<AnimalData>(selectedItem.id);
+                var homeType = selectAnimal.home_type;
+                onAnimalBuyButtonClick(selectedItem.id, homeType);
+
+                //gameInfo.playerInfo.gold = gameInfo.playerInfo.gold - bill;
+                //this.uIShopPlayerGold.onChangeGold(gameInfo.playerInfo.gold);
             }
         };
 

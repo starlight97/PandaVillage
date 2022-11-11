@@ -6,39 +6,25 @@ using UnityEngine.Events;
 
 public class ObjectManager : MonoBehaviour
 {
-    public enum eSpawnPlace
-    {
-        All,
-        Alley,
-        MountainRange,
-        Farm,
-        BusStop,
-        PelicanVillage,
-        CindersapForest,
-        SecretForest,
-    }
-    public enum eObjectType
-    {
-        Ruck,
-        Gathering
-    }
+    public ObjectSpawner objectSpawner;
+    private List<Vector3> spawnTilePosList = new List<Vector3>();
 
-    private ObjectSpawner objectSpawner;
-    private List<Vector3Int> spawnTilePosList = new List<Vector3Int>();
-    public UnityAction onSpawnComplete;
-
-    public void Init(App.eMapType mapType, List<Vector3Int> spawnTilePosList)
+    public void Init(App.eMapType mapType, List<Vector3> spawnTilePosList)
     {
         this.objectSpawner = GameObject.FindObjectOfType<ObjectSpawner>();
         this.spawnTilePosList = spawnTilePosList;
         this.objectSpawner.Init(this.spawnTilePosList);
+        this.SpawnSceneObject(mapType);
+    }
 
+    private void SpawnSceneObject(App.eMapType mapType)
+    {
         var info = InfoManager.instance.GetInfo();
         var datas = info.objectInfoList.FindAll(x => x.sceneName == mapType.ToString());
 
         foreach (var data in datas)
         {
-            Vector3Int pos = new Vector3Int(data.posX, data.posY, 0);
+            Vector3 pos = new Vector3(data.posX, data.posY, 0);
             var objType = DataManager.instance.GetData(data.objectId).GetType().ToString();
 
             if (objType == "RuckData")
@@ -54,14 +40,9 @@ public class ObjectManager : MonoBehaviour
             else if (objType == "BuildingData")
             {
                 var objData = DataManager.instance.GetData<BuildingData>(data.objectId);
-
                 this.objectSpawner.SpawnObject(objData.prefab_path, objData.sprite_name, pos);
             }
-
-            //this.objectSpawner.SpawnObject(data.objectId, pos);
         }
-        //this.onSpawnComplete();
-        
     }
 
     public List<OtherObject> GetOtherObjectist()
@@ -90,6 +71,7 @@ public class ObjectManager : MonoBehaviour
     public void SpawnRuckObjects(int amount)
     {        
         var datas = DataManager.instance.GetDataList<RuckData>().ToList();
+        datas.RemoveAll(x => x.ruck_name == "잔디");
         List<int> idList = new List<int>();
 
         foreach (var data in datas)
@@ -103,7 +85,11 @@ public class ObjectManager : MonoBehaviour
             var objData = DataManager.instance.GetData<RuckData>(idList[randObjIdIndex]);
             this.objectSpawner.SpawnObject(objData.prefab_name, objData.sprite_name);
         }
+    }
 
+    public void SpawnGrass(int amount, int y, int x, bool[,] wallPosArr)
+    {
+        this.objectSpawner.SpawnGrassInit(y, x, wallPosArr, amount);
     }
 
 

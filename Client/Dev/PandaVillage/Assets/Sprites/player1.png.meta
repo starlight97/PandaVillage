@@ -119,7 +119,7 @@ TextureImporter:
       name: idle_front
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1
         y: 192
         width: 16
         height: 32
@@ -997,6 +997,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: player1_head
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 208
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47767c5b401ce3f4ea552b05a286110d
+      internalID: -739916196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1008,47 +1029,48 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      run_front_1: -1107573975
-      run_side_3: -898158582
-      use_tool_side_3: 849435909
+      use_tool_back_3: -764431612
       use_tool_front_1: -2138350446
       player1_3: 1257138318
       run_front_3: 293721790
       run_front_4: 832137626
       use_tool_front_6: -975733566
-      use_tool_back_3: -764431612
-      use_tool_back_6: -718795739
+      player1_head: -739916196
       use_tool_side_6: -1917402365
       player1_16: 1715655639
-      run_back_1: -1269072136
       run_back_4: -1959417616
-      run_back_2: -1214914800
       run_side_2: -1321725142
-      use_tool_front_2: -1425815918
       use_tool_front_3: -1172066029
+      run_back_3: 685966909
+      run_side_5: 1103120363
+      idle_back: -264616602
+      use_tool_back_1: -1997532432
+      idle_front: -861999157
+      player1_4: -1723764732
+      player1_5: 2144333599
+      player1_15: 1182868771
+      run_front_1: -1107573975
+      run_side_3: -898158582
+      use_tool_side_3: 849435909
+      use_tool_back_6: -718795739
+      run_back_1: -1269072136
+      run_back_2: -1214914800
+      use_tool_front_2: -1425815918
+      use_tool_side_4: -1911963168
       use_tool_back_2: 1443454168
       player1_9: -600813397
       use_tool_side_1: -1795080842
-      use_tool_side_4: -1911963168
       player1_10: 997665077
-      run_side_5: 1103120363
-      idle_back: -264616602
-      run_back_3: 685966909
       run_side_4: 1216572948
-      run_side_6: 789916973
-      use_tool_front_4: 554976570
       use_tool_back_4: -113483076
-      idle_side: -1679857476
-      idle_front: -861999157
+      use_tool_front_4: 554976570
+      run_side_6: 789916973
       use_tool_side_2: -1653498890
+      idle_side: -1679857476
       use_tool_side_5: 1977714477
       run_front_2: 1388203144
       use_tool_front_5: -1968549482
-      player1_4: -1723764732
-      player1_5: 2144333599
       run_side_1: -580400863
-      use_tool_back_1: -1997532432
-      player1_15: 1182868771
       use_tool_back_5: 1211441895
   spritePackingTag: 
   pSDRemoveMatte: 0
