@@ -94,6 +94,15 @@ public class ObjectPlaceManager : MonoBehaviour
         buildingEditRoutine = StartCoroutine(BuildingEditRoutine());
     }
 
+    private bool IsPointerOverUIObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
+    }
+
     private IEnumerator BuildingEditRoutine()
     {
         this.gridGo.transform.localPosition = new Vector3(12, 46, 0);
@@ -102,7 +111,7 @@ public class ObjectPlaceManager : MonoBehaviour
         while (true)
         {
             yield return null;
-            if (EventSystem.current.IsPointerOverGameObject() == true)
+            if (EventSystem.current.IsPointerOverGameObject() == true || IsPointerOverUIObject() == true)
             {
                 continue;
             }
