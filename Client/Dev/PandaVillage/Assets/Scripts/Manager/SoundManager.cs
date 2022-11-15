@@ -10,7 +10,9 @@ public class SoundManager : MonoBehaviour
         Menu,
         Exit,
         Portal,
-        Tab
+        Tab,
+        Shop,
+        Fail
     }
 
     public static SoundManager instance;
@@ -100,5 +102,38 @@ public class SoundManager : MonoBehaviour
                 currentIndex++;
             }
         }
+    }
+
+    public static IEnumerator FadeOut(AudioSource audioSource)
+    {
+        float startVolume = audioSource.volume;
+
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= startVolume * Time.deltaTime / 0.5f;
+
+            yield return null;
+        }
+
+        //audioSource.Stop();
+        audioSource.volume = startVolume;
+        Debug.Log("wowwwwwwwwwwwwwwwwwwwwwwwwwwwowowowowowowo");
+    }
+
+    public static IEnumerator FadeIn(AudioSource audioSource)
+    {
+        float startVolume = 0.2f;
+
+        audioSource.volume = 0;
+        //audioSource.Play();
+
+        while (audioSource.volume < 1.0f)
+        {
+            audioSource.volume += startVolume * Time.deltaTime / 0.5f;
+
+            yield return null;
+        }
+
+        audioSource.volume = 1f;
     }
 }

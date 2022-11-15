@@ -159,10 +159,10 @@ public class FarmMain : GameSceneMain
         farmClips.Insert(0, currAudioSoruce);
 
         //////////////////////
-        if (info.dicVisited[App.eMapType.Farm] == false)
-            SoundManager.instance.PlayBGMSound(farmClips.ToArray());
-        else
-            return;
+        //if (info.dicVisited[App.eMapType.Farm] == false)
+        //    SoundManager.instance.PlayBGMSound(farmClips.ToArray());
+        //else
+        //    return;
     }
 }
 

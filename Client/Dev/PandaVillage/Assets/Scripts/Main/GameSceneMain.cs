@@ -30,6 +30,7 @@ public class GameSceneMain : SceneMain
         TimeManager.instance.Init();
         this.tileManager.Init();
         this.portalManager.Init();
+        SoundManager.instance.Init();
         #region PlayerAction
         this.player.onDecideTargetTile = (startPos, targetPos, pathList) =>
         {
@@ -40,6 +41,7 @@ public class GameSceneMain : SceneMain
 
             this.mapManager.PathFinding(startPos, targetPos, pathList);
             this.player.Move();
+            this.player.PlaySound(Player.ePlayerSound.Walk);
         };
 
         this.player.onDecideTargetObject = (startPos, targetPos, pathList) =>
@@ -51,6 +53,7 @@ public class GameSceneMain : SceneMain
 
             this.mapManager.WallPathFinding(startPos, targetPos, pathList);
             this.player.MoveAction();
+            this.player.PlaySound(Player.ePlayerSound.Walk);
         };
 
         // 타일이 있냐?

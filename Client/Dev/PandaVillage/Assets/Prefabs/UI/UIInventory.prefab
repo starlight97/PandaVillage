@@ -216,6 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &6993404118403337776
@@ -527,6 +528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 0}
   itemID: -1
   index: 0
 --- !u!65 &498400939035294074
@@ -800,6 +802,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &6881010284226590861
@@ -1247,6 +1250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &7959851653890675326
@@ -1907,6 +1911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &5505888373424959123
@@ -2430,6 +2435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &6464100927689091011
@@ -2585,6 +2591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &5348873888428135306
@@ -2740,6 +2747,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &9175447482515962338
@@ -3655,6 +3663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &6863306358694226927
@@ -4052,6 +4061,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &4793233994724998192
@@ -4283,6 +4293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &6986481746665862418
@@ -4514,6 +4525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &800085646867968509
@@ -5300,6 +5312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &7267833614746586935
@@ -5553,6 +5566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &3213059316452936462
@@ -5708,6 +5722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &5807260327638317846
@@ -7573,6 +7588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &8429875511886089179
@@ -7846,6 +7862,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &1004961547808777992
@@ -8867,6 +8884,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &8634577241002311370
@@ -9760,6 +9778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &6404948402810557438
@@ -11299,6 +11318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &3706795083052783213
@@ -11804,6 +11824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &2740792394232566052
@@ -12543,6 +12564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &6314613119313130566
@@ -13282,6 +13304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &7947606212877241897
@@ -14541,6 +14564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &3495265217877615353
@@ -14930,6 +14954,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &4100671083614857596
@@ -15355,6 +15380,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &6408286797898934495
@@ -15782,6 +15808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &2400856270590130095
@@ -15891,6 +15918,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6079a56c792bafd4fa55775aa620befd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrInventorySound:
+  - {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
+  - {fileID: 8300000, guid: 5daeb6d2395e26c439f26b8f4c352e30, type: 3}
+  - {fileID: 8300000, guid: eacf74339e8cb654596394915d010a43, type: 3}
   springObjectAtlas: {fileID: 4343727234628468602, guid: a037b98c6cf371a4d8a0e5f3e24ef86b, type: 2}
   m_canvas: {fileID: 0}
 --- !u!1 &7370723063018605530
@@ -17139,6 +17170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &631173066432820319
@@ -17468,6 +17500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &517281487387150988
@@ -17741,6 +17774,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &7373235397195621108
@@ -18458,6 +18492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &4999754439989980896
@@ -18613,6 +18648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &6619319933567888551
@@ -19178,6 +19214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &2447856994205959197
@@ -19527,6 +19564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &315715142176054526
@@ -19758,6 +19796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &5363744605169365165
@@ -20107,6 +20146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: {fileID: 0}
+  swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   itemID: -1
   index: 0
 --- !u!65 &2967910677225715933

@@ -6,10 +6,14 @@ using UnityEngine.Events;
 public class ShopObject : MonoBehaviour
 {
     public UnityAction onShowShopUI;
+    public UnityAction onInventoryUpgrade;
 
     public void ShowShop()
     {
-        this.onShowShopUI();
+        if (this.GetComponent<InventoryUpgrade>())        
+            this.onInventoryUpgrade();        
+        else
+            this.onShowShopUI();
     }
 
 }

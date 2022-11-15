@@ -20,12 +20,12 @@ public class ManiRanchMain : GameSceneMain
         this.shopObject.onShowShopUI = () =>
         {
             Debug.Log("ManiRanchMain");
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Shop);
             this.uiManiRanch.ShowShopUI();
         };
 
         this.uiManiRanch.onAnimalBuyButtonClick = (selectAnimalId, homeType) => {
             //씬전환후 원하는 coop에 동물을 집어넣어야함 플레이어 info에 동물작업해야함
-
             this.objectId = selectAnimalId;
             this.editType = homeType + 4;
             Debug.Log("나마니 editType : " + editType);

@@ -6,7 +6,7 @@ public class UIDateTime : MonoBehaviour
 {
     private Text uIDateText;
     private Text uITimeText;
-    private Text uIPlayerGold;
+    private UIPlayerGold uIPlayerGold;
 
     private int day;
     private string[] dayArr = new string[] {"일","월", "화", "수", "목", "금", "토"};
@@ -15,14 +15,14 @@ public class UIDateTime : MonoBehaviour
     {
         this.uIDateText = this.transform.Find("UIDateText").GetComponent<Text>();
         this.uITimeText = this.transform.Find("UITimeText").GetComponent<Text>();
-        this.uIPlayerGold = this.transform.Find("UIPlayerGold").GetComponent<Text>();
+        this.uIPlayerGold = this.transform.Find("UIPlayerGold").GetComponent<UIPlayerGold>();
 
         var info = InfoManager.instance.GetInfo();
 
         SetUIDateText(info);
-        SetUITimeText(TimeManager.instance.hour, TimeManager.instance.minute);
-        SetUIPlayerGold(info);              
-        
+        SetUITimeText(TimeManager.instance.hour, TimeManager.instance.minute);        
+        uIPlayerGold.Init();
+        uIPlayerGold.onChangeGold(InfoManager.instance.GetInfo().playerInfo.gold);
     }   
     private void SetUIDateText(GameInfo info)
     {        
@@ -32,12 +32,10 @@ public class UIDateTime : MonoBehaviour
     public void SetUITimeText(int hour, int minute)
     {
         this.uITimeText.text = hour + " : " + minute +"0";
-    }
-    public void SetUIPlayerGold(GameInfo info)
+    }   
+    public void SetUIPlayerGold()
     {
-        int gold = info.playerInfo.gold;
-        this.uIPlayerGold.text = gold.ToString();
+        uIPlayerGold.onChangeGold(InfoManager.instance.GetInfo().playerInfo.gold);
     }
-
 
 }

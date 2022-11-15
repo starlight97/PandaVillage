@@ -37,14 +37,14 @@ public class Inventory
 
         if (itemKey == -1)
         {
-            foreach (var item in dicItem)
+            for (int i = 0; i < size; i++)
             {
-                if (item.Value == null)
-                {
-                    dicItem[item.Key] = new InventoryData(addItemID, addAmount);
+               if (dicItem[i] == null)
+               {
+                    dicItem[i] = new InventoryData(addItemID, addAmount);
                     return true;
-                }
-            }
+               }
+            }          
         }
         else
         {

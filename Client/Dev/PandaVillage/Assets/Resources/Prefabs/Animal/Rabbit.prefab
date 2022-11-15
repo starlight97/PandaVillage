@@ -321,6 +321,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ba2401c7b1f0e489f2155a2c0c0581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrAnimalSound:
+  - {fileID: 8300000, guid: 7fe0648e47a7d5c43a6cd08a1b249f3e, type: 3}
+  - {fileID: 8300000, guid: 8b66aeb25fdab1e4ab8eca6d3eaefd61, type: 3}
+  - {fileID: 8300000, guid: eb04b17ba07ca7449b50638677e4c90b, type: 3}
+  - {fileID: 8300000, guid: 90b61a21b6a48834fa311824d9bcd382, type: 3}
   id: 0
   animalName: 
   friendship: 0

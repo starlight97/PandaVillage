@@ -350,6 +350,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0317c8fbded9eb4478e50307d96a7441, type: 3}
   - {fileID: 8300000, guid: 39dc0456f189c524a8359ac5e47e3150, type: 3}
   - {fileID: 8300000, guid: 78ccedd355337de4f9e954eebdb69ce2, type: 3}
+  - {fileID: 8300000, guid: 170d88e2478e6564f84e144b5dd86b31, type: 3}
+  - {fileID: 8300000, guid: affb88f6d7a1bc94d9b357c1b6d7e57b, type: 3}
   audioMixer: {fileID: 24100000, guid: 24c9cb7934e47f7459e26a10d94deb20, type: 2}
 --- !u!1 &507328133
 GameObject:

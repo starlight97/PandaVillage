@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 public class Animal : MonoBehaviour
 {
-    private enum eStateType
+    protected enum eStateType
     {
         None = -1,
         RunBottom,
@@ -12,6 +12,16 @@ public class Animal : MonoBehaviour
         RunTop,
         RunLeft
     }
+
+    public enum eAnimalSound
+    {
+        Chicken,
+        Cow,
+        Rabbit,
+        Sheep
+    }
+
+    public AudioClip[] arrAnimalSound;
 
     public int id;
     public string animalName;           //이름
@@ -123,7 +133,7 @@ public class Animal : MonoBehaviour
         this.movement2D.Move();
     }
 
-    public void GrowUp()    
+    public virtual void GrowUp()    
     {
         Debug.Log("성장함");
 
@@ -186,7 +196,7 @@ public class Animal : MonoBehaviour
         return false;
     }
 
-    public void SetAnimation(Vector3 dir)
+    public virtual void SetAnimation(Vector3 dir)
     {
         if(this.yummyDay > 6)
         {
@@ -240,8 +250,11 @@ public class Animal : MonoBehaviour
                 this.babyAnim.SetInteger("State", (int)eStateType.RunRight);
             }
         }
-
     }
 
-
+    public void PlaySound(int id)
+    {
+        eAnimalSound soundType = (eAnimalSound)(id - 8000);
+        SoundManager.instance.PlaySound(arrAnimalSound[(int)soundType]);
+    }
 }

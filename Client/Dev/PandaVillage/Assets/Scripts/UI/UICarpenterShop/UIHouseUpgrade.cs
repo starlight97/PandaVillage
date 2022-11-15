@@ -19,10 +19,12 @@ public class UIHouseUpgrade : MonoBehaviour
         this.noButton = content.transform.Find("noButton").GetComponent<Button>();
 
         yesButton.onClick.AddListener(() => {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Menu);
             Debug.Log("yas");
             UpgradeHouse();
         });
         noButton.onClick.AddListener(() => {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Exit);
             this.gameObject.SetActive(false);
         });
         gameInfo = InfoManager.instance.GetInfo();        

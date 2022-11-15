@@ -13,6 +13,9 @@ public class UIInGameMenu : MonoBehaviour
 
     public UnityAction<int> onClickItem;
     public UnityAction onClickUIMenuButton;
+
+    public AudioClip clickItem;
+
     public void Init()
     {
         this.uiInventoryInGame = transform.Find("UIInventoryInGame").GetComponent<UIInventory>();
@@ -23,16 +26,20 @@ public class UIInGameMenu : MonoBehaviour
         this.uiDateTime.Init();
 
         this.uiInventoryInGame.onClickItem = (id) => {
+            SoundManager.instance.PlaySound(clickItem);
             this.onClickItem(id);
         };
         this.uiMenuButton.onClick.AddListener(() => {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Menu);
             onClickUIMenuButton();
         });
+
+        SoundManager.instance.Init();
     }
     public void RePainting(int index)
     {
         uiInventoryInGame.RePainting(index);
-        uiDateTime.SetUIPlayerGold(InfoManager.instance.GetInfo());
+        uiDateTime.SetUIPlayerGold();
 
     }
 

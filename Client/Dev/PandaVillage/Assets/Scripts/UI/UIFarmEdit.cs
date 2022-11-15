@@ -24,15 +24,18 @@ public class UIFarmEdit : MonoBehaviour
         });
         this.btnCancel.onClick.AddListener(() =>
         {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Exit);
             this.onCLickBtnCancel();
         });
 
         this.uiAnimalPurchase.onClickOkay = (animalName) =>
         {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Menu);
             this.onPurchaseAnimal(animalName);
         };
         this.uiAnimalPurchase.onClickCancel = () =>
         {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Exit);
             uiAnimalPurchase.gameObject.SetActive(false);
         };
 

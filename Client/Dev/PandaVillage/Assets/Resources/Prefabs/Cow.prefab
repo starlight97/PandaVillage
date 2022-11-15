@@ -426,12 +426,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 661a5d207c61af94b911b1b4d32b171c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrAnimalSound:
+  - {fileID: 8300000, guid: 7fe0648e47a7d5c43a6cd08a1b249f3e, type: 3}
+  - {fileID: 8300000, guid: eb04b17ba07ca7449b50638677e4c90b, type: 3}
+  - {fileID: 8300000, guid: 8b66aeb25fdab1e4ab8eca6d3eaefd61, type: 3}
+  - {fileID: 8300000, guid: 90b61a21b6a48834fa311824d9bcd382, type: 3}
+  id: 0
   animalName: 
   friendship: 0
   age: 0
   yummyDay: 0
   isFull: 1
   isPatted: 0
+  isAnimalOut: 0
   mapBottomLeft: {x: 0, y: 0}
   mapTopRight: {x: 16, y: 8}
   RandomMoveRange: {x: -3, y: 3}
+  babyAnim: {fileID: 0}
+  anim: {fileID: 0}

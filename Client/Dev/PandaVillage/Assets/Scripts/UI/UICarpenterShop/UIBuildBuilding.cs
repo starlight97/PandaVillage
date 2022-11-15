@@ -26,6 +26,7 @@ public class UIBuildBuilding : MonoBehaviour
     private BuildingData selectedBuilding;
 
     private int index =0;
+    public AudioClip btnClip;
         
     public void Init()
     {
@@ -41,9 +42,11 @@ public class UIBuildBuilding : MonoBehaviour
         this.rightButton = this.transform.Find("RightButton").GetComponent<Button>();
 
         exitButton.onClick.AddListener(() => {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Exit);
             onExitClick();
         });
         buildingMoveButton.onClick.AddListener(() => {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Menu);
             selectBuildingId(2 , -1);
         });
         buildButton.onClick.AddListener(() => {
@@ -51,12 +54,15 @@ public class UIBuildBuilding : MonoBehaviour
             BuildingBuyChecker(selectedBuilding);
         });
         buildingDestroyButton.onClick.AddListener(() => {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Menu);
             selectBuildingId(3, -1);
         });
         leftButton.onClick.AddListener(() => {
+            SoundManager.instance.PlaySound(btnClip);
             LeftButtonClick();
         });
         rightButton.onClick.AddListener(() => {
+            SoundManager.instance.PlaySound(btnClip);
             RightButtonClick();
         });
 
@@ -148,7 +154,7 @@ public class UIBuildBuilding : MonoBehaviour
     {        
         var img = uIBuildBuildingPhoto.transform.Find("buildingSprite").GetComponent<Image>();        
         img.sprite = buildAtlas.GetSprite(buildingData.sprite_name);
-        img.SetNativeSize();
+        img.preserveAspect = true;
         uIBuildBuildingDescription.setDesc(buildingData.buliding_name ,buildingData.description, buildingData.require_gold, buildingData.require_wood, buildingData.require_stone);
         selectedBuilding = buildingData;
     }
@@ -166,6 +172,7 @@ public class UIBuildBuilding : MonoBehaviour
         }
         else
         {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Fail);
             Debug.Log("못삼");
         }
     }

@@ -25,7 +25,7 @@ public class UIShop : MonoBehaviour
     public UnityAction onExitClick;
     private UIShopItemScrollView uIShopItemScrollView;
     private UIShopItemBuy uIShopItemBuy;
-    private UIShopPlayerGold uIShopPlayerGold;
+    private UIPlayerGold uIShopPlayerGold;
     private Button inventoryButton;
     private Button exitButton;
 
@@ -33,6 +33,7 @@ public class UIShop : MonoBehaviour
 
 
     public eShopCategory eShopCategory;
+    public AudioClip buyItemCilp;
 
 
     public void Test2(IEnumerable<ShopData> shopData)
@@ -91,7 +92,7 @@ public class UIShop : MonoBehaviour
         //InfoManager.instance.LoadData();
         this.uIShopItemScrollView = this.transform.Find("UIShopItemScrollView").GetComponent<UIShopItemScrollView>();
         this.uIShopItemBuy = this.transform.Find("UIShopItemBuy").GetComponent<UIShopItemBuy>();
-        this.uIShopPlayerGold = this.transform.Find("UIPlayerGold").GetComponent<UIShopPlayerGold>();
+        this.uIShopPlayerGold = this.transform.Find("UIPlayerGold").GetComponent<UIPlayerGold>();
         this.inventoryButton = this.transform.Find("InventoryButton").GetComponent<Button>();
         this.exitButton = this.transform.Find("ExitButton").GetComponent<Button>();
                 
@@ -111,16 +112,19 @@ public class UIShop : MonoBehaviour
 
         exitButton.onClick.AddListener(() => 
         {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Exit);
             this.onExitClick();
         });
 
 
         inventoryButton.onClick.AddListener(() => {
+
             Debug.Log("인벤토리 팝업, 아이템 판매기능");
         });
 
         //아이템이 선택되면
         uIShopItemScrollView.onItemSelected = (item) => {
+
             uIShopItemBuy.SetText(item);
             uIShopItemBuy.SetSliderMaxValue(gameInfo.playerInfo.gold, item.price);    //슬라이더의 최댓값은 플레이어가 살수있는 최대수량이어야함
             selectedItem = item;
@@ -145,12 +149,21 @@ public class UIShop : MonoBehaviour
             {
                 if (BuyingItem(amount, selectedItem))
                 {
+                    SoundManager.instance.PlaySound(buyItemCilp);
                     gameInfo.playerInfo.gold = gameInfo.playerInfo.gold - bill;
                     this.uIShopPlayerGold.onChangeGold(gameInfo.playerInfo.gold);
                     InfoManager.instance.UpdateInfo(gameInfo);
                     InfoManager.instance.SaveGame();
                 }
-            }           
+                else
+                {
+                    SoundManager.instance.PlaySound(SoundManager.eButtonSound.Fail);
+                }
+            }
+            else
+            {
+                SoundManager.instance.PlaySound(SoundManager.eButtonSound.Fail);
+            }
         };
 
         uIShopItemScrollView.FirstItemSelect();
@@ -162,6 +175,4 @@ public class UIShop : MonoBehaviour
         var dicPlayerInventory = gameInfo.playerInfo.inventory;
         return dicPlayerInventory.AddItem(selectedItem.id, selectedItemAmount);
     }
-
-    
 }

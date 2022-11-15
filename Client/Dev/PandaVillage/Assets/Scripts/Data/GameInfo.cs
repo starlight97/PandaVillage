@@ -40,7 +40,7 @@ public class GameInfo
         playerInfo.inventory.AddItem(6002, 1);
         playerInfo.inventory.AddItem(6003, 1);
         playerInfo.inventory.AddItem(6004, 1);
-        playerInfo.inventory.AddItem(1000, 1500);
+        playerInfo.inventory.AddItem(1000, 15);
         playerInfo.inventory.AddItem(4000, 1000);
         playerInfo.inventory.AddItem(4001, 1000);
 

@@ -10,6 +10,15 @@ public class UIInventory : MonoBehaviour
 {
     public UnityAction<int> onClickItem;
     public UnityAction<InventoryData> onShippingItem;
+ 
+    public AudioClip[] arrInventorySound;
+    public enum eInventorySound
+    {
+        Swap,
+        TrashCan,
+        ThrowTrash
+        // 클릭할 때 soundmanager tab
+    }
     public enum eInventoryType
     {
         Ui,
@@ -37,6 +46,8 @@ public class UIInventory : MonoBehaviour
         var dic = info.playerInfo.inventory.dicItem;
         SetUIInventoryItem(index1, dic[index1]);
         SetUIInventoryItem(index2, dic[index2]);
+
+        PlaySound(eInventorySound.Swap);
     }   
 
     public Canvas m_canvas;
@@ -93,7 +104,7 @@ public class UIInventory : MonoBehaviour
             uISortButton.onSortInventory = () => {
 
                 RePainting(36);
-             
+                SoundManager.instance.PlaySound(SoundManager.eButtonSound.Tab);
             };           
         }
 
@@ -123,11 +134,11 @@ public class UIInventory : MonoBehaviour
 
                 //플레이어의 가방크기만큼 setactive해줌
                if (info.playerInfo.inventory.size > index)
-                {
-                //Debug.Log(info.playerInfo.inventory.size);
-                uIInventoryItems[index].SetActive(true);
-                uIInventoryItems[index].GetComponent<UIInventoryItem>().UIInventoryItemSetActive(true);
-                }
+               {
+                    //Debug.Log(info.playerInfo.inventory.size);
+                    uIInventoryItems[index].SetActive(true);
+                    uIInventoryItems[index].GetComponent<UIInventoryItem>().UIInventoryItemSetActive(true);
+               }
 
             }
 
@@ -144,11 +155,11 @@ public class UIInventory : MonoBehaviour
 
             item.onBeginDrag = () => {
                 swapRoutine =StartCoroutine(SwapRoutine());
+                SoundManager.instance.PlaySound(SoundManager.eButtonSound.Tab);
             };
 
             item.onEndDrag = (inventoryItem) => {
                 StopCoroutine(swapRoutine);
-
 
                 if (this.dragItemGo.GetComponent<UIInventoryItem>())
                 {
@@ -159,12 +170,13 @@ public class UIInventory : MonoBehaviour
                 }
                 
                 if (this.dragItemGo.GetComponent<UITrashCan>() && inventoryItem.itemID/ 1000 != 6)
-                {                    
+                {
                     this.info = InfoManager.instance.GetInfo();
                     this.info.playerInfo.inventory.dicItem[inventoryItem.index] = null;
                     //InfoManager.instance.SaveInfo();
 
                     SetUIInventoryItem(inventoryItem.index);
+                    this.PlaySound(eInventorySound.ThrowTrash);
                 }
                 if (this.dragItemGo.GetComponent<UIShippingBinItem>() && resultsCount > 1 && inventoryItem.itemID / 1000 != 6)
                 {
@@ -187,6 +199,7 @@ public class UIInventory : MonoBehaviour
             else
             {
                 item.onClickItem = (id) => {
+
                     Debug.Log("imUI"); 
                 };
             }
@@ -195,6 +208,7 @@ public class UIInventory : MonoBehaviour
 
             //꾹누르면 아이템 설명해주는 UI가 활성화됨
             item.onPointerPressHold = (index , pos) => {
+                SoundManager.instance.PlaySound(SoundManager.eButtonSound.Tab);
                 var dic = info.playerInfo.inventory.dicItem;
                 var itemID = dic[index].itemId;
 
@@ -212,7 +226,9 @@ public class UIInventory : MonoBehaviour
                 uIItemDescription.gameObject.SetActive(false);
             };
 
-        }     
+        }
+
+        SoundManager.instance.Init();
 
     }   
     
@@ -249,6 +265,15 @@ public class UIInventory : MonoBehaviour
 
     public void RePainting(int index)
     {
+        if (index == 36)
+        {
+            for (int i = 0; i < info.playerInfo.inventory.size; i++)
+            {
+                uIInventoryItems[i].SetActive(true);
+                uIInventoryItems[i].GetComponent<UIInventoryItem>().UIInventoryItemSetActive(true);
+            }
+        }
+
         foreach (var dic in info.playerInfo.inventory.dicItem)
         {
             if(dic.Key < index)
@@ -354,4 +379,8 @@ public class UIInventory : MonoBehaviour
         return itemName;
     }
 
+    public void PlaySound(eInventorySound soundType)
+    {
+        SoundManager.instance.PlaySound(arrInventorySound[(int)soundType]);
+    }
 }

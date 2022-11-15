@@ -74,12 +74,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -958869971, guid: c862c3d186f513744a96e7b0f40f2399, type: 3}
+  m_Sprite: {fileID: -937189447, guid: c862c3d186f513744a96e7b0f40f2399, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -95,7 +95,7 @@ Animator:
   m_GameObject: {fileID: 2609643061178193107}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 071fc3bee24d00b4a93e4a08d1a0b035, type: 2}
+  m_Controller: {fileID: 9100000, guid: 084a43f217205cd468708e532905a029, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -284,12 +284,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -1324523790, guid: ddfb175e5447fd5488d8da96a1e53f83, type: 3}
+  m_Sprite: {fileID: 1134934107, guid: ddfb175e5447fd5488d8da96a1e53f83, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -305,7 +305,7 @@ Animator:
   m_GameObject: {fileID: 3219187643895292448}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3d4e3662ff28e8249a8129dbcd452b79, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8ef44bd7bbd34e94fbb80fbd8646e6bc, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -389,12 +389,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 130676029, guid: c1bf7e57c558bf34ebdf867c420598f8, type: 3}
+  m_Sprite: {fileID: 1739576750, guid: c1bf7e57c558bf34ebdf867c420598f8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -410,7 +410,7 @@ Animator:
   m_GameObject: {fileID: 3311362667040969216}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1da8e30c5df278543a37c14d10106824, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9d2e0e09081165e4e8986f82ae8ef69a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -543,3 +543,6 @@ MonoBehaviour:
   mapBottomLeft: {x: 0, y: 0}
   mapTopRight: {x: 0, y: 0}
   RandomMoveRange: {x: -3, y: 3}
+  babyAnim: {fileID: 3311362667040969222}
+  anim: {fileID: 3219187643895292450}
+  shearedSheepanim: {fileID: 3330388628693597299}

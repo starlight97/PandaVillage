@@ -64,7 +64,7 @@ public class UIShopItemScrollView : MonoBehaviour
         item.transform.GetChild(0).GetComponent<Text>().text = seedData.item_name;
         item.transform.GetChild(1).GetComponent<Text>().text = seedData.purchase_price.ToString();        
         item.transform.Find("ItemImage").GetComponent<Image>().sprite = sp;
-        item.transform.Find("ItemImage").GetComponent<Image>().SetNativeSize();
+        item.transform.Find("ItemImage").GetComponent<Image>().preserveAspect = true;
     }
     public void SetItem(MaterialData materialData)
     {
@@ -75,7 +75,7 @@ public class UIShopItemScrollView : MonoBehaviour
         item.transform.GetChild(0).GetComponent<Text>().text = materialData.material_name;
         item.transform.GetChild(1).GetComponent<Text>().text = materialData.purchase_price.ToString();
         item.transform.Find("ItemImage").GetComponent<Image>().sprite = sp;
-        item.transform.Find("ItemImage").GetComponent<Image>().SetNativeSize();
+        item.transform.Find("ItemImage").GetComponent<Image>().preserveAspect = true;
     }
     public void SetItem(ToolData toolData)
     {
@@ -86,7 +86,7 @@ public class UIShopItemScrollView : MonoBehaviour
         item.transform.GetChild(0).GetComponent<Text>().text = toolData.tool_name;
         item.transform.GetChild(1).GetComponent<Text>().text = toolData.price.ToString();
         item.transform.Find("ItemImage").GetComponent<Image>().sprite = sp;
-        item.transform.Find("ItemImage").GetComponent<Image>().SetNativeSize();
+        item.transform.Find("ItemImage").GetComponent<Image>().preserveAspect = true;
     }
 
     public void SetItem(AnimalData animalData)
@@ -99,7 +99,7 @@ public class UIShopItemScrollView : MonoBehaviour
         item.transform.GetChild(0).GetComponent<Text>().text = animalData.animal_name;
         item.transform.GetChild(1).GetComponent<Text>().text = animalData.price.ToString();
         item.transform.Find("ItemImage").GetComponent<Image>().sprite = sp;
-        item.transform.Find("ItemImage").GetComponent<Image>().SetNativeSize();
+        item.transform.Find("ItemImage").GetComponent<Image>().preserveAspect = true;
         uiShopItem.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 900);
     }
 }

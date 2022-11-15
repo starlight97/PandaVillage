@@ -12,6 +12,7 @@ public class WoodworkingStoreMain : GameSceneMain
     // 2 = move     // 이동
     // 3 = delete   // 철거
     public int editType;
+    public AudioClip woodworkingStoreBgm;
 
     public override void Init(SceneParams param = null)
     {
@@ -25,6 +26,7 @@ public class WoodworkingStoreMain : GameSceneMain
 
         this.shopObject.onShowShopUI = () =>
         {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Shop);
             this.uiWoodworkingStore.ShowShopUI();
         };
         this.uiWoodworkingStore.selectBuildingId = (editType, id) => 
@@ -32,9 +34,11 @@ public class WoodworkingStoreMain : GameSceneMain
             // 신규 생성
             this.editType = editType;
             this.objectId = id;
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Menu);
             Dispatch("onClickFarmEdit");
             //Dispatch("onClickEditBuilding");
         };
 
+        //SoundManager.instance.PlaySound(woodworkingStoreBgm);
     }
 }

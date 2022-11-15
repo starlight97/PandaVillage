@@ -24,4 +24,8 @@ public class UICoop : UIBase
     {
         uIAnimalState.gameObject.SetActive(false);
     }
+    public void GetProductItem()
+    {
+        this.uiInGameMenu.RePainting(12);
+    }
 }

@@ -23,16 +23,19 @@ public class UIMarniesRanchSelect : MonoBehaviour
 
         marniesRanchShopButton.onClick.AddListener(() => {
             Debug.Log("marniesRanchShopButton");
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Menu);
             this.gameObject.SetActive(false);
             onUIShopClick();
         });
         animalShopButton.onClick.AddListener(() => {
             Debug.Log("animalShopButton");
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Menu);
             this.gameObject.SetActive(false);
             onUIAnimalShopClick();
         });
         exitButton.onClick.AddListener(() => {
             Debug.Log("exitButton");
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Exit);
             this.gameObject.SetActive(false);
         });
     }

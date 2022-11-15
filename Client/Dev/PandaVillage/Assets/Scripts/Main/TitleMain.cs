@@ -27,7 +27,7 @@ public class TitleMain : SceneMain
         });
 
         SoundManager.instance.Init();
-        SoundManager.instance.PlayBGMSound(titleClips);
+        //SoundManager.instance.PlayBGMSound(titleClips);
 
     }
 

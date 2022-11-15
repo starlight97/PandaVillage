@@ -29,6 +29,7 @@ public class ObjectPlaceManager : MonoBehaviour
     private Vector2 sidedoorPos = Vector2.zero;
 
     private bool possibleBuild = false;
+    public AudioClip buildCilp;
 
     public void Init(GameObject selectedBuildingGo)
     {
@@ -197,12 +198,16 @@ public class ObjectPlaceManager : MonoBehaviour
         {
             //buildingGo.transform.position = new Vector3((int)mousePos.x, (int)mousePos.y, 0);
             buildingGo.transform.position = this.gridGo.transform.localPosition;
-
+            SoundManager.instance.PlaySound(buildCilp);
             StopCoroutine(buildingEditRoutine);
             buildingEditRoutine = null;
             //this.onEditComplete(buildingGo.transform.position);
             this.onMoveComplete(buildingOldPos, buildingGo.transform.position);
             DeleteTile();
+        }
+        else
+        {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Fail);
         }
     }
 
@@ -215,6 +220,10 @@ public class ObjectPlaceManager : MonoBehaviour
             buildingEditRoutine = null;
             this.onBuildComplete(gridGo.transform.position);
             DeleteTile();
+        }
+        else
+        {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Fail);
         }
     }
 

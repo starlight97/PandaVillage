@@ -13,7 +13,7 @@ public class UIAnimalShop : MonoBehaviour
 {
     private UIShopItemScrollView uIShopItemScrollView;
     private UIShopItemBuy uIShopItemBuy;
-    private UIShopPlayerGold uIShopPlayerGold;
+    private UIPlayerGold uIShopPlayerGold;
     private Button exitButton;
 
     private GameInfo gameInfo;
@@ -37,7 +37,7 @@ public class UIAnimalShop : MonoBehaviour
         //InfoManager.instance.LoadData();
         this.uIShopItemScrollView = this.transform.Find("UIShopItemScrollView").GetComponent<UIShopItemScrollView>();
         this.uIShopItemBuy = this.transform.Find("UIShopItemBuy").GetComponent<UIShopItemBuy>();
-        this.uIShopPlayerGold = this.transform.Find("UIPlayerGold").GetComponent<UIShopPlayerGold>();
+        this.uIShopPlayerGold = this.transform.Find("UIPlayerGold").GetComponent<UIPlayerGold>();
         this.exitButton = this.transform.Find("ExitButton").GetComponent<Button>();
 
         this.uIShopPlayerGold.Init();
@@ -67,6 +67,7 @@ public class UIAnimalShop : MonoBehaviour
 
         exitButton.onClick.AddListener(() =>
         {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Exit);
             this.onExitClick();
         });
        
@@ -91,7 +92,6 @@ public class UIAnimalShop : MonoBehaviour
 
 
         this.uIShopItemBuy.buyButtonClicked = (garbageamount) => {
-
             var bill = selectedItem.price;
             Debug.Log(bill);
 
@@ -103,9 +103,14 @@ public class UIAnimalShop : MonoBehaviour
                 var selectAnimal = DataManager.instance.GetData<AnimalData>(selectedItem.id);
                 var homeType = selectAnimal.home_type;
                 onAnimalBuyButtonClick(selectedItem.id, homeType);
+                SoundManager.instance.PlaySound(SoundManager.eButtonSound.Menu);
 
                 //gameInfo.playerInfo.gold = gameInfo.playerInfo.gold - bill;
                 //this.uIShopPlayerGold.onChangeGold(gameInfo.playerInfo.gold);
+            }
+            else
+            {
+                SoundManager.instance.PlaySound(SoundManager.eButtonSound.Fail);
             }
         };
 

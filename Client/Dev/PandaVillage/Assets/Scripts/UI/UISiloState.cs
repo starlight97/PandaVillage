@@ -23,6 +23,7 @@ public class UISiloState : MonoBehaviour
 
         this.bgBtn.onClick.AddListener(() => {
             onHideState();
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Tab);
         });
     }
 

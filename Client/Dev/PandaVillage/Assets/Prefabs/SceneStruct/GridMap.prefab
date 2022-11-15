@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 582633750252542212}
   - component: {fileID: 582633750252542210}
   - component: {fileID: 582633750252542211}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TilemapWateringDirt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 582633750655824805}
   - component: {fileID: 582633750655824803}
   - component: {fileID: 582633750655824804}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TilemapGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,7 +314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 582633750949682743}
   - component: {fileID: 582633750949682760}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GridMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -364,7 +364,7 @@ GameObject:
   - component: {fileID: 582633751504628222}
   - component: {fileID: 582633751504628223}
   - component: {fileID: 7562079722224060648}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: TilemapHoeDirt
   m_TagString: Untagged
   m_Icon: {fileID: 0}

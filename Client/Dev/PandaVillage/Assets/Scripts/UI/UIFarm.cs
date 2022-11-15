@@ -16,9 +16,6 @@ public class UIFarm : UIBase
         this.uIShippingBin = transform.Find("UIShippingBin").GetComponent<UIShippingBin>();
         this.uiSiloState = transform.Find("UISiloState").GetComponent<UISiloState>();
         
-        uIShippingBin.Init();
-        uIAnimalState.Init();
-        uiSiloState.Init();
         uIShippingBin.onExitClick =() =>{
             HideUI(uIShippingBin.gameObject);
         };
@@ -29,6 +26,9 @@ public class UIFarm : UIBase
         {
             HideSiloUI();
         };
+        uIShippingBin.Init();
+        uIAnimalState.Init();
+        uiSiloState.Init();
 
     }
 
@@ -40,6 +40,7 @@ public class UIFarm : UIBase
 
     public void ShowShippingUI()
     {
+        this.uIShippingBin.uIInventory.RePainting(36);
         this.uiInGameMenu.gameObject.SetActive(false);
         this.uIShippingBin.gameObject.SetActive(true);
     }

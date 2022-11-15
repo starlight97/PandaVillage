@@ -25,18 +25,22 @@ public class UICarpentersSelect : MonoBehaviour
         exitButton = content.transform.Find("ExitButton").GetComponent<Button>();
 
         carpentersShopButton.onClick.AddListener(()=> {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Menu);
             onCarpentersShopClick();
             this.gameObject.SetActive(false);
         });
         houseUpgradeButton.onClick.AddListener(() => {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Menu);
             onHouseUpgradeClick();
             this.gameObject.SetActive(false);
         });
         bulidButton.onClick.AddListener(() => {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Menu);
             onBuildClick();
             this.gameObject.SetActive(false);
         });
         exitButton.onClick.AddListener(() => {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Exit);
             Debug.Log("exitButton");
             this.gameObject.SetActive(false);
         });

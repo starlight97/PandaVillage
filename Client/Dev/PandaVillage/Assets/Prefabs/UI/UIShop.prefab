@@ -471,6 +471,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eShopCategory: 0
+  lackGoldCilp: {fileID: 8300000, guid: affb88f6d7a1bc94d9b357c1b6d7e57b, type: 3}
+  buyItemCilp: {fileID: 8300000, guid: 8a1d6e2b620efdb4d85b761da7d54f56, type: 3}
 --- !u!1 &5534649694277349334
 GameObject:
   m_ObjectHideFlags: 0
@@ -1333,6 +1335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3867ab96fd421514f8262f52b42f7820, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GoldText: {fileID: 0}
 --- !u!1 &5534649694921893750
 GameObject:
   m_ObjectHideFlags: 0

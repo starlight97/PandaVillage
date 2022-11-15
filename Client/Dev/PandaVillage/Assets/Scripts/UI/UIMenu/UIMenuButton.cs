@@ -17,13 +17,15 @@ public class UIMenuButton : MonoBehaviour
         {
             btn.onClick.AddListener(() => {                
                 onMenuButtonClicked(btn.name);
-
+                SoundManager.instance.PlaySound(SoundManager.eButtonSound.Tab);
                 foreach(var b in buttons)
                     b.GetComponent<Image>().color = Color.gray;
 
                 btn.GetComponent<Image>().color = Color.white;
             });
         }
+
+        SoundManager.instance.Init();
 
         
     }

@@ -14,7 +14,8 @@ public class Coop : TransparentObject
     public List<Animal> animalList= new List<Animal>();
     public UnityAction<Vector2Int, Vector2Int, List<Vector3>, Animal> onDecideTargetTile;
     public UnityAction<GameObject> setAnimalPos;
-    
+    public UnityAction onProduceItem;
+
 
     public override void Init(Sprite sp)
     {
@@ -51,8 +52,8 @@ public class Coop : TransparentObject
         foreach (var info in animalinfoList)
         {
             CreateAnimal(info);
-        }
-
+        }      
+        
         foreach (var animal in animalList)
         {
 
@@ -65,6 +66,13 @@ public class Coop : TransparentObject
             else
             {
                 animal.gameObject.SetActive(false);
+            }
+
+            if (animal.GetComponent<BarnAnimal>() != null)
+            {
+                animal.GetComponent<BarnAnimal>().onProduceItem = () => {
+                    onProduceItem();
+                };
             }
         }
         SpawnProduct(coopInfo);

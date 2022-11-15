@@ -22,7 +22,8 @@ public class UIInventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     private PointerEventData pointerEventData;
 
     private Vector3 itemSpritePos;
-    private Vector3 itemAmountPos;   
+    private Vector3 itemAmountPos;
+
 
     public int itemID = -1;
     public int index;
@@ -38,6 +39,7 @@ public class UIInventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
             Debug.Log(itemID);
             onClickItem(itemID);
         });
+        SoundManager.instance.Init();
     }
     
     
@@ -141,8 +143,9 @@ public class UIInventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 
         this.itemSpritePos = this.itemSprite.transform.position;
         this.itemAmountPos = this.itemAmount.transform.position;
-        itemSprite.transform.DOScale(1.5f, 0.3f);
-        itemAmount.transform.DOScale(1.5f, 0.3f);
+        itemSprite.transform.DOScale(1.5f, 0.3f).SetUpdate(true);
+        itemAmount.transform.DOScale(1.5f, 0.3f).SetUpdate(true);
+        
     }
 
     public void OnEndDrag(PointerEventData eventData)

@@ -31,6 +31,7 @@ public class UIMenu : MonoBehaviour
         uIInventory.Init(UIInventory.eInventoryType.Ui, 36);
 
         this.MenuCloseButton.onClick.AddListener(() => {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Exit);
             onClickCloseMenuButton();
         });
 
@@ -47,9 +48,12 @@ public class UIMenu : MonoBehaviour
 
         uIGameSetting.onClickGotoTitleButton = () => 
         {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Exit);
             TimeManager.instance.StopTimeRoutine();
             this.onClickGotoTitleButton();
         };
+
+        SoundManager.instance.Init();
     }     
 
     public void RePainting(int index)

@@ -13,11 +13,14 @@ public class CropManager : MonoBehaviour
     public UnityAction<int, Vector3Int, Crop> onGetFarmTile;
     public UnityAction onUseSeed;
 
+    public AudioClip[] plantClips;
+
     public void Init()
     {
         this.cropList = new List<Crop>();
         this.cropPosList = new List<Vector3Int>();
         SpawnCrop();
+        SoundManager.instance.Init();
     }
 
     // 해당 좌표에 레이를 쏴서 감지되는 오브젝트가 있으면 true 반환
@@ -54,6 +57,7 @@ public class CropManager : MonoBehaviour
 
             Crop crop = cropGo.GetComponent<Crop>();
             crop.Init(seedData.plant_item_id);
+            SoundManager.instance.PlaySound(plantClips[Random.Range(0, 2)]);
 
             int cropX = (int)crop.transform.position.x;
             int cropY = (int)crop.transform.position.y;

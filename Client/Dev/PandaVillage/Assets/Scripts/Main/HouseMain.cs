@@ -31,6 +31,7 @@ public class HouseMain : GameSceneMain
             }
             else
             {
+                SoundManager.instance.PlaySound(SoundManager.eButtonSound.Exit);
                 this.uiHouse.HideSleepCheckUi();
             }
         };

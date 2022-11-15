@@ -16,6 +16,7 @@ public class UIAnimalState : MonoBehaviour
         this.thisBg = transform.Find("bg").GetComponent<Button>();
 
         thisBg.onClick.AddListener(() => {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Tab);
             onHideState();
         });
     }

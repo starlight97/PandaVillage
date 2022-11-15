@@ -19,17 +19,17 @@ public class LoadGameMain : SceneMain
         {
             InfoManager.instance.Init(selectedId);
             SoundManager.instance.PlaySound(SoundManager.eButtonSound.Title);
-            SoundManager.instance.StopBGMSound();
+            //SoundManager.instance.StopBGMSound();
 
             Dispatch("onLoadGame");
         };
         uILoadGame.onExitButtonClick = () => {
             SoundManager.instance.PlaySound(SoundManager.eButtonSound.Exit);
-            SoundManager.instance.StopBGMSound();
+            //SoundManager.instance.StopBGMSound();
             Dispatch("onExitBtnClick");
         };
 
         SoundManager.instance.Init();
-        SoundManager.instance.PlayBGMSound(loadGameClip);
+        //SoundManager.instance.PlayBGMSound(loadGameClip);
     }
 }

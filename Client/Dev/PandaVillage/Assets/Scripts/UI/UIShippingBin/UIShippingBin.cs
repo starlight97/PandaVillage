@@ -8,7 +8,7 @@ using UnityEngine.Events;
 
 public class UIShippingBin : MonoBehaviour
 {
-    private UIInventory uIInventory;
+    public UIInventory uIInventory;
     private UIShippingBinItem uIShippingBinItem;
     private Button closeButton;
 
@@ -21,7 +21,10 @@ public class UIShippingBin : MonoBehaviour
         this.closeButton = transform.Find("closeButton").GetComponent<Button>();
 
         uIInventory.Init(UIInventory.eInventoryType.Ui, 36);
+
+
         uIShippingBinItem.Init();
+        uIInventory.RePainting(36);
 
         uIInventory.onShippingItem = (lastItem) => {
             ShippingItem(lastItem);
@@ -35,6 +38,7 @@ public class UIShippingBin : MonoBehaviour
             uIInventory.RePainting(36);
         };
         closeButton.onClick.AddListener(() => {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Exit);
             onExitClick();
         });
 

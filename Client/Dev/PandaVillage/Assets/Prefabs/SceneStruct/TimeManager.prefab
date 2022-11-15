@@ -44,3 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b35e85e54554b35408ab60bbe991c87b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hour: 6
+  minute: 0
+  endDayClip: {fileID: 8300000, guid: 0f87e6fb1ef62cf438f17a2dde027455, type: 3}

@@ -3,7 +3,9 @@ guid: f8e7e7a1a6d6d8e4da2a1d15e91f2535
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - dim: {instanceID: 0}
+  - swapClip: {fileID: 8300000, guid: 8e6859e57ee6b504e918bffb1bde82a9, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

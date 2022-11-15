@@ -21,19 +21,24 @@ public class UIWoodworkingStore : UIBase
 
 
         this.uIBuildBuilding.onExitClick = () => {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Exit);
             this.HideUI(uIBuildBuilding.gameObject);
         };
         this.uiShop.onExitClick = () => {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Exit);
             this.HideUI(uiShop.gameObject);
         };
         this.uICarpentersSelect.onCarpentersShopClick = () => {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Menu);
             SelectUI(uiShop.gameObject);
         };
         this.uICarpentersSelect.onHouseUpgradeClick = () => {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Menu);
             SelectUI(uIHouseUpgrade.gameObject);
             this.uiInGameMenu.gameObject.SetActive(true);
         };
         this.uICarpentersSelect.onBuildClick = () => {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Menu);
             SelectUI(uIBuildBuilding.gameObject);
         };
 

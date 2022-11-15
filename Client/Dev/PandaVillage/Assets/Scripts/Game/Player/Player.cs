@@ -69,21 +69,34 @@ public class Player : MonoBehaviour
         this.movement2D.onPlayAnimation = (dir) => {
             this.SetAnimation(dir);
         };
-        this.movement2D.onMoveComplete = (dir) => { SetIdle(dir); };
-        this.movement2D.onMoveActionComplete = (dir) => { SetIdle(dir); };
+        this.movement2D.onMoveComplete = (dir) => { 
+            SetIdle(dir);
+        };
+        this.movement2D.onMoveActionComplete = (dir) => { 
+            SetIdle(dir);
+        };
         this.farming = GetComponent<Farming>();
         this.anim = GetComponentInChildren<Animator>();
 
         SoundManager.instance.Init();
 
     }
+    private bool IsPointerOverUIObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
+    }
 
     private void Update()
     {
-        if (EventSystem.current.IsPointerOverGameObject() == true)
+        if (EventSystem.current.IsPointerOverGameObject() == true || IsPointerOverUIObject() == true)
         {
             return;
         }
+
         // 마우스 클릭시 좌표를 인게임 좌표로 변환하여 mousePos 변수에 저장
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         // z값은 사용을 안하므로 x, y 값만 저장후 Move
@@ -94,7 +107,7 @@ public class Player : MonoBehaviour
         int currentPosY = (int)Math.Round(this.transform.position.y);
         Vector2Int curPos = new Vector2Int(currentPosX, currentPosY);
         Vector2Int targetPos = new Vector2Int(targetPosX, targetPosY);
-        
+
         //if (Input.GetMouseButton(1))
         //{
         //    this.pos = new Vector3Int(currentPosX, currentPosY, 0);
@@ -103,7 +116,6 @@ public class Player : MonoBehaviour
         //    this.movement2D.pathList.Clear();
         //    this.onDecideTargetTile(curPos, targetPos, this.movement2D.pathList);
         //}
-
         // 왼쪽 마우스 클릭 시 타일 변경됨
         if (Input.GetMouseButtonDown(0)) 
         {
@@ -134,7 +146,9 @@ public class Player : MonoBehaviour
                         this.movement2D.onMoveActionComplete = (dir) =>
                         {
                             GetFarmTile(tilePos, isUseTool);
-                            ShowUseToolSprite();
+                            PlayToolSound();
+                            if (isUseTool != eItemType.Seed && (useItemId == 6000 || useItemId == 6001))
+                                ShowUseToolSprite();
                             SetIdle(dir);
                         };
                         this.movement2D.pathList.Clear();
@@ -175,24 +189,24 @@ public class Player : MonoBehaviour
 
                         if (findGo.tag == "Crop")
                         {
-                            if (isUseTool == eItemType.WateringCan)
-                            {
-                                isFarmAction = true;
-                                PlayToolSound();
-                                GetFarmTile(tilePos, isUseTool);
-                                isFarmAction = false;
-                                SetIdle(dir);
-                                return;
-                            }
-
                             Crop crop = findGo.GetComponent<Crop>();
                             if (crop.isHarvest == true)
                             {
-                                PlaySound(ePlayerSound.GetItem);
                                 Harvest(findGo);
                                 SetIdle(dir);
                                 return;
                             }
+                            else if (isUseTool == eItemType.WateringCan && useItemId == 6001 && crop.isHarvest == false)
+                            {
+                                isFarmAction = true;
+                                PlayToolSound();
+                                GetFarmTile(tilePos, isUseTool);
+                                ShowUseToolSprite();
+                                isFarmAction = false;
+                                SetIdle(dir);
+                                return;
+                            }
+                            
                             else
                             {
                                 this.movement2D.pathList.Clear();
@@ -208,21 +222,32 @@ public class Player : MonoBehaviour
                             if (useItemId == 4004)
                             {
                                 FillHay();
+                                PlaySound(ePlayerSound.DropItem);
+                                PlaySound(ePlayerSound.RanchUI);
                                 useItemId = -1;
                             }
                             SetIdle(dir);
+                            PlaySound(ePlayerSound.RanchUI);
                         }
 
                         else if (findGo.tag == "Animal")
                         {
+                            if (findGo.GetComponent<BarnAnimal>() != null)
+                            {
+                                if (findGo.GetComponent<BarnAnimal>().Produce())
+                                    return;
+                            }
+
                             Animal animal = findGo.GetComponent<Animal>();
                             if (animal.isPatted == false)
                             {
                                 animal.Patted();
+                                animal.PlaySound(animal.id);
                                 SetIdle(dir);
                             }
                             else
                             {
+                                animal.PlaySound(animal.id);
                                 this.onShowAnimalUI(animal);
                                 isShowAnimalUI = true;
                             }
@@ -230,7 +255,6 @@ public class Player : MonoBehaviour
                         }
                         else if (findGo.tag == "Gathering")
                         {
-                            PlaySound(ePlayerSound.GetItem);
                             Gather(findGo);
                             SetIdle(dir);
                             return;
@@ -238,14 +262,13 @@ public class Player : MonoBehaviour
                         else if (findGo.tag == "Ruck")
                         {
                             useItemId = GetTooltype(findGo);
-                            PlayToolSound();
                             Break(findGo, useItemId);
-                            ShowUseToolSprite();
                             SetIdle(dir);
                             return;
                         }
                         else if (findGo.tag == "Shop")
                         {
+                            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Shop);
                             var shop = findGo.GetComponent<ShopObject>();
                             shop.ShowShop();
                         }
@@ -294,7 +317,6 @@ public class Player : MonoBehaviour
         }
 
         isUseTool = eItemType.None;
-        PlaySound(ePlayerSound.SelectItem);
     }
 
     #region Animation
@@ -431,6 +453,7 @@ public class Player : MonoBehaviour
         bool invenCheck = info.playerInfo.inventory.AddItem(data.gain_gathering_id, 1);
         if (invenCheck)
         {
+            PlaySound(ePlayerSound.GetItem);
             crop.DestroyObject();
             onGetItem();
         }
@@ -438,6 +461,7 @@ public class Player : MonoBehaviour
         {
             PlaySound(ePlayerSound.FullInventory);
             Debug.Log("자리가 없어요");
+            return;
         }
 
     }
@@ -522,6 +546,7 @@ public class Player : MonoBehaviour
                 {
                     if (data.ruck_name == "잔디")
                     {
+                        PlayToolSound();
                         otherObject.DestroyObject();
                         onCutGrassComplete();
                         return;
@@ -530,6 +555,8 @@ public class Player : MonoBehaviour
                     bool invencheck = info.playerInfo.inventory.AddItem(data.gain_material_id, data.gain_material_amount);
                     if (invencheck == true)
                     {
+                        ShowUseToolSprite();
+                        PlayToolSound();
                         otherObject.DestroyObject();
                         onGetItem();
                     }
@@ -586,7 +613,10 @@ public class Player : MonoBehaviour
         GetItem,
         SelectItem,
         FullInventory,
-        OpenShippingBox
+        OpenShippingBox,
+        DropItem,
+        RanchUI,
+        ExitUI
     }
 
     public AudioClip[] arrPlayerSound;
@@ -609,7 +639,6 @@ public class Player : MonoBehaviour
         else if (useItemId == 6004)
             PlaySound(ePlayerSound.Sickle);
     }
-
 }
 
 // 작성자 : 박정식

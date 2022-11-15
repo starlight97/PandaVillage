@@ -25,6 +25,9 @@ public class CoopSceneMain : GameSceneMain
         coop.setAnimalPos = (animal) => {
             animal.transform.position = InfoManager.instance.GetInfo().ranchInfo.CoopSceneRandomPosition(mainParam.coopInfo.coopId);
         };
+        coop.onProduceItem = () => {
+           uICoop.GetProductItem();
+        };
 
         this.player.onShowAnimalUI = (animal) =>
         {

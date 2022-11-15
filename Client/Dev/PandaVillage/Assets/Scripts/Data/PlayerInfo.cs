@@ -28,7 +28,7 @@ public class PlayerInfo
     //마지막으로 배송시킨 아이템
     public InventoryData lastShippedItem;
 
-    public PlayerInfo(string playerName,string farmName, string favoritething, string pet, int gold = 50000000,
+    public PlayerInfo(string playerName,string farmName, string favoritething, string pet, int gold = 50000,
         int playYear = 1, int playDay = 1, int currentEnegy = 100, int currentHp = 100)
     {
         inventory = new Inventory(12);

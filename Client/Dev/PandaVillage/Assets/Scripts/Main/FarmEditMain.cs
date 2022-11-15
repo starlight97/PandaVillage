@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class FarmEditMain : GameSceneMain
 {
+    public enum eEditSound
+    {
+        Bulid,
+        Demolition
+    }
+
     public enum eEditType
     {
         Build=1,            // 건설
@@ -18,6 +24,7 @@ public class FarmEditMain : GameSceneMain
     private ObjectPlaceManager objectPlaceManager;
     private eEditType editType;
     private GameObject selectedBuildingGo = null;
+    public AudioClip[] arrEditClip;
 
     private void Start()
     {
@@ -50,6 +57,7 @@ public class FarmEditMain : GameSceneMain
         this.tileManager.Init();
         this.objectManager.Init(App.eMapType.Farm, tileManager.GetTilesPosList(TileManager.eTileType.Dirt));
         this.uiFarmEdit.Init();
+        SoundManager.instance.Init();
 
         var info = InfoManager.instance.GetInfo();
         Debug.Log("editType : " + editType);
@@ -85,6 +93,7 @@ public class FarmEditMain : GameSceneMain
                 int objid = buildingGo.GetComponent<OtherObject>().id;
                 if (objid != 9004 && objid != 9005 && objid != 9006)
                 {
+                    SoundManager.instance.PlaySound(SoundManager.eButtonSound.Fail);
                     Debug.Log("COOP 아님");
                     return;
                 }
@@ -98,6 +107,7 @@ public class FarmEditMain : GameSceneMain
                 int objid = buildingGo.GetComponent<OtherObject>().id;
                 if (objid != 9007 && objid != 9008 && objid != 9009)
                 {
+                    SoundManager.instance.PlaySound(SoundManager.eButtonSound.Fail);
                     Debug.Log("COOP 아님");
                     return;
                 }
@@ -117,6 +127,7 @@ public class FarmEditMain : GameSceneMain
 
         this.objectPlaceManager.onMoveComplete = (oldPos, newPos) =>
         {
+            PlaySound(eEditSound.Bulid);
             this.objectDetector.Detecting();
             this.uiFarmEdit.HideBtnOk();
 
@@ -144,6 +155,7 @@ public class FarmEditMain : GameSceneMain
 
         this.objectPlaceManager.onBuildComplete = (pos) =>
         {
+            PlaySound(eEditSound.Bulid);
             var data = DataManager.instance.GetData<BuildingData>(mainParam.objectId);
             info.playerInfo.gold -= data.require_gold;
             ObjectInfo objectInfo = new ObjectInfo();
@@ -181,6 +193,7 @@ public class FarmEditMain : GameSceneMain
             }
             else if (this.editType == eEditType.Demolition)
             {
+                PlaySound(eEditSound.Demolition);
                 var pos = selectedBuildingGo.transform.position;
                 var objInfo = info.objectInfoList.Find(x => x.sceneName == "Farm" && x.posX == pos.x && x.posY == pos.y);
                 info.objectInfoList.Remove(objInfo);
@@ -207,6 +220,7 @@ public class FarmEditMain : GameSceneMain
 
         this.uiFarmEdit.onCLickBtnCancel = () =>
         {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Exit);
             // 현재 건물 선택중이 아니라면
             if (selectedBuildingGo == null)
             {
@@ -263,5 +277,10 @@ public class FarmEditMain : GameSceneMain
     {
         var oldSpriteRenderer = this.selectedBuildingGo.transform.GetChild(0).GetComponent<SpriteRenderer>();
         oldSpriteRenderer.color = Color.white;
+    }
+
+    private void PlaySound(eEditSound soundType)
+    {
+        SoundManager.instance.PlaySound(arrEditClip[(int)soundType]);
     }
 }

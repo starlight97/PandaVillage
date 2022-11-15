@@ -26,6 +26,7 @@ public class UIShopItem : MonoBehaviour
     public void ButtonInit()
     {
         this.GetComponent<Button>().onClick.AddListener(() => {
+            SoundManager.instance.PlaySound(SoundManager.eButtonSound.Tab);
             onItemSelected(this);
             onClicked();
             ChangeButtonColor(new Color(250/255f, 215/255f, 150/255f));

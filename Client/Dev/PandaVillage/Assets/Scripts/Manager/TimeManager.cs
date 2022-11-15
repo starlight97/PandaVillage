@@ -14,7 +14,8 @@ public class TimeManager : MonoBehaviour
     public int minute = 0;      // 분
     private float currentTime = 0;
 
-    public UnityAction<int, int> onUpdateTime;    
+    public UnityAction<int, int> onUpdateTime;
+    public AudioClip endDayClip;
 
     private void Awake()
     {
@@ -71,6 +72,7 @@ public class TimeManager : MonoBehaviour
     {
         hour = 6;
         minute = 0;
+        SoundManager.instance.PlaySound(endDayClip);
     }
 
     public void Pause()

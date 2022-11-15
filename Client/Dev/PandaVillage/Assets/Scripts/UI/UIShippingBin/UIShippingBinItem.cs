@@ -14,6 +14,9 @@ public class UIShippingBinItem : MonoBehaviour
 
     public SpriteAtlas springObjectAtlas;
     public UnityAction onLastShippingItemButton;
+
+    public AudioClip[] dropItemClips;
+
     public void Init()
     {
         this.lastShippingItemButton = transform.Find("LastShippingItemButton").GetComponent<Button>();
@@ -30,7 +33,9 @@ public class UIShippingBinItem : MonoBehaviour
             onLastShippingItemButton();
             EmptyShippingItem();            
             InfoManager.instance.GetInfo().playerInfo.lastShippedItem = null;
+            SoundManager.instance.PlaySound(dropItemClips[Random.Range(0, 2)]);
         });
+        SoundManager.instance.Init();
     }
 
     public void EmptyShippingItem()
@@ -45,6 +50,7 @@ public class UIShippingBinItem : MonoBehaviour
         lastShippingItemButton.gameObject.SetActive(true);
         ShippingBinText.gameObject.SetActive(false);
         lastShippingItemText.gameObject.SetActive(true);
+        SoundManager.instance.PlaySound(dropItemClips[Random.Range(0, 2)]);
 
         var itemId =InfoManager.instance.GetInfo().playerInfo.lastShippedItem.itemId;
         var itemAmount = InfoManager.instance.GetInfo().playerInfo.lastShippedItem.amount;

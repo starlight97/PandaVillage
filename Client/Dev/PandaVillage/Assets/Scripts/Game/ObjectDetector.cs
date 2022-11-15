@@ -34,6 +34,14 @@ public class ObjectDetector : MonoBehaviour
         StopCoroutine(detectingRoutine);
         detectingRoutine = null;
     }
+    private bool IsPointerOverUIObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
+    }
 
     private IEnumerator DetectingRoutine()
     {
@@ -41,7 +49,7 @@ public class ObjectDetector : MonoBehaviour
         {
             yield return null;
             // 마우스가 UI에 머물러 있을 때는 아래 코드가 실행되지 않도록 함
-            if (EventSystem.current.IsPointerOverGameObject() == true)
+            if (EventSystem.current.IsPointerOverGameObject() == true || IsPointerOverUIObject() == true)
             {
                 continue;
             }

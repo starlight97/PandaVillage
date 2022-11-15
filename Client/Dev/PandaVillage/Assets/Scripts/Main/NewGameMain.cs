@@ -16,17 +16,17 @@ public class NewGameMain : SceneMain
         uINewGame.onClickButton = (gameinfo) =>
         {
             SoundManager.instance.PlaySound(SoundManager.eButtonSound.Title);
-            SoundManager.instance.StopBGMSound();
+            //SoundManager.instance.StopBGMSound();
             this.CreateUser(gameinfo);
         };
         uINewGame.onExitButtonClick = () => {
             SoundManager.instance.PlaySound(SoundManager.eButtonSound.Exit);
-            SoundManager.instance.StopBGMSound();
+            //SoundManager.instance.StopBGMSound();
             Dispatch("onExitBtnClick");
         };
 
         SoundManager.instance.Init();
-        SoundManager.instance.PlayBGMSound(newGameClip);
+        //SoundManager.instance.PlayBGMSound(newGameClip);
     }
 
 

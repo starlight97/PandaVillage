@@ -8350,6 +8350,90 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: White Chicken_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 1792
+        width: 26
+        height: 16
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bcc1ff1152f58b4d908e2977d575b1b
+      internalID: -1489279950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: White Cow_0
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 1793
+        width: 17
+        height: 14
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 397592714a1c0034fb9ee0c2bf106c29
+      internalID: -13881453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rabbit_0
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 1776
+        width: 15
+        height: 16
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9ed0d12c0053b94094569a26b7b959e
+      internalID: 1085228305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheep_0
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 1777
+        width: 15
+        height: 12
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 033ad148522fa2b408ec2c098d4d8cac
+      internalID: 194454853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -8387,6 +8471,7 @@ TextureImporter:
       Cursors.ko-KR_225: 1138159590
       Cursors.ko-KR_259: 1750204538
       Cursors.ko-KR_365: 855072771
+      White Chicken_0: -1489279950
       Cursors.ko-KR_306: -822369067
       Cursors.ko-KR_18: -1778703246
       Cursors.ko-KR_191: 1326031709
@@ -8398,6 +8483,7 @@ TextureImporter:
       Cursors.ko-KR_171: 1085704005
       Cursors.ko-KR_345: 1130778721
       Cursors.ko-KR_210: -227591485
+      Sheep_0: 194454853
       Cursors.ko-KR_46: 524308355
       Cursors.ko-KR_255: 781858412
       Cursors.ko-KR_359: -1184519487
@@ -8654,6 +8740,7 @@ TextureImporter:
       Cursors.ko-KR_146: 266474683
       Cursors.ko-KR_150: 1402426308
       Cursors.ko-KR_64: -284205856
+      Rabbit_0: 1085228305
       Cursors.ko-KR_325: -1219514877
       Cursors.ko-KR_223: -880025050
       Cursors.ko-KR_311: -475708015
@@ -8744,6 +8831,7 @@ TextureImporter:
       Cursors.ko-KR_234: -1519263374
       Cursors.ko-KR_360: 1965784194
       Cursors.ko-KR_268: 454673080
+      White Cow_0: -13881453
       Cursors.ko-KR_17: -1681933294
       Cursors.ko-KR_183: -764283857
       Cursors.ko-KR_52: -1030818152
